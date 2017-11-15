@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import styles from './styles.scss';
+import DesktopHeader from 'components/DesktopHeader';
+import MobileHeader from 'components/MobileHeader';
+import MainMenu from 'components/MainMenu';
+import MobileMenu from 'components/MobileMenu';
+import Footer from 'components/Footer';
 
 import Routes from '../../routes';
 
@@ -12,10 +16,15 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className={styles.wrapper}>
-        <div className={styles.content}>
+      <div>
+        <DesktopHeader />
+        <MobileHeader />
+        <MainMenu />
+        <MobileMenu />
+        <main className="site-content">
           <Routes store={this.props.store} />
-        </div>
+        </main>
+        <Footer />
       </div>
     );
   }

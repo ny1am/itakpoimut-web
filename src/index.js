@@ -7,7 +7,6 @@ import configureStore, { history } from './store/configureStore';
 import Root from './components/Root';
 
 require('./favicon.ico');
-import './styles/styles.scss';
 
 const store = configureStore();
 
