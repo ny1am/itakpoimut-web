@@ -25,9 +25,11 @@
   "dependencies": {
     "clone-deep": "^1.0.0",
     "history": "4.6.0",
+    "lodash.debounce": "^4.0.8",
     "object-assign": "4.1.0",
     "query-string": "5.0.0",
     "react": "15.5.4",
+    "react-click-outside": "^3.0.0",
     "react-dom": "15.5.4",
     "react-rating": "^0.8.1",
     "react-redux": "5.0.5",

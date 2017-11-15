@@ -1,5 +1,7 @@
 import React from 'react';
 
+import AutocompleteSearch from 'components/AutocompleteSearch';
+
 const LandingPage = () => (
   <div>
     <section className="landing">
@@ -11,7 +13,7 @@ const LandingPage = () => (
           Тут ви можете перевірити, чи компанія використовує виключно українську мову, обслуговуючи своїх клієнтів в Україні.
         </p>
         <div id="todo-remove-autocomplete">
-          {/*<AutocompleteSearch />*/}
+          <AutocompleteSearch />
         </div>
       </div>
     </section>

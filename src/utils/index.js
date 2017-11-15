@@ -1,3 +1,5 @@
+import { singleText as loyaltySingleText } from 'shared/js/loyalties';
+
 export const removeFalsy = (obj) => {
   let newObj = {};
   Object.keys(obj).forEach((prop) => {
@@ -17,6 +19,10 @@ export const avatar = (picture_url, size)  => {
   return picture_url || `/img/no-user-image${modifier}.png`;
 };
 
-export const roleModerator =(user) => {
+export const roleModerator = (user) => {
   return user && user.roles.indexOf('moderator') !== -1;
+};
+
+export const loyaltySingleByName = (name) => {
+  return loyaltySingleText(name);
 };
