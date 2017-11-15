@@ -5212,10 +5212,6 @@ react-proxy@^3.0.0-alpha.0:
   dependencies:
     lodash "^4.6.1"
 
-react-rating@^0.8.1:
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/react-rating/-/react-rating-0.8.1.tgz#f7c735411275c9efcf43e8e530c3f714eab602d8"
-
 react-redux@5.0.5:
   version "5.0.5"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.5.tgz#f8e8c7b239422576e52d6b7db06439469be9846a"
