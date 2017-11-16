@@ -59,6 +59,7 @@ class PreloadWrapper extends React.Component {
       isAppFetching: true,
       appFetchingError: null
     });
+    const prevPathName = this.props.location.pathname;
     const promise = reactRouterFetch(routeConfig, location, { store, dispatch: store.dispatch });
     promise.then(() => {
       store.dispatch({type: PREFETCH_LOCATION_CHANGE});
@@ -67,7 +68,9 @@ class PreloadWrapper extends React.Component {
         ready: true,
       });
       //todo: move to middleware or...
-      window.scrollTo(0, 0);
+      if (prevPathName !== location.pathname) {
+        window.scrollTo(0, 0);
+      }
     })
     .catch((err) => {
       this.setState({

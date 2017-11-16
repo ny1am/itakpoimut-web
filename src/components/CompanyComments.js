@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import Pagination from 'components/Pagination';
 import Comment from 'components/Comment';
@@ -53,7 +54,7 @@ class CompanyComments extends React.Component {
   }
   render() {
     return (
-      <div id="company-comments" className="container">
+      <div className="container">
         <section className="company-comments">
           <header className="company-comments__header">
             <h1>
@@ -65,7 +66,7 @@ class CompanyComments extends React.Component {
           </header>
           {this.renderComments()}
           <Pagination currentPage={this.props.currentPage} totalPages={this.props.totalPages}>
-            <a data-ajax="company_comments" data-ajax-zone="company-comments" href={"/company/"+this.props.company._id+"?currentPage={{page}}#company-comments"} />
+            <Link to={"/company/"+this.props.company._id+"?currentPage={{page}}"} />
           </Pagination>
         </section>
         {this.renderCommentsForm()}

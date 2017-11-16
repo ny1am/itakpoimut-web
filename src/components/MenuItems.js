@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { roleModerator } from 'utils';
 
@@ -8,9 +9,9 @@ class MenuItems extends React.Component {
     if (roleModerator(this.props.loggedUser)) {
       return (
         <li>
-          <a href="/admin">
+          <Link to="/admin">
             Адмінка
-          </a>
+          </Link>
         </li>
       );
     } else {
@@ -21,19 +22,19 @@ class MenuItems extends React.Component {
     return (
       <ul className={this.props.className}>
         <li>
-          <a href="/">
+          <Link to="/">
             Головна
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="/companies">
+          <Link to="/companies">
             Всі компанії
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="/about">
+          <Link to="/about">
             Про нас
-          </a>
+          </Link>
         </li>
         {this.renderModeratorLinks()}
       </ul>

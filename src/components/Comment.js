@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { avatar, formatDate } from 'utils';
 
@@ -21,9 +22,9 @@ class Comment extends React.Component {
               {formatDate(comment.created)}
             </span>
             {company &&
-              <a href={'/company/'+company._id} className="comment-theme">
+              <Link to={`/company/${company._id}`} className="comment-theme">
                 до теми {company.title}
-              </a>
+              </Link>
             }
           </div>
           <p className="comment-text">
