@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 
 import LandingPage from 'views/LandingPage';
+import CompanyPage from 'views/CompanyPage';
 import AboutPage from 'views/AboutPage';
 import NotFoundPage from 'views/NotFoundPage';
 
@@ -12,6 +13,9 @@ export const routeConfig = [{
   path: '/',
   exact: true,
   component: LandingPage,
+}, {
+  path: '/company/:id',
+  component: CompanyPage,
 }, {
   path: '/about',
   component: AboutPage,
