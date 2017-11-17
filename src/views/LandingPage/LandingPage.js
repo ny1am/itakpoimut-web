@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import AutocompleteSearch from 'components/AutocompleteSearch';
 import NewCompanies from 'components/NewCompanies';
@@ -37,9 +38,9 @@ const LandingPage = ({ newCompanies, comments }) => (
           <p className="description-text">
             Якщо ви знаєте назву компанії і хочете перевірити її лояльність, скористайтесь пошуком за назвою компанії. Для цього введіть у поле пошуку кілька перших букв назви й оберіть потрібну компанію із запропонованих нашим розумним пошуком варіантів.
           </p>
-          <a className="page__button" href="/companies">
+          <Link className="page__button" to="/companies">
             Шукати за назвою
-          </a>
+          </Link>
         </section>
         <section className="search-by-category">
           <h1 className="description-title">
@@ -48,9 +49,9 @@ const LandingPage = ({ newCompanies, comments }) => (
           <p className="description-text">
             Хочете скористатись послугами певної компанії, та не знаєте, яка з плеяди представлених на ринку лояльна до україномовного споживача? Скористайтесь нашим пошуком по сферах. Оберіть сферу послуг, що вас цікавить, серед списку зліва на сторінці <q>Всі компанії</q> або у стрічці пошуку на головній сторінці.
           </p>
-          <a className="page__button" href="/companies">
+          <Link className="page__button" to="/companies">
             Шукати за сферою
-          </a>
+          </Link>
         </section>
         <section className="add-company">
           <h1 className="description-title">
