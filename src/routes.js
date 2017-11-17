@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import LandingPage from 'views/LandingPage';
 import CompanyPage from 'views/CompanyPage';
+import CompaniesPage from 'views/CompaniesPage';
 import AboutPage from 'views/AboutPage';
 import NotFoundPage from 'views/NotFoundPage';
 
@@ -16,6 +17,9 @@ export const routeConfig = [{
 }, {
   path: '/company/:id',
   component: CompanyPage,
+}, {
+  path: '/companies',
+  component: CompaniesPage,
 }, {
   path: '/about',
   component: AboutPage,

@@ -4,7 +4,7 @@ import {
 
 const initialState = {};
 
-const landingReducer = (state = initialState, action) => {
+const companyReducer = (state = initialState, action) => {
   switch(action.type) {
 
     case COMPANY_SUCCESS: {
@@ -16,4 +16,4 @@ const landingReducer = (state = initialState, action) => {
   }
 };
 
-export default landingReducer;
+export default companyReducer;
