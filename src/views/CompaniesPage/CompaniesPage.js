@@ -45,7 +45,11 @@ class CompaniesPage extends React.Component {
     if (evt) {
       evt.preventDefault();
     }
-    this.props.onRefresh(this.state.currentPage, this.state.sortOrder, serialize(this.form));
+    this.props.onRefresh({
+      currentPage: this.state.currentPage,
+      sortOrder: this.state.sortOrder,
+      formData: serialize(this.form, { hash: true })
+    });
   }
 
   search(evt) {
