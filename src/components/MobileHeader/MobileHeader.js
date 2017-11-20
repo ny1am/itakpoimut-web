@@ -7,11 +7,11 @@ class MobileHeader extends React.Component {
     if (loggedUser) {
       return [
         <a key="profile" href="/userProfile" className="mobile-user" />,
-        <a key="logout" href="/logout" className="mobile-logout" />
+        <button key="logout" className="mobile-logout" onClick={this.props.onLogout} />
       ];
     } else {
       return (
-        <a href="/login" data-ajax-dialog="login" className="mobile-user" />
+        <button className="mobile-user" onClick={this.props.onLogin} />
       );
     }
   }
@@ -31,6 +31,8 @@ class MobileHeader extends React.Component {
 
 MobileHeader.propTypes = {
   loggedUser: PropTypes.object,
+  onLogin: PropTypes.func.isRequired,
+  onLogout: PropTypes.func.isRequired,
 };
 
 export default MobileHeader;

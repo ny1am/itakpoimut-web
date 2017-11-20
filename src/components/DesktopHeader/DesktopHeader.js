@@ -14,7 +14,7 @@ class DesktopHeader extends React.Component {
         <a key="fname" href="/userProfile" className="header-name">
           {loggedUser.fname}
         </a>,
-        <a key="logout" href="/logout" className="header-logout" />
+        <button key="logout" className="header-logout" onClick={this.props.onLogout} />
       ];
     } else {
       return (
@@ -43,6 +43,7 @@ class DesktopHeader extends React.Component {
 DesktopHeader.propTypes = {
   loggedUser: PropTypes.object,
   onLogin: PropTypes.func.isRequired,
+  onLogout: PropTypes.func.isRequired,
 };
 
 export default DesktopHeader;
