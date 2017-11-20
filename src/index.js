@@ -10,7 +10,7 @@ import Root from './components/Root';
 require('./favicon.ico');
 
 const auth = loadAuth();
-let initState = null;
+let initState = undefined;
 if (auth && auth.user) {
   initState = {
     auth: {
