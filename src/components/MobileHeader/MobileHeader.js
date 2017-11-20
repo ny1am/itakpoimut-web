@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class MobileHeader extends React.Component {
   renderUserLinks() {
     const loggedUser = this.props.loggedUser;
     if (loggedUser) {
       return [
-        <a key="profile" href="/userProfile" className="mobile-user" />,
+        <Link key="profile" to="/userProfile" className="mobile-user" />,
         <button key="logout" className="mobile-logout" onClick={this.props.onLogout} />
       ];
     } else {
@@ -21,7 +22,7 @@ class MobileHeader extends React.Component {
         <a href="#mobile-menu" className="menu-button" />
         <div className="mobile-header-buttons">
           <a href="/createCompany" className="mobile-add-company" data-ajax-dialog="createCompany" data-ajax-url="/createCompany" />
-          <a href="/companies" className="mobile-search" />
+          <Link to="/companies" className="mobile-search" />
           {this.renderUserLinks()}
         </div>
       </header>

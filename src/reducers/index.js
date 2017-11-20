@@ -6,6 +6,7 @@ import authReducer from './auth';
 import landingReducer from './landing';
 import companyReducer from './company';
 import companiesReducer from './companies';
+import userProfileReducer from './userProfile';
 
 const rootReducer = combineReducers({
   dialog: dialogReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   landing: landingReducer,
   company: companyReducer,
   companies: companiesReducer,
+  userProfile: userProfileReducer,
   router: routerReducer,
 });
 

@@ -2,7 +2,7 @@ import {
   AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE,
   LOGOUT
 } from 'constants/auth';
-
+import { SAVE_USER_PROFILE_SUCCESS } from 'constants/userProfile';
 
 const initialState = {
   loggedUser: null,
@@ -26,6 +26,17 @@ const authReducer = (state = initialState, action) => {
         loading: false,
         error: null,
       });
+    }
+
+    case SAVE_USER_PROFILE_SUCCESS: {
+      //todo: revise on the server error handling
+      if (action.payload.user) {
+        return Object.assign({}, state, {
+          loggedUser: action.payload.user,
+        });
+      } else {
+        return state;
+      }
     }
 
     case AUTH_FAILURE: {

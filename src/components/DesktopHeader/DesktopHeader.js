@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { avatar } from 'utils';
 
@@ -8,12 +9,12 @@ class DesktopHeader extends React.Component {
     const loggedUser = this.props.loggedUser;
     if (loggedUser) {
       return [
-        <a key="userpick" href="/userProfile">
+        <Link key="userpick" to="/userProfile">
           <img className="header-userpic" src={avatar(loggedUser.picture_url, 48)} />
-        </a>,
-        <a key="fname" href="/userProfile" className="header-name">
+        </Link>,
+        <Link key="fname" to="/userProfile" className="header-name">
           {loggedUser.fname}
-        </a>,
+        </Link>,
         <button key="logout" className="header-logout" onClick={this.props.onLogout} />
       ];
     } else {
@@ -28,9 +29,9 @@ class DesktopHeader extends React.Component {
     return (
       <header className="desktop-header">
         <div className="container">
-          <a className="header-logo" href="/">
+          <Link className="header-logo" to="/">
             <q>И так поймут</q> каталог <abbr title="Засоби масової інформації">ЗМІ</abbr> та бізнесу
-          </a>
+          </Link>
           <div className="header-right">
             {this.renderUserLinks()}
           </div>

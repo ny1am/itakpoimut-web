@@ -24,3 +24,11 @@ export const saveAuth = (state) => {
     //ignore this
   }
 };
+
+export const updateUser = (user) => {
+  const auth = loadAuth();
+  if (auth) {
+    auth.user = user;
+    saveAuth(auth);
+  }
+};
