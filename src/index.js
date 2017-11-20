@@ -4,11 +4,22 @@ import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import configureStore, { history } from './store/configureStore';
+import { loadAuth } from './store/storage';
 import Root from './components/Root';
 
 require('./favicon.ico');
 
-const store = configureStore();
+const auth = loadAuth();
+let initState = null;
+if (auth && auth.user) {
+  initState = {
+    auth: {
+      loggedUser: auth.user,
+    }
+  };
+}
+
+const store = configureStore(initState);
 
 const init = (store) => {
   render(

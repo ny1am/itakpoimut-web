@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Dialog from 'components/Dialog';
 import DesktopHeader from 'components/DesktopHeader';
 import MobileHeader from 'components/MobileHeader';
 import MainMenu from 'components/MainMenu';
@@ -17,6 +18,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <Dialog />
+
         <DesktopHeader />
         <MobileHeader />
         <MainMenu />

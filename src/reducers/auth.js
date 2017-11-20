@@ -5,10 +5,8 @@ import {
 
 
 const initialState = {
-  loggedIn: false,
-  role: null,
+  loggedUser: null,
   loading: false,
-  success: false,
   error: null,
 };
 
@@ -18,15 +16,13 @@ const authReducer = (state = initialState, action) => {
     case AUTH_REQUEST: {
       return Object.assign({}, state, {
         loading: true,
-        success: false,
         error: null,
       });
     }
 
     case AUTH_SUCCESS: {
       return Object.assign({}, state, {
-        loggedIn: true,
-        success: true,
+        loggedUser: action.payload.user,
         loading: false,
         error: null,
       });
@@ -34,10 +30,8 @@ const authReducer = (state = initialState, action) => {
 
     case AUTH_FAILURE: {
       return Object.assign({}, state, {
-        loggedIn: false,
-        role: null,
+        loggedUser: null,
         loading: false,
-        success: false,
         error: 'The username or password is incorrect.',
       });
     }

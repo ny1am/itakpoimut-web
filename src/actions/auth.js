@@ -1,5 +1,4 @@
 import { CALL_API } from 'redux-api-middleware';
-import { push } from 'react-router-redux';
 
 import { API_ROOT } from 'constants';
 import {
@@ -7,18 +6,18 @@ import {
   LOGOUT
 } from 'constants/auth';
 
-import { saveToken } from '../store/storage';
+import { saveAuth } from '../store/storage';
 
 const processTokenPayload = (action, state, res) => {
   return res.json().then(json => {
-    saveToken(json);
+    saveAuth(json);
     return json;
   });
 };
 
 const errorTokenPayload = (action, state, res) => {
   return res.json().then((json) => {
-    saveToken(null);
+    saveAuth(null);
     return json;
   });
 };
@@ -29,7 +28,7 @@ export function auth(username, password) {
   body.set('password', password);
   return {
     [CALL_API]: {
-      endpoint: `${API_ROOT}/token`,
+      endpoint: `${API_ROOT}/login`,
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: body,
@@ -49,10 +48,6 @@ export function auth(username, password) {
 }
 
 export function logout() {
-  saveToken(null);
-  return (dispatch) => {
-    return dispatch({type: LOGOUT}).then(()=> {
-      return dispatch(push('/login'));
-    });
-  };
+  saveAuth(null);
+  return {type: LOGOUT};
 }

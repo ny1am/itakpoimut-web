@@ -18,9 +18,9 @@ class DesktopHeader extends React.Component {
       ];
     } else {
       return (
-        <a href="/login" className="header-login" data-ajax-dialog="login">
+        <button className="header-login" onClick={this.props.onLogin}>
           Вхід/Реєстрація
-        </a>
+        </button>
       );
     }
   }
@@ -42,6 +42,7 @@ class DesktopHeader extends React.Component {
 
 DesktopHeader.propTypes = {
   loggedUser: PropTypes.object,
+  onLogin: PropTypes.func.isRequired,
 };
 
 export default DesktopHeader;

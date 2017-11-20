@@ -1,3 +1,6 @@
+import container from './container';
 import DesktopHeaderComponent from './DesktopHeader';
 
-export default DesktopHeaderComponent;
+export { DesktopHeaderComponent };
+
+export default container;

@@ -1,3 +1,6 @@
+import container from './container';
 import MainMenuComponent from './MainMenu';
 
-export default MainMenuComponent;
+export { MainMenuComponent };
+
+export default container;

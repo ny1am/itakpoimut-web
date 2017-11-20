@@ -1,8 +1,8 @@
-const TOKEN = 'itp_token';
+const AUTH = 'itp_auth';
 
-export const loadToken = () => {
+export const loadAuth = () => {
   try {
-    const serializedState = localStorage.getItem(TOKEN);
+    const serializedState = localStorage.getItem(AUTH);
     if (serializedState === null) {
       return undefined;
     }
@@ -12,18 +12,13 @@ export const loadToken = () => {
   }
 };
 
-export const hasToken = () => {
-  const token = loadToken();
-  return token?true:false;
-};
-
-export const saveToken = (state) => {
+export const saveAuth = (state) => {
   try {
     const serializedState = JSON.stringify(state);
     if (serializedState) {
-      localStorage.setItem(TOKEN, serializedState);
+      localStorage.setItem(AUTH, serializedState);
     } else {
-      localStorage.removeItem(TOKEN);
+      localStorage.removeItem(AUTH);
     }
   } catch (err) {
     //ignore this

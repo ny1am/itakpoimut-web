@@ -18,7 +18,7 @@ class Container extends React.Component {
 
 const mapStateToProps = (state) => ({
   company: state.company.company,
-  loggedUser: state.user,
+  loggedUser: state.auth.loggedUser,
   commentsCount: state.company.commentsCount,
   comments: state.company.comments,
   currentPage: state.company.currentPage,

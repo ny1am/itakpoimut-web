@@ -1,3 +1,6 @@
+import container from './container';
 import MobileMenuComponent from './MobileMenu';
 
-export default MobileMenuComponent;
+export { MobileMenuComponent };
+
+export default container;

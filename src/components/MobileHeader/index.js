@@ -1,3 +1,6 @@
+import container from './container';
 import MobileHeaderComponent from './MobileHeader';
 
-export default MobileHeaderComponent;
+export { MobileHeaderComponent };
+
+export default container;
