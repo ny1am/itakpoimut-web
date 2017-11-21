@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -7,10 +8,35 @@ import Comment from 'components/Comment';
 import { avatar } from 'utils';
 
 class CompanyComments extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.handleTextChange = this.handleTextChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      text: ''
+    };
+  }
+
+  handleTextChange(e) {
+    const text = e.target.value;
+    this.setState({ text });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.onSubmit(this.props.company._id, this.state.text).then(data => {
+      if (data.payload.company) {
+        this.setState({ text: '' });
+        ReactDOM.findDOMNode(this.refs.comments).scrollIntoView();
+      }
+    });
+  }
+
   renderCommentsForm() {
     if (this.props.loggedUser) {
       return (
-        <form action="/addComment" className="add-comment" method="post" data-ajax-zone="company-comments" data-ajax-tmpl="company_comments" data-ajax-anchor="company-comments">
+        <form action="/addComment" className="add-comment" method="post" onSubmit={this.handleSubmit}>
           <input type="hidden" name="_company" value={this.props.company._id} />
           <h2>
             Додати коментар
@@ -19,17 +45,23 @@ class CompanyComments extends React.Component {
             <div className="add-comment-image">
               <img src={avatar(this.props.loggedUser.picture_url)} />
             </div>
-            <textarea placeholder="Введіть ваш коментар" name="text" maxLength="500" />
+            <textarea
+              name="text"
+              value={this.state.text}
+              onChange={this.handleTextChange}
+              placeholder="Введіть ваш коментар"
+              maxLength="500"
+            />
           </div>
           <div className="right-content">
-            <button className="dialog__button" type="submit" data-ajax-formsubmit>Додати коментар</button>
+            <button className="dialog__button" type="submit">Додати коментар</button>
           </div>
         </form>
       );
     } else {
       return (
         <div className="guest-add-comment">
-          Для того, щоб залишити коментар, вам необхідно <a href="/login" data-ajax-dialog="login">ввійти</a>
+          Для того, щоб залишити коментар, вам необхідно <button onClick={this.props.onLogin}>ввійти</button>
         </div>
       );
     }
@@ -37,7 +69,7 @@ class CompanyComments extends React.Component {
   renderComments() {
     if (this.props.comments.length > 0) {
       return (
-        <ul className="company-comments__ul">
+        <ul ref="comments" className="company-comments__ul">
           {this.renderCommentItems()}
         </ul>
       );
@@ -82,6 +114,8 @@ CompanyComments.propTypes = {
   comments: PropTypes.array,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
+  onSubmit: PropTypes.func.isRequired,
+  onLogin: PropTypes.func.isRequired,
 };
 
 CompanyComments.defaultProps = {
