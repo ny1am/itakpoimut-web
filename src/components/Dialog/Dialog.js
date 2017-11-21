@@ -2,10 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import LoginDialog from 'views/LoginDialog';
-import { LOGIN_DIALOG } from 'constants/dialog';
+import SignupDialog from 'views/SignupDialog';
+import { LOGIN_DIALOG, SIGNUP_DIALOG } from 'constants/dialog';
 
 const DIALOG_COMPONETS = {
   [LOGIN_DIALOG]: LoginDialog,
+  [SIGNUP_DIALOG]: SignupDialog,
 };
 
 /**

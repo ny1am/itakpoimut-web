@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { signup } from 'actions/signup';
 import { auth } from 'actions/auth';
-import { SIGNUP_DIALOG } from 'constants/dialog';
+import { LOGIN_DIALOG } from 'constants/dialog';
 import { showDialog, hideDialog } from 'actions/dialog';
 
-import LoginDialogComponent from './LoginDialog';
+import SignupDialogComponent from './SignupDialog';
 
 class Container extends React.Component {
 
@@ -18,10 +19,15 @@ class Container extends React.Component {
     };
   }
 
-  onSubmit(...params) {
-    this.props.onSubmit(...params).then(data => {
+  //todo refactor this
+  onSubmit({ fname, lname, email, password }) {
+    this.props.onSubmit({ fname, lname, email, password }).then(data => {
       if (data.payload.result === 'success') {
-        this.props.dispatch(hideDialog());
+        this.props.dispatch(auth(email, password)).then(data => {
+          if (data.payload.result === 'success') {
+            this.props.dispatch(hideDialog());
+          }
+        });
       } else if (data.payload.result === 'error') {
         this.setState({
           errors: data.payload.errors
@@ -31,7 +37,7 @@ class Container extends React.Component {
   }
 
   render() {
-    return <LoginDialogComponent {...this.props} {...this.state} onSubmit={this.onSubmit} />;
+    return <SignupDialogComponent {...this.props} {...this.state} onSubmit={this.onSubmit} />;
   }
 }
 
@@ -41,8 +47,8 @@ Container.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (username, password) => dispatch(auth(username, password)),
-  onSignup: () => dispatch(showDialog(SIGNUP_DIALOG)),
+  onSubmit: (data) => dispatch(signup(data)),
+  onLogin: () => dispatch(showDialog(LOGIN_DIALOG)),
   dispatch
 });
 

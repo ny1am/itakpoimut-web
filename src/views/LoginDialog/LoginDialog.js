@@ -105,7 +105,7 @@ class LoginDialog extends React.Component {
           </button>
         </form>
         <aside className="dialog__aside">
-          <a href="/signup" data-ajax-dialog="signup">Реєстрація</a>
+          <button onClick={this.props.onSignup}>Реєстрація</button>
         </aside>
       </div>
     );
@@ -118,6 +118,7 @@ LoginDialog.propTypes = {
   username: PropTypes.string,
   password: PropTypes.string,
   rememberme: PropTypes.bool,
+  onSignup: PropTypes.func,
   onSubmit: PropTypes.func,
 };
 

@@ -19,7 +19,7 @@ export const encodeQueryData = (data) => {
 
 export const avatar = (picture_url, size)  => {
   const modifier = size?'-'+size:'';
-  return picture_url || `/img/no-user-image${modifier}.png`;
+  return picture_url || `/assets/img/no-user-image${modifier}.png`;
 };
 
 export const roleModerator = (user) => {
