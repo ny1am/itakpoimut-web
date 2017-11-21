@@ -11,7 +11,7 @@ class MainMenu extends React.Component {
           <MenuItems className="menu" loggedUser={this.props.loggedUser}/>
           <div className="menu-right">
             <a className="search-ico" href="/companies" />
-            <button className="simple" data-ajax-dialog="createCompany" data-ajax-url="/createCompany">
+            <button className="simple" onClick={this.props.onAddCompany}>
               Запропонувати компанію
             </button>
           </div>
@@ -23,6 +23,7 @@ class MainMenu extends React.Component {
 
 MainMenu.propTypes = {
   loggedUser: PropTypes.object,
+  onAddCompany: PropTypes.func.isRequired,
 };
 
 export default MainMenu;
