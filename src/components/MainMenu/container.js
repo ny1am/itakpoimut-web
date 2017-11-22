@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { CREATE_COMPANY_DIALOG } from 'constants/dialog';
-import { showDialog } from 'actions/dialog';
+import { showProtectedDialog } from 'actions/dialog';
 
 import MainMenuComponent from './MainMenu';
 
@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onCreateCompany: () => dispatch(showDialog(CREATE_COMPANY_DIALOG)),
+  onCreateCompany: () => dispatch(showProtectedDialog(CREATE_COMPANY_DIALOG)),
   dispatch
 });
 
