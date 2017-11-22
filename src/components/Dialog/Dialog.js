@@ -1,16 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+//todo: move to components
+import PleaseSignupDialog from 'views/PleaseSignupDialog';
+import SuccessDialog from 'components/SuccessDialog';
 import LoginDialog from 'views/LoginDialog';
 import SignupDialog from 'views/SignupDialog';
-import PleaseSignupDialog from 'views/PleaseSignupDialog';
 import CreateCompanyDialog from 'views/CreateCompanyDialog';
-import { LOGIN_DIALOG, SIGNUP_DIALOG, PLEASE_SIGNUP_DIALOG, CREATE_COMPANY_DIALOG } from 'constants/dialog';
+import { LOGIN_DIALOG, SIGNUP_DIALOG, PLEASE_SIGNUP_DIALOG, CREATE_COMPANY_DIALOG, SUCCESS_DIALOG } from 'constants/dialog';
 
 const DIALOG_COMPONETS = {
+  [PLEASE_SIGNUP_DIALOG]: PleaseSignupDialog,
+  [SUCCESS_DIALOG]: SuccessDialog,
+
   [LOGIN_DIALOG]: LoginDialog,
   [SIGNUP_DIALOG]: SignupDialog,
-  [PLEASE_SIGNUP_DIALOG]: PleaseSignupDialog,
   [CREATE_COMPANY_DIALOG]: CreateCompanyDialog,
 };
 
