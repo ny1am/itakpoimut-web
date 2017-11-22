@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 import LoginDialog from 'views/LoginDialog';
 import SignupDialog from 'views/SignupDialog';
 import PleaseSignupDialog from 'views/PleaseSignupDialog';
-import { LOGIN_DIALOG, SIGNUP_DIALOG, PLEASE_SIGNUP_DIALOG } from 'constants/dialog';
+import CreateCompanyDialog from 'views/CreateCompanyDialog';
+import { LOGIN_DIALOG, SIGNUP_DIALOG, PLEASE_SIGNUP_DIALOG, CREATE_COMPANY_DIALOG } from 'constants/dialog';
 
 const DIALOG_COMPONETS = {
   [LOGIN_DIALOG]: LoginDialog,
   [SIGNUP_DIALOG]: SignupDialog,
   [PLEASE_SIGNUP_DIALOG]: PleaseSignupDialog,
+  [CREATE_COMPANY_DIALOG]: CreateCompanyDialog,
 };
 
 /**
