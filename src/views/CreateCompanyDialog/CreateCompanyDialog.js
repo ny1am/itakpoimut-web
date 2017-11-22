@@ -1,9 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Select from 'react-select';
 
 import styles from './styles.scss';
 
 class CreateCompanyDialog extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.handleCategoryChange = this.handleCategoryChange.bind(this);
+    this.handleViolationChange = this.handleViolationChange.bind(this);
+    this.state = {
+      selectedCategories: [],
+      selectedViolations: [],
+    };
+  }
+
+  handleCategoryChange(value) {
+    this.setState({
+      selectedCategories: value,
+    });
+  }
+
+  handleViolationChange(value) {
+    this.setState({
+      selectedViolations: value,
+    });
+  }
+
   renderDialogError() {
     const errors = this.props.errors || {};
     if (errors.dialog) {
@@ -15,20 +39,6 @@ class CreateCompanyDialog extends React.Component {
     } else {
       return null;
     }
-  }
-  renderCategoriesOptions() {
-    return this.props.categoriesList.map(item => (
-      <option key={item.name} value={item.name} selected={this.props.selectedCategories.indexOf(item.name)>-1}>
-        {item.text}
-      </option>
-    ));
-  }
-  renderViolationsOptions() {
-    return this.props.violationsList.map(item => (
-      <option key={item.name} value={item.name} selected={this.props.selectedViolations.indexOf(item.name)>-1}>
-        {item.text}
-      </option>
-    ));
   }
   render() {
     const errors = this.props.errors || {};
@@ -69,10 +79,15 @@ class CreateCompanyDialog extends React.Component {
                 <label className="row__label" htmlFor="selectedCategories[]">
                   Оберіть сфери компанії
                 </label>
-                <select name="selectedCategories[]" className="row__input" multiple>
-                  {this.renderCategoriesOptions()}
-                </select>
-                {/*todo: add noscript hint*/}
+                <Select name="selectedCategories[]"
+                  className="row__input"
+                  multi={true}
+                  placeholder="Оберіть зі списку..."
+                  backspaceRemoves={false}
+                  value={this.state.selectedCategories}
+                  onChange={this.handleCategoryChange}
+                  options={this.props.categoriesList.map(item =>({label: item.text, value: item.name}))}
+                />
               </div>
               <div className={"row "+descriptionClass}>
                 <label className="row__label" htmlFor="description">
@@ -92,9 +107,15 @@ class CreateCompanyDialog extends React.Component {
                 <label className="row__label" htmlFor="selectedViolations[]">
                   Оберіть порушення компанії
                 </label>
-                <select name="selectedViolations[]" className="row__input" multiple>
-                  {this.renderViolationsOptions()}
-                </select>
+                <Select name="selectedViolations[]"
+                  className="row__input"
+                  multi={true}
+                  placeholder="Оберіть зі списку..."
+                  backspaceRemoves={false}
+                  value={this.state.selectedViolations}
+                  onChange={this.handleViolationChange}
+                  options={this.props.violationsList.map(item =>({label: item.text, value: item.name}))}
+                />
               </div>
             </div>
           </div>
