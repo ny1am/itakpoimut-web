@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import MenuItems from 'components/MenuItems';
 
@@ -10,7 +11,7 @@ class MainMenu extends React.Component {
         <div className="container menu-container">
           <MenuItems className="menu" loggedUser={this.props.loggedUser}/>
           <div className="menu-right">
-            <a className="search-ico" href="/companies" />
+            <Link className="search-ico" to="/companies" />
             <button className="simple" onClick={this.props.onCreateCompany}>
               Запропонувати компанію
             </button>
