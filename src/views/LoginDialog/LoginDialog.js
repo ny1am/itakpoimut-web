@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Checkbox from 'components/Checkbox';
 import Password from 'components/Password';
 
 class LoginDialog extends React.Component {
@@ -12,8 +11,8 @@ class LoginDialog extends React.Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      username: props.username || '',
-      password: props.password || '',
+      username: '',
+      password: '',
     };
   }
 
@@ -33,17 +32,6 @@ class LoginDialog extends React.Component {
     this.props.onSubmit(username, password);
   }
 
-  renderMessage() {
-    if (this.props.message && this.props.message.length !== 0) {
-      return (
-        <div className="notification-message">
-          {this.props.message}
-        </div>
-      );
-    } else {
-      return null;
-    }
-  }
   render() {
     const errors = this.props.errors || {};
     const usernameClass = errors.username?'row--error':'';
@@ -53,18 +41,6 @@ class LoginDialog extends React.Component {
         <h1 className="dialog__h1">
           Вхід
         </h1>
-        {this.renderMessage()}
-        <div className="dialog-socials">
-          <a href="/auth/facebook" className="login-fb">
-            Вхід через Facebook
-          </a>
-          <a href="/auth/google" className="login-google">
-            Вхід через Google+
-          </a>
-        </div>
-        <div className="login-separator">
-          або
-        </div>
         <form action="/login" method="post" onSubmit={this.handleSubmit}>
           <div className={usernameClass+' row'}>
             <label className="row__label" htmlFor="username">
@@ -90,17 +66,8 @@ class LoginDialog extends React.Component {
               onChange={this.handlePasswordChange}
               maxLength="25"
             />
-            <aside className="row--aside">
-              <Checkbox id="rememberme" name="rememberme" value="true" defaultChecked={this.props.rememberme||false} />
-              <label htmlFor="rememberme" className="label--small">
-                Пам'ятати мене
-              </label>
-              <a href="/forgot" className="right-link" data-ajax-dialog="forgot">
-                Забули пароль?
-              </a>
-            </aside>
           </div>
-          <button className="dialog__button" type="submit" data-ajax-submit-dialog="login">
+          <button className="dialog__button" type="submit">
             Ввійти
           </button>
         </form>
@@ -114,12 +81,8 @@ class LoginDialog extends React.Component {
 
 LoginDialog.propTypes = {
   errors: PropTypes.object,
-  message: PropTypes.string,
-  username: PropTypes.string,
-  password: PropTypes.string,
-  rememberme: PropTypes.bool,
-  onSignup: PropTypes.func,
   onSubmit: PropTypes.func,
+  onSignup: PropTypes.func,
 };
 
 LoginDialog.defaultProps = {

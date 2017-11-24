@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Checkbox from 'components/Checkbox';
 import Password from 'components/Password';
 
 class SignupDialog extends React.Component {
@@ -14,10 +13,10 @@ class SignupDialog extends React.Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      fname: props.fname || '',
-      lname: props.lname || '',
-      email: props.email || '',
-      password: props.password || '',
+      fname: '',
+      lname: '',
+      email: '',
+      password: '',
     };
   }
 
@@ -55,21 +54,10 @@ class SignupDialog extends React.Component {
     const emailClass = errors.email?'row--error':'';
     const passwordClass = errors.password?'row--error':'';
     return (
-      <div id="dialog_content" className="dialog_content">
+      <div className="dialog_content">
         <h1 className="dialog__h1">
           Реєстрація
         </h1>
-        <div className="dialog-socials">
-          <a href="/auth/facebook" className="login-fb">
-            Вхід через Facebook
-          </a>
-          <a href="/auth/google" className="login-google">
-            Вхід через Google+
-          </a>
-        </div>
-        <div className="login-separator">
-          або
-        </div>
         <form action="/signup" method="post" onSubmit={this.handleSubmit}>
           <div className={fnameClass+' row'}>
             <label className="row__label" htmlFor="fname">
@@ -119,15 +107,13 @@ class SignupDialog extends React.Component {
               onChange={this.handlePasswordChange}
               maxLength="25"
             />
-            <aside className="row--aside ">
-              <Checkbox id="rememberme" name="rememberme" value="true" defaultChecked={this.props.rememberme||false} />
-              <label htmlFor="rememberme" className="label--small">Пам'ятати мене</label>
-            </aside>
           </div>
-          <button className="dialog__button" type="submit" data-ajax-submit-dialog="signup">Зареєструватись</button>
+          <button className="dialog__button" type="submit">Зареєструватись</button>
         </form>
         <aside className="dialog__aside">
-          <button onClick={this.props.onLogin}>У мене вже є аккаунт</button>
+          <button onClick={this.props.onLogin}>
+            У мене вже є аккаунт
+          </button>
         </aside>
       </div>
     );
@@ -136,13 +122,8 @@ class SignupDialog extends React.Component {
 
 SignupDialog.propTypes = {
   errors: PropTypes.object,
-  fname: PropTypes.string,
-  lname: PropTypes.string,
-  email: PropTypes.string,
-  password: PropTypes.string,
-  rememberme: PropTypes.bool,
-  onLogin: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  onLogin: PropTypes.func.isRequired,
 };
 
 SignupDialog.defaultProps = {
