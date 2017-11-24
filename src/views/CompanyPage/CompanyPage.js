@@ -90,7 +90,7 @@ class CompanyPage extends React.Component {
                   Порушення компанії
                 </h2>
                 {this.renderViolations()}
-                <button data-ajax-dialog="addViolation" data-ajax-url={"/addViolation?company_id="+company._id} className="add-violation">Додати порушення</button>
+                <button onClick={()=>this.props.onAddViolation(company._id)} className="add-violation">Додати порушення</button>
               </div>
               <div className="company-categories-holder">
                 <h2>
@@ -130,6 +130,7 @@ CompanyPage.propTypes = {
   comments: PropTypes.array,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
+  onAddViolation: PropTypes.func,
 };
 
 export default CompanyPage;

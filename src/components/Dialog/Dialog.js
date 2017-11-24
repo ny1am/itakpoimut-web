@@ -7,7 +7,8 @@ import SuccessDialog from 'components/SuccessDialog';
 import LoginDialog from 'views/LoginDialog';
 import SignupDialog from 'views/SignupDialog';
 import CreateCompanyDialog from 'views/CreateCompanyDialog';
-import { LOGIN_DIALOG, SIGNUP_DIALOG, PLEASE_SIGNUP_DIALOG, CREATE_COMPANY_DIALOG, SUCCESS_DIALOG } from 'constants/dialog';
+import AddViolationDialog from 'views/AddViolationDialog';
+import { LOGIN_DIALOG, SIGNUP_DIALOG, PLEASE_SIGNUP_DIALOG, CREATE_COMPANY_DIALOG, ADD_VIOLATION_DIALOG, SUCCESS_DIALOG } from 'constants/dialog';
 
 const DIALOG_COMPONETS = {
   [PLEASE_SIGNUP_DIALOG]: PleaseSignupDialog,
@@ -16,6 +17,7 @@ const DIALOG_COMPONETS = {
   [LOGIN_DIALOG]: LoginDialog,
   [SIGNUP_DIALOG]: SignupDialog,
   [CREATE_COMPANY_DIALOG]: CreateCompanyDialog,
+  [ADD_VIOLATION_DIALOG]: AddViolationDialog,
 };
 
 /**

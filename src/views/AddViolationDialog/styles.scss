@@ -1,0 +1,8 @@
+div.wrapper {
+  width: 680px;
+  text-align: left;
+  max-width: none;
+  @media (max-width: 680px) {
+    width: 100%;
+  }
+}
