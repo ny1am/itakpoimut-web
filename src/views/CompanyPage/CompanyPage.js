@@ -99,9 +99,7 @@ class CompanyPage extends React.Component {
                 <ul className="company-categories">
                   {this.renderCategories()}
                   <li className="add">
-                    <a href={"/addCategory?company_id="+company._id} data-ajax-dialog="addCategory" data-ajax-url={"/addCategory?company_id="+company._id}>
-                      Додати сферу
-                    </a>
+                    <button onClick={()=>this.props.onAddCategory(company._id)}>Додати сферу</button>
                   </li>
                 </ul>
               </div>
@@ -131,6 +129,7 @@ CompanyPage.propTypes = {
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
   onAddViolation: PropTypes.func,
+  onAddCategory: PropTypes.func,
 };
 
 export default CompanyPage;

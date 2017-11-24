@@ -4,7 +4,7 @@ import queryString from 'query-string';
 
 import { get } from 'actions/company';
 import { showProtectedDialog } from 'actions/dialog';
-import { ADD_VIOLATION_DIALOG } from 'constants/dialog';
+import { ADD_VIOLATION_DIALOG, ADD_CATEGORY_DIALOG } from 'constants/dialog';
 
 import CompanyPageComponent from './CompanyPage';
 
@@ -29,6 +29,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onAddViolation: (companyId) => dispatch(showProtectedDialog(ADD_VIOLATION_DIALOG, {companyId})),
+  onAddCategory: (companyId) => dispatch(showProtectedDialog(ADD_CATEGORY_DIALOG, {companyId})),
   dispatch
 });
 
