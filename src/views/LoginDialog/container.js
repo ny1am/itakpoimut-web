@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { auth } from 'actions/auth';
-import { SIGNUP_DIALOG } from 'constants/dialog';
-import { showDialog, hideDialog } from 'actions/dialog';
+import { hideDialog } from 'actions/dialog';
 
 import LoginDialogComponent from './LoginDialog';
 
@@ -42,7 +41,6 @@ Container.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit: (username, password) => dispatch(auth(username, password)),
-  onSignup: () => dispatch(showDialog(SIGNUP_DIALOG)),
   dispatch
 });
 

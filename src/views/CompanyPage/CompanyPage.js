@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { ADD_VIOLATION_DIALOG, ADD_CATEGORY_DIALOG } from 'constants/dialog';
+import DialogLink from 'components/DialogLink';
 import CompanyComments from 'components/CompanyComments';
 import { http, violationByName, categoryByName, loyaltySingleByName } from 'utils';
 
@@ -90,7 +92,9 @@ class CompanyPage extends React.Component {
                   Порушення компанії
                 </h2>
                 {this.renderViolations()}
-                <button onClick={()=>this.props.onAddViolation(company._id)} className="add-violation">Додати порушення</button>
+                <DialogLink dialogType={ADD_VIOLATION_DIALOG} dialogProps={{companyId: company._id}} className="add-violation">
+                  Додати порушення
+                </DialogLink>
               </div>
               <div className="company-categories-holder">
                 <h2>
@@ -99,7 +103,9 @@ class CompanyPage extends React.Component {
                 <ul className="company-categories">
                   {this.renderCategories()}
                   <li className="add">
-                    <button onClick={()=>this.props.onAddCategory(company._id)}>Додати сферу</button>
+                    <DialogLink dialogType={ADD_CATEGORY_DIALOG} dialogProps={{companyId: company._id}} className="add-button">
+                      Додати сферу
+                    </DialogLink>
                   </li>
                 </ul>
               </div>
@@ -128,8 +134,6 @@ CompanyPage.propTypes = {
   comments: PropTypes.array,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
-  onAddViolation: PropTypes.func,
-  onAddCategory: PropTypes.func,
 };
 
 export default CompanyPage;

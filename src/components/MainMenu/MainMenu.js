@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import { CREATE_COMPANY_DIALOG } from 'constants/dialog';
+import DialogLink from 'components/DialogLink';
 import MenuItems from 'components/MenuItems';
 
 class MainMenu extends React.Component {
@@ -12,9 +14,9 @@ class MainMenu extends React.Component {
           <MenuItems className="menu" loggedUser={this.props.loggedUser}/>
           <div className="menu-right">
             <Link className="search-ico" to="/companies" />
-            <button className="simple" onClick={this.props.onCreateCompany}>
+            <DialogLink dialogType={CREATE_COMPANY_DIALOG} className="simple">
               Запропонувати компанію
-            </button>
+            </DialogLink>
           </div>
         </div>
       </nav>
@@ -24,7 +26,6 @@ class MainMenu extends React.Component {
 
 MainMenu.propTypes = {
   loggedUser: PropTypes.object,
-  onCreateCompany: PropTypes.func.isRequired,
 };
 
 export default MainMenu;

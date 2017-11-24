@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { LOGIN_DIALOG } from 'constants/dialog';
+import DialogLink from 'components/DialogLink';
 import Password from 'components/Password';
 
 class SignupDialog extends React.Component {
@@ -111,9 +113,9 @@ class SignupDialog extends React.Component {
           <button className="dialog__button" type="submit">Зареєструватись</button>
         </form>
         <aside className="dialog__aside">
-          <button onClick={this.props.onLogin}>
+          <DialogLink dialogType={LOGIN_DIALOG}>
             У мене вже є аккаунт
-          </button>
+          </DialogLink>
         </aside>
       </div>
     );
@@ -123,7 +125,6 @@ class SignupDialog extends React.Component {
 SignupDialog.propTypes = {
   errors: PropTypes.object,
   onSubmit: PropTypes.func.isRequired,
-  onLogin: PropTypes.func.isRequired,
 };
 
 SignupDialog.defaultProps = {

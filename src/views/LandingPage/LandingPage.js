@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import { CREATE_COMPANY_DIALOG } from 'constants/dialog';
+import DialogLink from 'components/DialogLink';
 import AutocompleteSearch from 'components/AutocompleteSearch';
 import NewCompanies from 'components/NewCompanies';
 import Comments from 'components/Comments';
 
-const LandingPage = ({ newCompanies, comments, onCreateCompany }) => (
+const LandingPage = ({ newCompanies, comments }) => (
   <div>
     <section className="landing">
       <div className="container">
@@ -60,9 +62,9 @@ const LandingPage = ({ newCompanies, comments, onCreateCompany }) => (
           <p className="description-text">
             Допоможіть нам стати кращими, пропонуючи компанії, яких ще немає у базі. Ми зацікавлені у тому, аби наш сервіс представляв якомога більшу кількість різноманітних компаній - як лояльних до української мови, так і порушників. Зазначимо, що ви тільки пропонуєте компанію на розгляд. Після того її затверджує модератор, і система сама присвоює компанії статус лояльної/порушника на основі наявності/відсутності порушень.
           </p>
-          <button className="page__button" onClick={onCreateCompany}>
+          <DialogLink dialogType={CREATE_COMPANY_DIALOG} className="page__button">
             Запропонувати компанію
-          </button>
+          </DialogLink>
         </section>
         <NewCompanies companies={newCompanies} />
         <Comments comments={comments} />
@@ -74,7 +76,6 @@ const LandingPage = ({ newCompanies, comments, onCreateCompany }) => (
 LandingPage.propTypes = {
   newCompanies: PropTypes.array,
   comments: PropTypes.array,
-  onCreateCompany: PropTypes.func.isRequired,
 };
 
 export default LandingPage;

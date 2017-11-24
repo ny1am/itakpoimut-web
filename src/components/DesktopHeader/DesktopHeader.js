@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import { LOGIN_DIALOG } from 'constants/dialog';
+import DialogLink from 'components/DialogLink';
 import { avatar } from 'utils';
 
 class DesktopHeader extends React.Component {
@@ -19,9 +21,9 @@ class DesktopHeader extends React.Component {
       ];
     } else {
       return (
-        <button className="header-login" onClick={this.props.onLogin}>
+        <DialogLink dialogType={LOGIN_DIALOG} className="header-login">
           Вхід/Реєстрація
-        </button>
+        </DialogLink>
       );
     }
   }
@@ -43,7 +45,6 @@ class DesktopHeader extends React.Component {
 
 DesktopHeader.propTypes = {
   loggedUser: PropTypes.object,
-  onLogin: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,
 };
 

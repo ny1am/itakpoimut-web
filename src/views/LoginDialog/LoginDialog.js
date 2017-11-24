@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { SIGNUP_DIALOG } from 'constants/dialog';
+import DialogLink from 'components/DialogLink';
 import Password from 'components/Password';
 
 class LoginDialog extends React.Component {
@@ -72,7 +74,9 @@ class LoginDialog extends React.Component {
           </button>
         </form>
         <aside className="dialog__aside">
-          <button onClick={this.props.onSignup}>Реєстрація</button>
+          <DialogLink dialogType={SIGNUP_DIALOG}>
+            Реєстрація
+          </DialogLink>
         </aside>
       </div>
     );
@@ -82,7 +86,6 @@ class LoginDialog extends React.Component {
 LoginDialog.propTypes = {
   errors: PropTypes.object,
   onSubmit: PropTypes.func,
-  onSignup: PropTypes.func,
 };
 
 LoginDialog.defaultProps = {

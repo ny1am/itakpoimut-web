@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import { LOGIN_DIALOG } from 'constants/dialog';
+import DialogLink from 'components/DialogLink';
 import Pagination from 'components/Pagination';
 import Comment from 'components/Comment';
 import { avatar } from 'utils';
@@ -61,7 +63,7 @@ class CompanyComments extends React.Component {
     } else {
       return (
         <div className="guest-add-comment">
-          Для того, щоб залишити коментар, вам необхідно <button onClick={this.props.onLogin}>ввійти</button>
+          Для того, щоб залишити коментар, вам необхідно <DialogLink dialogType={LOGIN_DIALOG}>ввійти</DialogLink>
         </div>
       );
     }
@@ -115,7 +117,6 @@ CompanyComments.propTypes = {
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
   onSubmit: PropTypes.func.isRequired,
-  onLogin: PropTypes.func.isRequired,
 };
 
 CompanyComments.defaultProps = {

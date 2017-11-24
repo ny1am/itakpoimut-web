@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import queryString from 'query-string';
 
 import { get } from 'actions/company';
-import { showProtectedDialog } from 'actions/dialog';
-import { ADD_VIOLATION_DIALOG, ADD_CATEGORY_DIALOG } from 'constants/dialog';
 
 import CompanyPageComponent from './CompanyPage';
 
@@ -27,12 +25,6 @@ const mapStateToProps = (state) => ({
   totalPages: state.company.totalPages,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onAddViolation: (companyId) => dispatch(showProtectedDialog(ADD_VIOLATION_DIALOG, {companyId})),
-  onAddCategory: (companyId) => dispatch(showProtectedDialog(ADD_CATEGORY_DIALOG, {companyId})),
-  dispatch
-});
-
 export default connect(
-  mapStateToProps, mapDispatchToProps
+  mapStateToProps, null
 )(Container);

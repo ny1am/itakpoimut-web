@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
+import { LOGIN_DIALOG, CREATE_COMPANY_DIALOG } from 'constants/dialog';
+import DialogLink from 'components/DialogLink';
+
 class MobileHeader extends React.Component {
   renderUserLinks() {
     const loggedUser = this.props.loggedUser;
@@ -12,7 +15,7 @@ class MobileHeader extends React.Component {
       ];
     } else {
       return (
-        <button className="mobile-user" onClick={this.props.onLogin} />
+        <DialogLink dialogType={LOGIN_DIALOG} className="mobile-user" />
       );
     }
   }
@@ -21,7 +24,7 @@ class MobileHeader extends React.Component {
       <header className="mobile-header">
         <a href="#mobile-menu" className="menu-button" />
         <div className="mobile-header-buttons">
-          <button className="mobile-add-company" onClick={this.props.onCreateCompany} />
+        <DialogLink dialogType={CREATE_COMPANY_DIALOG} className="mobile-add-company" />
           <Link to="/companies" className="mobile-search" />
           {this.renderUserLinks()}
         </div>
@@ -32,9 +35,7 @@ class MobileHeader extends React.Component {
 
 MobileHeader.propTypes = {
   loggedUser: PropTypes.object,
-  onLogin: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,
-  onCreateCompany: PropTypes.func.isRequired,
 };
 
 export default MobileHeader;

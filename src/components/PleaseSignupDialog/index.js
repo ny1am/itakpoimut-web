@@ -1,5 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
+import { LOGIN_DIALOG, SIGNUP_DIALOG } from 'constants/dialog';
+import DialogLink from 'components/DialogLink';
 
 import styles from './styles.scss';
 
@@ -12,22 +14,17 @@ class PleaseSignupDialog extends React.Component {
           Ця дія доступна тільки зареєстрованим користувачам
         </h1>
         <div className="actions">
-          <button className="dialog__button" onClick={this.props.onLogin}>
+          <DialogLink dialogType={LOGIN_DIALOG} className="dialog__button">
             Ввійти
-          </button>
+          </DialogLink>
           <br/>
-          <button className="regularLink" onClick={this.props.onSignup}>
+          <DialogLink dialogType={SIGNUP_DIALOG} className="regularLink">
             Реєстрація
-          </button>
+          </DialogLink>
         </div>
       </div>
     );
   }
 }
-
-PleaseSignupDialog.propTypes = {
-  onLogin: PropTypes.func.isRequired,
-  onSignup: PropTypes.func.isRequired,
-};
 
 export default PleaseSignupDialog;
