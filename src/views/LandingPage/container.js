@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { get } from 'actions/landing';
+import { CREATE_COMPANY_DIALOG } from 'constants/dialog';
+import { showProtectedDialog } from 'actions/dialog';
 
 import LandingPageComponent from './LandingPage';
 
@@ -19,6 +21,11 @@ const mapStateToProps = (state) => ({
   comments: state.landing.comments,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onCreateCompany: () => dispatch(showProtectedDialog(CREATE_COMPANY_DIALOG)),
+  dispatch
+});
+
 export default connect(
-  mapStateToProps, null
+  mapStateToProps, mapDispatchToProps
 )(Container);

@@ -13,7 +13,7 @@ class Comments extends React.Component {
         </header>
         <ul className="comments">
           {this.props.comments.map(item => (
-            <li data-href={"/company/"+item._company._id} key={item._id}>
+            <li key={item._id}>
               <Comment comment={item} company={item._company} />
             </li>
           ))}

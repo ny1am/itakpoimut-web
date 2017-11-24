@@ -6,7 +6,7 @@ import AutocompleteSearch from 'components/AutocompleteSearch';
 import NewCompanies from 'components/NewCompanies';
 import Comments from 'components/Comments';
 
-const LandingPage = ({ newCompanies, comments }) => (
+const LandingPage = ({ newCompanies, comments, onCreateCompany }) => (
   <div>
     <section className="landing">
       <div className="container">
@@ -60,9 +60,9 @@ const LandingPage = ({ newCompanies, comments }) => (
           <p className="description-text">
             Допоможіть нам стати кращими, пропонуючи компанії, яких ще немає у базі. Ми зацікавлені у тому, аби наш сервіс представляв якомога більшу кількість різноманітних компаній - як лояльних до української мови, так і порушників. Зазначимо, що ви тільки пропонуєте компанію на розгляд. Після того її затверджує модератор, і система сама присвоює компанії статус лояльної/порушника на основі наявності/відсутності порушень.
           </p>
-          <a className="page__button" href="/createCompany" data-ajax-dialog="createCompany" data-ajax-url="/createCompany">
+          <button className="page__button" onClick={onCreateCompany}>
             Запропонувати компанію
-          </a>
+          </button>
         </section>
         <NewCompanies companies={newCompanies} />
         <Comments comments={comments} />
@@ -74,6 +74,7 @@ const LandingPage = ({ newCompanies, comments }) => (
 LandingPage.propTypes = {
   newCompanies: PropTypes.array,
   comments: PropTypes.array,
+  onCreateCompany: PropTypes.func.isRequired,
 };
 
 export default LandingPage;

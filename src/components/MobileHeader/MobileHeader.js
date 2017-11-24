@@ -21,7 +21,7 @@ class MobileHeader extends React.Component {
       <header className="mobile-header">
         <a href="#mobile-menu" className="menu-button" />
         <div className="mobile-header-buttons">
-          <a href="/createCompany" className="mobile-add-company" data-ajax-dialog="createCompany" data-ajax-url="/createCompany" />
+          <button className="mobile-add-company" onClick={this.props.onCreateCompany} />
           <Link to="/companies" className="mobile-search" />
           {this.renderUserLinks()}
         </div>
@@ -34,6 +34,7 @@ MobileHeader.propTypes = {
   loggedUser: PropTypes.object,
   onLogin: PropTypes.func.isRequired,
   onLogout: PropTypes.func.isRequired,
+  onCreateCompany: PropTypes.func.isRequired,
 };
 
 export default MobileHeader;

@@ -52,20 +52,6 @@ class UserProfilePage extends React.Component {
       return null;
     }
   }
-  renderChangePasswordLink() {
-    const user = this.props.user || {};
-    if (user.provider === 'local') {
-      return (
-        <div className="row">
-          <a href="/changePassword" className="form-link" data-ajax-dialog="changePassword">
-            Змінити пароль
-          </a>
-        </div>
-      );
-    } else {
-      return null;
-    }
-  }
   render() {
     const errors = this.props.errors || {};
     const user = this.props.user || {};
@@ -114,7 +100,6 @@ class UserProfilePage extends React.Component {
                     maxLength="25"
                   />
                 </div>
-                {this.renderChangePasswordLink()}
               </section>
               <div className="row">
                 <button className="page__button" type="submit">

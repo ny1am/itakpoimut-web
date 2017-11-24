@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
-import { LOGIN_DIALOG } from 'constants/dialog';
-import { showDialog } from 'actions/dialog';
+import { LOGIN_DIALOG, CREATE_COMPANY_DIALOG } from 'constants/dialog';
+import { showDialog, showProtectedDialog } from 'actions/dialog';
 import { logout } from 'actions/auth';
 
 import MobileHeaderComponent from './MobileHeader';
@@ -13,6 +13,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onLogin: () => dispatch(showDialog(LOGIN_DIALOG)),
   onLogout: () => dispatch(logout()),
+  onCreateCompany: () => dispatch(showProtectedDialog(CREATE_COMPANY_DIALOG)),
   dispatch
 });
 
