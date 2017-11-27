@@ -20,10 +20,6 @@ class Container extends React.Component {
   }
 
   componentWillMount () {
-    this.fetchData();
-  }
-
-  fetchData() {
     this.props.onInit(this.props.companyId).then(data => {
       this.setState({
         ready: true,
