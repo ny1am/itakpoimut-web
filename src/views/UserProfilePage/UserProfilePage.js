@@ -115,7 +115,7 @@ class UserProfilePage extends React.Component {
 }
 
 UserProfilePage.propTypes = {
-  user: PropTypes.object,
+  user: PropTypes.object.isRequired,
   errors: PropTypes.object,
   successSave: PropTypes.bool,
   onSubmit: PropTypes.func,

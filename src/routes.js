@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 
+import SecureRoute from 'utils/SecureRoute';
 import LandingPage from 'views/LandingPage';
 import CompanyPage from 'views/CompanyPage';
 import CompaniesPage from 'views/CompaniesPage';
@@ -24,6 +25,7 @@ export const routeConfig = [{
 }, {
   path: '/userProfile',
   component: UserProfilePage,
+  secure: true,
 }, {
   path: '/about',
   component: AboutPage,
@@ -34,8 +36,9 @@ const Routes = ({ store }) => {
     <PreloadWrapper store={store}>
       <Switch>
         {routeConfig.map((cfg, index) => {
+          const RouteComponent = cfg.secure ? SecureRoute : Route;
           return (
-            <Route key={index} {...cfg} />
+            <RouteComponent key={index} {...cfg} />
           );
         })}
         <Route component={NotFoundPage}/>
