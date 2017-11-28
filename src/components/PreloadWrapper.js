@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { Switch, withRouter } from 'react-router-dom';
 import { matchRoutes } from 'react-router-config';
 
 import { PREFETCH_LOCATION_CHANGE } from 'constants';
@@ -32,6 +32,7 @@ class PreloadWrapper extends React.Component {
     this.state = {
       isAppFetching: false,
       appFetchingError: null,
+      initialData: null,
       ready: false,
     };
   }
@@ -57,14 +58,17 @@ class PreloadWrapper extends React.Component {
     const { store, location } = props;
     this.setState({
       isAppFetching: true,
-      appFetchingError: null
+      appFetchingError: null,
+      initialData: null,
     });
     const prevPathName = this.props.location.pathname;
     const promise = reactRouterFetch(routeConfig, location, { store, dispatch: store.dispatch });
-    promise.then(() => {
+    promise.then((data) => {
+      const initialData = data ? data[0].payload : null;
       store.dispatch({type: PREFETCH_LOCATION_CHANGE});
       this.setState({
         isAppFetching: false,
+        initialData,
         ready: true,
       });
       //todo: move to middleware or...
@@ -84,7 +88,15 @@ class PreloadWrapper extends React.Component {
     if (!this.state.ready) {
       return <Loading />;
     }
-    return this.props.children;
+    const children = React.Children.map(this.props.children, child => {
+      const ViewComponent = child.props.component;
+      return React.cloneElement(child, {
+        component: null,
+        render: (props) => (<ViewComponent {...props} initialData={this.state.initialData} />)
+      });
+    });
+
+    return React.createElement(Switch, null, children);
   }
 }
 

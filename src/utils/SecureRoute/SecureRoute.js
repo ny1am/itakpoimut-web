@@ -2,18 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
-const SecureRoute = ({ component: Component, loggedUser, ...rest }) => (
-  <Route {...rest} render={props => (
-    loggedUser ? (
-      <Component {...props}/>
-    ) : (
-      <Redirect to="/"/>
-    )
-  )}/>
-);
+const SecureRoute = ({ loggedUser, ...rest }) => {
+  if (loggedUser) {
+    return <Route {...rest} />;
+  } else {
+    return <Route {...rest} render={() => (<Redirect to="/"/>)} />;
+  }
+};
 
 SecureRoute.propTypes = {
-  component: PropTypes.func,
   loggedUser: PropTypes.object,
 };
 

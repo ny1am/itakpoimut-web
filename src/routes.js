@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Switch, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import SecureRoute from 'utils/SecureRoute';
 import LandingPage from 'views/LandingPage';
@@ -34,15 +34,11 @@ export const routeConfig = [{
 const Routes = ({ store }) => {
   return (
     <PreloadWrapper store={store}>
-      <Switch>
-        {routeConfig.map((cfg, index) => {
-          const RouteComponent = cfg.secure ? SecureRoute : Route;
-          return (
-            <RouteComponent key={index} {...cfg} />
-          );
-        })}
-        <Route component={NotFoundPage}/>
-      </Switch>
+      {routeConfig.map((cfg, index) => {
+        const RouteComponent = cfg.secure ? SecureRoute : Route;
+        return <RouteComponent key={index} {...cfg} />;
+      })}
+      <Route component={NotFoundPage}/>
     </PreloadWrapper>
   );
 };

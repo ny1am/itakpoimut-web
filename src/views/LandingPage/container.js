@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { get } from 'actions/landing';
 
@@ -10,15 +10,13 @@ class Container extends React.Component {
     return dispatch(get());
   }
   render() {
-    return <LandingPageComponent {...this.props} />;
+    const { initialData, ...rest } = this.props;
+    return <LandingPageComponent {...rest} {...initialData} />;
   }
 }
 
-const mapStateToProps = (state) => ({
-  newCompanies: state.landing.newCompanies,
-  comments: state.landing.comments,
-});
+Container.propTypes = {
+  initialData: PropTypes.object,
+};
 
-export default connect(
-  mapStateToProps, null
-)(Container);
+export default Container;
