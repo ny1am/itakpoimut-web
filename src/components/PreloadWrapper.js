@@ -42,9 +42,9 @@ class PreloadWrapper extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    const current = this.props.location;
-    const next = nextProps.location;
-    if (current.pathname === next.pathname) {
+    const current = `${this.props.location.pathname}${this.props.location.search}`;
+    const next = `${nextProps.location.pathname}${nextProps.location.search}`;
+    if (current === next) {
      return;
     }
     this.fetchRoutes(nextProps);
