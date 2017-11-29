@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { avatar, formatDate } from 'utils';
+import Avatar from 'components/Avatar';
+import { formatDate } from 'utils';
 
 class Comment extends React.Component {
   render() {
@@ -11,7 +12,7 @@ class Comment extends React.Component {
     return (
       <article className="comment">
         <div className="comment-image">
-          <img src={avatar(comment._user.picture_url, 90)} />
+          <Avatar user={comment._user} size={90} />
         </div>
         <div className="comment-body">
           <div className="comment-meta">

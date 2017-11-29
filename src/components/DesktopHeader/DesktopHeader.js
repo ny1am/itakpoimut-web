@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { LOGIN_DIALOG } from 'constants/dialog';
 import DialogLink from 'components/DialogLink';
-import { avatar } from 'utils';
+import Avatar from 'components/Avatar';
 
 class DesktopHeader extends React.Component {
   renderUserLinks() {
@@ -12,7 +12,7 @@ class DesktopHeader extends React.Component {
     if (loggedUser) {
       return [
         <Link key="userpick" to="/userProfile">
-          <img className="header-userpic" src={avatar(loggedUser.picture_url, 48)} />
+          <Avatar className="header-userpic" user={loggedUser} size={48} />
         </Link>,
         <Link key="fname" to="/userProfile" className="header-name">
           {loggedUser.fname}

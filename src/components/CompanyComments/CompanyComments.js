@@ -7,7 +7,7 @@ import { LOGIN_DIALOG } from 'constants/dialog';
 import DialogLink from 'components/DialogLink';
 import Pagination from 'components/Pagination';
 import Comment from 'components/Comment';
-import { avatar } from 'utils';
+import Avatar from 'components/Avatar';
 
 class CompanyComments extends React.Component {
 
@@ -45,7 +45,7 @@ class CompanyComments extends React.Component {
           </h2>
           <div className="comment-row">
             <div className="add-comment-image">
-              <img src={avatar(this.props.loggedUser.picture_url)} />
+              <Avatar user={this.props.loggedUser} />
             </div>
             <textarea
               name="text"
