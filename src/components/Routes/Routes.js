@@ -10,9 +10,9 @@ import routeConfig from './routeConfig';
 const Routes = ({ store }) => {
   return (
     <PreloadWrapper store={store}>
-      {routeConfig.map((cfg, index) => {
+      {routeConfig.map(cfg => {
         const RouteComponent = cfg.secure ? SecureRoute : Route;
-        return <RouteComponent key={index} {...cfg} />;
+        return <RouteComponent key={cfg.path} {...cfg} />;
       })}
     </PreloadWrapper>
   );

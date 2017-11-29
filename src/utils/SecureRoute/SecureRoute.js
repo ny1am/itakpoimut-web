@@ -1,17 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import { push } from 'react-router-redux';
 
-const SecureRoute = ({ loggedUser, ...rest }) => {
-  if (loggedUser) {
-    return <Route {...rest} />;
-  } else {
-    return <Route {...rest} render={() => (<Redirect to="/"/>)} />;
-  }
-};
+const SecureRoute = ({ loggedUser, dispatch, ...rest }) => (
+  <Route {...rest} render={(props) => {
+    if (!loggedUser) {
+      dispatch(push('/'));
+    }
+    return rest.render(props);
+  }} />
+);
 
 SecureRoute.propTypes = {
   loggedUser: PropTypes.object,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default SecureRoute;
