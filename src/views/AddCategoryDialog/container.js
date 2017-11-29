@@ -10,22 +10,16 @@ import AddCategoryDialogComponent from './AddCategoryDialog';
 
 class Container extends React.Component {
 
+  static fetch({ companyId }, { dispatch }) {
+    return dispatch(get(companyId));
+  }
+
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-      ready: false,
       errors: {},
     };
-  }
-
-  componentWillMount () {
-    this.props.onInit(this.props.companyId).then(data => {
-      this.setState({
-        ready: true,
-        data: data.payload,
-      });
-    });
   }
 
   onSubmit(params) {
@@ -44,22 +38,19 @@ class Container extends React.Component {
   }
 
   render() {
-    if (!this.state.ready) {
-      return null;
-    }
-    return <AddCategoryDialogComponent {...this.props} {...this.state.data} errors={this.state.errors} onSubmit={this.onSubmit} />;
+    const { initialData, ...rest } = this.props;
+    return <AddCategoryDialogComponent {...rest} {...initialData} errors={this.state.errors} onSubmit={this.onSubmit} />;
   }
 }
 
 Container.propTypes = {
   companyId: PropTypes.number,
-  onInit: PropTypes.func,
+  initialData: PropTypes.object,
   onSubmit: PropTypes.func,
   dispatch: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onInit: (companyId) => dispatch(get(companyId)),
   onSubmit: (data) => dispatch(save(data)),
   dispatch
 });

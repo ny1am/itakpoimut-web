@@ -41,21 +41,68 @@ const DIALOG_COMPONETS = {
 /**
  * Wrapper for dialogs
  */
-const Dialog = ({ dialogType, dialogProps, loggedUser, onClose }) => {
-  if (!dialogType) {
-    return null;
+class Dialog extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isAppFetching: false,
+      initialData: null,
+    };
   }
-  const route = DIALOG_COMPONETS[dialogType];
-  const SpecificDialog = (route.secure&&!loggedUser)?PleaseSignupDialog:route.component;
-  return (
-    <div className="shade">
-      <div className="dialog">
-        <SpecificDialog {...dialogProps} />
-        <button className="dialog_close" onClick={onClose} />
+
+  componentWillReceiveProps (nextProps) {
+    if (this.props.dialogType === nextProps.dialogType || !nextProps.dialogType) {
+     return;
+    }
+    this.fetchInitialData(nextProps);
+  }
+
+  shouldComponentUpdate (nextProps, nextState) {
+    return !nextState.isAppFetching;
+  }
+
+  fetchInitialData (props) {
+    const { dispatch, dialogType, dialogProps } = props;
+    this.setState({
+      isAppFetching: true,
+      appFetchingError: null,
+      initialData: null,
+    });
+    const component = DIALOG_COMPONETS[dialogType].component;
+    const promise = component.fetch ? component.fetch(dialogProps, { dispatch }) : Promise.resolve();
+    promise.then((data) => {
+      const initialData = data ? data.payload : null;
+      this.setState({
+        isAppFetching: false,
+        initialData,
+      });
+    })
+    .catch((err) => {
+      this.setState({
+        isAppFetching: false,
+        appFetchingError: err
+      });
+    });
+  }
+
+  render() {
+    const { dialogType, dialogProps, loggedUser, onClose } = this.props;
+    if (!dialogType) {
+      return null;
+    }
+    const route = DIALOG_COMPONETS[dialogType];
+    const SpecificDialog = (route.secure&&!loggedUser)?PleaseSignupDialog:route.component;
+    return (
+      <div className="shade">
+        <div className="dialog">
+          <SpecificDialog {...dialogProps} initialData={this.state.initialData} />
+          <button className="dialog_close" onClick={onClose} />
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 Dialog.propTypes = {
   /**

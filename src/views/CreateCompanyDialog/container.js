@@ -10,26 +10,16 @@ import CreateCompanyDialogComponent from './CreateCompanyDialog';
 
 class Container extends React.Component {
 
+  static fetch(dialogProps, { dispatch }) {
+    return dispatch(get());
+  }
+
   constructor(props) {
     super(props);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-      ready: false,
       errors: {},
     };
-  }
-
-  componentWillMount () {
-    this.fetchData();
-  }
-
-  fetchData() {
-    this.props.onInit().then(data => {
-      this.setState({
-        ready: true,
-        data: data.payload,
-      });
-    });
   }
 
   onSubmit(params) {
@@ -48,21 +38,18 @@ class Container extends React.Component {
   }
 
   render() {
-    if (!this.state.ready) {
-      return null;
-    }
-    return <CreateCompanyDialogComponent {...this.props} {...this.state.data} errors={this.state.errors} onSubmit={this.onSubmit} />;
+    const { initialData, ...rest } = this.props;
+    return <CreateCompanyDialogComponent {...rest} {...initialData} errors={this.state.errors} onSubmit={this.onSubmit} />;
   }
 }
 
 Container.propTypes = {
-  onInit: PropTypes.func,
+  initialData: PropTypes.object,
   onSubmit: PropTypes.func,
   dispatch: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onInit: () => dispatch(get()),
   onSubmit: (data) => dispatch(save(data)),
   dispatch
 });
