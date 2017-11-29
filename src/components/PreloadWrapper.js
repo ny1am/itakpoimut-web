@@ -4,7 +4,7 @@ import { Switch, withRouter } from 'react-router-dom';
 import { matchRoutes } from 'react-router-config';
 
 import { PREFETCH_LOCATION_CHANGE } from 'constants';
-import { routeConfig } from '../routes';
+import { routeConfig } from 'components/Routes';
 import Loading from 'components/Loading';
 
 function reactRouterFetch (routes, location, options) {
@@ -105,6 +105,10 @@ PreloadWrapper.propTypes = {
    * location object
    */
   location: PropTypes.object.isRequired,
+  /**
+   * redux store object
+   */
+  store: PropTypes.object.isRequired,
   /**
    * children
    */

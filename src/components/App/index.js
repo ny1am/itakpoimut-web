@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Routes from 'components/Routes';
 import Dialog from 'components/Dialog';
 import DesktopHeader from 'components/DesktopHeader';
 import MobileHeader from 'components/MobileHeader';
 import MainMenu from 'components/MainMenu';
 import MobileMenu from 'components/MobileMenu';
 import Footer from 'components/Footer';
-
-import Routes from '../../routes';
 
 /**
  * Main component. Used as a router entry point. Contains ubiquitous components.
