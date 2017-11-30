@@ -14,11 +14,16 @@ const userProfileReducer = (state = initialState, action) => {
       });
     }
 
+    //todo: revise server response
     case SAVE_USER_PROFILE_SUCCESS: {
-      return Object.assign({}, state, {
+      const update = {
         errors: action.payload.errors,
         successSave: action.payload.successSave,
-      });
+      };
+      if (action.payload.successSave) {
+        update.user = action.payload.user;
+      }
+      return Object.assign({}, state, update);
     }
 
     default:

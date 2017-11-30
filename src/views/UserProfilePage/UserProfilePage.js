@@ -1,17 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Avatar from 'components/Avatar';
+import FileUpload from 'components/FileUpload';
+
 class UserProfilePage extends React.Component {
 
   constructor(props) {
     super(props);
     this.handleFnameChange = this.handleFnameChange.bind(this);
     this.handleLnameChange = this.handleLnameChange.bind(this);
+    this.handleAttachment = this.handleAttachment.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     const user = props.user || {};
     this.state = {
       fname: user.fname || '',
       lname: user.lname || '',
+      userpic: null,
     };
   }
 
@@ -25,44 +30,35 @@ class UserProfilePage extends React.Component {
     this.setState({ lname });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const { fname, lname } = this.state;
-    this.props.onSubmit({ fname, lname });
+  handleAttachment(userpic) {
+    this.setState({ userpic });
   }
 
-  renderMessage() {
-    if (this.props.successSave) {
-      return (
-        <div className="dialog-success">
-          Зміни збережено
-        </div>
-      );
-    } else {
-      return null;
-    }
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.onSubmit(this.state);
   }
-  renderError() {
-    const errors = this.props.errors || {};
-    if (errors.page) {
-      <div className="dialog-error">
-        {errors.page}
-      </div>;
-    } else {
-      return null;
-    }
-  }
+
   render() {
     const errors = this.props.errors || {};
     const user = this.props.user || {};
     const fnameClass = errors.fname?'row--error':'';
     const lnameClass = errors.lname?'row--error':'';
+    const successSave = !!this.props.successSave;
     return (
       <div className="pattern-content">
         <div className="container">
           <div className="page-content">
-            {this.renderMessage()}
-            {this.renderError()}
+            {successSave &&
+              <div className="dialog-success">
+                Зміни збережено
+              </div>
+            }
+            {errors.page &&
+              <div className="dialog-error">
+                {errors.page}
+              </div>
+            }
             <form action="/userProfile" method="post" onSubmit={this.handleSubmit}>
               <section className="page-block">
                 <h1 className="page__h1">
@@ -101,6 +97,19 @@ class UserProfilePage extends React.Component {
                   />
                 </div>
               </section>
+
+              <section className="page-block">
+                <h1 className="page__h1">
+                  Ваше фото
+                </h1>
+                <FileUpload key={successSave} className="userpic" error={!!errors.userpic} onChange={this.handleAttachment}>
+                  <Avatar user={this.props.user} />
+                </FileUpload>
+                <div className="hint">
+                  JPEG або PNG,<br/> розміром до 1 Mb
+                </div>
+              </section>
+
               <div className="row">
                 <button className="page__button" type="submit">
                   Зберегти зміни

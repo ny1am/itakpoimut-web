@@ -95,7 +95,7 @@ class CreateCompanyDialog extends React.Component {
               <label className="row__label">
                 Лого компанії
               </label>
-              <FileUpload error={!!errors.attachment} onChange={this.handleAttachment} />
+              <FileUpload className="company-attachment" error={!!errors.attachment} onChange={this.handleAttachment} />
               <div className="hint">
                 JPEG або PNG,<br/> розміром до 1 Mb
               </div>

@@ -28,15 +28,15 @@ const processUserPayload = (action, state, res) => {
   });
 };
 
-export function save({ fname, lname }) {
-  let body = new URLSearchParams();
-  body.set('fname', fname);
-  body.set('lname', lname);
+export function save({ fname, lname, userpic }) {
+  const body = new FormData();
+  body.append('fname', fname);
+  body.append('lname', lname);
+  body.append('userpic', userpic);
   return {
     [CALL_TOKEN_API]: {
       endpoint: `${API_ROOT}/userProfile`,
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: body,
       types: [
         SAVE_USER_PROFILE_REQUEST,

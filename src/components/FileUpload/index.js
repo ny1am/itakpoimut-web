@@ -7,7 +7,7 @@ class FileUpload extends React.Component {
     super(props);
     this.onChange = this.onChange.bind(this);
     this.state = {
-      result: null,
+      result: props.error?'error':null,
     };
   }
 
@@ -34,9 +34,12 @@ class FileUpload extends React.Component {
   }
 
   render() {
-    const className = `company-attachment ${this.state.result?`fu-${this.state.result}`:''}`;
+    const wrapperClassName = `${this.props.className} ${this.state.result?`fu-${this.state.result}`:''}`;
     return (
-      <div className={className}>
+      <div className={wrapperClassName}>
+        {this.props.children &&
+          React.Children.toArray(this.props.children)
+        }
         <input type="file" accept="image/*" onChange={this.onChange} ref={(ref) => this.fileUpload = ref} />
       </div>
     );
@@ -45,6 +48,8 @@ class FileUpload extends React.Component {
 
 FileUpload.propTypes = {
   error: PropTypes.bool,
+  className: PropTypes.string.isRequired,
+  children: PropTypes.node,
   /**
    * change callback
    */
