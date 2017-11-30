@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Avatar from 'components/Avatar';
-import { formatDate } from 'utils';
+import FormatDate from 'components/FormatDate';
 
 class Comment extends React.Component {
   render() {
@@ -20,7 +20,7 @@ class Comment extends React.Component {
               {comment._user.fname} {comment._user.lname}
             </span>
             <span className="comment-time">
-              {formatDate(comment.created)}
+              <FormatDate dateString={comment.created} />
             </span>
             {company &&
               <Link to={`/company/${company._id}`} className="comment-theme">

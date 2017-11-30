@@ -33,25 +33,6 @@ export const categoryByName = (name) => {
   return categoryText(name);
 };
 
-const leadingZero = (number) => {
-  if (number < 10) {
-    return '0' + number.toString();
-  } else {
-    return number.toString();
-  }
-};
-
-//formats date DD/MM/YYYY
-export const formatDate = (dateString) => {
-  const d = new Date(dateString);
-  const dformat = [
-    leadingZero(d.getDate()),
-    leadingZero(d.getMonth()+1),
-    d.getFullYear()
-  ].join('.');
-  return dformat;
-};
-
 export const http = (url) => {
   //todo revise this hotfix
   if (url.indexOf('http') === 0) {
