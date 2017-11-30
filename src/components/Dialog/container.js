@@ -13,10 +13,12 @@ class Container extends React.Component {
 
   constructor(props) {
     super(props);
+    this.changeLoading = this.changeLoading.bind(this);
     this.state = {
       dialogType: props.dialogType,
       isAppFetching: false,
       initialData: null,
+      loading: false,
     };
   }
 
@@ -42,6 +44,10 @@ class Container extends React.Component {
     return !nextState.isAppFetching;
   }
 
+  changeLoading(loading) {
+    this.setState({ loading });
+  }
+
   fetchInitialData (props, dialogType) {
     const { dispatch, dialogProps } = props;
     this.setState({
@@ -61,15 +67,20 @@ class Container extends React.Component {
   }
 
   render() {
-    const { dialogProps, onClose } = this.props;
-    const { dialogType, initialData } = this.state;
+    let { dialogProps = {} } = this.props;
+    const { onClose } = this.props;
+    const { dialogType, initialData, loading } = this.state;
     if (!dialogType) {
       return null;
     }
+    dialogProps = Object.assign({}, dialogProps, {
+      changeLoading: this.changeLoading
+    });
     return (<DialogComponent
       dialogType={dialogType}
       dialogProps={dialogProps}
       initialData={initialData}
+      loading={loading}
       onClose={onClose}
     />);
   }

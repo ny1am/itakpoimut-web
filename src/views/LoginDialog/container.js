@@ -18,7 +18,9 @@ class Container extends React.Component {
   }
 
   onSubmit(...params) {
+    this.props.changeLoading(true);
     this.props.onSubmit(...params).then(data => {
+      this.props.changeLoading(false);
       if (data.payload.result === 'success') {
         this.props.dispatch(hideDialog());
       } else if (data.payload.result === 'error') {
@@ -36,6 +38,7 @@ class Container extends React.Component {
 
 Container.propTypes = {
   onSubmit: PropTypes.func,
+  changeLoading: PropTypes.func,
   dispatch: PropTypes.func,
 };
 

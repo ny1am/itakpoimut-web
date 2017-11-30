@@ -20,7 +20,9 @@ class Container extends React.Component {
 
   //todo refactor this
   onSubmit({ fname, lname, email, password }) {
+    this.props.changeLoading(true);
     this.props.onSubmit({ fname, lname, email, password }).then(data => {
+      this.props.changeLoading(false);
       if (data.payload.result === 'success') {
         this.props.dispatch(auth(email, password)).then(data => {
           if (data.payload.result === 'success') {
@@ -42,6 +44,7 @@ class Container extends React.Component {
 
 Container.propTypes = {
   onSubmit: PropTypes.func,
+  changeLoading: PropTypes.func,
   dispatch: PropTypes.func,
 };
 

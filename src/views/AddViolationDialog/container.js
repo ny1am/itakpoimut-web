@@ -23,7 +23,9 @@ class Container extends React.Component {
   }
 
   onSubmit(params) {
+    this.props.changeLoading(true);
     this.props.onSubmit(params).then(data => {
+      this.props.changeLoading(false);
       if (data.payload.result === 'success') {
         this.props.dispatch(showDialog(SUCCESS_DIALOG, {
           dialog_title: 'Дякуємо!',
@@ -47,6 +49,7 @@ Container.propTypes = {
   companyId: PropTypes.number,
   initialData: PropTypes.object,
   onSubmit: PropTypes.func,
+  changeLoading: PropTypes.func,
   dispatch: PropTypes.func,
 };
 

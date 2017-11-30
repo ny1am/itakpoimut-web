@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import routes from './routes';
+import Loading from './Loading';
 
 /**
  * Wrapper for dialogs
  */
-const Dialog = ({ dialogType, dialogProps, initialData, onClose }) => {
+const Dialog = ({ dialogType, dialogProps, initialData, loading, onClose }) => {
   if (!dialogType) {
     return null;
   }
@@ -16,12 +17,17 @@ const Dialog = ({ dialogType, dialogProps, initialData, onClose }) => {
       <div className="dialog">
         <SpecificDialog {...dialogProps} initialData={initialData} />
         <button className="dialog_close" onClick={onClose} />
+        {loading && <Loading />}
       </div>
     </div>
   );
 };
 
 Dialog.propTypes = {
+  /**
+   * whether show loading screen or not
+   */
+  loading: PropTypes.bool,
   /**
    * dialog initial data
    */
