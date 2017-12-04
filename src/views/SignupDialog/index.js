@@ -1,6 +1,2 @@
-import container from './container';
-import SignupDialogComponent from './SignupDialog';
-
-export { SignupDialogComponent };
-
-export default container;
+export { default as SignupDialogComponent } from './SignupDialog';
+export { default } from './container';

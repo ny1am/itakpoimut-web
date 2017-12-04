@@ -1,6 +1,2 @@
-import container from './container';
-import CompanyCommentsComponent from './CompanyComments';
-
-export { CompanyCommentsComponent };
-
-export default container;
+export { default as CompanyCommentsComponent } from './CompanyComments';
+export { default } from './container';

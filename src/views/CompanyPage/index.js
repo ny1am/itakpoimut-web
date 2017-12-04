@@ -1,6 +1,2 @@
-import container from './container';
-import CompanyPageComponent from './CompanyPage';
-
-export { CompanyPageComponent };
-
-export default container;
+export { default as CompanyPageComponent } from './CompanyPage';
+export { default } from './container';

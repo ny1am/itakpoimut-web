@@ -1,6 +1,2 @@
-import container from './container';
-import AutocompleteSearchComponent from './AutocompleteSearch';
-
-export { AutocompleteSearchComponent };
-
-export default container;
+export { default as AutocompleteSearchComponent } from './AutocompleteSearch';
+export { default } from './container';

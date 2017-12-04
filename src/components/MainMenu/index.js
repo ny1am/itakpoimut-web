@@ -1,6 +1,2 @@
-import container from './container';
-import MainMenuComponent from './MainMenu';
-
-export { MainMenuComponent };
-
-export default container;
+export { default as MainMenuComponent } from './MainMenu';
+export { default } from './container';

@@ -1,6 +1,2 @@
-import container from './container';
-import LoginDialogComponent from './LoginDialog';
-
-export { LoginDialogComponent };
-
-export default container;
+export { default as LoginDialogComponent } from './LoginDialog';
+export { default } from './container';

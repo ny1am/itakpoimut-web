@@ -1,6 +1,2 @@
-import container from './container';
-import FooterComponent from './Footer';
-
-export { FooterComponent };
-
-export default container;
+export { default as FooterComponent } from './Footer';
+export { default } from './container';
