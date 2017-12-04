@@ -7,7 +7,7 @@ import Loading from './Loading';
 /**
  * Wrapper for dialogs
  */
-const Dialog = ({ dialogType, dialogProps, initialData, loading, onClose }) => {
+const Dialog = ({ dialogType, dialogProps, loading, onClose, ...rest }) => {
   if (!dialogType) {
     return null;
   }
@@ -15,7 +15,7 @@ const Dialog = ({ dialogType, dialogProps, initialData, loading, onClose }) => {
   return (
     <div className="shade">
       <div className="dialog">
-        <SpecificDialog {...dialogProps} initialData={initialData} />
+        <SpecificDialog {...dialogProps} {...rest} />
         <button className="dialog_close" onClick={onClose} />
         {loading && <Loading />}
       </div>
@@ -28,10 +28,6 @@ Dialog.propTypes = {
    * whether show loading screen or not
    */
   loading: PropTypes.bool,
-  /**
-   * dialog initial data
-   */
-  initialData: PropTypes.object,
   /**
    * dialog type
    */

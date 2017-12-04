@@ -1,58 +1,21 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
 import { signup } from 'actions/signup';
 import { auth } from 'actions/auth';
 import { hideDialog } from 'actions/dialog';
+import { genericDialog } from 'components/Dialog';
 
 import SignupDialogComponent from './SignupDialog';
 
-class Container extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.state = {
-      errors: null,
-    };
-  }
-
-  //todo refactor this
-  onSubmit({ fname, lname, email, password }) {
-    this.props.changeLoading(true);
-    this.props.onSubmit({ fname, lname, email, password }).then(data => {
-      this.props.changeLoading(false);
+export default genericDialog({
+  onSubmitFunc: ({ fname, lname, email, password }, dispatch) => dispatch(signup({ fname, lname, email, password })).then(data => {
       if (data.payload.result === 'success') {
-        this.props.dispatch(auth(email, password)).then(data => {
+        return dispatch(auth({ username: email, password })).then(data => {
           if (data.payload.result === 'success') {
-            this.props.dispatch(hideDialog());
+            return dispatch(hideDialog());
           }
-        });
-      } else if (data.payload.result === 'error') {
-        this.setState({
-          errors: data.payload.errors
+          return data;
         });
       }
-    });
-  }
-
-  render() {
-    return <SignupDialogComponent {...this.props} {...this.state} onSubmit={this.onSubmit} />;
-  }
-}
-
-Container.propTypes = {
-  onSubmit: PropTypes.func,
-  changeLoading: PropTypes.func,
-  dispatch: PropTypes.func,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (data) => dispatch(signup(data)),
-  dispatch
+      return data;
+    }),
+  Component: SignupDialogComponent,
 });
-
-export default connect(
-  null, mapDispatchToProps
-)(Container);

@@ -67,20 +67,18 @@ class Container extends React.Component {
   }
 
   render() {
-    let { dialogProps = {} } = this.props;
-    const { onClose } = this.props;
+    const { dialogProps, onClose, dispatch } = this.props;
     const { dialogType, initialData, loading } = this.state;
     if (!dialogType) {
       return null;
     }
-    dialogProps = Object.assign({}, dialogProps, {
-      changeLoading: this.changeLoading
-    });
     return (<DialogComponent
       dialogType={dialogType}
       dialogProps={dialogProps}
       initialData={initialData}
       loading={loading}
+      changeLoading={this.changeLoading}
+      dispatch={dispatch}
       onClose={onClose}
     />);
   }
@@ -107,6 +105,10 @@ Container.propTypes = {
    * dialog close function
    */
   onClose: PropTypes.func.isRequired,
+  /**
+   * dispatch function
+   */
+  dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {

@@ -22,7 +22,7 @@ const errorTokenPayload = (action, state, res) => {
   });
 };
 
-export function auth(username, password) {
+export function auth({ username, password }) {
   let body = new URLSearchParams();
   body.set('username', username);
   body.set('password', password);

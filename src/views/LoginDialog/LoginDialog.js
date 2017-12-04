@@ -30,8 +30,7 @@ class LoginDialog extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { username, password } = this.state;
-    this.props.onSubmit(username, password);
+    this.props.onSubmit(this.state);
   }
 
   render() {

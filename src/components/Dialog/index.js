@@ -1,6 +1,4 @@
-import container from './container';
-import DialogComponent from './Dialog';
+export { default as genericDialog } from './genericDialog';
+export { default as DialogComponent } from './Dialog';
 
-export { DialogComponent };
-
-export default container;
+export { default } from './container';

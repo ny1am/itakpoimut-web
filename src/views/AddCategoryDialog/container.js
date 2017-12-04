@@ -1,63 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
 import { SUCCESS_DIALOG } from 'constants/dialog';
 import { get, save } from 'actions/addCategory';
 import { showDialog } from 'actions/dialog';
+import { genericDialog } from 'components/Dialog';
 
 import AddCategoryDialogComponent from './AddCategoryDialog';
 
-class Container extends React.Component {
-
-  static fetch({ companyId }, { dispatch }) {
-    return dispatch(get(companyId));
-  }
-
-  constructor(props) {
-    super(props);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.state = {
-      errors: {},
-    };
-  }
-
-  onSubmit(params) {
-    this.props.changeLoading(true);
-    this.props.onSubmit(params).then(data => {
-      this.props.changeLoading(false);
-      if (data.payload.result === 'success') {
-        this.props.dispatch(showDialog(SUCCESS_DIALOG, {
-          dialog_title: 'Дякуємо!',
-          dialog_body: 'Запит на додання сфери надіслано. Адміністратор розгляне його найближчим часом.',
-        }));
-      } else if (data.payload.result === 'error') {
-        this.setState({
-          errors: data.payload.errors
-        });
-      }
-    });
-  }
-
-  render() {
-    const { initialData, ...rest } = this.props;
-    return <AddCategoryDialogComponent {...rest} {...initialData} errors={this.state.errors} onSubmit={this.onSubmit} />;
-  }
-}
-
-Container.propTypes = {
-  companyId: PropTypes.number,
-  initialData: PropTypes.object,
-  onSubmit: PropTypes.func,
-  changeLoading: PropTypes.func,
-  dispatch: PropTypes.func,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (data) => dispatch(save(data)),
-  dispatch
+export default genericDialog({
+  fetchFunc: ({ companyId }, { dispatch }) => dispatch(get(companyId)),
+  onSubmitFunc: (params, dispatch) => dispatch(save(params)),
+  onSubmitSuccess: (dispatch) => dispatch(showDialog(SUCCESS_DIALOG, {
+    dialog_title: 'Дякуємо!',
+    dialog_body: 'Запит на додання сфери надіслано. Адміністратор розгляне його найближчим часом.',
+  })),
+  Component: AddCategoryDialogComponent,
 });
-
-export default connect(
-  null, mapDispatchToProps
-)(Container);
