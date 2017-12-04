@@ -1,10 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { hideDialog } from 'actions/dialog';
+import { SUCCESS_DIALOG } from 'constants/dialog';
+import { showDialog, hideDialog } from 'actions/dialog';
 
-const genericDialog = ({ fetchFunc, onSubmitFunc, onSubmitSuccess, Component }) => {
-  class Container extends React.Component {
+function getDisplayName(Component) {
+  return Component.displayName || Component.name || 'Component';
+}
+
+const enhanceDialog = ({ fetchFunc, onSubmitFunc, successText }, Component) => {
+  class EnhancedDialog extends React.Component {
 
     static fetch(dialogProps, options) {
       if (fetchFunc) {
@@ -27,8 +32,11 @@ const genericDialog = ({ fetchFunc, onSubmitFunc, onSubmitSuccess, Component }) 
       onSubmitFunc(params, this.props.dispatch).then(data => {
         this.props.changeLoading(false);
         if (data.payload.result === 'success') {
-          if (onSubmitSuccess) {
-            onSubmitSuccess(this.props.dispatch);
+          if (successText) {
+            this.props.dispatch(showDialog(SUCCESS_DIALOG, {
+              dialog_title: 'Дякуємо!',
+              dialog_body: successText
+            }));
           } else {
             this.props.dispatch(hideDialog());
           }
@@ -41,19 +49,21 @@ const genericDialog = ({ fetchFunc, onSubmitFunc, onSubmitSuccess, Component }) 
     }
 
     render() {
-      const { initialData, ...rest } = this.props;
-      return <Component {...rest} {...initialData} errors={this.state.errors} onSubmit={this.onSubmit} />;
+      const { initialData, ...passThroughProps } = this.props;
+      return <Component {...passThroughProps} {...initialData} errors={this.state.errors} onSubmit={this.onSubmit} />;
     }
 
   }
 
-  Container.propTypes = {
+  EnhancedDialog.propTypes = {
     initialData: PropTypes.object,
     changeLoading: PropTypes.func.isRequired,
     dispatch: PropTypes.func.isRequired,
   };
 
-  return Container;
+  EnhancedDialog.displayName = `EnhancedDialog(${getDisplayName(Component)})`;
+
+  return EnhancedDialog;
 };
 
-export default genericDialog;
+export default enhanceDialog;

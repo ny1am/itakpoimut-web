@@ -1,9 +1,8 @@
 import { auth } from 'actions/auth';
-import { genericDialog } from 'components/Dialog';
+import { enhanceDialog } from 'components/Dialog';
 
 import LoginDialogComponent from './LoginDialog';
 
-export default genericDialog({
+export default enhanceDialog({
   onSubmitFunc: (params, dispatch) => dispatch(auth(params)),
-  Component: LoginDialogComponent,
-});
+}, LoginDialogComponent);
