@@ -37,25 +37,9 @@ class AddViolationDialog extends React.Component {
     this.props.onSubmit(this.state);
   }
 
-  renderViolations() {
-    return this.props.violationsList.map(item => (
-      <li key={item} className="row">
-        <div className="check-row">
-          <Checkbox
-            id={"vlt_"+item}
-            name="selectedViolations[]"
-            value={item}
-            checked={this.state.selectedViolations.indexOf(item) > -1}
-            onChange={this.handleViolationChange}
-          />
-          <label htmlFor={"vlt_"+item}>
-            {violationByName(item)}
-          </label>
-        </div>
-      </li>
-    ));
-  }
   render() {
+    const { violationsList } = this.props;
+    const { selectedViolations } = this.state;
     return (
       <div className={`dialog_content ${styles.wrapper}`}>
         <h1 className="dialog__h1">
@@ -66,7 +50,22 @@ class AddViolationDialog extends React.Component {
             Тут ви можете відмітити порушення компанії
           </p>
           <ul className="violations">
-            {this.renderViolations()}
+            {violationsList.map(item => (
+              <li key={item} className="row">
+                <div className="check-row">
+                  <Checkbox
+                    id={"vlt_"+item}
+                    name="selectedViolations[]"
+                    value={item}
+                    checked={selectedViolations.indexOf(item) > -1}
+                    onChange={this.handleViolationChange}
+                  />
+                  <label htmlFor={"vlt_"+item}>
+                    {violationByName(item)}
+                  </label>
+                </div>
+              </li>
+            ))}
           </ul>
           <div className="right-content">
             <button className="dialog__button" type="submit">
@@ -80,14 +79,9 @@ class AddViolationDialog extends React.Component {
 }
 
 AddViolationDialog.propTypes = {
-  selectedViolations: PropTypes.array,
   violationsList: PropTypes.array,
   companyId: PropTypes.number.isRequired,
   onSubmit: PropTypes.func.isRequired,
-};
-
-AddViolationDialog.defaultProps = {
-  selectedViolations: []
 };
 
 export default AddViolationDialog;
