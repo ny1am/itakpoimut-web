@@ -19,22 +19,18 @@ class Container extends React.Component {
       isAppFetching: false,
       initialData: null,
       loading: false,
+      ready: false,
     };
   }
 
+  componentWillMount () {
+    const nextDialogType = this.guardDialogType(this.state.dialogType);
+    this.fetchInitialData(this.props, nextDialogType);
+  }
+
   componentWillReceiveProps (nextProps) {
-    const { dialogType } = this.state;
-    let nextDialogType = nextProps.dialogType;
-    if (nextDialogType) {
-      const route = routes[nextDialogType];
-      if (route.secure && !this.props.loggedUser) {
-        nextDialogType = PLEASE_SIGNUP_DIALOG;
-      }
-    }
-    this.setState({
-      dialogType: nextDialogType,
-    });
-    if (dialogType === nextDialogType || !nextDialogType) {
+    const nextDialogType = this.guardDialogType(nextProps.dialogType);
+    if (this.state.dialogType === nextDialogType || !nextDialogType) {
      return;
     }
     this.fetchInitialData(nextProps, nextDialogType);
@@ -48,7 +44,22 @@ class Container extends React.Component {
     this.setState({ loading });
   }
 
+  guardDialogType(dialogType) {
+    let nextDialogType = dialogType;
+    if (nextDialogType) {
+      const route = routes[nextDialogType];
+      if (route.secure && !this.props.loggedUser) {
+        nextDialogType = PLEASE_SIGNUP_DIALOG;
+      }
+    }
+    this.setState({ dialogType: nextDialogType });
+    return nextDialogType;
+  }
+
   fetchInitialData (props, dialogType) {
+    if (!dialogType) {
+      return;
+    }
     const { dispatch, dialogProps } = props;
     this.setState({
       isAppFetching: true,
@@ -61,6 +72,7 @@ class Container extends React.Component {
       this.setState({
         isAppFetching: false,
         initialData,
+        ready: true,
       });
     })
     .catch(console.err); // eslint-disable-line
@@ -68,8 +80,8 @@ class Container extends React.Component {
 
   render() {
     const { dialogProps, onClose, dispatch } = this.props;
-    const { dialogType, initialData, loading } = this.state;
-    if (!dialogType) {
+    const { dialogType, initialData, loading, ready } = this.state;
+    if (!dialogType || !ready) {
       return null;
     }
     return (<DialogComponent

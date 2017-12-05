@@ -8,12 +8,12 @@ function getDisplayName(Component) {
   return Component.displayName || Component.name || 'Component';
 }
 
-const enhanceDialog = ({ fetchFunc, onSubmitFunc, successText }, Component) => {
+const enhanceDialog = ({ onInit, onSubmit, successText }, Component) => {
   class EnhancedDialog extends React.Component {
 
     static fetch(dialogProps, options) {
-      if (fetchFunc) {
-        return fetchFunc(dialogProps, options);
+      if (onInit) {
+        return onInit(dialogProps, options);
       } else {
         return Promise.resolve();
       }
@@ -29,7 +29,7 @@ const enhanceDialog = ({ fetchFunc, onSubmitFunc, successText }, Component) => {
 
     onSubmit(params) {
       this.props.changeLoading(true);
-      onSubmitFunc(params, this.props.dispatch).then(data => {
+      onSubmit(params, this.props.dispatch).then(data => {
         this.props.changeLoading(false);
         if (data.payload.result === 'success') {
           if (successText) {

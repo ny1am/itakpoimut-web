@@ -4,7 +4,7 @@ import { enhanceDialog } from 'components/Dialog';
 import CreateCompanyDialogComponent from './CreateCompanyDialog';
 
 export default enhanceDialog({
-  fetchFunc: (dialogProps, { dispatch }) => dispatch(get()),
-  onSubmitFunc: (params, dispatch) => dispatch(save(params)),
+  onInit: (dialogProps, { dispatch }) => dispatch(get()),
+  onSubmit: (params, dispatch) => dispatch(save(params)),
   successText: 'Запит на створення компанії надіслано. Адміністратор розгляне його найближчим часом.',
 }, CreateCompanyDialogComponent);

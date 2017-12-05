@@ -4,5 +4,5 @@ import { enhanceDialog } from 'components/Dialog';
 import LoginDialogComponent from './LoginDialog';
 
 export default enhanceDialog({
-  onSubmitFunc: (params, dispatch) => dispatch(auth(params)),
+  onSubmit: (params, dispatch) => dispatch(auth(params)),
 }, LoginDialogComponent);
