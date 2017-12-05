@@ -5,7 +5,7 @@ import { enhanceDialog } from 'components/Dialog';
 import SignupDialogComponent from './SignupDialog';
 
 export default enhanceDialog({
-  onSubmit: ({ fname, lname, email, password }, dispatch) => dispatch(signup({ fname, lname, email, password })).then(data => {
+  onSubmit: ({ email, password, ...passThrough }, dispatch) => dispatch(signup({ email, password, ...passThrough })).then(data => {
     if (data.payload.result === 'success') {
       return dispatch(auth({ username: email, password }));
     }

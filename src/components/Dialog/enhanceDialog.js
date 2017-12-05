@@ -11,9 +11,9 @@ function getDisplayName(Component) {
 const enhanceDialog = ({ onInit, onSubmit, successText }, Component) => {
   class EnhancedDialog extends React.Component {
 
-    static fetch(dialogProps, options) {
+    static fetch(dialogProps, dispatch) {
       if (onInit) {
-        return onInit(dialogProps, options);
+        return onInit(dialogProps, dispatch);
       } else {
         return Promise.resolve();
       }

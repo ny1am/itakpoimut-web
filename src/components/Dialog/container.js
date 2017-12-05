@@ -66,7 +66,7 @@ class Container extends React.Component {
       initialData: null,
     });
     const component = routes[dialogType].component;
-    const promise = component.fetch ? component.fetch(dialogProps, { dispatch }) : Promise.resolve();
+    const promise = component.fetch ? component.fetch(dialogProps, dispatch) : Promise.resolve();
     promise.then((data) => {
       const initialData = data ? data.payload : null;
       this.setState({
