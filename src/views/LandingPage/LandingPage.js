@@ -9,7 +9,7 @@ import NewCompanies from 'components/NewCompanies';
 import Comments from 'components/Comments';
 
 const LandingPage = ({ newCompanies, comments }) => (
-  <div>
+  <React.Fragment>
     <section className="landing">
       <div className="container">
         <h1 className="main-header">
@@ -70,7 +70,7 @@ const LandingPage = ({ newCompanies, comments }) => (
         <Comments comments={comments} />
       </div>
     </div>
-  </div>
+  </React.Fragment>
 );
 
 LandingPage.propTypes = {

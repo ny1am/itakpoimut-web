@@ -17,9 +17,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <Dialog />
+      <React.Fragment>
         <Progress.Component />
+        <Dialog />
 
         <DesktopHeader />
         <MobileHeader />
@@ -29,7 +29,7 @@ class App extends React.Component {
           <Routes store={this.props.store} />
         </main>
         <Footer />
-      </div>
+      </React.Fragment>
     );
   }
 }
