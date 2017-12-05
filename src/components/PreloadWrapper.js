@@ -4,6 +4,7 @@ import { Switch, withRouter } from 'react-router-dom';
 import { matchRoutes } from 'react-router-config';
 
 import { PREFETCH_LOCATION_CHANGE } from 'constants';
+import * as pageLoading from 'actions/pageLoading';
 import { routeConfig } from 'components/Routes';
 import Loading from 'components/Loading';
 
@@ -63,7 +64,9 @@ class PreloadWrapper extends React.Component {
     });
     const prevPathName = this.props.location.pathname;
     const promise = reactRouterFetch(routeConfig, location, { store, dispatch: store.dispatch });
+    pageLoading.start();
     promise.then((data) => {
+      pageLoading.end();
       const initialData = data ? data[0].payload : null;
       store.dispatch({type: PREFETCH_LOCATION_CHANGE});
       this.setState({

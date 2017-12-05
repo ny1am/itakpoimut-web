@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Progress from 'react-progress-2';
 
 import Routes from 'components/Routes';
 import Dialog from 'components/Dialog';
@@ -18,6 +19,7 @@ class App extends React.Component {
     return (
       <div>
         <Dialog />
+        <Progress.Component />
 
         <DesktopHeader />
         <MobileHeader />

@@ -5242,6 +5242,10 @@ react-input-autosize@^2.0.1:
     create-react-class "^15.5.2"
     prop-types "^15.5.8"
 
+react-progress-2@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/react-progress-2/-/react-progress-2-4.4.2.tgz#2e8a7c34426813975d7b0898a098490c3e7adcff"
+
 react-proxy@^1.1.7:
   version "1.1.8"
   resolved "https://registry.yarnpkg.com/react-proxy/-/react-proxy-1.1.8.tgz#9dbfd9d927528c3aa9f444e4558c37830ab8c26a"
