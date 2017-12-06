@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Progress from 'react-progress-2';
 
+import Loading from 'components/Loading';
 import Routes from 'components/Routes';
 import Dialog from 'components/Dialog';
 import DesktopHeader from 'components/DesktopHeader';
@@ -19,6 +20,7 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Progress.Component />
+        <Loading />
         <Dialog />
 
         <DesktopHeader />

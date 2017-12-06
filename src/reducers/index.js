@@ -2,11 +2,13 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
 import authReducer from './auth';
+import globalReducer from './global';
 import companyReducer from './company';
 import companiesReducer from './companies';
 import userProfileReducer from './userProfile';
 
 const rootReducer = combineReducers({
+  global: globalReducer,
   auth: authReducer,
   company: companyReducer,
   companies: companiesReducer,

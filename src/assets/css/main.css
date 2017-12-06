@@ -56,3 +56,31 @@
 }
 
 
+.loading-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #004a80;
+  color: white;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.loading-wrapper p.loadingText {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2.5rem;
+  font-style: normal;
+}
+
+.loading-hidden {
+  opacity: 0;
+  z-index: -1;
+}

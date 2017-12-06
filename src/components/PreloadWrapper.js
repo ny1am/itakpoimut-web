@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { Switch, withRouter } from 'react-router-dom';
 import { matchRoutes } from 'react-router-config';
 
-import { PREFETCH_LOCATION_CHANGE } from 'constants';
 import * as pageLoading from 'actions/pageLoading';
+import { appReady } from 'actions/global';
 import { routeConfig } from 'components/Routes';
-import Loading from 'components/Loading';
 
 function reactRouterFetch (routes, location, options) {
   const branch = matchRoutes(routes, location.pathname);
@@ -68,12 +67,12 @@ class PreloadWrapper extends React.Component {
     promise.then((data) => {
       pageLoading.end();
       const initialData = data ? data[0].payload : null;
-      store.dispatch({type: PREFETCH_LOCATION_CHANGE});
       this.setState({
         isAppFetching: false,
         initialData,
         ready: true,
       });
+      store.dispatch(appReady());
       //todo: move to middleware or...
       if (prevPathName !== location.pathname) {
         window.scrollTo(0, 0);
@@ -89,7 +88,7 @@ class PreloadWrapper extends React.Component {
   }
   render () {
     if (!this.state.ready) {
-      return <Loading />;
+      return null;
     }
     const children = React.Children.map(this.props.children, child => {
       const ViewComponent = child.props.component;
