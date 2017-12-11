@@ -5,8 +5,7 @@ import Progress from 'react-progress-2';
 import Loading from 'components/Loading';
 import Routes from 'components/Routes';
 import Dialog from 'components/Dialog';
-import DesktopHeader from 'components/DesktopHeader';
-import MobileHeader from 'components/MobileHeader';
+import Header from 'components/Header';
 import MainMenu from 'components/MainMenu';
 import MobileMenu from 'components/MobileMenu';
 import Footer from 'components/Footer';
@@ -22,9 +21,7 @@ class App extends React.Component {
         <Progress.Component />
         <Loading />
         <Dialog />
-
-        <DesktopHeader />
-        <MobileHeader />
+        <Header />
         <MainMenu />
         <MobileMenu />
         <main className="site-content">
