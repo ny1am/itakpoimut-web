@@ -11,14 +11,6 @@ function getDisplayName(Component) {
 const enhanceDialog = ({ onInit, onSubmit, successText }, Component) => {
   class EnhancedDialog extends React.Component {
 
-    static fetch(dialogProps, dispatch) {
-      if (onInit) {
-        return onInit(dialogProps, dispatch);
-      } else {
-        return Promise.resolve();
-      }
-    }
-
     constructor(props) {
       super(props);
       this.onSubmit = this.onSubmit.bind(this);
@@ -53,6 +45,10 @@ const enhanceDialog = ({ onInit, onSubmit, successText }, Component) => {
       return <Component {...passThroughProps} {...initialData} errors={this.state.errors} onSubmit={this.onSubmit} />;
     }
 
+  }
+
+  if (onInit) {
+    EnhancedDialog.fetch = onInit;
   }
 
   EnhancedDialog.propTypes = {

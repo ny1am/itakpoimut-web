@@ -68,9 +68,13 @@ class Container extends React.Component {
     });
     const component = routes[dialogType].component;
     const promise = component.fetch ? component.fetch(dialogProps, dispatch) : Promise.resolve();
-    pageLoading.start();
+    if (component.fetch) {
+      pageLoading.start();
+    }
     promise.then((data) => {
-      pageLoading.end();
+      if (component.fetch) {
+        pageLoading.end();
+      }
       const initialData = data ? data.payload : null;
       this.setState({
         isAppFetching: false,

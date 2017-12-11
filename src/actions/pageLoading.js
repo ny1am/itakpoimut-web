@@ -6,7 +6,7 @@ import Progress from 'react-progress-2';
 export function start() {
   try {
     Progress.show();
-  } catch(e){console.log(e)}
+  } catch(e){console.log(e)} // eslint-disable-line
 }
 
 /**
