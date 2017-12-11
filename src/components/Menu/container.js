@@ -1,18 +1,19 @@
 import { connect } from 'react-redux';
 
-import { logout } from 'actions/auth';
+import { hide } from 'actions/menu';
 
-import DesktopHeaderComponent from './DesktopHeader';
+import MenuComponent from './Menu';
 
 const mapStateToProps = (state) => ({
   loggedUser: state.auth.loggedUser,
+  shown: state.menu,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLogout: () => dispatch(logout()),
+  onMenuHide: () => dispatch(hide()),
   dispatch
 });
 
 export default connect(
   mapStateToProps, mapDispatchToProps
-)(DesktopHeaderComponent);
+)(MenuComponent);

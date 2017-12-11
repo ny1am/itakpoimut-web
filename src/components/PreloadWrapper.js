@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Switch, withRouter } from 'react-router-dom';
 import { matchRoutes } from 'react-router-config';
 
+import { PRELOAD_LOCATION_CHANGE } from 'constants';
 import * as pageLoading from 'actions/pageLoading';
 import { appReady } from 'actions/global';
 import { routeConfig } from 'components/Routes';
@@ -66,6 +67,7 @@ class PreloadWrapper extends React.Component {
     pageLoading.start();
     promise.then((data) => {
       pageLoading.end();
+      store.dispatch({type: PRELOAD_LOCATION_CHANGE});
       const initialData = data ? data[0].payload : null;
       this.setState({
         isAppFetching: false,

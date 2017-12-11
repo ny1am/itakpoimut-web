@@ -6,7 +6,7 @@ import { LOGIN_DIALOG, CREATE_COMPANY_DIALOG } from 'constants/dialog';
 import DialogLink from 'components/DialogLink';
 import Avatar from 'components/Avatar';
 
-const Header = ({ loggedUser, onLogout }) => (
+const Header = ({ loggedUser, onLogout, onMenuShow }) => (
   <React.Fragment>
     <header className="desktop-header">
       <div className="container">
@@ -33,7 +33,7 @@ const Header = ({ loggedUser, onLogout }) => (
       </div>
     </header>
     <header className="mobile-header">
-      <a href="#mobile-menu" className="menu-button" />
+      <button className="menu-button" onClick={onMenuShow} />
       <div className="mobile-header-buttons">
         <DialogLink dialogType={CREATE_COMPANY_DIALOG} className="mobile-add-company" />
         <Link to="/companies" className="mobile-search" />
@@ -53,6 +53,7 @@ const Header = ({ loggedUser, onLogout }) => (
 Header.propTypes = {
   loggedUser: PropTypes.object,
   onLogout: PropTypes.func.isRequired,
+  onMenuShow: PropTypes.func.isRequired,
 };
 
 export default Header;
