@@ -4,6 +4,9 @@ import { AppContainer } from 'react-hot-loader';
 import configureStore, { history } from './store/configureStore';
 import { loadAuth } from './store/storage';
 import Root from './components/Root';
+import 'scroll-restoration-polyfill';
+
+window.history.scrollRestoration = 'manual';
 
 require('./favicon.ico');
 
