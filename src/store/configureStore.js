@@ -7,6 +7,8 @@ import { routerMiddleware } from 'react-router-redux';
 // import logger from 'redux-logger';
 
 import beforeApiMiddleware from './beforeApiMiddleware';
+import pageLoadingMiddleware from './pageLoadingMiddleware';
+import scrollMiddleware from './scrollMiddleware';
 import rootReducer from '../reducers';
 
 export const history = createHistory();
@@ -21,6 +23,8 @@ function configureStoreProd(initialState) {
     thunk,
     beforeApiMiddleware,
     apiMiddleware,
+    pageLoadingMiddleware,
+    scrollMiddleware,
     reactRouterMiddleware,
   ];
 
@@ -43,6 +47,8 @@ function configureStoreDev(initialState) {
     thunk,
     beforeApiMiddleware,
     apiMiddleware,
+    pageLoadingMiddleware,
+    scrollMiddleware,
     reactRouterMiddleware,
     // logger
   ];

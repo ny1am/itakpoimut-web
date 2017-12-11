@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Switch, withRouter } from 'react-router-dom';
 import { matchRoutes } from 'react-router-config';
 
-import { PRELOAD_LOCATION_CHANGE } from 'constants';
-import * as pageLoading from 'actions/pageLoading';
+import * as preload from 'actions/preload';
 import { appReady } from 'actions/global';
 import { routeConfig } from 'components/Routes';
+
 
 function reactRouterFetch (routes, location, options) {
   const branch = matchRoutes(routes, location.pathname);
@@ -19,10 +19,10 @@ function reactRouterFetch (routes, location, options) {
     if (promises && promises.length > 0) {
       return Promise.all(promises);
     } else {
-      return Promise.resolve();
+      return null;
     }
   } else {
-    return Promise.resolve();
+    return null;
   }
 }
 
@@ -62,12 +62,16 @@ class PreloadWrapper extends React.Component {
       appFetchingError: null,
       initialData: null,
     });
-    const prevPathName = this.props.location.pathname;
     const promise = reactRouterFetch(routeConfig, location, { store, dispatch: store.dispatch });
-    pageLoading.start();
-    promise.then((data) => {
-      pageLoading.end();
-      store.dispatch({type: PRELOAD_LOCATION_CHANGE});
+    const preloadOpts = {
+      preloadType: 'page',
+      instant: !promise,
+      prevPathname: this.props.location.pathname,
+      pathname: props.location.pathname
+    };
+    store.dispatch(preload.start(preloadOpts));
+    (promise || Promise.resolve()).then((data) => {
+      store.dispatch(preload.end(preloadOpts));
       const initialData = data ? data[0].payload : null;
       this.setState({
         isAppFetching: false,
@@ -75,10 +79,6 @@ class PreloadWrapper extends React.Component {
         ready: true,
       });
       store.dispatch(appReady());
-      //todo: move to middleware or...
-      if (prevPathName !== location.pathname) {
-        window.scrollTo(0, 0);
-      }
     })
     .catch((err) => {
       this.setState({

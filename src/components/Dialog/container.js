@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { hideDialog } from 'actions/dialog';
 import { PLEASE_SIGNUP_DIALOG } from 'constants/dialog';
-import * as pageLoading from 'actions/pageLoading';
+import * as preload from 'actions/preload';
 
 import DialogComponent from './Dialog';
 import routes from './routes';
@@ -68,13 +68,15 @@ class Container extends React.Component {
     });
     const component = routes[dialogType].component;
     const promise = component.fetch ? component.fetch(dialogProps, dispatch) : Promise.resolve();
-    if (component.fetch) {
-      pageLoading.start();
-    }
+    dispatch(preload.start({
+      preloadType: 'dialog',
+      instant: !component.fetch,
+    }));
     promise.then((data) => {
-      if (component.fetch) {
-        pageLoading.end();
-      }
+      dispatch(preload.end({
+        preloadType: 'dialog',
+        instant: !component.fetch,
+      }));
       const initialData = data ? data.payload : null;
       this.setState({
         isAppFetching: false,
