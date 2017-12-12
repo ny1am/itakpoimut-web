@@ -24,15 +24,17 @@ class Menu extends React.Component {
           </div>
         </nav>
         <section className={mobileClassName}>
-          <header className="mobile-menu__header">
-            <button className="close" onClick={onMenuHide} />
-            <h1>
-              <q>И так поймут</q> каталог <abbr title="Засоби масової інформації">ЗМІ</abbr> та бізнесу
-            </h1>
-          </header>
-          <nav className="mobile-main-menu">
-            <MenuItems className="mobile-main-menu" loggedUser={loggedUser}/>
-          </nav>
+          <div className="mobile-menu-content">
+            <header className="mobile-menu__header">
+              <button className="close" onClick={onMenuHide} />
+              <h1>
+                <q>И так поймут</q> каталог <abbr title="Засоби масової інформації">ЗМІ</abbr> та бізнесу
+              </h1>
+            </header>
+            <nav className="mobile-main-menu">
+              <MenuItems className="mobile-main-menu" loggedUser={loggedUser}/>
+            </nav>
+          </div>
         </section>
       </React.Fragment>
     );

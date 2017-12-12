@@ -46,12 +46,14 @@ class PreloadWrapper extends React.Component {
     const current = `${this.props.location.pathname}${this.props.location.search}`;
     const next = `${nextProps.location.pathname}${nextProps.location.search}`;
     if (current === next) {
-      this.props.store.dispatch(preload.end({
-        preloadType: 'page',
-        instant: true,
-        prevRoute: nextProps.location.pathname,
-        route: nextProps.location.pathname,
-      }));
+      if (this.props.location !== nextProps.location) {
+        this.props.store.dispatch(preload.end({
+          preloadType: 'page',
+          instant: true,
+          prevRoute: nextProps.location.pathname,
+          route: nextProps.location.pathname,
+        }));
+      }
       return;
     }
     this.fetchRoutes(nextProps);
