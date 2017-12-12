@@ -11,7 +11,10 @@ export default () => next => action => {
 
   if (action.type === PRELOAD_LOCATION_CHANGE_END && action.preloadType === 'dialog') {
     //scroll dialog to top
-    document.getElementById('dialog').scrollTop = 0;
+    const dialog = document.getElementById('dialog');
+    if (dialog) {
+      dialog.scrollTop = 0;
+    }
   }
 
   return next(action);

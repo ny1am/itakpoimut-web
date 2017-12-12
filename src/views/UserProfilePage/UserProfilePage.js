@@ -103,7 +103,7 @@ class UserProfilePage extends React.Component {
                   Ваше фото
                 </h1>
                 <FileUpload key={successSave} className="userpic" error={!!errors.userpic} onChange={this.handleAttachment}>
-                  <Avatar user={this.props.user} />
+                  <Avatar user={user} />
                 </FileUpload>
                 <div className="hint">
                   JPEG або PNG,<br/> розміром до 1 Mb

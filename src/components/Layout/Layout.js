@@ -10,9 +10,16 @@ class Layout extends React.Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.dialogShown) {
+      document.body.style.overflowY = 'hidden';
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (!this.props.dialogShown && nextProps.dialogShown) {
       //dialog has been shown
+      document.body.style.overflowY = 'hidden';
       this.setState({
         pageYOffset: window.pageYOffset
       });
@@ -22,6 +29,7 @@ class Layout extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.dialogShown && !this.props.dialogShown) {
       //dialog has been hidden
+      document.body.style.overflowY = '';
       window.scrollTo(0, prevState.pageYOffset);
     }
   }
