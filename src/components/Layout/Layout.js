@@ -27,7 +27,7 @@ class Layout extends React.Component {
   }
 
   render() {
-    const { children, dialogShown } = this.props;
+    const { children, dialogShown, appReady } = this.props;
     const { pageYOffset } = this.state;
     const style = dialogShown ? {
       overflowX: 'hidden',
@@ -36,8 +36,9 @@ class Layout extends React.Component {
       marginTop: `${-pageYOffset}px`,
       paddingBottom: `${pageYOffset}px`
     } : {};
+    const className = `content-wrapper ${appReady?'content-wrapper-shown':''}`;
     return (
-      <div style={style}>
+      <div className={className} style={style}>
         {children}
       </div>
     );
@@ -46,6 +47,7 @@ class Layout extends React.Component {
 
 Layout.propTypes = {
   dialogShown: PropTypes.bool,
+  appReady: PropTypes.bool,
   children: PropTypes.node,
 };
 

@@ -85,3 +85,13 @@
   opacity: 0;
   z-index: -1;
 }
+
+.content-wrapper {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  backface-visibility: hidden;
+}
+
+.content-wrapper-shown {
+  opacity: 1;
+}
