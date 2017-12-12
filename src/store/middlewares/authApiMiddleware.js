@@ -5,7 +5,7 @@ import { PLEASE_SIGNUP_DIALOG } from 'constants/dialog';
 import { showDialog } from 'actions/dialog';
 import { logout } from 'actions/auth';
 
-import { loadAuth } from './storage';
+import { loadAuth } from '../storage';
 
 /**
  * CALL_TOKEN_API handler. Intercept actions with this constant and add auth headers to request.
