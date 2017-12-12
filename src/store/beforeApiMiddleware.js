@@ -1,11 +1,16 @@
 import { CALL_API } from 'redux-api-middleware';
+
 import { CALL_TOKEN_API } from 'constants';
+import { PLEASE_SIGNUP_DIALOG } from 'constants/dialog';
+import { showDialog } from 'actions/dialog';
+import { logout } from 'actions/auth';
+
 import { loadAuth } from './storage';
 
 /**
  * CALL_TOKEN_API handler. Intercept actions with this constant and add auth headers to request.
  */
-export default () => next => action => {
+export default ({ dispatch }) => next => action => {
   if (!action) {
     return;
   }
@@ -22,7 +27,13 @@ export default () => next => action => {
       [CALL_API]: callAuthApi
     };
 
-    return next(nextAction);
+    return next(nextAction).then((data) => {
+      if (data.payload && data.payload.name === 'ApiError' && data.payload.status === 401) {
+        dispatch(logout());
+        return dispatch(showDialog(PLEASE_SIGNUP_DIALOG));
+      }
+      return data;
+    });
   }
 
   return next(action);
