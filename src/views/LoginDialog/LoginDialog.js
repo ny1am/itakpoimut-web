@@ -73,7 +73,7 @@ class LoginDialog extends React.Component {
           </button>
         </form>
         <aside className="dialog__aside">
-          <DialogLink dialogType={SIGNUP_DIALOG}>
+          <DialogLink dialogType={SIGNUP_DIALOG} className="regularLink">
             Реєстрація
           </DialogLink>
         </aside>
