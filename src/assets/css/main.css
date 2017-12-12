@@ -85,9 +85,3 @@
   opacity: 0;
   z-index: -1;
 }
-
-.layout-hidden {
-  overflow-x: hidden;
-  overflow-y: scroll;
-  height: 100vh;
-}
