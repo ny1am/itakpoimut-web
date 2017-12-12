@@ -68,15 +68,15 @@ class Container extends React.Component {
     });
     const component = routes[dialogType].component;
     const promise = component.fetch ? component.fetch(dialogProps, dispatch) : Promise.resolve();
-    dispatch(preload.start({
+    const preloadOpts = {
       preloadType: 'dialog',
       instant: !component.fetch,
-    }));
+      prevRoute: this.props.dialogType,
+      route: dialogType,
+    };
+    dispatch(preload.start(preloadOpts));
     promise.then((data) => {
-      dispatch(preload.end({
-        preloadType: 'dialog',
-        instant: !component.fetch,
-      }));
+      dispatch(preload.end(preloadOpts));
       const initialData = data ? data.payload : null;
       this.setState({
         isAppFetching: false,

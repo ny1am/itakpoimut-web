@@ -66,8 +66,8 @@ class PreloadWrapper extends React.Component {
     const preloadOpts = {
       preloadType: 'page',
       instant: !promise,
-      prevPathname: this.props.location.pathname,
-      pathname: props.location.pathname
+      prevRoute: this.props.location.pathname,
+      route: props.location.pathname
     };
     store.dispatch(preload.start(preloadOpts));
     (promise || Promise.resolve()).then((data) => {

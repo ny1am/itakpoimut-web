@@ -14,7 +14,7 @@ const Dialog = ({ dialogType, dialogProps, loading, onClose, ...rest }) => {
   const SpecificDialog = routes[dialogType].component;
   return (
     <div className="shade">
-      <div className="dialog">
+      <div id="dialog" className="dialog">
         <SpecificDialog {...dialogProps} {...rest} />
         <button className="dialog_close" onClick={onClose} />
         {loading && <Loading />}
