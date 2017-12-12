@@ -18,6 +18,7 @@ class AutocompleteSearch extends React.Component {
     };
     this.changeTitle = this.changeTitle.bind(this);
     this.changeCategory = this.changeCategory.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
     this.search = this.search.bind(this);
     this.delayedSearch = debounce(this.search, 300);
@@ -37,6 +38,11 @@ class AutocompleteSearch extends React.Component {
     });
     this.delayedSearch();
   }
+  onSubmit(e) {
+    e.preventDefault();
+    const { title, category: selectedCategory } = this.state;
+    this.props.onSubmit({ title, selectedCategory });
+  }
   search() {
     this.props.onSearch({term: this.state.title, category: this.state.category}).then(data => {
       this.setState({companies: data.payload.results, shown: true});
@@ -48,7 +54,7 @@ class AutocompleteSearch extends React.Component {
   render() {
     return (
       <article className="main-search">
-        <form action="/companies" method="GET">
+        <form action="/companies" method="GET" onSubmit={this.onSubmit}>
           <div className="search-construct">
             <div className="search-construct-input">
               <input name="title" type="text" placeholder="Введіть назву компанії" autoComplete="off" value={this.state.title} onChange={this.changeTitle} onFocus={this.search} />
@@ -76,6 +82,7 @@ AutocompleteSearch.propTypes = {
   categories: PropTypes.array,
   shown: PropTypes.bool,
   onSearch: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 AutocompleteSearch.defaultProps = {
