@@ -4,6 +4,7 @@ import Progress from 'react-progress-2';
 
 import Loading from 'components/Loading';
 import Routes from 'components/Routes';
+import Layout from 'components/Layout';
 import Dialog from 'components/Dialog';
 import Header from 'components/Header';
 import Menu from 'components/Menu';
@@ -21,12 +22,14 @@ class App extends React.Component {
         <Loading />
         <Dialog />
 
-        <Header />
-        <Menu />
-        <main className="site-content">
-          <Routes store={this.props.store} />
-        </main>
-        <Footer />
+        <Layout>
+          <Header />
+          <Menu />
+          <main className="site-content">
+            <Routes store={this.props.store} />
+          </main>
+          <Footer />
+        </Layout>
 
       </React.Fragment>
     );
