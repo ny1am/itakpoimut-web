@@ -1,0 +1,33 @@
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: border-box;
+  background-color: white;
+  width: 50px;
+  min-width: 50px;
+  max-height: 50px;
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.title {
+  margin: 0 15px;
+  display: inline-block;
+  max-height: 2rem;
+  line-height: 2rem;
+  overflow: hidden;
+  flex-grow: 1;
+  text-overflow: ellipsis;
+}
+
+.loyalty {
+  display: inline-block;
+  text-align: right
+}

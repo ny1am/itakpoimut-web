@@ -20,7 +20,6 @@ class App extends React.Component {
       <React.Fragment>
         <Progress.Component />
         <Loading />
-
         <Dialog />
 
         <Layout>

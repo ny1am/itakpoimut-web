@@ -1,5 +1,5 @@
-import PleaseSignupDialog from 'components/PleaseSignupDialog';
-import SuccessDialog from 'components/SuccessDialog';
+import PleaseSignupDialog from 'views/PleaseSignupDialog';
+import SuccessDialog from 'views/SuccessDialog';
 import LoginDialog from 'views/LoginDialog';
 import SignupDialog from 'views/SignupDialog';
 import CreateCompanyDialog from 'views/CreateCompanyDialog';
