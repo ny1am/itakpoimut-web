@@ -3,23 +3,19 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.scss';
 
-class SuccessDialog extends React.Component {
-  render() {
-    return (
-      <div className={`dialog_content ${styles.wrapper}`}>
-        <h1 className="dialog__h1">
-          {this.props.dialog_title}
-        </h1>
-        <div className={styles.icon} />
-        <p dangerouslySetInnerHTML={{__html: this.props.dialog_body}} />
-      </div>
-    );
-  }
-}
+const SuccessDialog = ({ title, body }) => (
+  <div className={`dialog_content ${styles.wrapper}`}>
+    <h1 className="dialog__h1">
+      {title}
+    </h1>
+    <div className={styles.icon} />
+    <p dangerouslySetInnerHTML={{__html: body}} />
+  </div>
+);
 
 SuccessDialog.propTypes = {
-  dialog_title: PropTypes.string.isRequired,
-  dialog_body: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
 };
 
 export default SuccessDialog;

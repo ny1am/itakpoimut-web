@@ -46,7 +46,9 @@ class PreloadWrapper extends React.Component {
     const current = `${this.props.location.pathname}${this.props.location.search}`;
     const next = `${nextProps.location.pathname}${nextProps.location.search}`;
     if (current === next) {
-      if (this.props.location !== nextProps.location) {
+      const dialogType = (this.props.location.state || {}).dialogType;
+      const nextDialogType = (nextProps.location.state || {}).dialogType;
+      if (this.props.location !== nextProps.location && (dialogType == nextDialogType)) {
         this.props.store.dispatch(preload.end({
           preloadType: 'page',
           instant: true,

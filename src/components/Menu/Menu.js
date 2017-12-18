@@ -43,13 +43,15 @@ class Menu extends React.Component {
               </h1>
             </header>
             <nav className={styles.menuWrapper}>
-              {menuLinks.map((item, index) => (
-                <li key={index}>
-                  <Link to={item.location}>
-                    {item.title}
-                  </Link>
-                </li>
-              ))}
+              <ul className={styles.menu}>
+                {menuLinks.map((item, index) => (
+                  <li key={index}>
+                    <Link to={item.location}>
+                      {item.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </nav>
           </div>
         </section>

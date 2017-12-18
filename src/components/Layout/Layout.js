@@ -5,13 +5,6 @@ import styles from './styles.scss';
 
 class Layout extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      pageYOffset: 0,
-    };
-  }
-
   componentDidMount() {
     if (this.props.dialogShown) {
       document.body.style.overflowY = 'hidden';
@@ -22,29 +15,21 @@ class Layout extends React.Component {
     if (!this.props.dialogShown && nextProps.dialogShown) {
       //dialog has been shown
       document.body.style.overflowY = 'hidden';
-      this.setState({
-        pageYOffset: window.pageYOffset
-      });
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.dialogShown && !this.props.dialogShown) {
       //dialog has been hidden
       document.body.style.overflowY = '';
-      window.scrollTo(0, prevState.pageYOffset);
     }
   }
 
   render() {
     const { children, dialogShown, appReady } = this.props;
-    const { pageYOffset } = this.state;
     const style = dialogShown ? {
       overflowX: 'hidden',
       overflowY: 'scroll',
-      height: '100vh',
-      marginTop: `${-pageYOffset}px`,
-      paddingBottom: `${pageYOffset}px`
     } : {};
     const className = `${styles.wrapper} ${appReady?styles.ready:''}`;
     return (

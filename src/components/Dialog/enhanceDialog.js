@@ -26,8 +26,8 @@ const enhanceDialog = ({ onInit, onSubmit, successText }, Component) => {
         if (data.payload.result === 'success') {
           if (successText) {
             this.props.dispatch(showDialog(SUCCESS_DIALOG, {
-              dialog_title: 'Дякуємо!',
-              dialog_body: successText
+              title: 'Дякуємо!',
+              body: successText
             }));
           } else {
             this.props.dispatch(hideDialog());
