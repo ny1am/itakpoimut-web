@@ -30,7 +30,7 @@ class CompaniesSearchResults extends React.Component {
           <div className="search-results-header clearfix">
             Підібрано {this.props.companiesCount} з {this.props.allCompaniesCount} компаній
             <div className="right">
-              <button type="submit" className={"plain sort-"+newSortOrder} formAction={"/companies?sortOrder="+newSortOrder} onClick={(evt)=>{this.sort(evt, newSortOrder);}}>
+              <button type="submit" className={"sort-"+newSortOrder} formAction={"/companies?sortOrder="+newSortOrder} onClick={(evt)=>{this.sort(evt, newSortOrder);}}>
                 За алфавітом
               </button>
             </div>

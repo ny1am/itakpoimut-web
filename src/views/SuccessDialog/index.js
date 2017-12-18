@@ -5,7 +5,7 @@ import styles from './styles.scss';
 
 const SuccessDialog = ({ title, body }) => (
   <div className={`dialog_content ${styles.wrapper}`}>
-    <h1 className="dialog__h1">
+    <h1>
       {title}
     </h1>
     <div className={styles.icon} />

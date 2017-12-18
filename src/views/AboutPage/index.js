@@ -1,10 +1,12 @@
 import React from 'react';
 
+import styles from './styles.scss';
+
 const AboutPage = () => (
   <div className="container">
-    <div className="static-container">
-      <div className="static-restrict">
-        <section className="static-section">
+    <div className={styles.wrapper}>
+      <div className={styles.restrict}>
+        <section className={styles.section}>
           <h1>
             Причина створення групи
           </h1>
@@ -12,7 +14,7 @@ const AboutPage = () => (
             Ідея виникла у зв’язку з тим, що багато бізнесів в Україні, які пропонують споживачам продукти чи послуги, не вважають за важливе супроводжувати їх державною мовою, тим самим позбавляючи україномовного споживача отримати повну і вичерпну інформацію про товар чи послугу, яку він має бажання придбати.
           </p>
         </section>
-        <section className="static-section">
+        <section className={styles.section}>
           <h1>
             Завдання групи
           </h1>
@@ -20,7 +22,7 @@ const AboutPage = () => (
             Оскільки один в полі не воїн, то за допомогою гурту однодумців нам буде легше звертатися до компаній з вимогою забезпечити нам наші права.
           </p>
         </section>
-        <section className="static-section">
+        <section className={styles.section}>
           <h1>
             Форма та методи впливу
           </h1>
@@ -29,7 +31,7 @@ const AboutPage = () => (
   Листи в головні офіси компаній, листи в головні офіси в Україні, зустрічі з представниками компаній, проведення переговорів з менеджментом компаній, фільмування процесу передачі звернень чи переговорів, висвітлення процесів які відбуваються на даний момент, подання заяв в службу захисту прав споживача,та судові інстанції.
           </p>
         </section>
-        <section className="static-section">
+        <section className={styles.section}>
           <h1>
             Алгоритм впливу
           </h1>

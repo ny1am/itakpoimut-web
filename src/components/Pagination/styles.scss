@@ -1,0 +1,46 @@
+ul.pagination {
+  text-align: center;
+  margin-top: 36px;
+  &>li {
+    display: inline-block;
+    box-sizing: border-box;
+    vertical-align: middle;
+    margin: 0 7px;
+    width: 28px;
+    height: 28px;
+    &.page {
+      line-height: 26px;
+      border: 1px solid #b7b7b7;
+      border-radius: 5px;
+      color: #999;
+      font-size: 16px;
+      font-weight: 600;
+      &.active {
+        background-color: #004a80;
+        color: white;
+        border-color: #004a80;
+      }
+    }
+    &.prev {
+      margin: 0 6px 0 0;
+      background-image: url(/assets/img/icons-sprite.png);
+      background-position: -80px -142px;
+      width: 10px;
+      height: 16px;
+    }
+    &.next {
+      margin: 0 0 0 6px;
+      background-image: url(/assets/img/icons-sprite.png);
+      background-position: -70px -142px;
+      width: 10px;
+      height: 16px;
+    }
+    a,button {
+      height: 100%;
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

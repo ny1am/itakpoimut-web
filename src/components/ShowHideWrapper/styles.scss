@@ -1,0 +1,44 @@
+.trigger {
+  box-sizing: border-box;
+  height: 40px;
+  border: 1px solid #959595;
+  border-radius: 5px;
+  text-align: center;
+  color: #666;
+  font-size: 0.875rem;
+  padding: 12px 15px;
+  cursor: pointer;
+  margin-top: -20px;
+  margin-bottom: 40px;
+  &:after {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 15px;
+  }
+  &.open {
+    &:before {
+      content: 'Згорнути';
+    }
+    &:after {
+      background-image: url(/assets/img/icons-sprite.png);
+      background-position: -92px -75px;
+      width: 10px;
+      height: 5px;
+    }
+  }
+  &.close {
+    &:before {
+      content: 'Показати';
+    }
+    &:after {
+      background-image: url(/assets/img/icons-sprite.png);
+      background-position: -82px -75px;
+      width: 10px;
+      height: 5px;
+    }
+  }
+  @media (max-width: 640px) {
+    margin-top: -10px;
+  }
+}

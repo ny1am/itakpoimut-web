@@ -221,9 +221,6 @@ class CompaniesPage extends React.Component {
                   <ul className="search-chk-group">
                     {this.renderViolationsList()}
                   </ul>
-                  <noscript>
-                    <button type="submit" className="dialog__button">Пошук</button>
-                  </noscript>
                 </div>
               </details>
               <CompaniesSearchResults

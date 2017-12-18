@@ -42,7 +42,7 @@ class AddViolationDialog extends React.Component {
     const { selectedViolations } = this.state;
     return (
       <div className={`dialog_content ${styles.wrapper}`}>
-        <h1 className="dialog__h1">
+        <h1>
           Додати порушення
         </h1>
         <form action="/addViolation" method="post" onSubmit={this.handleSubmit}>
@@ -68,7 +68,7 @@ class AddViolationDialog extends React.Component {
               </li>
             ))}
           </ul>
-          <div className="right-content">
+          <div className={styles.actions}>
             <button className="dialog__button" type="submit">
               Додати
             </button>

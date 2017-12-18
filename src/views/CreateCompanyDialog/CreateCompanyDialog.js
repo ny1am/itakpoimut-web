@@ -82,7 +82,7 @@ class CreateCompanyDialog extends React.Component {
     const company_siteClass = errors.company_site?'row--error':'';
     return (
       <div className={`dialog_content ${styles.wrapper}`}>
-        <h1 className="dialog__h1">
+        <h1>
           Запропонувати компанію
         </h1>
         {this.renderDialogError()}
@@ -169,7 +169,7 @@ class CreateCompanyDialog extends React.Component {
               </div>
             </div>
           </div>
-          <div className="right-content">
+          <div className={styles.actions}>
             <button className="dialog__button" type="submit">Додати</button>
           </div>
         </form>

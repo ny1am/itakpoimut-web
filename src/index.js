@@ -6,6 +6,8 @@ import { loadAuth } from './store/storage';
 import Root from './components/Root';
 import 'scroll-restoration-polyfill';
 
+import 'react-select/dist/react-select.css';
+
 window.history.scrollRestoration = 'manual';
 
 require('./favicon.ico');

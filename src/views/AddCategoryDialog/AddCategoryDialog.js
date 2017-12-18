@@ -124,7 +124,7 @@ class AddCategoryDialog extends React.Component {
   render() {
     return (
       <div className={`dialog_content ${styles.wrapper}`}>
-        <h1 className="dialog__h1">
+        <h1>
           Додати сферу
         </h1>
         <p>
@@ -139,7 +139,7 @@ class AddCategoryDialog extends React.Component {
             </div>
           </div>
           {this.renderCategories()}
-          <div className="right-content">
+          <div className={styles.actions}>
             <button className="dialog__button" type="submit">
               Готово
             </button>

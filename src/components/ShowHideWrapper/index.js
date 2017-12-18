@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './styles.scss';
+
 class ShowHideWrapper extends React.Component {
 
   constructor(props) {
@@ -39,7 +41,7 @@ class ShowHideWrapper extends React.Component {
   }
 
   renderToggleElement() {
-    const toggleClassName = 'js-sm-trigger ' + (!this.state.hidden?'open':'close');
+    const toggleClassName = `${styles.trigger} ${this.state.hidden?styles.close:styles.open}`;
     return (
       <div className={toggleClassName} onClick={this.toggle} />
     );

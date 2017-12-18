@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './styles.scss';
+
 function fixProps(props, page) {
   let result = Object.assign({}, props);
   for (let name in result) {
@@ -32,7 +34,7 @@ class Pagination extends React.Component {
     let privPage = Number(this.props.currentPage) - 1;
     privPage = privPage<1?1:privPage;
     return (
-      <li className="prev">
+      <li className={styles.prev}>
         {this.renderChildElement(privPage)}
       </li>
     );
@@ -41,7 +43,7 @@ class Pagination extends React.Component {
     let nextPage = Number(this.props.currentPage) + 1;
     nextPage = nextPage>this.props.totalPages?this.props.totalPages:nextPage;
     return (
-      <li className="next">
+      <li className={styles.next}>
         {this.renderChildElement(nextPage)}
       </li>
     );
@@ -69,7 +71,7 @@ class Pagination extends React.Component {
       });
     }
     return pages.map((page, index) => (
-      <li key={index} className={page.active?'page active':'page'}>
+      <li key={index} className={`${styles.page} ${page.active?styles.active:''}`}>
         {this.renderChildElement(page.index, page.index)}
       </li>
     ));
@@ -77,7 +79,7 @@ class Pagination extends React.Component {
   render() {
     if (this.props.totalPages > 1) {
       return (
-        <ul className="pagination">
+        <ul className={styles.pagination}>
           {this.renderPrevPage()}
           {this.renderPages()}
           {this.renderNextPage()}

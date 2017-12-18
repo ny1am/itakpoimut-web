@@ -57,7 +57,7 @@ class CompanyComments extends React.Component {
               maxLength="500"
             />
           </div>
-          <div className="right-content">
+          <div className={styles.actions}>
             <button className="dialog__button" type="submit">Додати коментар</button>
           </div>
         </form>

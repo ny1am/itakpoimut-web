@@ -57,7 +57,7 @@ class SignupDialog extends React.Component {
     const passwordClass = errors.password?'row--error':'';
     return (
       <div className="dialog_content">
-        <h1 className="dialog__h1">
+        <h1>
           Реєстрація
         </h1>
         <form action="/signup" method="post" onSubmit={this.handleSubmit}>

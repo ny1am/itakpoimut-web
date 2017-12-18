@@ -39,7 +39,7 @@ class LoginDialog extends React.Component {
     const passwordClass = errors.password?'row--error':'';
     return (
       <div className="dialog_content">
-        <h1 className="dialog__h1">
+        <h1>
           Вхід
         </h1>
         <form action="/login" method="post" onSubmit={this.handleSubmit}>
