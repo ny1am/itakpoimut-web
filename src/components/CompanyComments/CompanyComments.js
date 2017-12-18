@@ -9,6 +9,8 @@ import Pagination from 'components/Pagination';
 import Comment from 'components/Comment';
 import Avatar from 'components/Avatar';
 
+import styles from './styles.scss';
+
 class CompanyComments extends React.Component {
 
   constructor(props) {
@@ -38,13 +40,13 @@ class CompanyComments extends React.Component {
   renderCommentsForm() {
     if (this.props.loggedUser) {
       return (
-        <form action="/addComment" className="add-comment" method="post" onSubmit={this.handleSubmit}>
+        <form action="/addComment" className={styles.form} method="post" onSubmit={this.handleSubmit}>
           <input type="hidden" name="_company" value={this.props.company._id} />
           <h2>
             Додати коментар
           </h2>
-          <div className="comment-row">
-            <div className="add-comment-image">
+          <div className={styles.row}>
+            <div className={styles.rowImage}>
               <Avatar user={this.props.loggedUser} />
             </div>
             <textarea
@@ -62,35 +64,18 @@ class CompanyComments extends React.Component {
       );
     } else {
       return (
-        <div className="guest-add-comment">
+        <div className={styles.notLoggedIn}>
           Для того, щоб залишити коментар, вам необхідно <DialogLink dialogType={LOGIN_DIALOG}>ввійти</DialogLink>
         </div>
       );
     }
   }
-  renderComments() {
-    if (this.props.comments.length > 0) {
-      return (
-        <ul ref="comments" className="company-comments__ul">
-          {this.renderCommentItems()}
-        </ul>
-      );
-    } else {
-      return null;
-    }
-  }
-  renderCommentItems() {
-    return this.props.comments.map((item, index) => (
-      <li key={index}>
-        <Comment comment={item} />
-      </li>
-    ));
-  }
   render() {
+    const { comments } = this.props;
     return (
       <div className="container">
-        <section className="company-comments">
-          <header className="company-comments__header">
+        <section className={styles.wrapper}>
+          <header className={styles.header}>
             <h1>
               Коментарі
             </h1>
@@ -98,7 +83,15 @@ class CompanyComments extends React.Component {
               {this.props.commentsCount} коментарів
             </span>
           </header>
-          {this.renderComments()}
+          {comments.length > 0 &&
+            <ul ref="comments" className={styles.list}>
+              {comments.map((item, index) => (
+                <li key={index}>
+                  <Comment comment={item} />
+                </li>
+              ))}
+            </ul>
+          }
           <Pagination currentPage={this.props.currentPage} totalPages={this.props.totalPages}>
             <Link to={"/company/"+this.props.company._id+"?currentPage={{page}}"} />
           </Pagination>

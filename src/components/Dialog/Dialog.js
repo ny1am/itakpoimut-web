@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import routes from './routes';
 import Loading from './Loading';
+import styles from './styles.scss';
 
 /**
  * Wrapper for dialogs
@@ -13,10 +14,10 @@ const Dialog = ({ dialogType, dialogProps, loading, onClose, ...rest }) => {
   }
   const SpecificDialog = routes[dialogType].component;
   return (
-    <div className="shade">
-      <div id="dialog" className="dialog">
+    <div className={styles.shade}>
+      <div id="dialog" className={styles.dialog}>
         <SpecificDialog {...dialogProps} {...rest} />
-        <button className="dialog_close" onClick={onClose} />
+        <button className={styles.close} onClick={onClose} />
         {loading && <Loading />}
       </div>
     </div>

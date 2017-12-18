@@ -10,6 +10,8 @@ import Header from 'components/Header';
 import Menu from 'components/Menu';
 import Footer from 'components/Footer';
 
+import styles from './styles.scss';
+
 /**
  * Main component. Used as a router entry point. Contains ubiquitous components.
  */
@@ -25,7 +27,7 @@ class App extends React.Component {
         <Layout>
           <Header />
           <Menu />
-          <main className="site-content">
+          <main className={styles.content}>
             <Routes store={this.props.store} />
           </main>
           <Footer />

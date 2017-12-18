@@ -1,0 +1,11 @@
+.wrapper {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  backface-visibility: hidden;
+  &.ready {
+    opacity: 1;  
+  }
+}

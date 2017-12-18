@@ -5,30 +5,32 @@ import { Link } from 'react-router-dom';
 import Avatar from 'components/Avatar';
 import FormatDate from 'components/FormatDate';
 
+import styles from './styles.scss';
+
 class Comment extends React.Component {
   render() {
     const comment = this.props.comment;
     const company = this.props.company;
     return (
-      <article className="comment">
-        <div className="comment-image">
+      <article className={styles.wrapper}>
+        <div className={styles.logo}>
           <Avatar user={comment._user} size={90} />
         </div>
-        <div className="comment-body">
-          <div className="comment-meta">
-            <span className="comment-author">
+        <div className={styles.body}>
+          <div className={styles.meta}>
+            <span className={styles.author}>
               {comment._user.fname} {comment._user.lname}
             </span>
-            <span className="comment-time">
+            <span className={styles.time}>
               <FormatDate dateString={comment.created} />
             </span>
             {company &&
-              <Link to={`/company/${company._id}`} className="comment-theme">
+              <Link to={`/company/${company._id}`} className={styles.theme}>
                 до теми {company.title}
               </Link>
             }
           </div>
-          <p className="comment-text">
+          <p className={styles.text}>
             {comment.text}
           </p>
         </div>

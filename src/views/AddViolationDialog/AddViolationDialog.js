@@ -59,6 +59,7 @@ class AddViolationDialog extends React.Component {
                     value={item}
                     checked={selectedViolations.indexOf(item) > -1}
                     onChange={this.handleViolationChange}
+                    className="row-checkbox"
                   />
                   <label htmlFor={"vlt_"+item}>
                     {violationByName(item)}

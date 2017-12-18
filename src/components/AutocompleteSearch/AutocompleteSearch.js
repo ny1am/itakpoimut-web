@@ -6,6 +6,7 @@ import enhanceWithClickOutside from 'react-click-outside';
 import categories from 'shared/js/categories';
 
 import AutocompletePopup from './AutocompletePopup';
+import styles from './styles.scss';
 
 class AutocompleteSearch extends React.Component {
   constructor(props) {
@@ -53,14 +54,14 @@ class AutocompleteSearch extends React.Component {
   }
   render() {
     return (
-      <article className="main-search">
+      <article className={styles.wrapper}>
         <form action="/companies" method="GET" onSubmit={this.onSubmit}>
           <div className="search-construct">
             <div className="search-construct-input">
               <input name="title" type="text" placeholder="Введіть назву компанії" autoComplete="off" value={this.state.title} onChange={this.changeTitle} onFocus={this.search} />
               <AutocompletePopup companies={this.state.companies} shown={this.state.shown}/>
             </div>
-            <div className="search-construct-select">
+            <div className={styles.select}>
               <select name="selectedCategory" value={this.state.category} onChange={this.changeCategory}>
                 <option value="">Всі сфери</option>
                 {this.props.categories.map(item => (

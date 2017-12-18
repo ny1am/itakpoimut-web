@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './styles.scss';
+
 class Layout extends React.Component {
 
   constructor(props) {
@@ -44,7 +46,7 @@ class Layout extends React.Component {
       marginTop: `${-pageYOffset}px`,
       paddingBottom: `${pageYOffset}px`
     } : {};
-    const className = `content-wrapper ${appReady?'content-wrapper-shown':''}`;
+    const className = `${styles.wrapper} ${appReady?styles.ready:''}`;
     return (
       <div className={className} style={style}>
         {children}

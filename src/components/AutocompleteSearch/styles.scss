@@ -1,0 +1,58 @@
+article.wrapper {
+  margin-top: 64px;
+  box-sizing: border-box;
+  background-color: rgba(37,37,37,0.8);
+  border-radius: 10px 5px 5px;
+  width: 87.5%;
+  padding: 27px;
+  margin-left: auto;
+  margin-right: auto;
+  @media (max-width: 1170px) { 
+    padding: 8px;
+    width: 100%;
+    padding: calc(5px + 1%);
+  }
+}
+
+.select {
+  position: relative;
+  height: 100%;
+  max-width: 270px;
+  min-width: 100px;
+  flex-grow: 1;
+  box-sizing: border-box;
+  border-left: 1px solid #e1e1e1;
+  background-color: white;
+  display: none;
+}
+
+.select select {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  color: #b7b7b7;
+  font-size: 1.25rem;
+  background-color: white;
+}
+
+@media (max-width: 800px) {
+  .select {
+    max-width: 200px;
+  }
+  .select select {
+    max-width: 200px;
+  }
+}
+@media (max-width: 640px) {
+  .select {
+    max-width: 100px;
+  }
+  .select select {
+    max-width: 100px;
+  }
+}
+@supports (display: flex) {
+  .select {
+    display: block;
+  }
+}
