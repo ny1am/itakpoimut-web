@@ -9,8 +9,8 @@ class PleaseSignupDialog extends React.Component {
   render() {
     return (
       <div className={`dialog_content ${styles.wrapper}`}>
-        <div className="forbidden-figure" />
-        <h1 className="smallHeader">
+        <div className={styles.icon} />
+        <h1 className={styles.text}>
           Ця дія доступна тільки зареєстрованим користувачам
         </h1>
         <div className="actions">
