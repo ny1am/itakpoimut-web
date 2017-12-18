@@ -4,19 +4,28 @@ import { Link } from 'react-router-dom';
 
 import { CREATE_COMPANY_DIALOG } from 'constants/dialog';
 import DialogLink from 'components/DialogLink';
-import MenuItems from 'components/MenuItems';
 
+import userLinks from './userLinks';
 import styles from './styles.scss';
 
 class Menu extends React.Component {
   render() {
     const { loggedUser, shown, onMenuHide } = this.props;
     const mobileClassName = `${styles.mobile} ${shown?styles.shown:''}`;
+    const menuLinks = userLinks(loggedUser);
     return (
       <React.Fragment>
         <nav className={styles.desktop}>
           <div className={`container ${styles.container}`}>
-            <MenuItems className={styles.menu} loggedUser={loggedUser}/>
+            <ul className={styles.menu}>
+              {menuLinks.map((item, index) => (
+                <li key={index}>
+                  <Link to={item.location}>
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
             <div className={styles.aside}>
               <Link className={styles.search} to="/companies" />
               <DialogLink dialogType={CREATE_COMPANY_DIALOG} className={styles.addCompany}>
@@ -34,7 +43,13 @@ class Menu extends React.Component {
               </h1>
             </header>
             <nav className={styles.menuWrapper}>
-              <MenuItems className={styles.menu} loggedUser={loggedUser}/>
+              {menuLinks.map((item, index) => (
+                <li key={index}>
+                  <Link to={item.location}>
+                    {item.title}
+                  </Link>
+                </li>
+              ))}
             </nav>
           </div>
         </section>

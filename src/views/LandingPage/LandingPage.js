@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 import { CREATE_COMPANY_DIALOG } from 'constants/dialog';
 import DialogLink from 'components/DialogLink';
 import AutocompleteSearch from 'components/AutocompleteSearch';
-import NewCompanies from 'components/NewCompanies';
-import Comments from 'components/Comments';
+import LandingSection from 'components/LandingSection';
+import CompanyPreview from 'components/CompanyPreview';
+import Comment from 'components/Comment';
 
 const LandingPage = ({ newCompanies, comments }) => (
   <React.Fragment>
@@ -66,8 +67,26 @@ const LandingPage = ({ newCompanies, comments }) => (
             Запропонувати компанію
           </DialogLink>
         </section>
-        <NewCompanies companies={newCompanies} />
-        <Comments comments={comments} />
+        {newCompanies &&
+          <LandingSection title="Нові компанії">
+            <ul className="new-companies">
+              {newCompanies.map(item => (
+                <li key={item._id}>
+                  <CompanyPreview company={item}/>
+                </li>
+              ))}
+            </ul>
+          </LandingSection>
+        }
+        <LandingSection title="Останні коментарі">
+          <ul className="comments">
+            {comments.map(item => (
+              <li key={item._id}>
+                <Comment comment={item} company={item._company} />
+              </li>
+            ))}
+          </ul>
+        </LandingSection>
       </div>
     </div>
   </React.Fragment>

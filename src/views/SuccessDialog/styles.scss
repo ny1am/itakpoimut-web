@@ -1,3 +1,15 @@
 div.wrapper {
   max-width: 320px;
 }
+
+.icon {
+  text-align: center;
+  &:before {
+    content: '';
+    display: inline-block;
+    background-image: url(/assets/img/icons-sprite.png);
+    background-position: 0px 0px;
+    width: 82px;
+    height: 82px;
+  }
+}

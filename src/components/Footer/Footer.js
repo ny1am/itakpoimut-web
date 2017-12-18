@@ -1,27 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-import MenuItems from 'components/MenuItems';
+import { userLinks } from 'components/Menu';
 
 import styles from './styles.scss';
 
-class Footer extends React.Component {
-  render() {
-    return (
-      <footer className={styles.footer}>
-        <div className="container">
-          <nav>
-            <MenuItems className={styles.menu} loggedUser={this.props.loggedUser}/>
-          </nav>
-          <div className={styles.helpers}>
-            <a href="https://www.facebook.com/groups/i.tak.poymut" target="_blank" title="facebook" className={styles.facebook} />
-            <a href="#top" title="Нагору" className={styles.up} />
-          </div>
+const Footer = ({ loggedUser }) => {
+  const menuLinks = userLinks(loggedUser);
+  return (
+    <footer className={styles.footer}>
+      <div className="container">
+        <nav>
+          <ul className={styles.menu}>
+            {menuLinks.map((item, index) => (
+              <li key={index}>
+                <Link to={item.location}>
+                  {item.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className={styles.helpers}>
+          <a href="https://www.facebook.com/groups/i.tak.poymut" target="_blank" title="facebook" className={styles.facebook} />
+          <a href="#top" title="Нагору" className={styles.up} />
         </div>
-      </footer>
-    );
-  }
-}
+      </div>
+    </footer>
+  );
+};
 
 Footer.propTypes = {
   loggedUser: PropTypes.object,

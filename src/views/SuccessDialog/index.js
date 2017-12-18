@@ -10,7 +10,7 @@ class SuccessDialog extends React.Component {
         <h1 className="dialog__h1">
           {this.props.dialog_title}
         </h1>
-        <div className="success-figure" />
+        <div className={styles.icon} />
         <p dangerouslySetInnerHTML={{__html: this.props.dialog_body}} />
       </div>
     );

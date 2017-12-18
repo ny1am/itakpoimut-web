@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './styles.scss';
+
 class Radio extends React.Component {
 
   constructor(props) {
@@ -25,9 +27,11 @@ class Radio extends React.Component {
   }
 
   render() {
+    const { className, id, ...props } = this.props;
+    const wrapperClassName = `${styles.radio} ${className||''}`;
     return (
-      <div className="radio" {...this.state.checked?{'data-checked':''}:{}}>
-        <input type="radio" {...this.props} checked={this.state.checked} onChange={this.handleChange}/>
+      <div className={wrapperClassName} {...this.state.checked?{'data-checked':''}:{}}>
+        <input id={id} type="radio" {...props} checked={this.state.checked} onChange={this.handleChange}/>
         <label htmlFor={this.props.id} />
       </div>
     );
@@ -38,6 +42,7 @@ Radio.propTypes = {
   id: PropTypes.string,
   defaultChecked: PropTypes.bool,
   checked: PropTypes.bool,
+  className: PropTypes.string,
   onChange: PropTypes.func,
 };
 
