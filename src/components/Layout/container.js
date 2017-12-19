@@ -8,7 +8,6 @@ const mapStateToProps = (state) => {
   const menuShown = state.menu;
   return {
     dialogShown: (dialogShown || menuShown),
-    appReady: state.global.appReady,
   };
 };
 

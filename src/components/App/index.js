@@ -21,7 +21,6 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Progress.Component />
-        <Loading />
         <Dialog />
 
         <Layout>
@@ -32,6 +31,8 @@ class App extends React.Component {
           </main>
           <Footer />
         </Layout>
+
+        <Loading />
 
       </React.Fragment>
     );

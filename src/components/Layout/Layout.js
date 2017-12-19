@@ -26,14 +26,13 @@ class Layout extends React.Component {
   }
 
   render() {
-    const { children, dialogShown, appReady } = this.props;
+    const { children, dialogShown } = this.props;
     const style = dialogShown ? {
       overflowX: 'hidden',
       overflowY: 'scroll',
     } : {};
-    const className = `${styles.wrapper} ${appReady?styles.ready:''}`;
     return (
-      <div className={className} style={style}>
+      <div className={styles.wrapper} style={style}>
         {children}
       </div>
     );
@@ -42,7 +41,6 @@ class Layout extends React.Component {
 
 Layout.propTypes = {
   dialogShown: PropTypes.bool,
-  appReady: PropTypes.bool,
   children: PropTypes.node,
 };
 

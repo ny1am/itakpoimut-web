@@ -6,7 +6,9 @@ import { loadAuth } from './store/storage';
 import Root from './components/Root';
 import 'scroll-restoration-polyfill';
 
+import './main.scss';
 import 'react-select/dist/react-select.css';
+import 'react-progress-2/main.css';
 
 window.history.scrollRestoration = 'manual';
 

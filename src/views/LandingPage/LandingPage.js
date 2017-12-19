@@ -78,15 +78,17 @@ const LandingPage = ({ newCompanies, comments }) => (
             </ul>
           </LandingSection>
         }
-        <LandingSection title="Останні коментарі">
-          <ul className="comments">
-            {comments.map(item => (
-              <li key={item._id}>
-                <Comment comment={item} company={item._company} />
-              </li>
-            ))}
-          </ul>
-        </LandingSection>
+        {comments &&
+          <LandingSection title="Останні коментарі">
+            <ul className="comments">
+              {comments.map(item => (
+                <li key={item._id}>
+                  <Comment comment={item} company={item._company} />
+                </li>
+              ))}
+            </ul>
+          </LandingSection>
+        }
       </div>
     </div>
   </React.Fragment>
