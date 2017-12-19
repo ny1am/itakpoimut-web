@@ -3,6 +3,8 @@
   flex-direction: column;
   overflow-y: scroll;
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 #app {

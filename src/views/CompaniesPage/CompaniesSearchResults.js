@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Pagination from 'components/Pagination';
 import CompanyOverview from 'components/CompanyOverview';
 
+import styles from './styles.scss';
+
 class CompaniesSearchResults extends React.Component {
 
   constructor(props) {
@@ -24,13 +26,14 @@ class CompaniesSearchResults extends React.Component {
 
   render() {
     const newSortOrder = (this.props.sortOrder==='asc'?'desc':'asc');
+    const sortClassName = `${styles.sort} ${newSortOrder==='asc'?styles.asc:styles.desc}`;
     if (this.props.companies.length > 0) {
       return (
         <div className="search-results">
           <div className="search-results-header clearfix">
             Підібрано {this.props.companiesCount} з {this.props.allCompaniesCount} компаній
             <div className="right">
-              <button type="submit" className={"sort-"+newSortOrder} formAction={"/companies?sortOrder="+newSortOrder} onClick={(evt)=>{this.sort(evt, newSortOrder);}}>
+              <button type="submit" className={sortClassName} formAction={"/companies?sortOrder="+newSortOrder} onClick={(evt)=>{this.sort(evt, newSortOrder);}}>
                 За алфавітом
               </button>
             </div>

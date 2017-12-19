@@ -10,9 +10,9 @@ class PleaseSignupDialog extends React.Component {
     return (
       <div className={`dialog_content ${styles.wrapper}`}>
         <div className={styles.icon} />
-        <h1 className={styles.text}>
+        <div className={styles.text}>
           Ця дія доступна тільки зареєстрованим користувачам
-        </h1>
+        </div>
         <div className="actions">
           <DialogLink dialogType={LOGIN_DIALOG} className="dialog__button">
             Ввійти

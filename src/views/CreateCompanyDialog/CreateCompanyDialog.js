@@ -91,11 +91,11 @@ class CreateCompanyDialog extends React.Component {
         </p>
         <form action="/createCompany" method="post" encType="multipart/form-data" onSubmit={this.handleSubmit}>
           <div className="row--logo">
-            <div className="company-attachment-h">
+            <div className={styles.attachmentWrapper}>
               <label className="row__label">
                 Лого компанії
               </label>
-              <FileUpload className="company-attachment" error={!!errors.attachment} onChange={this.handleAttachment} />
+              <FileUpload className={styles.attachment} error={!!errors.attachment} onChange={this.handleAttachment} />
               <div className="hint">
                 JPEG або PNG,<br/> розміром до 1 Mb
               </div>
@@ -143,9 +143,9 @@ class CreateCompanyDialog extends React.Component {
                 <label className="row__label" htmlFor="company_site">
                   {errors.company_site || 'Посилання на сайт (якщо є)'}
                 </label>
-                <div className="http">
+                <div className={styles.httpWrapper}>
                   <input type="text"
-                    className="http"
+                    className={styles.http}
                     name="company_site"
                     maxLength="100"
                     value={this.state.company_site}

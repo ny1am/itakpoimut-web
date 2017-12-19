@@ -1,0 +1,17 @@
+.sort {
+  &:after {
+    content: '';
+    display: inline-block;
+    margin-left: 8px;
+    width: 10px;
+    height: 5px;
+  }
+  &.asc:after {
+    background-image: url(/assets/img/icons-sprite.png);
+    background-position: -92px -75px;
+  }
+  &.desc:after {
+    background-image: url(/assets/img/icons-sprite.png);
+    background-position: -82px -75px;
+  }
+}
