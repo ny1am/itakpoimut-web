@@ -49,7 +49,7 @@ class AddViolationDialog extends React.Component {
           <p>
             Тут ви можете відмітити порушення компанії
           </p>
-          <ul className="violations">
+          <ul className={styles.violations}>
             {violationsList.map(item => (
               <li key={item} className="row">
                 <div className="check-row">

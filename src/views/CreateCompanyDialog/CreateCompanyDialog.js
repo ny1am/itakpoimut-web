@@ -90,7 +90,7 @@ class CreateCompanyDialog extends React.Component {
           Зазначимо, що ви тільки пропонуєте компанію на розгляд. Після того її затверджує модератор, і система сама присвоює компанії статус лояльної/порушника на основі наявності/відсутності порушень.
         </p>
         <form action="/createCompany" method="post" encType="multipart/form-data" onSubmit={this.handleSubmit}>
-          <div className="row--logo">
+          <div className={styles.logoRow}>
             <div className={styles.attachmentWrapper}>
               <label className="row__label">
                 Лого компанії

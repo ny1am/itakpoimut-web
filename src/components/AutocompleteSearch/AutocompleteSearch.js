@@ -56,8 +56,8 @@ class AutocompleteSearch extends React.Component {
     return (
       <article className={styles.wrapper}>
         <form action="/companies" method="GET" onSubmit={this.onSubmit}>
-          <div className="search-construct">
-            <div className="search-construct-input">
+          <div className={styles.searchWrapper}>
+            <div className={styles.searchInput}>
               <input name="title" type="text" placeholder="Введіть назву компанії" autoComplete="off" value={this.state.title} onChange={this.changeTitle} onFocus={this.search} />
               <AutocompletePopup companies={this.state.companies} shown={this.state.shown}/>
             </div>
@@ -71,7 +71,7 @@ class AutocompleteSearch extends React.Component {
                 ))}
               </select>
             </div>
-            <button type="submit" className="search-construct-button" />
+            <button type="submit" className={styles.searchButton} />
           </div>
         </form>
       </article>

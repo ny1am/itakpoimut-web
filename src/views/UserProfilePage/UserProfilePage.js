@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Avatar from 'components/Avatar';
 import FileUpload from 'components/FileUpload';
 
+import styles from './styles.scss';
+
 class UserProfilePage extends React.Component {
 
   constructor(props) {
@@ -48,9 +50,9 @@ class UserProfilePage extends React.Component {
     return (
       <div className="pattern-content">
         <div className="container">
-          <div className="page-content">
+          <div className={styles.content}>
             {successSave &&
-              <div className="dialog-success">
+              <div className={styles.success}>
                 Зміни збережено
               </div>
             }
@@ -60,15 +62,15 @@ class UserProfilePage extends React.Component {
               </div>
             }
             <form action="/userProfile" method="post" onSubmit={this.handleSubmit}>
-              <section className="page-block">
-                <h1 className="page__h1">
+              <section className={styles.block}>
+                <h1>
                   Ваші особисті дані
                 </h1>
                 <div className="row">
                   <label className="row__label">
                     E-mail
                   </label>
-                  <div className="row-text">
+                  <div className={styles.rowText}>
                     {user.email}
                   </div>
                 </div>
@@ -98,8 +100,8 @@ class UserProfilePage extends React.Component {
                 </div>
               </section>
 
-              <section className="page-block">
-                <h1 className="page__h1">
+              <section className={styles.block}>
+                <h1>
                   Ваше фото
                 </h1>
                 <FileUpload key={successSave} className="userpic" error={!!errors.userpic} onChange={this.handleAttachment}>

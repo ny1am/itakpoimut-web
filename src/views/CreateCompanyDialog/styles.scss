@@ -99,6 +99,28 @@ div.wrapper {
   }
 }
 
+div.logoRow {
+  width: 100%;
+  position: relative;
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: ' ';
+    clear: both;
+    height: 0;
+  }
+  :global(div.row) {
+    float: left;
+    width: calc(100% - 201px);
+    box-sizing: border-box;
+    @media (max-width: 640px) {
+      float: none;
+      width: 100%;
+    }
+  }
+}
+
 .actions {
   text-align: right;
 }

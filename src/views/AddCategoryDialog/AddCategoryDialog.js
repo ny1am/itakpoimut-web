@@ -63,7 +63,7 @@ class AddCategoryDialog extends React.Component {
     }
     if (this.props.companyCategories.length > 0) {
       return (
-        <ul className="prev-categories">
+        <ul className={styles.prevCategories}>
           {renderList(this.props.companyCategories)}
         </ul>
       );
@@ -87,9 +87,9 @@ class AddCategoryDialog extends React.Component {
     }
     if (this.props.categoriesList.length > 0) {
       return (
-        <div className="categories-holder">
+        <div className={styles.categoriesHolder}>
           <span>Оберіть сфери зі списку:</span>
-          <ul className="categories">
+          <ul className={styles.categories}>
             {renderList(this.props.categoriesList, this.state.userSelectedCategories, this.selectCategory)}
           </ul>
         </div>
@@ -103,16 +103,16 @@ class AddCategoryDialog extends React.Component {
     function renderList(list, deleteSelectedCategory) {
       return list.map((item, index) => (
         <li key={index}>
-          <div className="selected-category-title">
+          <div className={styles.newTitle}>
             {categoryByName(item)}
           </div>
-          <div className="delete-category" onClick={()=>{deleteSelectedCategory(item);}} />
+          <div className={styles.delete} onClick={()=>{deleteSelectedCategory(item);}} />
         </li>
       ));
     }
     if (this.state.userSelectedCategories.length > 0) {
       return (
-        <ul className="selected-categories-mirror">
+        <ul className={styles.newCategories}>
           {renderList(this.state.userSelectedCategories, this.deleteSelectedCategory)}
         </ul>
       );
@@ -131,9 +131,9 @@ class AddCategoryDialog extends React.Component {
           Тут ви можете відзначити сфери, до яких належить компанія. Протягом кількох днів адміністратор перевірить інформацію і вона з'явиться на сайті.
         </p>
         <form action="/addCategory" method="post" onSubmit={this.handleSubmit}>
-          <div className="prev-categories-holder">
+          <div className={styles.prevCategoriesHolder}>
             <span>Уже відмічені сфери</span>
-            <div className="prev-categories-block">
+            <div className={styles.prevCategoriesBlock}>
               {this.renderCompanyCategories()}
               {this.renderUserSelectedCategories()}
             </div>

@@ -13,6 +13,8 @@ import loyalties from 'shared/js/loyalties';
 import categories from 'shared/js/categories';
 import violations from 'shared/js/violations';
 
+import styles from './styles.scss';
+
 class CompaniesPage extends React.Component {
 
   constructor(props) {
@@ -187,11 +189,11 @@ class CompaniesPage extends React.Component {
         <div className="container">
           <form action="/companies" method="POST" ref={(ref) => this.form = ref} onSubmit={this.search}>
             <div className="search-bar">
-              <div className="search-construct search-construct--highlight">
-                <div className="search-construct-input">
+              <div className={styles.searchWrapper}>
+                <div className={styles.searchInput}>
                   <input type="text" name="title" placeholder="Введіть назву компанії" defaultValue={this.props.title} />
                 </div>
-                <button type="submit" className="search-construct-button" />
+                <button type="submit" className={styles.searchButton} />
               </div>
               <CompaniesSelectedFilters selectedFilters={this.state.selectedFilters} removeHandler={this.handleRemoveFilter} />
             </div>

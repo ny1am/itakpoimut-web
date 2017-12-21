@@ -6,126 +6,91 @@ import DialogLink from 'components/DialogLink';
 import CompanyComments from 'components/CompanyComments';
 import { http, violationByName, categoryByName, loyaltySingleByName } from 'utils';
 
-class CompanyPage extends React.Component {
-  renderSite() {
-    let company = this.props.company;
-    if (company.company_site) {
-      return (
-        <a href={http(company.company_site)} className="company-url" target="_blank">
-          {http(company.company_site)}
-        </a>
-      );
-    } else {
-      return null;
-    }
-  }
-  renderDescription() {
-    let company = this.props.company;
-    if (company.description) {
-      return (
-        <p className="company-desc">
-          {company.description}
-        </p>
-      );
-    } else {
-      return null;
-    }
-  }
-  renderViolations() {
-    let company = this.props.company;
-    if (company.violations) {
-      return (
-        <ul className="company-violations">
-          {this._renderViolationsList()}
-        </ul>
-      );
-    } else {
-      return null;
-    }
-  }
-  _renderViolationsList() {
-    let company = this.props.company;
-    return company.violations.map((item, index) => (
-      <li key={index}>
-        <label>
-          {violationByName(item.name)}
-        </label>
-      </li>
-    ));
-  }
-  renderCategories() {
-    let company = this.props.company;
-    return company.categories.map((item, index) => (
-      <li key={index} className="item">
-        {categoryByName(item)}
-      </li>
-    ));
-  }
-  render() {
-    let company = this.props.company;
-    return (
-      <div className="pattern-content">
-        <div className="container">
-          <div className="company-wrapper">
-            <section className="company">
-              <div className="company-profile">
-                <article className="company-info">
-                  <div className="col-1">
-                    <div className="company-logo">
-                      <img src={company.img} title={company.title} />
-                    </div>
-                    <div className={"c-loyalty-mark "+company.loyalty}>
-                      {loyaltySingleByName(company.loyalty)}
-                    </div>
-                  </div>
-                  <div className="col-2">
-                    <div className="company-title" title={company.title}>
-                      {company.title}
-                    </div>
-                    {this.renderSite()}
-                    {this.renderDescription()}
-                  </div>
-                </article>
+import styles from './styles.scss';
+
+const CompanyPage = ({ loggedUser, commentsCount, comments, company, currentPage, totalPages }) => (
+  <div className="pattern-content">
+    <div className="container">
+      <div className={styles.wrapper}>
+        <section className="company">
+          <div className={styles.profile}>
+            <article className={styles.companyInfo}>
+              <div className={styles.leftColumn}>
+                <div className={styles.logo}>
+                  <img src={company.img} title={company.title} />
+                </div>
+                <div className={"c-loyalty-mark "+company.loyalty}>
+                  {loyaltySingleByName(company.loyalty)}
+                </div>
               </div>
-              <div className="company-violations">
-                <h2>
-                  Порушення компанії
-                </h2>
-                {this.renderViolations()}
-                <DialogLink dialogType={ADD_VIOLATION_DIALOG} dialogProps={{companyId: company._id}} className="add-violation">
-                  Додати порушення
-                </DialogLink>
+              <div className={styles.rightColumn}>
+                <div className={styles.title} title={company.title}>
+                  {company.title}
+                </div>
+                {company.company_site && (
+                  <a href={http(company.company_site)} className={styles.url} target="_blank">
+                    {http(company.company_site)}
+                  </a>
+                )}
+                {company.description && (
+                  <p className={styles.description}>
+                    {company.description}
+                  </p>
+                )}
               </div>
-              <div className="company-categories-holder">
-                <h2>
-                  Сфери діяльності
-                </h2>
-                <ul className="company-categories">
-                  {this.renderCategories()}
-                  <li className="add">
-                    <DialogLink dialogType={ADD_CATEGORY_DIALOG} dialogProps={{companyId: company._id}} className="add-button">
-                      Додати сферу
-                    </DialogLink>
-                  </li>
-                </ul>
-              </div>
-            </section>
-            <div className="bottom-space">
-              <CompanyComments
-                loggedUser={this.props.loggedUser}
-                commentsCount={this.props.commentsCount}
-                comments={this.props.comments}
-                company={this.props.company}
-                currentPage={this.props.currentPage}
-                totalPages={this.props.totalPages}
-              />
-            </div>
+            </article>
           </div>
+          <div>
+            <h2 className={styles.listTitle}>
+              Порушення компанії
+            </h2>
+            {company.violations && (
+              <ul className={styles.violations}>
+                {company.violations.map((item, index) => (
+                  <li key={index}>
+                    <label>
+                      {violationByName(item.name)}
+                    </label>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <DialogLink dialogType={ADD_VIOLATION_DIALOG} dialogProps={{companyId: company._id}} className={styles.addViolation}>
+              Додати порушення
+            </DialogLink>
+          </div>
+          <div>
+            <h2 className={styles.listTitle}>
+              Сфери діяльності
+            </h2>
+            <ul className={styles.categories}>
+              {company.categories.map((item, index) => (
+                <li key={index} className={styles.item}>
+                  {categoryByName(item)}
+                </li>
+              ))}
+              <li>
+                <DialogLink dialogType={ADD_CATEGORY_DIALOG} dialogProps={{companyId: company._id}} className={styles.addCategory}>
+                  Додати сферу
+                </DialogLink>
+              </li>
+            </ul>
+          </div>
+        </section>
+        <div className={styles.commentsWrapper}>
+          <CompanyComments
+            loggedUser={loggedUser}
+            commentsCount={commentsCount}
+            comments={comments}
+            company={company}
+            currentPage={currentPage}
+            totalPages={totalPages}
+          />
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  </div>
+);
 
 CompanyPage.propTypes = {
   company: PropTypes.object,

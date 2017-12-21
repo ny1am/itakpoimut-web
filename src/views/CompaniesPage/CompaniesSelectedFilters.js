@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './styles.scss';
+
 class CompaniesSelectedFilters extends React.Component {
 
   constructor(props) {
@@ -19,31 +21,19 @@ class CompaniesSelectedFilters extends React.Component {
     this.props.removeHandler(id);
   }
 
-  renderRemove(item) {
-    //todo: server doesn't return id. change this to check is rendered on server
-    if (item.id) {
-      return (
-        <div className="rm-selected-filter" onClick={(evt) => this.removeFilter(evt, item.id)} />
-      );
-    } else {
-      return null;
-    }
-  }
-  renderSelectedFiltersItems() {
-    return this.props.selectedFilters.map((item, index) => (
-      <li key={index} className="selected-filter-el">
-        {item.text}
-        {this.renderRemove(item)}
-      </li>
-    ));
-  }
   render() {
-    if (this.props.selectedFilters.length > 0) {
+    const { selectedFilters } = this.props;
+    if (selectedFilters.length > 0) {
       return (
-        <div className="selected-filters-holder">
-          <ul className="selected-filters">
-            {this.renderSelectedFiltersItems()}
-            <li className="selected-filter-all">
+        <div className={styles.selectedFiltersHolder}>
+          <ul className={styles.selectedFilters}>
+            {selectedFilters.map((item, index) => (
+              <li key={index} className={styles.item}>
+                {item.text}
+                {item.id && <div className={styles.removeFilter} onClick={(evt) => this.removeFilter(evt, item.id)} />}
+              </li>
+            ))}
+            <li className={styles.all}>
               <a href="/companies" onClick={this.removeFilters}>
                 Скинути всі
               </a>
