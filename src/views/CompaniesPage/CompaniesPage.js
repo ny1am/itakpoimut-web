@@ -188,7 +188,7 @@ class CompaniesPage extends React.Component {
       <div className="pattern-content">
         <div className="container">
           <form action="/companies" method="POST" ref={(ref) => this.form = ref} onSubmit={this.search}>
-            <div className="search-bar">
+            <div className={styles.searchBar}>
               <div className={styles.searchWrapper}>
                 <div className={styles.searchInput}>
                   <input type="text" name="title" placeholder="Введіть назву компанії" defaultValue={this.props.title} />
@@ -197,30 +197,30 @@ class CompaniesPage extends React.Component {
               </div>
               <CompaniesSelectedFilters selectedFilters={this.state.selectedFilters} removeHandler={this.handleRemoveFilter} />
             </div>
-            <div className="search-body">
-              <details className="search-params" open>
-                <summary className="search-params-header">
+            <div className={styles.searchBody}>
+              <details className={styles.searchParams} open>
+                <summary className={styles.searchParamsHeader}>
                   Фільтри
                 </summary>
-                <div className="search-params-body">
-                  <h3 className="search-subtitle">
+                <div className={styles.searchParamsBody}>
+                  <h3 className={styles.searchSubtitle}>
                     За лояльністю
                   </h3>
-                  <ul className="search-chk-group">
+                  <ul className={styles.searchGroup}>
                     {this.renderLoyaltiesList()}
                   </ul>
 
-                  <h3 className="search-subtitle">
+                  <h3 className={styles.searchSubtitle}>
                     Сфера
                   </h3>
-                  <ShowHideWrapper size={5}>
+                  <ShowHideWrapper className={styles.searchGroup} size={5}>
                     {this.renderCategoriesList()}
                   </ShowHideWrapper>
 
-                  <h3 className="search-subtitle">
+                  <h3 className={styles.searchSubtitle}>
                     Порушення
                   </h3>
-                  <ul className="search-chk-group">
+                  <ul className={styles.searchGroup}>
                     {this.renderViolationsList()}
                   </ul>
                 </div>

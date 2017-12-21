@@ -51,7 +51,7 @@ class ShowHideWrapper extends React.Component {
   render() {
     return (
       <div>
-        <ul className="search-chk-group">
+        <ul className={this.props.className||''}>
           {this.props.children.map((item, index) => (
             <li key={index} className={"row"+(!this.state.visibility[item.key]?" hidden":"")}>
               {item}
@@ -67,6 +67,7 @@ class ShowHideWrapper extends React.Component {
 
 ShowHideWrapper.propTypes = {
   size: PropTypes.number,
+  className: PropTypes.string,
   children: PropTypes.node,
 };
 

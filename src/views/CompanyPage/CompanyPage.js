@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import { ADD_VIOLATION_DIALOG, ADD_CATEGORY_DIALOG } from 'constants/dialog';
 import DialogLink from 'components/DialogLink';
 import CompanyComments from 'components/CompanyComments';
-import { http, violationByName, categoryByName, loyaltySingleByName } from 'utils';
+import Loyalty from 'components/Loyalty';
+import { http, violationByName, categoryByName } from 'utils';
 
 import styles from './styles.scss';
 
@@ -19,9 +20,7 @@ const CompanyPage = ({ loggedUser, commentsCount, comments, company, currentPage
                 <div className={styles.logo}>
                   <img src={company.img} title={company.title} />
                 </div>
-                <div className={"c-loyalty-mark "+company.loyalty}>
-                  {loyaltySingleByName(company.loyalty)}
-                </div>
+                <Loyalty company={company} className={styles.loyalty} />
               </div>
               <div className={styles.rightColumn}>
                 <div className={styles.title} title={company.title}>

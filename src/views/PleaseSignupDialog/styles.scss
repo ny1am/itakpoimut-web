@@ -21,3 +21,14 @@ div.wrapper {
   font-weight: 600;
   line-height: 30px;
 }
+
+.actions {
+  margin-top: 32px;
+  a, button {
+    margin-bottom: 20px;
+    margin-top: 0;
+  }
+  a:last-child {
+    margin-bottom: 0;
+  }
+}

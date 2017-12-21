@@ -29,16 +29,16 @@ class CompaniesSearchResults extends React.Component {
     const sortClassName = `${styles.sort} ${newSortOrder==='asc'?styles.asc:styles.desc}`;
     if (this.props.companies.length > 0) {
       return (
-        <div className="search-results">
-          <div className="search-results-header clearfix">
-            Підібрано {this.props.companiesCount} з {this.props.allCompaniesCount} компаній
-            <div className={styles.sortWrapper}>
-              <button type="submit" className={sortClassName} formAction={"/companies?sortOrder="+newSortOrder} onClick={(evt)=>{this.sort(evt, newSortOrder);}}>
-                За алфавітом
-              </button>
-            </div>
+        <div className={styles.searchResults}>
+          <div className={styles.searchResultsHeader}>
+            <span>
+              Підібрано {this.props.companiesCount} з {this.props.allCompaniesCount} компаній
+            </span>
+            <button type="submit" className={sortClassName} formAction={"/companies?sortOrder="+newSortOrder} onClick={(evt)=>{this.sort(evt, newSortOrder);}}>
+              За алфавітом
+            </button>
           </div>
-          <div className="search-results-items">
+          <div className={styles.searchResultsItems}>
             {this.props.companies.map(company => (
               <CompanyOverview key={company._id} company={company} />
             ))}
@@ -50,7 +50,7 @@ class CompaniesSearchResults extends React.Component {
       );
     } else {
       return (
-        <div className="search-results">
+        <div className={styles.searchResults}>
           За заданими вами параметрами нічого не знайдено.
         </div>
       );

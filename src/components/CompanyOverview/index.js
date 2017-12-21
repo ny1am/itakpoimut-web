@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { loyaltySingleByName } from 'utils';
+import Loyalty from 'components/Loyalty';
 
 import styles from './styles.scss';
 
-//todo: refactor css names)
 const CompanyOverview = ({ company }) => (
   <div className={styles.wrapper}>
     <Link to={`/company/${company._id}`} className={styles.logo}>
@@ -21,9 +20,7 @@ const CompanyOverview = ({ company }) => (
       </p>
     </div>
     <div className={styles.loyalty}>
-      <div className={"loyalty-mark "+company.loyalty}>
-        {loyaltySingleByName(company.loyalty)}
-      </div>
+      <Loyalty company={company} />
     </div>
   </div>
 );

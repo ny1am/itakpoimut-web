@@ -67,7 +67,7 @@ class CreateCompanyDialog extends React.Component {
     const errors = this.props.errors || {};
     if (errors.dialog) {
       return (
-        <div className="dialog-error">
+        <div className={styles.error}>
           {errors.dialog}
         </div>
       );

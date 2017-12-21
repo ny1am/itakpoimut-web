@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './styles.scss';
+
 class FileUpload extends React.Component {
 
   constructor(props) {
@@ -34,7 +36,7 @@ class FileUpload extends React.Component {
   }
 
   render() {
-    const wrapperClassName = `${this.props.className} ${this.state.result?`fu-${this.state.result}`:''}`;
+    const wrapperClassName = `${this.props.className} ${this.state.result?styles[this.state.result]:''}`;
     return (
       <div className={wrapperClassName}>
         {this.props.children &&

@@ -57,7 +57,7 @@ class UserProfilePage extends React.Component {
               </div>
             }
             {errors.page &&
-              <div className="dialog-error">
+              <div className={styles.error}>
                 {errors.page}
               </div>
             }
@@ -104,7 +104,7 @@ class UserProfilePage extends React.Component {
                 <h1>
                   Ваше фото
                 </h1>
-                <FileUpload key={successSave} className="userpic" error={!!errors.userpic} onChange={this.handleAttachment}>
+                <FileUpload key={successSave} className={styles.userpic} error={!!errors.userpic} onChange={this.handleAttachment}>
                   <Avatar user={user} />
                 </FileUpload>
                 <div className="hint">
