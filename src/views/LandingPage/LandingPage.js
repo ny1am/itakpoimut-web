@@ -11,7 +11,7 @@ import Comment from 'components/Comment';
 
 import styles from './styles.scss';
 
-const LandingPage = ({ newCompanies, comments }) => (
+const LandingPage = ({ categoriesList, newCompanies, comments }) => (
   <React.Fragment>
     <section className={styles.banner}>
       <div className="container">
@@ -21,7 +21,7 @@ const LandingPage = ({ newCompanies, comments }) => (
         <p className={styles.info}>
           Тут ви можете перевірити, чи компанія використовує виключно українську мову, обслуговуючи своїх клієнтів в Україні.
         </p>
-        <AutocompleteSearch />
+        <AutocompleteSearch categories={categoriesList} />
       </div>
     </section>
     <div className={styles.pattern}>
@@ -95,6 +95,7 @@ const LandingPage = ({ newCompanies, comments }) => (
 );
 
 LandingPage.propTypes = {
+  categoriesList: PropTypes.array,
   newCompanies: PropTypes.array,
   comments: PropTypes.array,
 };

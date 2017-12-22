@@ -7,10 +7,10 @@ import {
 } from 'constants/autocomplete';
 import { removeFalsy } from 'utils';
 
-export function search({ term, category }) {
+export function search({ title, category }) {
   return {
     [CALL_API]: {
-      endpoint: `${API_ROOT}/autocomplete?${queryString.stringify(removeFalsy({ term, category }))}`,
+      endpoint: `${API_ROOT}/autocomplete?${queryString.stringify(removeFalsy({ title, category }))}`,
       method: 'GET',
       types: [
         AUTOCOMPLETE_REQUEST,

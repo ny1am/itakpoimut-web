@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Progress from 'react-progress-2';
 
 import Loading from 'components/Loading';
+import ProgressBar from 'components/ProgressBar';
 import Routes from 'components/Routes';
 import Layout from 'components/Layout';
 import Dialog from 'components/Dialog';
@@ -20,14 +19,14 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <Progress.Component />
+        <ProgressBar />
         <Dialog />
 
         <Layout>
           <Header />
           <Menu />
           <main className={styles.content}>
-            <Routes store={this.props.store} />
+            <Routes />
           </main>
           <Footer />
         </Layout>
@@ -38,12 +37,5 @@ class App extends React.Component {
     );
   }
 }
-
-App.propTypes = {
-  /**
-   * store object (needed to pass to Routes)
-   */
-  store: PropTypes.object,
-};
 
 export default App;

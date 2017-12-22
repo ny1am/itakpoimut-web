@@ -21,7 +21,12 @@ const AutocompleteCompany = ({ company }) => (
 );
 
 AutocompleteCompany.propTypes = {
-  company: PropTypes.object.isRequired
+  company: PropTypes.shape({
+    _id: PropTypes.number.isRequired,
+    img: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    loyalty: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default AutocompleteCompany;

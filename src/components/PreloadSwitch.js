@@ -1,32 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, withRouter } from 'react-router-dom';
-import { matchRoutes } from 'react-router-config';
 
 import * as preload from 'actions/preload';
 import { appReady } from 'actions/global';
 import { routeConfig } from 'components/Routes';
+import { reactRouterFetch } from 'utils';
 
-
-function reactRouterFetch (routes, location, options) {
-  const branch = matchRoutes(routes, location.pathname);
-  if (branch.length > 0) {
-    const promises = branch
-      .filter(({ route }) => route.component && route.component.fetch)
-      .map(({ route, match }) => {
-        return route.component.fetch(match, location, options);
-      });
-    if (promises && promises.length > 0) {
-      return Promise.all(promises);
-    } else {
-      return null;
-    }
-  } else {
-    return null;
-  }
-}
-
-class PreloadWrapper extends React.Component {
+class PreloadSwitch extends React.Component {
 
   constructor(props) {
     super(props);
@@ -49,7 +30,7 @@ class PreloadWrapper extends React.Component {
       const dialogType = (this.props.location.state || {}).dialogType;
       const nextDialogType = (nextProps.location.state || {}).dialogType;
       if (this.props.location !== nextProps.location && (dialogType == nextDialogType)) {
-        this.props.store.dispatch(preload.end({
+        this.context.store.dispatch(preload.end({
           preloadType: 'page',
           instant: true,
           prevRoute: nextProps.location.pathname,
@@ -66,7 +47,8 @@ class PreloadWrapper extends React.Component {
   }
 
   fetchRoutes (props) {
-    const { store, location } = props;
+    const { location } = props;
+    const { store } = this.context;
     this.setState({
       isAppFetching: true,
       appFetchingError: null,
@@ -109,24 +91,27 @@ class PreloadWrapper extends React.Component {
         render: (props) => (<ViewComponent {...props} initialData={this.state.initialData} />)
       });
     });
-
-    return React.createElement(Switch, null, children);
+    return (
+      <Switch>
+        {children}
+      </Switch>
+    );
   }
 }
 
-PreloadWrapper.propTypes = {
+PreloadSwitch.contextTypes = {
+  store: PropTypes.object.isRequired,
+};
+
+PreloadSwitch.propTypes = {
   /**
    * location object
    */
   location: PropTypes.object.isRequired,
-  /**
-   * redux store object
-   */
-  store: PropTypes.object.isRequired,
   /**
    * children
    */
   children: PropTypes.node,
 };
 
-export default withRouter(PreloadWrapper);
+export default withRouter(PreloadSwitch);

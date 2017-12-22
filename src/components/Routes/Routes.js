@@ -1,28 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
-import SecureRoute from 'utils/SecureRoute';
-import PreloadWrapper from 'components/PreloadWrapper';
+import PreloadSwitch from 'components/PreloadSwitch';
 
+import SecureRoute from './SecureRoute';
 import routeConfig from './routeConfig';
 
-const Routes = ({ store }) => {
+const Routes = () => {
   return (
-    <PreloadWrapper store={store}>
+    <PreloadSwitch>
       {routeConfig.map(cfg => {
         const RouteComponent = cfg.secure ? SecureRoute : Route;
         return <RouteComponent key={cfg.path} {...cfg} />;
       })}
-    </PreloadWrapper>
+    </PreloadSwitch>
   );
-};
-
-Routes.propTypes = {
-  /**
-   * store
-   */
-  store: PropTypes.object,
 };
 
 export default Routes;
