@@ -77,7 +77,13 @@ class AddCategoryDialog extends React.Component {
       return list.map((item, index) =>(
         <li key={index}>
           <div className="check-row">
-            <Checkbox id={"ctg_"+item} name="selectedCategories[]" value={item} checked={selectedCategories.indexOf(item) > -1} onChange={selectCategory} className="row-checkbox" />
+            <Checkbox id={"ctg_"+item}
+              className="row-checkbox"
+              name="selectedCategories[]"
+              value={item}
+              checked={selectedCategories.indexOf(item) > -1}
+              onChange={selectCategory}
+            />
             <label htmlFor={"ctg_"+item}>
               {categoryByName(item)}
             </label>

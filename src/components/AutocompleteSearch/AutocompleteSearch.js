@@ -10,7 +10,7 @@ class AutocompleteSearch extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      shown: this.props.shown,
+      shown: false,
       title: '',
       category: '',
       companies: []
@@ -87,8 +87,10 @@ class AutocompleteSearch extends React.Component {
 }
 
 AutocompleteSearch.propTypes = {
-  categories: PropTypes.array,
-  shown: PropTypes.bool,
+  categories: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  })).isRequired,
   onSearch: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };

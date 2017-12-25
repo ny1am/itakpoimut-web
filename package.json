@@ -29,6 +29,7 @@
     "lodash.debounce": "^4.0.8",
     "object-assign": "4.1.0",
     "query-string": "5.0.0",
+    "randomstring": "^1.1.5",
     "react": "^16.0.0",
     "react-click-outside": "^3.0.0",
     "react-dom": "^16.0.0",

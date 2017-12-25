@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 
-import { get } from 'actions/company';
+import { get, getComments } from 'actions/company';
 
 import CompanyPageComponent from './CompanyPage';
 
 class Container extends React.Component {
   static fetch({ params }, location, { dispatch }) {
     const { currentPage } = queryString.parse(location.search);
-    return dispatch(get(params.id, currentPage));
+    return Promise.all([ dispatch(get(params.id)), dispatch(getComments(params.id, currentPage)) ]);
   }
   render() {
     return <CompanyPageComponent {...this.props} />;
@@ -18,7 +18,6 @@ class Container extends React.Component {
 
 const mapStateToProps = (state) => ({
   company: state.company.company,
-  loggedUser: state.auth.loggedUser,
   commentsCount: state.company.commentsCount,
   comments: state.company.comments,
   currentPage: state.company.currentPage,

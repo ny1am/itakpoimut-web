@@ -174,7 +174,13 @@ class CompaniesPage extends React.Component {
     return this.props.violationsList.map((violation, index) => (
       <li key={index} className="row">
         <div className="check-row">
-          <Checkbox id={"vlt_"+violation.name} name="selectedViolations[]" value={violation.name} checked={this.state.selectedViolations.indexOf(violation.name)>-1} onChange={this.handleViolationChange} className="row-checkbox"/>
+          <Checkbox id={"vlt_"+violation.name}
+            className="row-checkbox"
+            name="selectedViolations[]"
+            value={violation.name}
+            checked={this.state.selectedViolations.indexOf(violation.name)>-1}
+            onChange={this.handleViolationChange}
+          />
           <label htmlFor={"vlt_"+violation.name}>
             {violation.text}
           </label>

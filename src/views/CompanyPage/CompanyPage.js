@@ -9,7 +9,7 @@ import { http, violationByName, categoryByName } from 'utils';
 
 import styles from './styles.scss';
 
-const CompanyPage = ({ loggedUser, commentsCount, comments, company, currentPage, totalPages }) => (
+const CompanyPage = ({ commentsCount, comments, company, currentPage, totalPages }) => (
   <div className="pattern-content">
     <div className="container">
       <div className={styles.wrapper}>
@@ -78,7 +78,6 @@ const CompanyPage = ({ loggedUser, commentsCount, comments, company, currentPage
         </section>
         <div className={styles.commentsWrapper}>
           <CompanyComments
-            loggedUser={loggedUser}
             commentsCount={commentsCount}
             comments={comments}
             company={company}
@@ -93,7 +92,6 @@ const CompanyPage = ({ loggedUser, commentsCount, comments, company, currentPage
 
 CompanyPage.propTypes = {
   company: PropTypes.object,
-  loggedUser: PropTypes.object,
   commentsCount: PropTypes.number,
   comments: PropTypes.array,
   currentPage: PropTypes.number,

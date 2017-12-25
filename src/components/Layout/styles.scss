@@ -2,4 +2,8 @@
   display: flex;
   flex-grow: 1;
   flex-direction: column;
+  &.fixed {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
 }

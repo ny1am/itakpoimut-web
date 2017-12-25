@@ -53,13 +53,12 @@ class AddViolationDialog extends React.Component {
             {violationsList.map(item => (
               <li key={item} className="row">
                 <div className="check-row">
-                  <Checkbox
-                    id={"vlt_"+item}
+                  <Checkbox id={"vlt_"+item}
+                    className="row-checkbox"
                     name="selectedViolations[]"
                     value={item}
                     checked={selectedViolations.indexOf(item) > -1}
                     onChange={this.handleViolationChange}
-                    className="row-checkbox"
                   />
                   <label htmlFor={"vlt_"+item}>
                     {violationByName(item)}
