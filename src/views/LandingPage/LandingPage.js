@@ -21,7 +21,7 @@ const LandingPage = ({ categoriesList, newCompanies, comments }) => (
         <p className={styles.info}>
           Тут ви можете перевірити, чи компанія використовує виключно українську мову, обслуговуючи своїх клієнтів в Україні.
         </p>
-        <AutocompleteSearch categories={categoriesList} />
+        {categoriesList && <AutocompleteSearch categories={categoriesList} />}
       </div>
     </section>
     <div className={styles.pattern}>
