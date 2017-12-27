@@ -7,6 +7,18 @@ import { appReady } from 'actions/global';
 import { routeConfig } from 'components/Routes';
 import { reactRouterFetch } from 'utils';
 
+const extractData = (data) => {
+  if (!data) {
+    return null;
+  } else if (data instanceof Array) {
+    return data.reduce((result, requestData) => {
+      return Object.assign({}, result, requestData.payload);
+    }, {});
+  } else {
+    return data.payload;
+  }
+};
+
 class PreloadSwitch extends React.Component {
 
   constructor(props) {
@@ -64,7 +76,7 @@ class PreloadSwitch extends React.Component {
     store.dispatch(preload.start(preloadOpts));
     (promise || Promise.resolve()).then((data) => {
       store.dispatch(preload.end(preloadOpts));
-      const initialData = data ? data[0].payload : null;
+      const initialData = extractData((data&&data[0])?data[0]:null);
       this.setState({
         isAppFetching: false,
         initialData,
