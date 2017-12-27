@@ -1,4 +1,5 @@
 import { PRELOAD_LOCATION_CHANGE_END } from 'constants';
+import { urlHash } from 'utils';
 
 export default () => next => action => {
   if (!action) {
@@ -6,7 +7,12 @@ export default () => next => action => {
   }
 
   if (action.type === PRELOAD_LOCATION_CHANGE_END && action.preloadType === 'page' && action.prevRoute !== action.route) {
-    window.scrollTo(0, 0);
+    const idToScroll = urlHash(action.route);
+    if (idToScroll) {
+      (document.getElementById(idToScroll) || document.body).scrollIntoView();
+    } else {
+      window.scrollTo(0, 0);
+    }
   }
 
   if (action.type === PRELOAD_LOCATION_CHANGE_END && action.preloadType === 'dialog') {

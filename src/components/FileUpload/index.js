@@ -52,9 +52,6 @@ FileUpload.propTypes = {
   error: PropTypes.bool,
   className: PropTypes.string.isRequired,
   children: PropTypes.node,
-  /**
-   * change callback
-   */
   onChange: PropTypes.func.isRequired,
 };
 

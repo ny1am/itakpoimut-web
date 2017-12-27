@@ -67,3 +67,12 @@ export const reactRouterFetch = (routes, location, options) => {
     return null;
   }
 };
+
+export const urlHash = (locationString) => {
+  const parts = locationString.split('#');
+  if (parts.length > 1) {
+    return parts[1];
+  } else {
+    return null;
+  }
+};

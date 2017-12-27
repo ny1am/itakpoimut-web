@@ -19,6 +19,10 @@ const extractData = (data) => {
   }
 };
 
+const serializeLocation = (location) => (
+  `${location.pathname}${location.search}${location.hash}`
+);
+
 class PreloadSwitch extends React.Component {
 
   constructor(props) {
@@ -36,19 +40,11 @@ class PreloadSwitch extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    const current = `${this.props.location.pathname}${this.props.location.search}`;
-    const next = `${nextProps.location.pathname}${nextProps.location.search}`;
-    if (current === next) {
-      const dialogType = (this.props.location.state || {}).dialogType;
-      const nextDialogType = (nextProps.location.state || {}).dialogType;
-      if (this.props.location !== nextProps.location && (dialogType == nextDialogType)) {
-        this.context.store.dispatch(preload.end({
-          preloadType: 'page',
-          instant: true,
-          prevRoute: nextProps.location.pathname,
-          route: nextProps.location.pathname,
-        }));
-      }
+    const current = serializeLocation(this.props.location);
+    const next = serializeLocation(nextProps.location);
+    const currentHash = (this.props.location.state || {}).forceReload;
+    const nextHash = (nextProps.location.state || {}).forceReload;
+    if (current === next && (currentHash === nextHash)) {
       return;
     }
     this.fetchRoutes(nextProps);
@@ -70,8 +66,8 @@ class PreloadSwitch extends React.Component {
     const preloadOpts = {
       preloadType: 'page',
       instant: !promise,
-      prevRoute: this.props.location.pathname,
-      route: props.location.pathname
+      prevRoute: serializeLocation(this.props.location),
+      route: serializeLocation(props.location),
     };
     store.dispatch(preload.start(preloadOpts));
     (promise || Promise.resolve()).then((data) => {

@@ -24,6 +24,4 @@ const mapStateToProps = (state) => ({
   totalPages: state.company.totalPages,
 });
 
-export default connect(
-  mapStateToProps, null
-)(Container);
+export default connect(mapStateToProps)(Container);

@@ -17,8 +17,8 @@ const Layout = ({ overflowShown, children }) => (
 );
 
 Layout.propTypes = {
-  overflowShown: PropTypes.bool,
-  children: PropTypes.node,
+  overflowShown: PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Layout;

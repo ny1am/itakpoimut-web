@@ -15,6 +15,7 @@ const Dialog = ({ dialogType, dialogProps, loading, onClose, ...rest }) => {
   const SpecificDialog = routes[dialogType].component;
   return (
     <div className={styles.shade}>
+      {/*id is used for scrolling*/}
       <div id="dialog" className={styles.dialog}>
         <SpecificDialog {...dialogProps} {...rest} />
         <button className={styles.close} onClick={onClose} />
@@ -32,7 +33,10 @@ Dialog.propTypes = {
   /**
    * dialog type
    */
-  dialogType: PropTypes.string,
+  dialogType: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]).isRequired,
   /**
    * Specific dialog props
    */

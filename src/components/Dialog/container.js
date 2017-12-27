@@ -61,7 +61,8 @@ class Container extends React.Component {
     if (!dialogType) {
       return;
     }
-    const { dispatch, dialogProps } = props;
+    const { dialogProps, onPreloadStart, onPreloadEnd } = props;
+    const { dispatch } = this.context.store;
     this.setState({
       isAppFetching: true,
       initialData: null,
@@ -74,9 +75,9 @@ class Container extends React.Component {
       prevRoute: this.props.dialogType,
       route: dialogType,
     };
-    dispatch(preload.start(preloadOpts));
+    onPreloadStart(preloadOpts);
     promise.then((data) => {
-      dispatch(preload.end(preloadOpts));
+      onPreloadEnd(preloadOpts);
       const initialData = data ? data.payload : null;
       this.setState({
         isAppFetching: false,
@@ -88,7 +89,7 @@ class Container extends React.Component {
   }
 
   render() {
-    const { dialogProps, onClose, dispatch } = this.props;
+    const { dialogProps, onClose } = this.props;
     const { dialogType, initialData, loading, ready } = this.state;
     if (!dialogType || !ready) {
       return null;
@@ -99,12 +100,17 @@ class Container extends React.Component {
       initialData={initialData}
       loading={loading}
       changeLoading={this.changeLoading}
-      dispatch={dispatch}
       onClose={onClose}
     />);
   }
 
 }
+
+Container.contextTypes = {
+  store: PropTypes.shape({
+    dispatch: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 Container.propTypes = {
   /**
@@ -117,7 +123,7 @@ Container.propTypes = {
   dialogType: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.bool,
-  ]),
+  ]).isRequired,
   /**
    * Specific dialog props
    */
@@ -127,22 +133,28 @@ Container.propTypes = {
    */
   onClose: PropTypes.func.isRequired,
   /**
-   * dispatch function
+   * preload start function
    */
-  dispatch: PropTypes.func.isRequired,
+  onPreloadStart: PropTypes.func.isRequired,
+  /**
+   * preload end function
+   */
+  onPreloadEnd: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
   const dialogState = state.router.location.state || {};
   return {
     loggedUser: state.auth.loggedUser,
-    dialogType: dialogState.dialogType,
+    dialogType: dialogState.dialogType || false,
     dialogProps: dialogState.dialogProps,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   onClose: () => dispatch(hideDialog()),
+  onPreloadStart: (params) => dispatch(preload.start(params)),
+  onPreloadEnd: (params) => dispatch(preload.end(params)),
   dispatch
 });
 

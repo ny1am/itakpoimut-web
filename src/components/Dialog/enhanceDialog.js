@@ -20,17 +20,19 @@ const enhanceDialog = ({ onInit, onSubmit, successText }, Component) => {
     }
 
     onSubmit(params) {
-      this.props.changeLoading(true);
-      onSubmit(params, this.props.dispatch).then(data => {
-        this.props.changeLoading(false);
+      const { dispatch } = this.context.store;
+      const { changeLoading } = this.props;
+      changeLoading(true);
+      onSubmit(params, dispatch).then(data => {
+        changeLoading(false);
         if (data.payload.result === 'success') {
           if (successText) {
-            this.props.dispatch(showDialog(SUCCESS_DIALOG, {
+            dispatch(showDialog(SUCCESS_DIALOG, {
               title: 'Дякуємо!',
               body: successText
             }));
           } else {
-            this.props.dispatch(hideDialog());
+            dispatch(hideDialog());
           }
         } else if (data.payload.result === 'error') {
           this.setState({
@@ -51,10 +53,15 @@ const enhanceDialog = ({ onInit, onSubmit, successText }, Component) => {
     EnhancedDialog.fetch = onInit;
   }
 
+  EnhancedDialog.contextTypes = {
+    store: PropTypes.shape({
+      dispatch: PropTypes.func.isRequired,
+    }).isRequired,
+  };
+
   EnhancedDialog.propTypes = {
     initialData: PropTypes.object,
     changeLoading: PropTypes.func.isRequired,
-    dispatch: PropTypes.func.isRequired,
   };
 
   EnhancedDialog.displayName = `EnhancedDialog(${getDisplayName(Component)})`;

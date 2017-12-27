@@ -53,7 +53,9 @@ const Header = ({ loggedUser, onLogout, onMenuShow }) => (
 );
 
 Header.propTypes = {
-  loggedUser: PropTypes.object,
+  loggedUser: PropTypes.shape({
+    fname: PropTypes.string.isRequired,
+  }),
   onLogout: PropTypes.func.isRequired,
   onMenuShow: PropTypes.func.isRequired,
 };

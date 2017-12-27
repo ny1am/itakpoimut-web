@@ -18,7 +18,11 @@ const CompanyPreview = ({ company }) => (
 );
 
 CompanyPreview.propTypes = {
-  company: PropTypes.object.isRequired,
+  company: PropTypes.shape({
+    _id: PropTypes.number.isRequired,
+    img: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  }).isRequired
 };
 
 export default CompanyPreview;

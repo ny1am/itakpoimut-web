@@ -30,7 +30,8 @@ class CompanyComments extends React.Component {
     return (
       <div className="container">
         <section className={styles.wrapper}>
-          <header className={styles.header}>
+          {/*id is used for scrolling*/}
+          <header id="comments" ref="comments" className={styles.header}>
             <h1>
               Коментарі
             </h1>
@@ -39,7 +40,7 @@ class CompanyComments extends React.Component {
             </span>
           </header>
           {comments.length > 0 &&
-            <ul ref="comments" className={styles.list}>
+            <ul className={styles.list}>
               {comments.map((item, index) => (
                 <li key={index}>
                   <Comment comment={item} />
@@ -48,7 +49,7 @@ class CompanyComments extends React.Component {
             </ul>
           }
           <Pagination currentPage={this.props.currentPage} totalPages={this.props.totalPages}>
-            <Link to={"/company/"+this.props.company._id+"?currentPage={{page}}"} />
+            <Link to={"/company/"+this.props.company._id+"?currentPage={{page}}#comments"} />
           </Pagination>
         </section>
         <CompanyCommentsForm company={company} onSubmit={this.onSubmit} />
@@ -58,7 +59,9 @@ class CompanyComments extends React.Component {
 }
 
 CompanyComments.propTypes = {
-  company: PropTypes.object,
+  company: PropTypes.shape({
+    _id: PropTypes.number.isRequired,
+  }).isRequired,
   commentsCount: PropTypes.number,
   comments: PropTypes.array,
   currentPage: PropTypes.number,

@@ -91,7 +91,17 @@ const CompanyPage = ({ commentsCount, comments, company, currentPage, totalPages
 );
 
 CompanyPage.propTypes = {
-  company: PropTypes.object,
+  company: PropTypes.shape({
+    _id: PropTypes.number.isRequired,
+    img: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    company_site: PropTypes.string,
+    description: PropTypes.string,
+    violations: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    })),
+    categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
   commentsCount: PropTypes.number,
   comments: PropTypes.array,
   currentPage: PropTypes.number,

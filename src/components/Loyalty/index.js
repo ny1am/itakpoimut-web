@@ -12,7 +12,9 @@ const Loyalty = ({ company, className }) => (
 );
 
 Loyalty.propTypes = {
-  company: PropTypes.object.isRequired,
+  company: PropTypes.shape({
+    loyalty: PropTypes.string.isRequired,
+  }).isRequired,
   className: PropTypes.string,
 };
 
