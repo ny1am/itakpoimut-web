@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import randomstring from 'randomstring';
 
 import styles from './styles.scss';
 
@@ -8,31 +9,38 @@ class Radio extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    this.state = {checked: props.defaultChecked || props.checked};
+    this.state = {
+      id: props.id || randomstring.generate(7),
+      checked: props.checked || false
+    };
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.defaultChecked !== this.props.defaultChecked) {
-      this.setState({checked: nextProps.defaultChecked});
-    } else if (nextProps.checked !== this.props.checked) {
-      this.setState({checked: nextProps.checked});
+    if (nextProps.checked !== this.props.checked) {
+      this.setState({ checked: nextProps.checked });
     }
   }
 
   handleChange(el) {
-    if (this.props && this.props.onChange) {
-      this.props.onChange(el);
-    }
-    this.setState({checked: el.target.checked});
+    const { onChange } = this.props;
+    const checked = el.target.checked;
+    onChange && onChange(el);
+    this.setState({ checked });
   }
 
   render() {
-    const { className, id, ...props } = this.props;
+    const { className, ...props } = this.props;
+    const { checked, id } = this.state;
     const wrapperClassName = `${styles.radio} ${className||''}`;
     return (
-      <div className={wrapperClassName} {...this.state.checked?{'data-checked':''}:{}}>
-        <input id={id} type="radio" {...props} checked={this.state.checked} onChange={this.handleChange}/>
-        <label htmlFor={this.props.id} />
+      <div className={wrapperClassName}>
+        <input type="radio"
+          {...props}
+          id={id}
+          checked={checked}
+          onChange={this.handleChange}
+        />
+        <label htmlFor={id} />
       </div>
     );
   }
@@ -40,7 +48,6 @@ class Radio extends React.Component {
 
 Radio.propTypes = {
   id: PropTypes.string,
-  defaultChecked: PropTypes.bool,
   checked: PropTypes.bool,
   className: PropTypes.string,
   onChange: PropTypes.func,

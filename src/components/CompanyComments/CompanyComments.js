@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import { Link } from 'react-router-dom';
 
 import Pagination from 'components/Pagination';
 import Comment from 'components/Comment';

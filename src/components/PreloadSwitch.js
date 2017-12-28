@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, withRouter } from 'react-router-dom';
-import cloneDeep from 'clone-deep';
 
 import * as preload from 'actions/preload';
 import { appReady } from 'actions/global';
 import { routeConfig } from 'components/Routes';
-import { reactRouterFetch } from 'utils';
+import { reactRouterFetch, hasPageLocationChanged } from 'utils';
 
 const extractData = (data) => {
   if (!data) {
@@ -41,12 +40,9 @@ class PreloadSwitch extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    const currentDialog = (this.props.location.state || {}).dialogType;
-    const nextDialog = (nextProps.location.state || {}).dialogType;
-    if (this.props.location === nextProps.location || (currentDialog != nextDialog)) {
-      return;
+    if (hasPageLocationChanged(this.props.location, nextProps.location)) {
+      this.fetchRoutes(nextProps);
     }
-    this.fetchRoutes(nextProps);
   }
 
   shouldComponentUpdate (nextProps, nextState) {
@@ -87,6 +83,7 @@ class PreloadSwitch extends React.Component {
       });
     });
   }
+
   render () {
     if (!this.state.ready) {
       return null;

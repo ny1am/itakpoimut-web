@@ -8,7 +8,9 @@ const Avatar = ({ user, size, ...rest }) => {
 };
 
 Avatar.propTypes = {
-  user: PropTypes.object.isRequired,
+  user: PropTypes.shape({
+    picture_url: PropTypes.string,
+  }).isRequired,
   size: PropTypes.number,
 };
 

@@ -4,11 +4,9 @@ import { Link } from 'react-router-dom';
 
 import styles from './styles.scss';
 
+const PAGE_NUMBER_SIZE = 5;
+
 class Pagination extends React.Component {
-  constructor(props) {
-    super(props);
-    this.size = 5;
-  }
 
   renderPageElement(page, innerText) {
     const { generateUrl } = this.props;
@@ -38,16 +36,16 @@ class Pagination extends React.Component {
     );
   }
   renderPages() {
-    let startPage = Number(this.props.currentPage) - Math.floor(this.size / 2);
-    let endPage = Number(this.props.currentPage) + Math.floor(this.size / 2);
+    let startPage = Number(this.props.currentPage) - Math.floor(PAGE_NUMBER_SIZE / 2);
+    let endPage = Number(this.props.currentPage) + Math.floor(PAGE_NUMBER_SIZE / 2);
     if (startPage <= 0) {
       endPage -= (startPage - 1);
       startPage = 1;
     }
     if (endPage > this.props.totalPages) {
       endPage = this.props.totalPages;
-      if (endPage - this.size + 1 > 0) {
-        startPage = endPage - this.size + 1;
+      if (endPage - PAGE_NUMBER_SIZE + 1 > 0) {
+        startPage = endPage - PAGE_NUMBER_SIZE + 1;
       } else {
         startPage = 1;
       }

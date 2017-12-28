@@ -138,7 +138,14 @@ class CompaniesPage extends React.Component {
     return this.props.loyaltiesList.map((loyalty, index) => (
       <li key={index} className="row">
         <div className="check-row">
-          <Radio id={"rnk_"+loyalty.name} name="selectedLoyalty" value={loyalty.name} defaultChecked={loyalty.name===this.state.selectedLoyalty} onChange={this.handleLoyaltyChange} className="row-checkbox" />
+          <Radio
+            id={"rnk_"+loyalty.name}
+            name="selectedLoyalty"
+            value={loyalty.name}
+            checked={loyalty.name===this.state.selectedLoyalty}
+            onChange={this.handleLoyaltyChange}
+            className="row-checkbox"
+          />
           <label htmlFor={"rnk_"+loyalty.name} className={"loyalty-color "+loyalty.name}>
             {loyalty.text}
           </label>
@@ -146,15 +153,28 @@ class CompaniesPage extends React.Component {
       </li>
     ));
   }
-  renderCategoriesList() {
-    return this.props.categoriesList.map((category) => (
-      <div className="check-row" key={"ctg_"+category.name} checked={category.name===this.state.selectedCategory}>
-        <Radio id={"ctg_"+category.name} name="selectedCategory" value={category.name} defaultChecked={category.name===this.state.selectedCategory} onChange={this.handleCategoryChange} className="row-checkbox" />
-        <label htmlFor={"ctg_"+category.name}>
-          {category.text}
-        </label>
-      </div>
-    ));
+  prepareCategoriesList() {
+    const { categoriesList } = this.props;
+    const { selectedCategory } = this.state;
+    return categoriesList.map((category) => ({
+      priority: category.name===selectedCategory,
+      key: category.name,
+      node: (
+        <div className="check-row" key={"ctg_"+category.name}>
+          <Radio
+            id={"ctg_"+category.name}
+            name="selectedCategory"
+            value={category.name}
+            checked={category.name===selectedCategory}
+            onChange={this.handleCategoryChange}
+            className="row-checkbox"
+          />
+          <label htmlFor={"ctg_"+category.name}>
+            {category.text}
+          </label>
+        </div>
+      ),
+    }));
   }
   renderViolationsList() {
     return this.props.violationsList.map((violation, index) => (
@@ -206,9 +226,11 @@ class CompaniesPage extends React.Component {
                   <h3 className={styles.searchSubtitle}>
                     Сфера
                   </h3>
-                  <ShowHideWrapper className={styles.searchGroup} size={5}>
-                    {this.renderCategoriesList()}
-                  </ShowHideWrapper>
+                  <ShowHideWrapper
+                    className={styles.searchGroup}
+                    size={5}
+                    items={this.prepareCategoriesList()}
+                  />
 
                   <h3 className={styles.searchSubtitle}>
                     Порушення

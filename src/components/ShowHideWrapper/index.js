@@ -9,57 +9,56 @@ class ShowHideWrapper extends React.Component {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.changeVisibility = this.changeVisibility.bind(this);
-    this.prepareVisibility = this.prepareVisibility.bind(this);
-    let hidden = true;
+    this.prepareVisibilityMap = this.prepareVisibilityMap.bind(this);
+    const hidden = true;
     this.state = {
       hidden,
-      visibility: this.prepareVisibility(hidden)
+      visibilityMap: this.prepareVisibilityMap(hidden),
     };
   }
 
   toggle() {
-    this.setState({hidden: !this.state.hidden}, this.changeVisibility);
+    const hidden = !this.state.hidden;
+    this.setState({ hidden }, this.changeVisibility);
   }
 
   changeVisibility() {
-    this.setState({visibility: this.prepareVisibility(this.state.hidden)});
+    const visibilityMap = this.prepareVisibilityMap(this.state.hidden);
+    this.setState({ visibilityMap });
   }
 
-  //todo: no more then props.size; currently in may show {size+1}
-  prepareVisibility(hidden) {
-    let visibility = {};
+  prepareVisibilityMap(hidden) {
+    const result = {};
     if (hidden) {
-      this.props.children.map((item, index) => {
-        visibility[item.key] = (index<this.props.size || item.props.checked);
+      this.props.items.filter(item => item.priority).forEach(item => {
+        result[item.key] = (Object.keys(result).length < this.props.size);
+      });
+      this.props.items.filter(item => !item.priority).forEach(item => {
+        result[item.key] = (Object.keys(result).length < this.props.size);
       });
     } else {
-      this.props.children.map((item) => {
-        visibility[item.key] = true;
+      this.props.items.forEach(item => {
+        result[item.key] = true;
       });
     }
-    return visibility;
+    return result;
   }
 
-  renderToggleElement() {
-    const toggleClassName = `${styles.trigger} ${this.state.hidden?styles.close:styles.open}`;
-    return (
-      <div className={toggleClassName} onClick={this.toggle} />
-    );
-  }
-
-  //todo: revise this
   render() {
+    const { visibilityMap, hidden } = this.state;
+    const { items, className } = this.props;
+    const toggleClassName = `${styles.trigger} ${hidden?styles.close:styles.open}`;
     return (
-      <div>
-        <ul className={this.props.className||''}>
-          {this.props.children.map((item, index) => (
-            <li key={index} className={"row"+(!this.state.visibility[item.key]?" hidden":"")}>
-              {item}
+      <React.Fragment>
+        <ul className={className||''}>
+          {items.filter(item => visibilityMap[item.key]).map(item => (
+            <li key={item.key} className="row">
+              {item.node}
             </li>
           ))}
         </ul>
-        {this.renderToggleElement()}
-      </div>
+        <div className={toggleClassName} onClick={this.toggle} />
+      </React.Fragment>
     );
   }
 
@@ -68,7 +67,11 @@ class ShowHideWrapper extends React.Component {
 ShowHideWrapper.propTypes = {
   size: PropTypes.number,
   className: PropTypes.string,
-  children: PropTypes.node,
+  items: PropTypes.arrayOf(PropTypes.shape({
+    node: PropTypes.node.isRequired,
+    key: PropTypes.string.isRequired,
+    priority: PropTypes.bool,
+  })).isRequired,
 };
 
 export default ShowHideWrapper;

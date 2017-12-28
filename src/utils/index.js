@@ -76,3 +76,12 @@ export const urlHash = (locationString) => {
     return null;
   }
 };
+
+/**
+* checkes wheather route has been changed, with dialogs being not taken in care of.
+*/
+export const hasPageLocationChanged = (prevLocation, nextLocation) => {
+  const currentDialog = (prevLocation.state || {}).dialogType;
+  const nextDialog = (nextLocation.state || {}).dialogType;
+  return (prevLocation !== nextLocation && currentDialog == nextDialog);
+};
