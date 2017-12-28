@@ -33,9 +33,8 @@ class CompaniesPage extends React.Component {
       allCompaniesCount: props.allCompaniesCount,
       currentPage: props.currentPage,
       totalPages: props.totalPages,
-
-      selectedFilters: props.selectedFilters
     };
+    this.state.selectedFilters = this.getSelectedFilters();
   }
 
   refresh(evt) {
@@ -108,7 +107,7 @@ class CompaniesPage extends React.Component {
     this.setState({selectedViolations, currentPage: 1}, this._calculateSelectedFilters);
   }
 
-  _calculateSelectedFilters() {
+  getSelectedFilters() {
     let result = [];
     if (this.state.selectedLoyalty) {
       result.push({
@@ -131,6 +130,11 @@ class CompaniesPage extends React.Component {
         text: violations.getByName(violation).text
       };
     }));
+    return result;
+  }
+
+  _calculateSelectedFilters() {
+    const result = this.getSelectedFilters();
     this.setState({selectedFilters: result}, this.refresh);
   }
 
@@ -271,7 +275,6 @@ CompaniesPage.propTypes = {
   totalPages: PropTypes.number,
   sortOrder: PropTypes.string,
   selectedViolations: PropTypes.array,
-  selectedFilters: PropTypes.array,
 
   onRefresh: PropTypes.func,
 };
@@ -287,7 +290,6 @@ CompaniesPage.defaultProps = {
   totalPages: 0,
   sortOrder: 'asc',
   selectedViolations: [],
-  selectedFilters: []
 };
 
 export default CompaniesPage;

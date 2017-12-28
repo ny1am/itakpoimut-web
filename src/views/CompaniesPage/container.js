@@ -44,7 +44,6 @@ const mapStateToProps = (state) => {
     violationsList: state.companies.violationsList,
     loyaltiesList: state.companies.loyaltiesList,
     categoriesList: state.companies.categoriesList,
-    selectedFilters: state.companies.selectedFilters,
   };
 };
 
