@@ -1,19 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import styles from './styles.scss';
-
-function fixProps(props, page) {
-  let result = Object.assign({}, props);
-  for (let name in result) {
-    if (props.hasOwnProperty(name)) {
-      if (typeof result[name] === 'string' || result[name] instanceof String) {
-        result[name] = result[name].replace(/{{page}}/g, page);
-      }
-    }
-  }
-  return result;
-}
 
 class Pagination extends React.Component {
   constructor(props) {
@@ -21,21 +10,21 @@ class Pagination extends React.Component {
     this.size = 5;
   }
 
-  renderChildElement(page, innerText) {
-    let props = fixProps(this.props.children.props, page);
-    if (this.props.changePage) {
-      props.onClick = (evt) => {
-        this.props.changePage(evt, page);
-      };
-    }
-    return React.cloneElement(this.props.children, props, innerText);
+  renderPageElement(page, innerText) {
+    const { generateUrl } = this.props;
+    const to = generateUrl(page);
+    return (
+      <Link to={to}>
+        {innerText}
+      </Link>
+    );
   }
   renderPrevPage() {
     let privPage = Number(this.props.currentPage) - 1;
     privPage = privPage<1?1:privPage;
     return (
       <li className={styles.prev}>
-        {this.renderChildElement(privPage)}
+        {this.renderPageElement(privPage)}
       </li>
     );
   }
@@ -44,7 +33,7 @@ class Pagination extends React.Component {
     nextPage = nextPage>this.props.totalPages?this.props.totalPages:nextPage;
     return (
       <li className={styles.next}>
-        {this.renderChildElement(nextPage)}
+        {this.renderPageElement(nextPage)}
       </li>
     );
   }
@@ -72,7 +61,7 @@ class Pagination extends React.Component {
     }
     return pages.map((page, index) => (
       <li key={index} className={`${styles.page} ${page.active?styles.active:''}`}>
-        {this.renderChildElement(page.index, page.index)}
+        {this.renderPageElement(page.index, page.index)}
       </li>
     ));
   }
@@ -92,8 +81,7 @@ class Pagination extends React.Component {
 }
 
 Pagination.propTypes = {
-  children: PropTypes.node,
-  changePage: PropTypes.func,
+  generateUrl: PropTypes.func.isRequired,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
 };

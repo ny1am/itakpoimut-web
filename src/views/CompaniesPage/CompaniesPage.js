@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import serialize from 'form-serialize';
 
 import Checkbox from 'components/Checkbox';
 import Radio from 'components/Radio';
@@ -20,9 +19,6 @@ class CompaniesPage extends React.Component {
   constructor(props) {
     super(props);
     this.refresh = this.refresh.bind(this);
-    this.search = this.search.bind(this);
-    this.sort = this.sort.bind(this);
-    this.changePage = this.changePage.bind(this);
     this.handleLoyaltyChange = this.handleLoyaltyChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleViolationChange = this.handleViolationChange.bind(this);
@@ -37,7 +33,6 @@ class CompaniesPage extends React.Component {
       allCompaniesCount: props.allCompaniesCount,
       currentPage: props.currentPage,
       totalPages: props.totalPages,
-      sortOrder: props.sortOrder,
 
       selectedFilters: props.selectedFilters
     };
@@ -49,8 +44,7 @@ class CompaniesPage extends React.Component {
     }
     this.props.onRefresh({
       currentPage: this.state.currentPage,
-      sortOrder: this.state.sortOrder,
-      formData: serialize(this.form, { hash: true })
+      sortOrder: this.props.sortOrder,
     });
   }
 
@@ -59,14 +53,6 @@ class CompaniesPage extends React.Component {
       evt.preventDefault();
     }
     this.setState({currentPage: 1}, this.refresh);
-  }
-
-  sort(sortOrder) {
-    this.setState({sortOrder, currentPage: 1}, this.refresh);
-  }
-
-  changePage(currentPage) {
-    this.setState({currentPage}, this.refresh);
   }
 
   handleRemoveFilter(id) {
@@ -193,7 +179,8 @@ class CompaniesPage extends React.Component {
     return (
       <div className="pattern-content">
         <div className="container">
-          <form action="/companies" method="POST" ref={(ref) => this.form = ref} onSubmit={this.search}>
+          {/*todo: remove id needed for a container*/}
+          <form id="companiesForm" action="/companies" method="POST" onSubmit={this.search}>
             <div className={styles.searchBar}>
               <div className={styles.searchWrapper}>
                 <div className={styles.searchInput}>
@@ -238,8 +225,6 @@ class CompaniesPage extends React.Component {
                 currentPage={this.props.currentPage}
                 totalPages={this.props.totalPages}
                 sortOrder={this.props.sortOrder}
-                sort={this.sort}
-                changePage={this.changePage}
               />
             </div>
           </form>

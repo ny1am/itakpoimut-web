@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import Pagination from 'components/Pagination';
 import CompanyOverview from 'components/CompanyOverview';
@@ -7,22 +8,6 @@ import CompanyOverview from 'components/CompanyOverview';
 import styles from './styles.scss';
 
 class CompaniesSearchResults extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.sort = this.sort.bind(this);
-    this.changePage = this.changePage.bind(this);
-  }
-
-  sort(evt, sortOrder) {
-    evt.preventDefault();
-    this.props.sort(sortOrder);
-  }
-
-  changePage(evt, currentPage) {
-    evt.preventDefault();
-    this.props.changePage(currentPage);
-  }
 
   render() {
     const newSortOrder = (this.props.sortOrder==='asc'?'desc':'asc');
@@ -34,18 +19,22 @@ class CompaniesSearchResults extends React.Component {
             <span>
               Підібрано {this.props.companiesCount} з {this.props.allCompaniesCount} компаній
             </span>
-            <button type="submit" className={sortClassName} formAction={"/companies?sortOrder="+newSortOrder} onClick={(evt)=>{this.sort(evt, newSortOrder);}}>
+            <Link to={`/companies?sortOrder=${newSortOrder}`} className={sortClassName}>
               За алфавітом
-            </button>
+            </Link>
           </div>
           <div className={styles.searchResultsItems}>
             {this.props.companies.map(company => (
               <CompanyOverview key={company._id} company={company} />
             ))}
           </div>
-          <Pagination currentPage={this.props.currentPage} totalPages={this.props.totalPages} changePage={this.changePage}>
-            <button type="submit" formAction={"/companies?currentPage={{page}}&sortOrder="+this.props.sortOrder}/>
-          </Pagination>
+          <Pagination
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalPages}
+            generateUrl={
+              (page) => `/companies?sortOrder=${newSortOrder}&currentPage=${page}`
+            }
+          />
         </div>
       );
     } else {
@@ -65,8 +54,6 @@ CompaniesSearchResults.propTypes = {
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
   sortOrder: PropTypes.string,
-  sort: PropTypes.func,
-  changePage: PropTypes.func,
 };
 
 CompaniesSearchResults.defaultProps = {

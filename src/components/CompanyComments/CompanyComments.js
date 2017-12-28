@@ -48,9 +48,13 @@ class CompanyComments extends React.Component {
               ))}
             </ul>
           }
-          <Pagination currentPage={this.props.currentPage} totalPages={this.props.totalPages}>
-            <Link to={"/company/"+this.props.company._id+"?currentPage={{page}}#comments"} />
-          </Pagination>
+          <Pagination
+            currentPage={this.props.currentPage}
+            totalPages={this.props.totalPages}
+            generateUrl={
+              (page) => `/company/${company._id}?currentPage=${page}#comments`
+            }
+          />
         </section>
         <CompanyCommentsForm company={company} onSubmit={this.onSubmit} />
       </div>

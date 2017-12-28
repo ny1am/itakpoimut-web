@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, withRouter } from 'react-router-dom';
+import cloneDeep from 'clone-deep';
 
 import * as preload from 'actions/preload';
 import { appReady } from 'actions/global';
@@ -40,11 +41,9 @@ class PreloadSwitch extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    const current = serializeLocation(this.props.location);
-    const next = serializeLocation(nextProps.location);
-    const currentHash = (this.props.location.state || {}).forceReload;
-    const nextHash = (nextProps.location.state || {}).forceReload;
-    if (current === next && (currentHash === nextHash)) {
+    const currentDialog = (this.props.location.state || {}).dialogType;
+    const nextDialog = (nextProps.location.state || {}).dialogType;
+    if (this.props.location === nextProps.location || (currentDialog != nextDialog)) {
       return;
     }
     this.fetchRoutes(nextProps);

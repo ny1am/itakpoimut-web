@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 import { CREATE_COMPANY_DIALOG } from 'constants/dialog';
 import DialogLink from 'components/DialogLink';
-import ForceReloadLink from 'components/ForceReloadLink';
 
 import userLinks from './userLinks';
 import styles from './styles.scss';
@@ -47,9 +46,9 @@ class Menu extends React.Component {
               <ul className={styles.menu}>
                 {menuLinks.map((item, index) => (
                   <li key={index}>
-                    <ForceReloadLink to={item.location}>
+                    <Link to={item.location}>
                       {item.title}
-                    </ForceReloadLink>
+                    </Link>
                   </li>
                 ))}
               </ul>
