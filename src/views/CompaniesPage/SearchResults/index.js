@@ -33,7 +33,7 @@ const SearchResults = ({ sortOrder, companies, companiesCount, allCompaniesCount
           currentPage={currentPage}
           totalPages={totalPages}
           generateUrl={
-            (page) => `/companies?sortOrder=${newSortOrder}&currentPage=${page}#results`
+            (page) => `/companies?sortOrder=${sortOrder}&currentPage=${page}#results`
           }
         />
       </div>
