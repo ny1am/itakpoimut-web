@@ -187,6 +187,7 @@ class CompaniesPage extends React.Component {
 
   render() {
     const selectedFilters = this.getSelectedFilters();
+    const { companies, companiesCount, allCompaniesCount, currentPage, totalPages, sortOrder } = this.props;
     return (
       <div className="pattern-content">
         <div className="container">
@@ -232,12 +233,12 @@ class CompaniesPage extends React.Component {
                 </div>
               </details>
               <SearchResults
-                companies={this.props.companies}
-                companiesCount={this.props.companiesCount}
-                allCompaniesCount={this.props.allCompaniesCount}
-                currentPage={this.props.currentPage}
-                totalPages={this.props.totalPages}
-                sortOrder={this.props.sortOrder}
+                companies={companies}
+                companiesCount={companiesCount}
+                allCompaniesCount={allCompaniesCount}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                sortOrder={sortOrder}
               />
             </div>
           </form>
@@ -258,9 +259,9 @@ CompaniesPage.propTypes = {
   companies: PropTypes.array,
   companiesCount: PropTypes.number,
   allCompaniesCount: PropTypes.number,
-  currentPage: PropTypes.number,
+  currentPage: PropTypes.number.isRequired,
   totalPages: PropTypes.number,
-  sortOrder: PropTypes.string,
+  sortOrder: PropTypes.string.isRequired,
 
   onRefresh: PropTypes.func,
 };
@@ -269,9 +270,7 @@ CompaniesPage.defaultProps = {
   companies: [],
   companiesCount: 0,
   allCompaniesCount: 0,
-  currentPage: 1,
   totalPages: 0,
-  sortOrder: 'asc',
 };
 
 export default CompaniesPage;

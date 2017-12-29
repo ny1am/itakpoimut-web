@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import queryString from 'query-string';
@@ -25,26 +26,32 @@ class Container extends React.Component {
     }));
   }
   render() {
-    return <CompaniesPageComponent {...this.props} />;
+    const { currentPage, sortOrder, title, selectedCategory } = queryString.parse(this.props.location.search);
+    return (<CompaniesPageComponent
+      {...this.props.initialData}
+      {...this.props}
+      title={title}
+      currentPage={Number(currentPage || 1)}
+      sortOrder={sortOrder || 'asc'}
+      selectedCategory={selectedCategory}
+    />);
   }
 }
 
-const mapStateToProps = (state) => {
-  const { title, selectedCategory } = queryString.parse(state.router.location.search);
-  return {
-    title,
-    selectedCategory,
-    companiesCount: state.companies.companiesCount,
-    companies: state.companies.companies,
-    allCompaniesCount: state.companies.allCompaniesCount,
-    currentPage: state.companies.currentPage,
-    recordsPerPage: state.companies.recordsPerPage,
-    totalPages: state.companies.totalPages,
-    sortOrder: state.companies.sortOrder,
-    violationsList: state.companies.violationsList,
-    loyaltiesList: state.companies.loyaltiesList,
-    categoriesList: state.companies.categoriesList,
-  };
+Container.propTypes = {
+  location: PropTypes.shape({
+    search: PropTypes.string,
+  }).isRequired,
+  initialData: PropTypes.shape({
+    companiesCount: PropTypes.number,
+    companies: PropTypes.array,
+    allCompaniesCount: PropTypes.number,
+    recordsPerPage: PropTypes.number,
+    totalPages: PropTypes.number,
+    violationsList: PropTypes.array,
+    loyaltiesList: PropTypes.array,
+    categoriesList: PropTypes.array,
+  })
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -53,5 +60,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(
-  mapStateToProps, mapDispatchToProps
+  null, mapDispatchToProps
 )(Container);
