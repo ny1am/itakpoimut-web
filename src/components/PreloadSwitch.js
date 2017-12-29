@@ -53,7 +53,7 @@ class PreloadSwitch extends React.Component {
       appFetchingError: null,
       initialData: null,
     });
-    const promise = reactRouterFetch(routeConfig, location, { store, dispatch: store.dispatch });
+    const promise = reactRouterFetch(routeConfig, location, { store, dispatch: store.dispatch, history: this.props.history });
     const preloadOpts = {
       preloadType: 'page',
       instant: !promise,
@@ -109,6 +109,10 @@ PreloadSwitch.propTypes = {
    * location object
    */
   location: PropTypes.object.isRequired,
+  /**
+   * history object
+   */
+  history: PropTypes.object.isRequired,
   /**
    * children
    */

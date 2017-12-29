@@ -7,9 +7,14 @@ import { get, getComments } from 'actions/company';
 import CompanyPageComponent from './CompanyPage';
 
 class Container extends React.Component {
-  static fetch({ params }, location, { dispatch }) {
+  static fetch({ params }, location, { dispatch, history }) {
     const { currentPage } = queryString.parse(location.search);
-    return Promise.all([ dispatch(get(params.id)), dispatch(getComments(params.id, currentPage)) ]);
+    const promises = [];
+    if (location.pathname !== history.location.pathname || history.action === 'POP') {
+      promises.push(dispatch(get(params.id)));
+    }
+    promises.push(dispatch(getComments(params.id, currentPage)));
+    return Promise.all(promises);
   }
   render() {
     return <CompanyPageComponent {...this.props} />;
