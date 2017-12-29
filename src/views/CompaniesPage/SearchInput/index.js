@@ -3,8 +3,13 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.scss';
 
+const preventEventWrapper = (func) => (event) => {
+  event.preventDefault();
+  return func();
+};
+
 const SearchInput = ({ value, innerRef, onSubmit }) => (
-  <form action="/companies" method="POST" onSubmit={onSubmit}>
+  <form action="/companies" method="POST" onSubmit={preventEventWrapper(onSubmit)}>
     <div className={styles.wrapper}>
       <div className={styles.input}>
         <input type="text"

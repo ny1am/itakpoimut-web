@@ -18,11 +18,11 @@ class CompaniesPage extends React.Component {
 
   constructor(props) {
     super(props);
-    this.search = this.search.bind(this);
+    this.refresh = this.refresh.bind(this);
     this.handleLoyaltyChange = this.handleLoyaltyChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleViolationChange = this.handleViolationChange.bind(this);
-    this.handleRemoveFilter = this.handleRemoveFilter.bind(this);
+    this.clearFilters = this.clearFilters.bind(this);
     this.state = {
       selectedLoyalty: null,
       selectedCategory: props.selectedCategory || null,
@@ -30,91 +30,60 @@ class CompaniesPage extends React.Component {
     };
   }
 
-  refresh({ currentPage }) {
+  refresh() {
     const title = this.titleInput.value;
+    const { sortOrder } = this.props;
     this.props.onRefresh({
-      currentPage: currentPage || this.props.currentPage,
-      sortOrder: this.props.sortOrder,
+      currentPage: 1,
+      sortOrder,
       title,
     });
   }
 
-  search(evt) {
-    evt && evt.preventDefault();
-    this.refresh({ currentPage: 1 });
-  }
-
-  handleLoyaltyChange({ target: { checked, value } }) {
+  handleLoyaltyChange({ checked, value }) {
     let selectedLoyalty = checked ? value : null;
-    this.setState({ selectedLoyalty }, () => {
-      this.refresh({ currentPage: 1 });
-    });
+    this.setState({ selectedLoyalty }, this.refresh);
   }
 
-  handleCategoryChange({ target: { checked, value } }) {
+  handleCategoryChange({ checked, value }) {
     let selectedCategory = checked ? value : null;
-    this.setState({ selectedCategory }, () => {
-      this.refresh({ currentPage: 1 });
-    });
+    this.setState({ selectedCategory }, this.refresh);
   }
 
-  handleViolationChange({ target: { checked, value } }) {
+  handleViolationChange({ checked, value }) {
     let { selectedViolations } = this.state;
     selectedViolations = selectedViolations.filter(item => item !== value);
     if (checked) {
       selectedViolations.push(value);
     }
-    this.setState({ selectedViolations }, () => {
-      this.refresh({ currentPage: 1 });
-    });
+    this.setState({ selectedViolations }, this.refresh);
   }
 
-  handleRemoveFilter(filter) {
-    if (filter) {
-      const fakeElement = {
-        target: {
-          checked: false,
-          value: filter.id
-        }
-      };
-      if (filter.type === 'loyalty') {
-        this.handleLoyaltyChange(fakeElement);
-      }
-      if (filter.type === 'category') {
-        this.handleCategoryChange(fakeElement);
-      }
-      if (filter.type === 'violation') {
-        this.handleViolationChange(fakeElement);
-      }
-    } else {
-      this.setState({
-        selectedLoyalty: null,
-        selectedCategory: null,
-        selectedViolations: [],
-      }, () => {
-        this.refresh({ currentPage: 1 });
-      });
-    }
+  clearFilters() {
+    this.setState({
+      selectedLoyalty: null,
+      selectedCategory: null,
+      selectedViolations: [],
+    }, () => {
+      this.refresh({ currentPage: 1 });
+    });
   }
 
   getSelectedFilters() {
     const { selectedLoyalty, selectedCategory, selectedViolations } = this.state;
     let result = [];
     selectedLoyalty && result.push({
-      id: selectedLoyalty,
-      type: 'loyalty',
-      text: loyalties.getByName(selectedLoyalty).text
+      text: loyalties.getByName(selectedLoyalty).text,
+      onRemove: () => this.handleLoyaltyChange({ checked: false, value: selectedLoyalty })
     });
     selectedCategory && result.push({
-      id: selectedCategory,
-      type: 'category',
-      text: categories.getByName(selectedCategory).text
+      text: categories.getByName(selectedCategory).text,
+      onRemove: () => this.handleCategoryChange({ checked: false, value: selectedCategory })
     });
     result.push(...selectedViolations.map(violation => {
       return {
-        id: violation,
-        type: 'violation',
-        text: violations.getByName(violation).text
+        text: violations.getByName(violation).text,
+        onRemove: () => this.handleViolationChange({ checked: false, value: violation })
       };
     }));
     return result;
@@ -134,12 +103,12 @@ class CompaniesPage extends React.Component {
             <SearchInput
               value={title}
               innerRef={input => (this.titleInput = input)}
-              onSubmit={this.search}
+              onSubmit={this.refresh}
             />
-            <SelectedFilters filters={selectedFilters} onRemove={this.handleRemoveFilter} />
+            <SelectedFilters filters={selectedFilters} onRemoveAll={this.clearFilters} />
           </div>
           {/*todo: remove id needed for a container*/}
-          <form id="companiesForm" action="/companies" method="POST" onSubmit={this.search}>
+          <form id="companiesForm" action="/companies" method="POST">
             <div className={styles.searchBody}>
               <details className={styles.searchParams} open>
                 <summary className={styles.searchParamsHeader}>
@@ -149,17 +118,17 @@ class CompaniesPage extends React.Component {
                   <LoyaltyFilters
                     value={selectedLoyalty}
                     list={loyaltiesList}
-                    onChange={this.handleLoyaltyChange}
+                    onChange={(evt) => this.handleLoyaltyChange(evt.target)}
                   />
                   <CategoryFilters
                     value={selectedCategory}
                     list={categoriesList}
-                    onChange={this.handleCategoryChange}
+                    onChange={(evt) => this.handleCategoryChange(evt.target)}
                   />
                   <ViolationFilters
                     value={selectedViolations}
                     list={violationsList}
-                    onChange={this.handleViolationChange}
+                    onChange={(evt) => this.handleViolationChange(evt.target)}
                   />
                 </div>
               </details>
