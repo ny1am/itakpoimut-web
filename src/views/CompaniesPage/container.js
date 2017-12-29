@@ -48,7 +48,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onRefresh: ({ currentPage, sortOrder }) => dispatch(push(`/companies?sortOrder=${sortOrder}&currentPage=${currentPage}`)),
+  onRefresh: ({ currentPage, sortOrder }) => dispatch(push(`/companies?sortOrder=${sortOrder}&currentPage=${currentPage}#results`)),
   dispatch
 });
 

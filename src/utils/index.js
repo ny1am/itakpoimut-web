@@ -68,15 +68,6 @@ export const reactRouterFetch = (routes, location, options) => {
   }
 };
 
-export const urlHash = (locationString) => {
-  const parts = locationString.split('#');
-  if (parts.length > 1) {
-    return parts[1];
-  } else {
-    return null;
-  }
-};
-
 /**
 * checkes wheather route has been changed, with dialogs being not taken in care of.
 */

@@ -1,16 +1,17 @@
+import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
+
 import { PRELOAD_LOCATION_CHANGE_END } from 'constants';
-import { urlHash } from 'utils';
 
 export default () => next => action => {
   if (!action) {
     return;
   }
 
-  if (action.type === PRELOAD_LOCATION_CHANGE_END && action.preloadType === 'page' && action.prevRoute !== action.route) {
-    const idToScroll = urlHash(action.route);
+  if (action.type === PRELOAD_LOCATION_CHANGE_END && action.preloadType === 'page') {
+    const idToScroll = action.hash;
     if (idToScroll) {
-      (document.getElementById(idToScroll) || document.body).scrollIntoView();
-    } else {
+      scrollIntoViewIfNeeded(document.getElementById(idToScroll.slice(1)) || document.body);
+    } else if (action.prevRoute !== action.route) {
       window.scrollTo(0, 0);
     }
   }

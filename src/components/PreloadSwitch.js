@@ -19,10 +19,6 @@ const extractData = (data) => {
   }
 };
 
-const serializeLocation = (location) => (
-  `${location.pathname}${location.search}${location.hash}`
-);
-
 class PreloadSwitch extends React.Component {
 
   constructor(props) {
@@ -61,8 +57,9 @@ class PreloadSwitch extends React.Component {
     const preloadOpts = {
       preloadType: 'page',
       instant: !promise,
-      prevRoute: serializeLocation(this.props.location),
-      route: serializeLocation(props.location),
+      prevRoute: this.props.location.pathname,
+      route: props.location.pathname,
+      hash: props.location.hash,
     };
     store.dispatch(preload.start(preloadOpts));
     (promise || Promise.resolve()).then((data) => {

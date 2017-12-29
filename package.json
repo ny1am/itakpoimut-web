@@ -43,6 +43,7 @@
     "redux-api-middleware": "^2.0.0-beta.3",
     "redux-logger": "3.0.6",
     "redux-thunk": "2.1.0",
+    "scroll-into-view-if-needed": "^1.4.0",
     "scroll-restoration-polyfill": "^0.6.1"
   },
   "devDependencies": {

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
 import Pagination from 'components/Pagination';
 import Comment from 'components/Comment';
@@ -18,7 +19,7 @@ class CompanyComments extends React.Component {
   onSubmit(companyId, text) {
     return this.props.onSubmit(companyId, text).then(data => {
       if (!data.payload.error) {
-        ReactDOM.findDOMNode(this.refs.comments).scrollIntoView();
+        scrollIntoViewIfNeeded(ReactDOM.findDOMNode(this.refs.comments));
       }
       return data;
     });

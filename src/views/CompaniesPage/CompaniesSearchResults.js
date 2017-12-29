@@ -15,13 +15,16 @@ class CompaniesSearchResults extends React.Component {
     if (this.props.companies.length > 0) {
       return (
         <div className={styles.searchResults}>
-          <div className={styles.searchResultsHeader}>
-            <span>
-              Підібрано {this.props.companiesCount} з {this.props.allCompaniesCount} компаній
-            </span>
-            <Link to={`/companies?sortOrder=${newSortOrder}`} className={sortClassName}>
-              За алфавітом
-            </Link>
+          {/*id used for scrolling*/}
+          <div id="results" className={styles.searchResultsHeaderWrapper}>
+            <div className={styles.searchResultsHeader}>
+              <span>
+                Підібрано {this.props.companiesCount} з {this.props.allCompaniesCount} компаній
+              </span>
+              <Link to={`/companies?sortOrder=${newSortOrder}#results`} className={sortClassName}>
+                За алфавітом
+              </Link>
+            </div>
           </div>
           <div className={styles.searchResultsItems}>
             {this.props.companies.map(company => (
@@ -32,7 +35,7 @@ class CompaniesSearchResults extends React.Component {
             currentPage={this.props.currentPage}
             totalPages={this.props.totalPages}
             generateUrl={
-              (page) => `/companies?sortOrder=${newSortOrder}&currentPage=${page}`
+              (page) => `/companies?sortOrder=${newSortOrder}&currentPage=${page}#results`
             }
           />
         </div>
@@ -40,7 +43,9 @@ class CompaniesSearchResults extends React.Component {
     } else {
       return (
         <div className={styles.searchResults}>
-          За заданими вами параметрами нічого не знайдено.
+          <div id="results" className={styles.searchResultsHeaderWrapper}>
+            За заданими вами параметрами нічого не знайдено.
+          </div>
         </div>
       );
     }
