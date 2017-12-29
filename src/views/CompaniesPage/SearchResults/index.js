@@ -7,7 +7,7 @@ import CompanyOverview from 'components/CompanyOverview';
 
 import styles from './styles.scss';
 
-const SearchResults = ({ sortOrder, companies, companiesCount, allCompaniesCount, currentPage, totalPages }) => {
+const SearchResults = ({ sortOrder, companies, companiesCount, allCompaniesCount, currentPage, totalPages, baseUrl }) => {
   const newSortOrder = (sortOrder === 'asc' ? 'desc' : 'asc');
   const sortClassName = `${styles.sort} ${styles[newSortOrder]}`;
   if (companies.length > 0) {
@@ -19,7 +19,7 @@ const SearchResults = ({ sortOrder, companies, companiesCount, allCompaniesCount
             <span>
               Підібрано {companiesCount} з {allCompaniesCount} компаній
             </span>
-            <Link to={`/companies?sortOrder=${newSortOrder}#results`} className={sortClassName}>
+            <Link to={`${baseUrl}&sortOrder=${newSortOrder}#results`} className={sortClassName}>
               За алфавітом
             </Link>
           </div>
@@ -33,7 +33,7 @@ const SearchResults = ({ sortOrder, companies, companiesCount, allCompaniesCount
           currentPage={currentPage}
           totalPages={totalPages}
           generateUrl={
-            (page) => `/companies?sortOrder=${sortOrder}&currentPage=${page}#results`
+            (page) => `${baseUrl}&sortOrder=${sortOrder}&currentPage=${page}#results`
           }
         />
       </div>
@@ -57,6 +57,7 @@ SearchResults.propTypes = {
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
   sortOrder: PropTypes.string,
+  baseUrl: PropTypes.string.isRequired,
 };
 
 export default SearchResults;

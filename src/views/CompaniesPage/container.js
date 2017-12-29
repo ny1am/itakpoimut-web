@@ -55,7 +55,7 @@ Container.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onRefresh: ({ currentPage, sortOrder }) => dispatch(push(`/companies?sortOrder=${sortOrder}&currentPage=${currentPage}#results`)),
+  onRefresh: ({ currentPage, sortOrder, title }) => dispatch(push(`/companies?title=${title}&sortOrder=${sortOrder}&currentPage=${currentPage}#results`)),
   dispatch
 });
 

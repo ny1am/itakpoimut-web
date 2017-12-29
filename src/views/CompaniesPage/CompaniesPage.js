@@ -7,6 +7,7 @@ import ShowHideWrapper from 'components/ShowHideWrapper';
 
 import SearchResults from './SearchResults';
 import SelectedFilters from './SelectedFilters';
+import SearchInput from './SearchInput';
 
 import loyalties from 'shared/js/loyalties';
 import categories from 'shared/js/categories';
@@ -27,36 +28,35 @@ class CompaniesPage extends React.Component {
       selectedLoyalty: null,
       selectedCategory: props.selectedCategory || null,
       selectedViolations: [],
-
-      companies: props.companies,
-      companiesCount: props.companiesCount,
-      allCompaniesCount: props.allCompaniesCount,
-      currentPage: props.currentPage,
-      totalPages: props.totalPages,
     };
   }
 
-  refresh(evt) {
-    evt && evt.preventDefault();
+  refresh({ currentPage }) {
+    const title = this.titleInput.value;
     this.props.onRefresh({
-      currentPage: this.state.currentPage,
+      currentPage: currentPage || this.props.currentPage,
       sortOrder: this.props.sortOrder,
+      title,
     });
   }
 
   search(evt) {
     evt && evt.preventDefault();
-    this.setState({currentPage: 1}, this.refresh);
+    this.refresh({ currentPage: 1 });
   }
 
   handleLoyaltyChange({ target: { checked, value } }) {
     let selectedLoyalty = checked ? value : null;
-    this.setState({ selectedLoyalty, currentPage: 1 }, this.refresh);
+    this.setState({ selectedLoyalty }, () => {
+      this.refresh({ currentPage: 1 });
+    });
   }
 
   handleCategoryChange({ target: { checked, value } }) {
     let selectedCategory = checked ? value : null;
-    this.setState({ selectedCategory, currentPage: 1 }, this.refresh);
+    this.setState({ selectedCategory }, () => {
+      this.refresh({ currentPage: 1 });
+    });
   }
 
   handleViolationChange({ target: { checked, value } }) {
@@ -65,7 +65,9 @@ class CompaniesPage extends React.Component {
     if (checked) {
       selectedViolations.push(value);
     }
-    this.setState({ selectedViolations, currentPage: 1 }, this.refresh);
+    this.setState({ selectedViolations }, () => {
+      this.refresh({ currentPage: 1 });
+    });
   }
 
   handleRemoveFilter(filter) {
@@ -90,8 +92,9 @@ class CompaniesPage extends React.Component {
         selectedLoyalty: null,
         selectedCategory: null,
         selectedViolations: [],
-        currentPage: 1
-      }, this.refresh);
+      }, () => {
+        this.refresh({ currentPage: 1 });
+      });
     }
   }
 
@@ -187,21 +190,20 @@ class CompaniesPage extends React.Component {
 
   render() {
     const selectedFilters = this.getSelectedFilters();
-    const { companies, companiesCount, allCompaniesCount, currentPage, totalPages, sortOrder } = this.props;
+    const { companies, companiesCount, allCompaniesCount, currentPage, totalPages, sortOrder, title } = this.props;
     return (
       <div className="pattern-content">
         <div className="container">
+          <div className={styles.searchBar}>
+            <SearchInput
+              value={title}
+              innerRef={input => (this.titleInput = input)}
+              onSubmit={this.search}
+            />
+            <SelectedFilters filters={selectedFilters} onRemove={this.handleRemoveFilter} />
+          </div>
           {/*todo: remove id needed for a container*/}
           <form id="companiesForm" action="/companies" method="POST" onSubmit={this.search}>
-            <div className={styles.searchBar}>
-              <div className={styles.searchWrapper}>
-                <div className={styles.searchInput}>
-                  <input type="text" name="title" placeholder="Введіть назву компанії" defaultValue={this.props.title} />
-                </div>
-                <button type="submit" className={styles.searchButton} />
-              </div>
-              <SelectedFilters filters={selectedFilters} onRemove={this.handleRemoveFilter} />
-            </div>
             <div className={styles.searchBody}>
               <details className={styles.searchParams} open>
                 <summary className={styles.searchParamsHeader}>
@@ -239,6 +241,7 @@ class CompaniesPage extends React.Component {
                 currentPage={currentPage}
                 totalPages={totalPages}
                 sortOrder={sortOrder}
+                baseUrl={`/companies?title=${title || ''}`}
               />
             </div>
           </form>

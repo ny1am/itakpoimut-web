@@ -1,0 +1,44 @@
+.wrapper {
+  display: flex;
+  height: 60px;
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.2);
+}
+
+.input {
+  position: relative;
+  height: 100%;
+  flex-grow: 3;
+  display: inline-block;
+  vertical-align: bottom;
+  input[type="text"] {
+    padding: 0 15px;
+    height: 100%;
+    width: 100%;
+    border-radius: 5px 0 0 5px;
+    border: 0;
+    font-size: 1.25rem;
+  }
+}
+
+.button {
+  border-radius: 0 5px 5px 0;
+  width: 69px;
+  background-color: #6e9d3a;
+  display: inline-block;
+  vertical-align: bottom;
+  height: 100%;
+  &:before {
+    content: '';
+    display: inline-block;
+    background-image: url(/assets/img/icons-sprite.png);
+    background-position:-106px -82px;
+    width: 34px;
+    height: 34px;
+  }
+  &:hover {
+    background-color: #73a43d;
+  }
+  &:active {
+    background-color: #7bb041;
+  }
+}
