@@ -1,0 +1,49 @@
+.sort {
+  &:after {
+    content: '';
+    display: inline-block;
+    margin-left: 8px;
+    width: 10px;
+    height: 5px;
+  }
+  &.asc:after {
+    background-image: url(/assets/img/icons-sprite.png);
+    background-position: -92px -75px;
+  }
+  &.desc:after {
+    background-image: url(/assets/img/icons-sprite.png);
+    background-position: -82px -75px;
+  }
+}
+
+.wrapper {
+  background-color: rgba(255,255,255,0.78);
+  box-sizing: border-box;
+  padding: 0 30px 40px;
+  width: 72%;
+  display: flex; 
+  flex-grow: 1;
+  flex-direction: column;
+  @media (max-width: 640px) {
+    width: 100%;
+    padding: 40px 0;
+  }
+}
+
+.headerWrapper {
+  padding-top: 40px;
+}
+
+.header {
+  color: #666;
+  font-size: 0.75rem;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ebebeb;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.items {
+  flex-grow: 1;
+}

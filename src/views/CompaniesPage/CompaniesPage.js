@@ -5,8 +5,8 @@ import Checkbox from 'components/Checkbox';
 import Radio from 'components/Radio';
 import ShowHideWrapper from 'components/ShowHideWrapper';
 
-import CompaniesSearchResults from './CompaniesSearchResults';
-import CompaniesSelectedFilters from './CompaniesSelectedFilters';
+import SearchResults from './SearchResults';
+import SelectedFilters from './SelectedFilters';
 
 import loyalties from 'shared/js/loyalties';
 import categories from 'shared/js/categories';
@@ -18,15 +18,15 @@ class CompaniesPage extends React.Component {
 
   constructor(props) {
     super(props);
-    this.refresh = this.refresh.bind(this);
+    this.search = this.search.bind(this);
     this.handleLoyaltyChange = this.handleLoyaltyChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleViolationChange = this.handleViolationChange.bind(this);
     this.handleRemoveFilter = this.handleRemoveFilter.bind(this);
     this.state = {
-      selectedLoyalty: props.selectedLoyalty||null,
-      selectedCategory: props.selectedCategory||null,
-      selectedViolations: props.selectedViolations,
+      selectedLoyalty: null,
+      selectedCategory: props.selectedCategory || null,
+      selectedViolations: [],
 
       companies: props.companies,
       companiesCount: props.companiesCount,
@@ -34,13 +34,10 @@ class CompaniesPage extends React.Component {
       currentPage: props.currentPage,
       totalPages: props.totalPages,
     };
-    this.state.selectedFilters = this.getSelectedFilters();
   }
 
   refresh(evt) {
-    if (evt) {
-      evt.preventDefault();
-    }
+    evt && evt.preventDefault();
     this.props.onRefresh({
       currentPage: this.state.currentPage,
       sortOrder: this.props.sortOrder,
@@ -48,82 +45,70 @@ class CompaniesPage extends React.Component {
   }
 
   search(evt) {
-    if (evt) {
-      evt.preventDefault();
-    }
+    evt && evt.preventDefault();
     this.setState({currentPage: 1}, this.refresh);
   }
 
-  handleRemoveFilter(id) {
-    if (id) {
-      let filter = this.state.selectedFilters.find(el => el.id === id);
-      if (filter) {
-        if (filter.type === 'loyalty') {
-          this.setState({selectedLoyalty: null, currentPage: 1}, this._calculateSelectedFilters);
+  handleLoyaltyChange({ target: { checked, value } }) {
+    let selectedLoyalty = checked ? value : null;
+    this.setState({ selectedLoyalty, currentPage: 1 }, this.refresh);
+  }
+
+  handleCategoryChange({ target: { checked, value } }) {
+    let selectedCategory = checked ? value : null;
+    this.setState({ selectedCategory, currentPage: 1 }, this.refresh);
+  }
+
+  handleViolationChange({ target: { checked, value } }) {
+    let { selectedViolations } = this.state;
+    selectedViolations = selectedViolations.filter(item => item !== value);
+    if (checked) {
+      selectedViolations.push(value);
+    }
+    this.setState({ selectedViolations, currentPage: 1 }, this.refresh);
+  }
+
+  handleRemoveFilter(filter) {
+    if (filter) {
+      const fakeElement = {
+        target: {
+          checked: false,
+          value: filter.id
         }
-        if (filter.type === 'category') {
-          this.setState({selectedCategory: null, currentPage: 1}, this._calculateSelectedFilters);
-        }
-        if (filter.type === 'violation') {
-          let selectedViolations = this.state.selectedViolations;
-          let index = selectedViolations.indexOf(id);
-          if (index > -1) {
-            selectedViolations.splice(index, 1);
-          }
-          this.setState({selectedViolations, currentPage: 1}, this._calculateSelectedFilters);
-        }
+      };
+      if (filter.type === 'loyalty') {
+        this.handleLoyaltyChange(fakeElement);
+      }
+      if (filter.type === 'category') {
+        this.handleCategoryChange(fakeElement);
+      }
+      if (filter.type === 'violation') {
+        this.handleViolationChange(fakeElement);
       }
     } else {
       this.setState({
         selectedLoyalty: null,
         selectedCategory: null,
         selectedViolations: [],
-        selectedFilters: [],
         currentPage: 1
-      }, this._calculateSelectedFilters);
+      }, this.refresh);
     }
-  }
-
-  handleLoyaltyChange(el) {
-    let selectedLoyalty = el.target.checked?el.target.value:null;
-    this.setState({selectedLoyalty, currentPage: 1}, this._calculateSelectedFilters);
-  }
-
-  handleCategoryChange(el) {
-    let selectedCategory = el.target.checked?el.target.value:null;
-    this.setState({selectedCategory, currentPage: 1}, this._calculateSelectedFilters);
-  }
-
-  handleViolationChange(el) {
-    let selectedViolations = this.state.selectedViolations;
-    if (el.target.checked) {
-      selectedViolations.push(el.target.value);
-    } else {
-      let index = selectedViolations.indexOf(el.target.value);
-      if (index > -1) {
-        selectedViolations.splice(index, 1);
-      }
-    }
-    this.setState({selectedViolations, currentPage: 1}, this._calculateSelectedFilters);
   }
 
   getSelectedFilters() {
+    const { selectedLoyalty, selectedCategory, selectedViolations } = this.state;
     let result = [];
-    if (this.state.selectedLoyalty) {
-      result.push({
-        id: this.state.selectedLoyalty,
-        type: 'loyalty',
-        text: loyalties.getByName(this.state.selectedLoyalty).text
-      });
-    }
-    if (this.state.selectedCategory) {
-      result.push({
-        id: this.state.selectedCategory,
-        type: 'category',
-        text: categories.getByName(this.state.selectedCategory).text
-      });
-    }
-    result.push(...this.state.selectedViolations.map(violation => {
+    selectedLoyalty && result.push({
+      id: selectedLoyalty,
+      type: 'loyalty',
+      text: loyalties.getByName(selectedLoyalty).text
+    });
+    selectedCategory && result.push({
+      id: selectedCategory,
+      type: 'category',
+      text: categories.getByName(selectedCategory).text
+    });
+    result.push(...selectedViolations.map(violation => {
       return {
         id: violation,
         type: 'violation',
@@ -133,20 +118,17 @@ class CompaniesPage extends React.Component {
     return result;
   }
 
-  _calculateSelectedFilters() {
-    const result = this.getSelectedFilters();
-    this.setState({selectedFilters: result}, this.refresh);
-  }
-
   renderLoyaltiesList() {
-    return this.props.loyaltiesList.map((loyalty, index) => (
+    const { loyaltiesList } = this.props;
+    const { selectedLoyalty } = this.state;
+    return loyaltiesList.map((loyalty, index) => (
       <li key={index} className="row">
         <div className="check-row">
           <Radio
             id={"rnk_"+loyalty.name}
             name="selectedLoyalty"
             value={loyalty.name}
-            checked={loyalty.name===this.state.selectedLoyalty}
+            checked={loyalty.name===selectedLoyalty}
             onChange={this.handleLoyaltyChange}
             className="row-checkbox"
           />
@@ -157,6 +139,7 @@ class CompaniesPage extends React.Component {
       </li>
     ));
   }
+
   prepareCategoriesList() {
     const { categoriesList } = this.props;
     const { selectedCategory } = this.state;
@@ -180,15 +163,18 @@ class CompaniesPage extends React.Component {
       ),
     }));
   }
+
   renderViolationsList() {
-    return this.props.violationsList.map((violation, index) => (
+    const { violationsList } = this.props;
+    const { selectedViolations } = this.state;
+    return violationsList.map((violation, index) => (
       <li key={index} className="row">
         <div className="check-row">
           <Checkbox id={"vlt_"+violation.name}
             className="row-checkbox"
             name="selectedViolations[]"
             value={violation.name}
-            checked={this.state.selectedViolations.indexOf(violation.name)>-1}
+            checked={selectedViolations.indexOf(violation.name) !== -1}
             onChange={this.handleViolationChange}
           />
           <label htmlFor={"vlt_"+violation.name}>
@@ -200,6 +186,7 @@ class CompaniesPage extends React.Component {
   }
 
   render() {
+    const selectedFilters = this.getSelectedFilters();
     return (
       <div className="pattern-content">
         <div className="container">
@@ -212,7 +199,7 @@ class CompaniesPage extends React.Component {
                 </div>
                 <button type="submit" className={styles.searchButton} />
               </div>
-              <CompaniesSelectedFilters selectedFilters={this.state.selectedFilters} removeHandler={this.handleRemoveFilter} />
+              <SelectedFilters filters={selectedFilters} onRemove={this.handleRemoveFilter} />
             </div>
             <div className={styles.searchBody}>
               <details className={styles.searchParams} open>
@@ -244,7 +231,7 @@ class CompaniesPage extends React.Component {
                   </ul>
                 </div>
               </details>
-              <CompaniesSearchResults
+              <SearchResults
                 companies={this.props.companies}
                 companiesCount={this.props.companiesCount}
                 allCompaniesCount={this.props.allCompaniesCount}
@@ -262,34 +249,29 @@ class CompaniesPage extends React.Component {
 
 CompaniesPage.propTypes = {
   title: PropTypes.string,
-  selectedLoyalty: PropTypes.string,
   selectedCategory: PropTypes.string,
 
   loyaltiesList: PropTypes.array,
   categoriesList: PropTypes.array,
   violationsList: PropTypes.array,
+
   companies: PropTypes.array,
   companiesCount: PropTypes.number,
   allCompaniesCount: PropTypes.number,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
   sortOrder: PropTypes.string,
-  selectedViolations: PropTypes.array,
 
   onRefresh: PropTypes.func,
 };
 
 CompaniesPage.defaultProps = {
-  loyaltiesList: [],
-  categoriesList: [],
-  violationsList: [],
   companies: [],
   companiesCount: 0,
   allCompaniesCount: 0,
   currentPage: 1,
   totalPages: 0,
   sortOrder: 'asc',
-  selectedViolations: [],
 };
 
 export default CompaniesPage;
