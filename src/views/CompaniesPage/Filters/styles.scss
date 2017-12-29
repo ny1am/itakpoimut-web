@@ -1,0 +1,23 @@
+.searchSubtitle {
+  margin: 25px 0 15px 0;
+  color: #666;
+  font-size: 1.375rem;
+  font-weight: 600;
+  @media (max-width: 640px) {
+    margin-top: 15px;
+    margin-bottom: 20px;
+  }
+  &:first-child {
+    margin-top: 5px;
+    @media (max-width: 640px) {
+      margin-top: 15px;
+    }
+  }
+}
+
+.searchGroup {
+  margin-bottom: 50px;
+  @media (max-width: 640px) {
+    margin-bottom: 35px;
+  }
+}
