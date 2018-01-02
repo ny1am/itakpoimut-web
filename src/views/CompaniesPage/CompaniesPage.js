@@ -23,11 +23,6 @@ class CompaniesPage extends React.Component {
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleViolationChange = this.handleViolationChange.bind(this);
     this.clearFilters = this.clearFilters.bind(this);
-    this.state = {
-      selectedLoyalty: null,
-      selectedCategory: props.selectedCategory || null,
-      selectedViolations: [],
-    };
   }
 
   refresh() {
@@ -41,37 +36,31 @@ class CompaniesPage extends React.Component {
   }
 
   handleLoyaltyChange({ checked, value }) {
-    let selectedLoyalty = checked ? value : null;
-    this.setState({ selectedLoyalty }, this.refresh);
+    const selectedLoyalty = checked ? value : null;
+    this.props.onLoyaltyChange(selectedLoyalty).then(this.refresh);
   }
 
   handleCategoryChange({ checked, value }) {
-    let selectedCategory = checked ? value : null;
-    this.setState({ selectedCategory }, this.refresh);
+    const selectedCategory = checked ? value : null;
+    this.props.onCategoryChange(selectedCategory).then(this.refresh);
   }
 
   handleViolationChange({ checked, value }) {
-    let { selectedViolations } = this.state;
+    let { selectedViolations } = this.props;
     selectedViolations = selectedViolations.filter(item => item !== value);
     if (checked) {
       selectedViolations.push(value);
     }
-    this.setState({ selectedViolations }, this.refresh);
+    this.props.onViolationChange(selectedViolations).then(this.refresh);
   }
 
   clearFilters() {
-    this.setState({
-      selectedLoyalty: null,
-      selectedCategory: null,
-      selectedViolations: [],
-    }, () => {
-      this.refresh({ currentPage: 1 });
-    });
+    this.props.onClearFilters().then(this.refresh);
   }
 
   getSelectedFilters() {
-    const { selectedLoyalty, selectedCategory, selectedViolations } = this.state;
-    let result = [];
+    const { selectedLoyalty, selectedCategory, selectedViolations } = this.props;
+    const result = [];
     selectedLoyalty && result.push({
       text: loyalties.getByName(selectedLoyalty).text,
       onRemove: () => this.handleLoyaltyChange({ checked: false, value: selectedLoyalty })
@@ -89,13 +78,38 @@ class CompaniesPage extends React.Component {
     return result;
   }
 
+  renderFilters() {
+    const { loyaltiesList, categoriesList, violationsList } = this.props;
+    const { selectedLoyalty, selectedCategory, selectedViolations } = this.props;
+    return (
+      <form action="/companies" method="POST">
+        <summary className={styles.searchParamsHeader}>
+          Фільтри
+        </summary>
+        <div className={styles.searchParamsBody}>
+          <LoyaltyFilters
+            value={selectedLoyalty}
+            list={loyaltiesList}
+            onChange={(evt) => this.handleLoyaltyChange(evt.target)}
+          />
+          <CategoryFilters
+            value={selectedCategory}
+            list={categoriesList}
+            onChange={(evt) => this.handleCategoryChange(evt.target)}
+          />
+          <ViolationFilters
+            value={selectedViolations}
+            list={violationsList}
+            onChange={(evt) => this.handleViolationChange(evt.target)}
+          />
+        </div>
+      </form>
+    );
+  }
+
   render() {
     const selectedFilters = this.getSelectedFilters();
-    const {
-      companies, companiesCount, allCompaniesCount, currentPage, totalPages, sortOrder, title,
-      loyaltiesList, categoriesList, violationsList
-    } = this.props;
-    const { selectedLoyalty, selectedCategory, selectedViolations } = this.state;
+    const { companies, companiesCount, allCompaniesCount, currentPage, totalPages, sortOrder, title } = this.props;
     return (
       <div className="pattern-content">
         <div className="container">
@@ -107,42 +121,20 @@ class CompaniesPage extends React.Component {
             />
             <SelectedFilters filters={selectedFilters} onRemoveAll={this.clearFilters} />
           </div>
-          {/*todo: remove id needed for a container*/}
-          <form id="companiesForm" action="/companies" method="POST">
-            <div className={styles.searchBody}>
-              <details className={styles.searchParams} open>
-                <summary className={styles.searchParamsHeader}>
-                  Фільтри
-                </summary>
-                <div className={styles.searchParamsBody}>
-                  <LoyaltyFilters
-                    value={selectedLoyalty}
-                    list={loyaltiesList}
-                    onChange={(evt) => this.handleLoyaltyChange(evt.target)}
-                  />
-                  <CategoryFilters
-                    value={selectedCategory}
-                    list={categoriesList}
-                    onChange={(evt) => this.handleCategoryChange(evt.target)}
-                  />
-                  <ViolationFilters
-                    value={selectedViolations}
-                    list={violationsList}
-                    onChange={(evt) => this.handleViolationChange(evt.target)}
-                  />
-                </div>
-              </details>
-              <SearchResults
-                companies={companies}
-                companiesCount={companiesCount}
-                allCompaniesCount={allCompaniesCount}
-                currentPage={currentPage}
-                totalPages={totalPages}
-                sortOrder={sortOrder}
-                baseUrl={`/companies?title=${title || ''}`}
-              />
+          <div className={styles.searchBody}>
+            <div className={styles.searchParams}>
+              {this.renderFilters()}
             </div>
-          </form>
+            <SearchResults
+              companies={companies}
+              companiesCount={companiesCount}
+              allCompaniesCount={allCompaniesCount}
+              currentPage={currentPage}
+              totalPages={totalPages}
+              sortOrder={sortOrder}
+              baseUrl={`/companies?title=${title || ''}`}
+            />
+          </div>
         </div>
       </div>
     );
@@ -151,7 +143,9 @@ class CompaniesPage extends React.Component {
 
 CompaniesPage.propTypes = {
   title: PropTypes.string,
+  selectedLoyalty: PropTypes.string,
   selectedCategory: PropTypes.string,
+  selectedViolations: PropTypes.arrayOf(PropTypes.string),
 
   loyaltiesList: PropTypes.array.isRequired,
   categoriesList: PropTypes.array.isRequired,
@@ -164,6 +158,10 @@ CompaniesPage.propTypes = {
   currentPage: PropTypes.number.isRequired,
   sortOrder: PropTypes.string.isRequired,
 
+  onClearFilters: PropTypes.func.isRequired,
+  onLoyaltyChange: PropTypes.func.isRequired,
+  onCategoryChange: PropTypes.func.isRequired,
+  onViolationChange: PropTypes.func.isRequired,
   onRefresh: PropTypes.func.isRequired,
 };
 

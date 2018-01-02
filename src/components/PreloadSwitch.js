@@ -51,7 +51,6 @@ class PreloadSwitch extends React.Component {
     this.setState({
       isAppFetching: true,
       appFetchingError: null,
-      initialData: null,
     });
     const promise = reactRouterFetch(routeConfig, location, { store, dispatch: store.dispatch, prevLocation });
     const preloadOpts = {
@@ -109,10 +108,6 @@ PreloadSwitch.propTypes = {
    * location object
    */
   location: PropTypes.object.isRequired,
-  /**
-   * history object
-   */
-  history: PropTypes.object.isRequired,
   /**
    * children
    */

@@ -12,19 +12,6 @@ export const removeFalsy = (obj) => {
   return newObj;
 };
 
-//todo: remove serialize form
-export const fixArray = (obj) => {
-  let newObj = {};
-  Object.keys(obj).forEach((prop) => {
-    if (obj[prop] instanceof Array && !prop.endsWith('[]')) {
-      newObj[`${prop}[]`] = obj[prop];
-    } else {
-      newObj[prop] = obj[prop];
-    }
-  });
-  return newObj;
-};
-
 export const roleModerator = (user) => {
   return user && user.roles.indexOf('moderator') !== -1;
 };

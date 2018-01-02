@@ -3,44 +3,54 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import queryString from 'query-string';
-import serialize from 'form-serialize';
 
-import { get } from 'actions/companies';
+import { get, clearFilters, changeLoyalty, changeCategory, changeViolation } from 'actions/companies';
 
 import CompaniesPageComponent from './CompaniesPage';
 
 class Container extends React.Component {
-  static fetch(match, location, { dispatch }) {
-    const { title, selectedCategory, currentPage, sortOrder } = queryString.parse(location.search);
-    const formElement = document.getElementById('companiesForm');
-    let formData = {};
-    if (formElement) {
-      formData = serialize(formElement, { hash: true });
-    }
-    return dispatch(get({
-      title,
-      selectedCategory,
-      currentPage,
-      sortOrder,
-      formData
-    }));
+  static fetch(match, location, { store, dispatch }) {
+    const { title, currentPage, sortOrder, selectedCategory } = queryString.parse(location.search);
+    //todo: change location here?
+    //sync with redux store
+    const wrapperPromise = selectedCategory !== undefined
+      ? dispatch(changeCategory(selectedCategory))
+      : Promise.resolve();
+
+    return wrapperPromise.then(() => {
+      const filters = store.getState().companies;
+      return dispatch(get({
+        title,
+        currentPage,
+        sortOrder,
+        filters,
+      }));
+    });
   }
+
   render() {
-    const { currentPage, sortOrder, title, selectedCategory } = queryString.parse(this.props.location.search);
+    const { currentPage, sortOrder, title } = queryString.parse(this.props.location.search);
+    const { filters, initialData, ...props } = this.props;
     return (<CompaniesPageComponent
-      {...this.props.initialData}
-      {...this.props}
+      {...filters}
+      {...initialData}
+      {...props}
       title={title}
       currentPage={Number(currentPage || 1)}
       sortOrder={sortOrder || 'asc'}
-      selectedCategory={selectedCategory}
     />);
   }
 }
 
+
 Container.propTypes = {
   location: PropTypes.shape({
     search: PropTypes.string,
+  }).isRequired,
+  filters: PropTypes.shape({
+    selectedLoyalty: PropTypes.string,
+    selectedCategory: PropTypes.string,
+    selectedViolations: PropTypes.array,
   }).isRequired,
   initialData: PropTypes.shape({
     companiesCount: PropTypes.number,
@@ -54,11 +64,19 @@ Container.propTypes = {
   })
 };
 
+const mapStateToProps = (state) => ({
+  filters: state.companies,
+});
+
 const mapDispatchToProps = (dispatch) => ({
+  onClearFilters: () => dispatch(clearFilters()),
+  onLoyaltyChange: (newValue) => dispatch(changeLoyalty(newValue)),
+  onCategoryChange: (newValue) => dispatch(changeCategory(newValue)),
+  onViolationChange: (newValue) => dispatch(changeViolation(newValue)),
   onRefresh: ({ currentPage, sortOrder, title }) => dispatch(push(`/companies?title=${title}&sortOrder=${sortOrder}&currentPage=${currentPage}#results`)),
   dispatch
 });
 
 export default connect(
-  null, mapDispatchToProps
+  mapStateToProps, mapDispatchToProps
 )(Container);
