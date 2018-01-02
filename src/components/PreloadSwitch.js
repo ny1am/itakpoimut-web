@@ -32,12 +32,12 @@ class PreloadSwitch extends React.Component {
   }
 
   componentWillMount () {
-    this.fetchRoutes(this.props);
+    this.fetchRoutes(this.props, null);
   }
 
   componentWillReceiveProps (nextProps) {
     if (hasPageLocationChanged(this.props.location, nextProps.location)) {
-      this.fetchRoutes(nextProps);
+      this.fetchRoutes(nextProps, this.props.location);
     }
   }
 
@@ -45,7 +45,7 @@ class PreloadSwitch extends React.Component {
     return !nextState.isAppFetching;
   }
 
-  fetchRoutes (props) {
+  fetchRoutes (props, prevLocation) {
     const { location } = props;
     const { store } = this.context;
     this.setState({
@@ -53,7 +53,7 @@ class PreloadSwitch extends React.Component {
       appFetchingError: null,
       initialData: null,
     });
-    const promise = reactRouterFetch(routeConfig, location, { store, dispatch: store.dispatch, history: this.props.history });
+    const promise = reactRouterFetch(routeConfig, location, { store, dispatch: store.dispatch, prevLocation });
     const preloadOpts = {
       preloadType: 'page',
       instant: !promise,

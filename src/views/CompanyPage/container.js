@@ -7,10 +7,10 @@ import { get, getComments } from 'actions/company';
 import CompanyPageComponent from './CompanyPage';
 
 class Container extends React.Component {
-  static fetch({ params }, location, { dispatch, history }) {
+  static fetch({ params }, location, { dispatch, prevLocation }) {
     const { currentPage } = queryString.parse(location.search);
     const promises = [];
-    if (location.pathname !== history.location.pathname || history.action === 'POP') {
+    if (!prevLocation || location.pathname !== prevLocation.pathname) {
       promises.push(dispatch(get(params.id)));
     }
     promises.push(dispatch(getComments(params.id, currentPage)));
