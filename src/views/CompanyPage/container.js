@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 
-import { get, getComments } from 'actions/company';
+import { get, addComment, getComments } from 'actions/company';
 
 import CompanyPageComponent from './CompanyPage';
 
@@ -29,4 +29,9 @@ const mapStateToProps = (state) => ({
   totalPages: state.company.totalPages,
 });
 
-export default connect(mapStateToProps)(Container);
+const mapDispatchToProps = (dispatch) => ({
+  onAddComment: (companyId, text) => dispatch(addComment(companyId, text)),
+  dispatch
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Container);

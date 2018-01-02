@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 
 import { ADD_VIOLATION_DIALOG, ADD_CATEGORY_DIALOG } from 'constants/dialog';
 import DialogLink from 'components/DialogLink';
-import CompanyComments from 'components/CompanyComments';
 import Loyalty from 'components/Loyalty';
 import { http, violationByName, categoryByName } from 'utils';
 
+import CompanyComments from './CompanyComments';
 import styles from './styles.scss';
 
-const CompanyPage = ({ commentsCount, comments, company, currentPage, totalPages }) => (
+const CompanyPage = ({ commentsCount, comments, company, currentPage, totalPages, onAddComment }) => (
   <div className="pattern-content">
     <div className="container">
       <div className={styles.wrapper}>
-        <section className="company">
+        <section>
           <div className={styles.profile}>
             <article className={styles.companyInfo}>
               <div className={styles.leftColumn}>
@@ -83,6 +83,7 @@ const CompanyPage = ({ commentsCount, comments, company, currentPage, totalPages
             company={company}
             currentPage={currentPage}
             totalPages={totalPages}
+            onSubmit={onAddComment}
           />
         </div>
       </div>
