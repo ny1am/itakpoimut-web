@@ -107,6 +107,7 @@ CompanyPage.propTypes = {
   comments: PropTypes.array,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
+  onAddComment: PropTypes.func.isRequired,
 };
 
 export default CompanyPage;
