@@ -3,6 +3,8 @@ import { enhanceDialog } from 'components/Dialog';
 
 import LoginDialogComponent from './LoginDialog';
 
-export default enhanceDialog({
+const props = {
   onSubmit: (params, dispatch) => dispatch(auth(params)),
-}, LoginDialogComponent);
+};
+
+export default enhanceDialog(props)(LoginDialogComponent);

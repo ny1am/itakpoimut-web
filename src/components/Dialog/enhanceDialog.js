@@ -8,7 +8,7 @@ function getDisplayName(Component) {
   return Component.displayName || Component.name || 'Component';
 }
 
-const enhanceDialog = ({ onInit, onSubmit, successText }, Component) => {
+const enhanceDialog = ({ onInit, onSubmit, successText }) => (Component) => {
   class EnhancedDialog extends React.Component {
 
     constructor(props) {
@@ -43,8 +43,8 @@ const enhanceDialog = ({ onInit, onSubmit, successText }, Component) => {
     }
 
     render() {
-      const { initialData, ...passThroughProps } = this.props;
-      return <Component {...passThroughProps} {...initialData} errors={this.state.errors} onSubmit={this.onSubmit} />;
+      const { initialData, ...props } = this.props;
+      return <Component {...props} {...initialData} errors={this.state.errors} onSubmit={this.onSubmit} />;
     }
 
   }

@@ -3,8 +3,10 @@ import { enhanceDialog } from 'components/Dialog';
 
 import CreateCompanyDialogComponent from './CreateCompanyDialog';
 
-export default enhanceDialog({
+const props = {
   onInit: (dialogProps, dispatch) => dispatch(get()),
   onSubmit: (params, dispatch) => dispatch(save(params)),
   successText: 'Запит на створення компанії надіслано. Адміністратор розгляне його найближчим часом.',
-}, CreateCompanyDialogComponent);
+};
+
+export default enhanceDialog(props)(CreateCompanyDialogComponent);

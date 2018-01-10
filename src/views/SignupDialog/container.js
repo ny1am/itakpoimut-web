@@ -4,11 +4,13 @@ import { enhanceDialog } from 'components/Dialog';
 
 import SignupDialogComponent from './SignupDialog';
 
-export default enhanceDialog({
+const props = {
   onSubmit: ({ email, password, ...passThrough }, dispatch) => dispatch(signup({ email, password, ...passThrough })).then(data => {
     if (data.payload.result === 'success') {
       return dispatch(auth({ username: email, password }));
     }
     return data;
   }),
-}, SignupDialogComponent);
+};
+
+export default enhanceDialog(props)(SignupDialogComponent);
