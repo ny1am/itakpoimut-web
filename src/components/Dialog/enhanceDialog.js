@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 
 import { SUCCESS_DIALOG } from 'constants/dialog';
 import { showDialog, hideDialog } from 'actions/dialog';
-
-function getDisplayName(Component) {
-  return Component.displayName || Component.name || 'Component';
-}
+import { getDisplayName } from 'utils';
 
 const enhanceDialog = ({ onInit, onSubmit, successText }) => (Component) => {
   class EnhancedDialog extends React.Component {
@@ -49,9 +46,7 @@ const enhanceDialog = ({ onInit, onSubmit, successText }) => (Component) => {
 
   }
 
-  if (onInit) {
-    EnhancedDialog.fetch = onInit;
-  }
+  onInit && (EnhancedDialog.fetch = onInit);
 
   EnhancedDialog.contextTypes = {
     store: PropTypes.shape({

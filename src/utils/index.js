@@ -4,14 +4,6 @@ import { singleText as loyaltySingleText } from 'shared/js/loyalties';
 import { text as violationText } from 'shared/js/violations';
 import { text as categoryText } from 'shared/js/categories';
 
-export const removeFalsy = (obj) => {
-  let newObj = {};
-  Object.keys(obj).forEach((prop) => {
-    if (obj[prop]) { newObj[prop] = obj[prop]; }
-  });
-  return newObj;
-};
-
 export const roleModerator = (user) => {
   return user && user.roles.indexOf('moderator') !== -1;
 };
@@ -63,3 +55,7 @@ export const hasPageLocationChanged = (prevLocation, nextLocation) => {
   const nextDialog = (nextLocation.state || {}).dialogType;
   return (prevLocation !== nextLocation && currentDialog == nextDialog);
 };
+
+export const getDisplayName = (Component) => (
+  Component.displayName || Component.name || 'Component'
+);

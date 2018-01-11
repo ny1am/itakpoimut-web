@@ -5,12 +5,12 @@ import { API_ROOT } from 'constants';
 import {
   AUTOCOMPLETE_REQUEST, AUTOCOMPLETE_SUCCESS, AUTOCOMPLETE_FAILURE,
 } from 'constants/autocomplete';
-import { removeFalsy } from 'utils';
 
 export function search({ title, category }) {
+  const params = { title, category };
   return {
     [CALL_API]: {
-      endpoint: `${API_ROOT}/autocomplete?${queryString.stringify(removeFalsy({ title, category }))}`,
+      endpoint: `${API_ROOT}/autocomplete?${queryString.stringify(params)}`,
       method: 'GET',
       types: [
         AUTOCOMPLETE_REQUEST,
