@@ -76,7 +76,7 @@ class Container extends React.Component {
       route: dialogType,
     };
     onPreloadStart(preloadOpts);
-    promise.then((data) => {
+    promise.then(data => {
       onPreloadEnd(preloadOpts);
       const initialData = data ? data.payload : null;
       this.setState({
@@ -84,8 +84,8 @@ class Container extends React.Component {
         initialData,
         ready: true,
       });
-    })
-    .catch(console.err); // eslint-disable-line
+      return data;
+    }).catch(console.err); // eslint-disable-line
   }
 
   render() {

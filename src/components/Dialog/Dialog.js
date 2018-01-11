@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import routes from './routes';
@@ -8,22 +9,32 @@ import styles from './styles.scss';
 /**
  * Wrapper for dialogs
  */
-const Dialog = ({ dialogType, dialogProps, loading, onClose, ...rest }) => {
-  if (!dialogType) {
-    return null;
+class Dialog extends React.Component {
+
+  componentWillReceiveProps(nextProps) {
+    const { props } = this;
+    if (nextProps.dialogType && nextProps.dialogType !== props.dialogType) {
+      ReactDOM.findDOMNode(this.refs.dialog).scrollTop = 0;
+    }
   }
-  const SpecificDialog = routes[dialogType].component;
-  return (
-    <div className={styles.shade}>
-      {/*id is used for scrolling*/}
-      <div id="dialog" className={styles.dialog}>
-        <SpecificDialog {...dialogProps} {...rest} />
-        <button className={styles.close} onClick={onClose} />
-        {loading && <Loading />}
+
+  render() {
+    const { dialogType, dialogProps, loading, onClose, ...rest } = this.props;
+    if (!dialogType) {
+      return null;
+    }
+    const SpecificDialog = routes[dialogType].component;
+    return (
+      <div className={styles.shade}>
+        <div ref="dialog" className={styles.dialog}>
+          <SpecificDialog {...dialogProps} {...rest} />
+          <button className={styles.close} onClick={onClose} />
+          {loading && <Loading />}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 Dialog.propTypes = {
   /**
