@@ -37,12 +37,14 @@ class CompaniesPage extends React.Component {
 
   handleLoyaltyChange({ checked, value }) {
     const selectedLoyalty = checked ? value : null;
-    this.props.onLoyaltyChange(selectedLoyalty).then(this.refresh);
+    this.props.onLoyaltyChange(selectedLoyalty);
+    this.refresh();
   }
 
   handleCategoryChange({ checked, value }) {
     const selectedCategory = checked ? value : null;
-    this.props.onCategoryChange(selectedCategory).then(this.refresh);
+    this.props.onCategoryChange(selectedCategory);
+    this.refresh();
   }
 
   handleViolationChange({ checked, value }) {
@@ -51,11 +53,13 @@ class CompaniesPage extends React.Component {
     if (checked) {
       selectedViolations.push(value);
     }
-    this.props.onViolationChange(selectedViolations).then(this.refresh);
+    this.props.onViolationChange(selectedViolations);
+    this.refresh();
   }
 
   clearFilters() {
-    this.props.onClearFilters().then(this.refresh);
+    this.props.onClearFilters();
+    this.refresh();
   }
 
   getSelectedFilters() {

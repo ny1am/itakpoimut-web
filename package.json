@@ -41,10 +41,8 @@
     "react-router-redux": "5.0.0-alpha.6",
     "react-select": "^1.0.0-rc.10",
     "redux": "3.6.0",
-    "redux-api-middleware": "^2.0.0-beta.3",
     "redux-logger": "3.0.6",
     "redux-saga": "^0.16.0",
-    "redux-thunk": "2.1.0",
     "scroll-into-view-if-needed": "^1.4.0",
     "scroll-restoration-polyfill": "^0.6.1"
   },

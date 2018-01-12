@@ -20,8 +20,8 @@ const enhanceDialog = ({ onInit, onSubmit, successText }) => (Component) => {
       const { dispatch } = this.context.store;
       const { changeLoading } = this.props;
       changeLoading(true);
-      onSubmit(params, dispatch).then(data => {
-        changeLoading(false);
+      //todo: revise error handling
+      return onSubmit(params, dispatch).then(data => {
         if (data.payload.result === 'success') {
           if (successText) {
             dispatch(showDialog(SUCCESS_DIALOG, {
@@ -36,6 +36,12 @@ const enhanceDialog = ({ onInit, onSubmit, successText }) => (Component) => {
             errors: data.payload.errors
           });
         }
+      }).catch(payload => {
+        this.setState({
+          errors: payload.errors
+        });
+      }).finally(() => {
+        changeLoading(false);
       });
     }
 
