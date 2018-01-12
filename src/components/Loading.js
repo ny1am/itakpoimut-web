@@ -6,14 +6,12 @@ const loadingRoot = document.getElementById('loading');
 const appRoot = document.getElementById('app');
 
 class Loading extends React.Component {
-
   componentDidUpdate(prevProps) {
     if (!prevProps.appReady && this.props.appReady) {
       appRoot.classList.add('ready');
       loadingRoot.classList.add('loading-hidden');
     }
   }
-
   render() {
     return null;
   }

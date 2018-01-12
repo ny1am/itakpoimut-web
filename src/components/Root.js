@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { ConnectedRouter } from 'react-router-redux';
 import { Provider } from 'react-redux';
@@ -6,9 +6,9 @@ import { Provider } from 'react-redux';
 import App from 'components/App';
 
 /**
- * Root component. Contains router
+ * Root component. Connects with redux and browser's history
  */
-export default class Root extends Component {
+class Root extends React.Component {
   render() {
     const { store, history } = this.props;
     return (
@@ -31,3 +31,5 @@ Root.propTypes = {
    */
   history: PropTypes.object.isRequired
 };
+
+export default Root;

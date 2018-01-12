@@ -36,8 +36,9 @@ class PreloadSwitch extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (hasPageLocationChanged(this.props.location, nextProps.location)) {
-      this.fetchRoutes(nextProps, this.props.location);
+    const { props } = this;
+    if (hasPageLocationChanged(props.location, nextProps.location)) {
+      this.fetchRoutes(nextProps, props.location);
     }
   }
 
@@ -52,7 +53,8 @@ class PreloadSwitch extends React.Component {
       isAppFetching: true,
       appFetchingError: null,
     });
-    const promise = reactRouterFetch(routeConfig, location, { store, dispatch: store.dispatch, prevLocation });
+    const opts = { store, dispatch: store.dispatch, prevLocation };
+    const promise = reactRouterFetch(routeConfig, location, opts);
     const preloadOpts = {
       preloadType: 'page',
       instant: !promise,
@@ -81,14 +83,17 @@ class PreloadSwitch extends React.Component {
   }
 
   render () {
-    if (!this.state.ready) {
+    const { ready, initialData } = this.state;
+    if (!ready) {
       return null;
     }
     const children = React.Children.map(this.props.children, child => {
       const ViewComponent = child.props.component;
       return React.cloneElement(child, {
         component: null,
-        render: (props) => (<ViewComponent {...props} initialData={this.state.initialData} />)
+        render: (props) => (
+          <ViewComponent {...props} initialData={initialData} />
+        )
       });
     });
     return (
