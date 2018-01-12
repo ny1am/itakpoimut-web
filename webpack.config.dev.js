@@ -20,6 +20,7 @@ module.exports = {
   entry: [
     // must be first entry to properly set public path
     './src/webpack-public-path',
+    'babel-polyfill',
     'react-hot-loader/patch',
     'webpack-hot-middleware/client?reload=true',
     path.resolve(__dirname, 'src/index.js') // Defining path seems necessary for this to work consistently on Windows machines.

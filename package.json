@@ -26,6 +26,7 @@
     "clone-deep": "^1.0.0",
     "dateformat": "^3.0.2",
     "history": "4.6.0",
+    "isomorphic-fetch": "^2.2.1",
     "lodash.debounce": "^4.0.8",
     "object-assign": "4.1.0",
     "query-string": "5.0.0",
@@ -42,6 +43,7 @@
     "redux": "3.6.0",
     "redux-api-middleware": "^2.0.0-beta.3",
     "redux-logger": "3.0.6",
+    "redux-saga": "^0.16.0",
     "redux-thunk": "2.1.0",
     "scroll-into-view-if-needed": "^1.4.0",
     "scroll-restoration-polyfill": "^0.6.1"

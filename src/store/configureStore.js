@@ -4,17 +4,21 @@ import thunk from 'redux-thunk';
 import { apiMiddleware } from 'redux-api-middleware';
 import createHistory from 'history/createBrowserHistory';
 import { routerMiddleware } from 'react-router-redux';
+import createSagaMiddleware from 'redux-saga';
 // import logger from 'redux-logger';
 
 import authApiMiddleware from './middlewares/authApiMiddleware';
 import pageLoadingMiddleware from './middlewares/pageLoadingMiddleware';
 import scrollMiddleware from './middlewares/scrollMiddleware';
+import deferredActionMiddleware from './middlewares/deferredActionMiddleware';
 import rootReducer from '../reducers';
+import sagas from '../sagas';
 
 export const history = createHistory();
 
 function configureStoreProd(initialState) {
   const reactRouterMiddleware = routerMiddleware(history);
+  const sagaMiddleware = createSagaMiddleware();
   const middlewares = [
     // Add other middleware on this line...
 
@@ -23,19 +27,27 @@ function configureStoreProd(initialState) {
     thunk,
     authApiMiddleware,
     apiMiddleware,
+    deferredActionMiddleware,
+    sagaMiddleware,
     pageLoadingMiddleware,
     scrollMiddleware,
     reactRouterMiddleware,
+
   ];
 
-  return createStore(rootReducer, initialState, compose(
+  const store = createStore(rootReducer, initialState, compose(
     applyMiddleware(...middlewares)
     )
   );
+
+  sagaMiddleware.run(sagas);
+
+  return store;
 }
 
 function configureStoreDev(initialState) {
   const reactRouterMiddleware = routerMiddleware(history);
+  const sagaMiddleware = createSagaMiddleware();
   const middlewares = [
     // Add other middleware on this line...
 
@@ -47,9 +59,12 @@ function configureStoreDev(initialState) {
     thunk,
     authApiMiddleware,
     apiMiddleware,
+    deferredActionMiddleware,
+    sagaMiddleware,
     pageLoadingMiddleware,
     scrollMiddleware,
     reactRouterMiddleware,
+    
     // logger
   ];
 
@@ -58,6 +73,8 @@ function configureStoreDev(initialState) {
     applyMiddleware(...middlewares)
     )
   );
+
+  sagaMiddleware.run(sagas);
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
