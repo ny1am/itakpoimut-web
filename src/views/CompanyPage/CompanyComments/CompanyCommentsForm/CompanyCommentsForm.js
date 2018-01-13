@@ -28,7 +28,7 @@ class CompanyCommentsForm extends React.Component {
     const { onSubmit, company } = this.props;
     const { text } = this.state;
     onSubmit(company._id, text).then(data => {
-      if (data.payload.company) {
+      if (data.company) {
         this.setState({ text: '' });
       }
     });

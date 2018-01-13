@@ -39,7 +39,7 @@ class AutocompleteSearch extends React.Component {
     const { title, category } = this.state;
     this.props.onSearch({ title, category }).then(data => {
       this.setState({
-        companies: data.payload.results,
+        companies: data.results,
         shown: true,
       });
     });

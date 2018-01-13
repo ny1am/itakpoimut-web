@@ -43,6 +43,7 @@
     "redux": "3.6.0",
     "redux-logger": "3.0.6",
     "redux-saga": "^0.16.0",
+    "redux-wait-for-action": "^0.0.7",
     "scroll-into-view-if-needed": "^1.4.0",
     "scroll-restoration-polyfill": "^0.6.1"
   },

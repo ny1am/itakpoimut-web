@@ -23,16 +23,16 @@ class Container extends React.Component {
 
   onSubmit(params) {
     this.props.onSubmit(params).then(data => {
-      if (data.payload.successSave) {
+      if (data.successSave) {
         this.setState({
           successSave: true,
           errors: null,
-          user: data.payload.user,
+          user: data.user,
         });
       } else {
         this.setState({
           successSave: false,
-          errors: data.payload.errors,
+          errors: data.errors,
         });
       }
       return data;

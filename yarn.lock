@@ -5487,6 +5487,10 @@ redux-saga@^0.16.0:
   version "0.16.0"
   resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-0.16.0.tgz#0a231db0a1489301dd980f6f2f88d8ced418f724"
 
+redux-wait-for-action@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/redux-wait-for-action/-/redux-wait-for-action-0.0.7.tgz#13ec487fcef089e04463c588eb83996f3f4df36a"
+
 redux@3.6.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/redux/-/redux-3.6.0.tgz#887c2b3d0b9bd86eca2be70571c27654c19e188d"

@@ -1,13 +1,13 @@
 import { call, put, takeEvery, fork, all } from 'redux-saga/effects';
 
 import request from 'utils/request';
-import { API_ROOT, DEFERRED, TOKEN } from 'constants';
+import { API_ROOT, TOKEN } from 'constants';
 import {
   ADD_VIOLATION_DATA_REQUEST, ADD_VIOLATION_DATA_SUCCESS,
   ADD_VIOLATION_SAVE_REQUEST, ADD_VIOLATION_SAVE_SUCCESS,
 } from 'constants/addViolation';
 
-function* fetchData({ companyId, [DEFERRED]: deferred }) {
+function* fetchData({ companyId }) {
   try {
     const url = `${API_ROOT}/addViolation?company_id=${companyId}`;
     const requestParams = {
@@ -16,14 +16,12 @@ function* fetchData({ companyId, [DEFERRED]: deferred }) {
     const payload = yield call(request, url, requestParams);
     const newAction = { type: ADD_VIOLATION_DATA_SUCCESS, payload };
     yield put(newAction);
-    deferred.resolve(newAction);
   } catch (e) {
     //do nothing; todo: error handling
-    deferred.reject(e);
   }
 }
 
-function* saveData({ companyId, selectedViolations, [DEFERRED]: deferred }) {
+function* saveData({ companyId, selectedViolations }) {
   try {
     const body = new URLSearchParams();
     body.append('company_id', companyId);
@@ -40,10 +38,8 @@ function* saveData({ companyId, selectedViolations, [DEFERRED]: deferred }) {
     const payload = yield call(request, url, requestParams);
     const newAction = { type: ADD_VIOLATION_SAVE_SUCCESS, payload };
     yield put(newAction);
-    deferred.resolve(newAction);
   } catch (e) {
     //do nothing; todo: error handling
-    deferred.reject(e);
   }
 }
 

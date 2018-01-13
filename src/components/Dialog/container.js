@@ -78,7 +78,7 @@ class Container extends React.Component {
     onPreloadStart(preloadOpts);
     promise.then(data => {
       onPreloadEnd(preloadOpts);
-      const initialData = data ? data.payload : null;
+      const initialData = data || null;
       this.setState({
         isAppFetching: false,
         initialData,

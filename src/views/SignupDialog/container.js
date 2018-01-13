@@ -6,7 +6,7 @@ import SignupDialogComponent from './SignupDialog';
 
 const props = {
   onSubmit: ({ email, password, ...passThrough }, dispatch) => dispatch(signup({ email, password, ...passThrough })).then(data => {
-    if (data.payload.result === 'success') {
+    if (data.result === 'success') {
       return dispatch(auth({ username: email, password }));
     }
     return data;

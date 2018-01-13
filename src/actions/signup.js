@@ -1,6 +1,6 @@
-import { DEFERRED } from 'constants';
+import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
 import {
-  SIGNUP_REQUEST,
+  SIGNUP_REQUEST, SIGNUP_SUCCESS,
 } from 'constants/signup';
 
 export function signup({ fname, lname, email, password }) {
@@ -10,6 +10,6 @@ export function signup({ fname, lname, email, password }) {
     lname,
     email,
     password,
-    [DEFERRED]: true,
+    [WAIT_FOR_ACTION]: SIGNUP_SUCCESS,
   };
 }

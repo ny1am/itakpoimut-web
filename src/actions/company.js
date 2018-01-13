@@ -1,15 +1,15 @@
-import { DEFERRED } from 'constants';
+import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
 import {
-  COMPANY_REQUEST,
-  COMMENTS_REQUEST,
-  ADD_COMMENT_REQUEST,
+  COMPANY_REQUEST, COMPANY_SUCCESS,
+  COMMENTS_REQUEST, COMMENTS_SUCCESS,
+  ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS,
 } from 'constants/company';
 
 export function get(id) {
   return {
     type: COMPANY_REQUEST,
     id,
-    [DEFERRED]: true,
+    [WAIT_FOR_ACTION]: COMPANY_SUCCESS,
   };
 }
 
@@ -18,7 +18,7 @@ export function getComments(id, currentPage = 1) {
     type: COMMENTS_REQUEST,
     id,
     currentPage,
-    [DEFERRED]: true,
+    [WAIT_FOR_ACTION]: COMMENTS_SUCCESS,
   };
 }
 
@@ -27,6 +27,6 @@ export function addComment(companyId, text) {
     type: ADD_COMMENT_REQUEST,
     companyId,
     text,
-    [DEFERRED]: true,
+    [WAIT_FOR_ACTION]: ADD_COMMENT_SUCCESS,
   };
 }

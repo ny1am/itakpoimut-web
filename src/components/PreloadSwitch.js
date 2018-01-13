@@ -7,15 +7,16 @@ import { appReady } from 'actions/global';
 import { routeConfig } from 'components/Routes';
 import { reactRouterFetch, hasPageLocationChanged } from 'utils';
 
+
 const extractData = (data) => {
   if (!data) {
     return null;
   } else if (data instanceof Array) {
     return data.reduce((result, requestData) => {
-      return Object.assign({}, result, requestData.payload);
+      return Object.assign({}, result, requestData);
     }, {});
   } else {
-    return data.payload;
+    return data;
   }
 };
 

@@ -1,6 +1,7 @@
-import { DEFERRED } from 'constants';
+import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
+
 import {
-  COMPANIES_REQUEST,
+  COMPANIES_REQUEST, COMPANIES_SUCCESS,
   LOYALTY_CHANGED, CATEGORY_CHANGED, VIOLATION_CHANGED,
   CLEAR_FILTERS,
 } from 'constants/companies';
@@ -12,7 +13,7 @@ export function get({ currentPage = 1, sortOrder = 'asc', title = '', filters = 
     sortOrder,
     title,
     filters,
-    [DEFERRED]: true,
+    [WAIT_FOR_ACTION]: COMPANIES_SUCCESS,
   };
 }
 

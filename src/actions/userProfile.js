@@ -1,13 +1,14 @@
-import { DEFERRED } from 'constants';
+import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
+
 import {
-  USER_PROFILE_REQUEST,
-  SAVE_USER_PROFILE_REQUEST,
+  USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS,
+  SAVE_USER_PROFILE_REQUEST, SAVE_USER_PROFILE_SUCCESS,
 } from 'constants/userProfile';
 
 export function get() {
   return {
     type: USER_PROFILE_REQUEST,
-    [DEFERRED]: true,
+    [WAIT_FOR_ACTION]: USER_PROFILE_SUCCESS,
   };
 }
 
@@ -17,6 +18,6 @@ export function save({ fname, lname, userpic }) {
     fname,
     lname,
     userpic,
-    [DEFERRED]: true,
+    [WAIT_FOR_ACTION]: SAVE_USER_PROFILE_SUCCESS,
   };
 }

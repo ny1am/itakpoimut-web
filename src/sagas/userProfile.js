@@ -1,14 +1,14 @@
 import { call, put, takeEvery, fork, all } from 'redux-saga/effects';
 
 import request from 'utils/request';
-import { API_ROOT, DEFERRED, TOKEN } from 'constants';
+import { API_ROOT, TOKEN } from 'constants';
 import {
   USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS,
   SAVE_USER_PROFILE_REQUEST, SAVE_USER_PROFILE_SUCCESS,
 } from 'constants/userProfile';
 import { updateUser } from '../store/storage';
 
-function* fetchData({ [DEFERRED]: deferred }) {
+function* fetchData() {
   try {
     const url = `${API_ROOT}/userProfile`;
     const requestParams = {
@@ -17,14 +17,12 @@ function* fetchData({ [DEFERRED]: deferred }) {
     const payload = yield call(request, url, requestParams);
     const newAction = { type: USER_PROFILE_SUCCESS, payload };
     yield put(newAction);
-    deferred.resolve(newAction);
   } catch (e) {
     //do nothing; todo: error handling
-    deferred.reject(e);
   }
 }
 
-function* saveData({ fname, lname, userpic, [DEFERRED]: deferred }) {
+function* saveData({ fname, lname, userpic }) {
   try {
     const body = new FormData();
     body.append('fname', fname);
@@ -40,10 +38,8 @@ function* saveData({ fname, lname, userpic, [DEFERRED]: deferred }) {
     const newAction = { type: SAVE_USER_PROFILE_SUCCESS, payload };
     payload.user && updateUser(payload.user);
     yield put(newAction);
-    deferred.resolve(newAction);
   } catch (e) {
     //do nothing; todo: error handling
-    deferred.reject(e);
   }
 }
 

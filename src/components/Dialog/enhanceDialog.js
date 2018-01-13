@@ -22,7 +22,7 @@ const enhanceDialog = ({ onInit, onSubmit, successText }) => (Component) => {
       changeLoading(true);
       //todo: revise error handling
       return onSubmit(params, dispatch).then(data => {
-        if (data.payload.result === 'success') {
+        if (data.result === 'success') {
           if (successText) {
             dispatch(showDialog(SUCCESS_DIALOG, {
               title: 'Дякуємо!',
@@ -31,9 +31,9 @@ const enhanceDialog = ({ onInit, onSubmit, successText }) => (Component) => {
           } else {
             dispatch(hideDialog());
           }
-        } else if (data.payload.result === 'error') {
+        } else if (data.result === 'error') {
           this.setState({
-            errors: data.payload.errors
+            errors: data.errors
           });
         }
       }).catch(payload => {

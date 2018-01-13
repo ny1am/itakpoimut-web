@@ -3,11 +3,11 @@ import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import createHistory from 'history/createBrowserHistory';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
+import createReduxWaitForMiddleware from 'redux-wait-for-action';
 // import logger from 'redux-logger';
 
 import pageLoadingMiddleware from './middlewares/pageLoadingMiddleware';
 import scrollMiddleware from './middlewares/scrollMiddleware';
-import deferredActionMiddleware from './middlewares/deferredActionMiddleware';
 import rootReducer from '../reducers';
 import sagas from '../sagas';
 
@@ -17,8 +17,8 @@ function configureStoreProd(initialState) {
   const reactRouterMiddleware = routerMiddleware(history);
   const sagaMiddleware = createSagaMiddleware();
   const middlewares = [
-    deferredActionMiddleware,
     sagaMiddleware,
+    createReduxWaitForMiddleware(),
     pageLoadingMiddleware,
     scrollMiddleware,
     reactRouterMiddleware,
@@ -40,8 +40,8 @@ function configureStoreDev(initialState) {
   const middlewares = [
     // Redux middleware that spits an error on you when you try to mutate your state either inside a dispatch or between dispatches.
     reduxImmutableStateInvariant(),
-    deferredActionMiddleware,
     sagaMiddleware,
+    createReduxWaitForMiddleware(),
     pageLoadingMiddleware,
     scrollMiddleware,
     reactRouterMiddleware,
