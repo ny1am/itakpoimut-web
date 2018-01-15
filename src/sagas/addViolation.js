@@ -1,19 +1,16 @@
 import { call, put, takeEvery, fork, all } from 'redux-saga/effects';
+import queryString from 'query-string';
 
-import request from 'utils/request';
-import { API_ROOT, TOKEN } from 'constants';
+import { secureRequest } from 'utils/request';
 import {
   ADD_VIOLATION_DATA_REQUEST, ADD_VIOLATION_DATA_SUCCESS,
   ADD_VIOLATION_SAVE_REQUEST, ADD_VIOLATION_SAVE_SUCCESS,
 } from 'constants/addViolation';
 
 function* fetchData({ companyId }) {
+  const url = `/addViolation?company_id=${companyId}`;
   try {
-    const url = `${API_ROOT}/addViolation?company_id=${companyId}`;
-    const requestParams = {
-      [TOKEN]: true,
-    };
-    const payload = yield call(request, url, requestParams);
+    const payload = yield call(secureRequest, url);
     const newAction = { type: ADD_VIOLATION_DATA_SUCCESS, payload };
     yield put(newAction);
   } catch (e) {
@@ -22,20 +19,18 @@ function* fetchData({ companyId }) {
 }
 
 function* saveData({ companyId, selectedViolations }) {
+  const url = `/addViolation`;
+  const params = {
+    'company_id': companyId,
+    'selectedViolations[]': selectedViolations,
+  };
   try {
-    const body = new URLSearchParams();
-    body.append('company_id', companyId);
-    selectedViolations.forEach(violation => {
-      body.append('selectedViolations[]', violation);
-    });
-    const url = `${API_ROOT}/addViolation`;
     const requestParams = {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body,
-      [TOKEN]: true,
+      body: queryString.stringify(params),
     };
-    const payload = yield call(request, url, requestParams);
+    const payload = yield call(secureRequest, url, requestParams);
     const newAction = { type: ADD_VIOLATION_SAVE_SUCCESS, payload };
     yield put(newAction);
   } catch (e) {

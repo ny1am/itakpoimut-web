@@ -1,7 +1,7 @@
 import { call, put, takeEvery, fork, all } from 'redux-saga/effects';
+import toFormData from 'object-to-formdata';
 
-import request from 'utils/request';
-import { API_ROOT, TOKEN } from 'constants';
+import { secureRequest } from 'utils/request';
 import {
   CREATE_COMPANY_DATA_REQUEST, CREATE_COMPANY_DATA_SUCCESS,
   CREATE_COMPANY_SAVE_REQUEST, CREATE_COMPANY_SAVE_SUCCESS,
@@ -9,11 +9,7 @@ import {
 
 function* fetchData() {
   try {
-    const url = `${API_ROOT}/createCompany`;
-    const requestParams = {
-      [TOKEN]: true,
-    };
-    const payload = yield call(request, url, requestParams);
+    const payload = yield call(secureRequest, `/createCompany`);
     const newAction = { type: CREATE_COMPANY_DATA_SUCCESS, payload };
     yield put(newAction);
   } catch (e) {
@@ -22,25 +18,17 @@ function* fetchData() {
 }
 
 function* saveData({ title, description, company_site, selectedCategories, selectedViolations, attachment }) {
+  const url = `/createCompany`;
+  const params = {
+    title, description, company_site, attachment,
+    'selectedCategories[]': selectedCategories,
+    'selectedViolations[]': selectedViolations,
+  };
   try {
-    const body = new FormData();
-    body.append('title', title);
-    body.append('description', description);
-    body.append('company_site', company_site);
-    selectedCategories.forEach(category => {
-      body.append('selectedCategories[]', category.value);
-    });
-    selectedViolations.forEach(violation => {
-      body.append('selectedViolations[]', violation.value);
-    });
-    body.append('attachment', attachment);
-    const url = `${API_ROOT}/createCompany`;
-    const requestParams = {
+    const payload = yield call(secureRequest, url, {
       method: 'POST',
-      body,
-      [TOKEN]: true,
-    };
-    const payload = yield call(request, url, requestParams);
+      body: toFormData(params),
+    });
     const newAction = { type: CREATE_COMPANY_SAVE_SUCCESS, payload };
     yield put(newAction);
   } catch (e) {

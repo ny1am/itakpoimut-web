@@ -1,7 +1,7 @@
 import { call, put, takeEvery, all, fork } from 'redux-saga/effects';
+import queryString from 'query-string';
 
-import request from 'utils/request';
-import { API_ROOT, TOKEN } from 'constants';
+import request, { secureRequest } from 'utils/request';
 import {
   COMPANY_REQUEST, COMPANY_SUCCESS,
   COMMENTS_REQUEST, COMMENTS_SUCCESS,
@@ -10,8 +10,7 @@ import {
 
 function* fetchData({ id }) {
   try {
-    const url = `${API_ROOT}/company/${id}`;
-    const payload = yield call(request, url);
+    const payload = yield call(request, `/company/${id}`);
     const newAction = { type: COMPANY_SUCCESS, payload };
     yield put(newAction);
   } catch (e) {
@@ -20,8 +19,8 @@ function* fetchData({ id }) {
 }
 
 function* fetchCommentsData({ id, currentPage }) {
+  const url = `/comments/${id}?currentPage=${currentPage}`;
   try {
-    const url = `${API_ROOT}/comments/${id}?currentPage=${currentPage}`;
     const payload = yield call(request, url);
     const newAction = { type: COMMENTS_SUCCESS, payload };
     yield put(newAction);
@@ -31,18 +30,17 @@ function* fetchCommentsData({ id, currentPage }) {
 }
 
 function* addComment({ companyId, text }) {
+  const url = `/addComment`;
+  const params = {
+    _company: companyId,
+    text,
+  };
   try {
-    const url = `${API_ROOT}/addComment`;
-    const body = new URLSearchParams();
-    body.set('_company', companyId);
-    body.set('text', text);
-    const requestParams = {
+    const payload = yield call(secureRequest, url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body,
-      [TOKEN]: true,
-    };
-    const payload = yield call(request, url, requestParams);
+      body: queryString.stringify(params),
+    });
     const newAction = { type: ADD_COMMENT_SUCCESS, payload };
     yield put(newAction);
   } catch (e) {

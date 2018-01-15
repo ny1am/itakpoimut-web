@@ -1,26 +1,20 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
+import queryString from 'query-string';
 
 import request from 'utils/request';
-import { API_ROOT, TOKEN } from 'constants';
 import {
   SIGNUP_REQUEST, SIGNUP_SUCCESS,
 } from 'constants/signup';
 
 function* saveData({ fname, lname, email, password }) {
+  const url = `/signup`;
+  const params = { fname, lname, email, password };
   try {
-    const body = new URLSearchParams();
-    body.set('fname', fname);
-    body.set('lname', lname);
-    body.set('email', email);
-    body.set('password', password);
-    const url = `${API_ROOT}/signup`;
-    const requestParams = {
+    const payload = yield call(request, url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body,
-      [TOKEN]: true,
-    };
-    const payload = yield call(request, url, requestParams);
+      body: queryString.stringify(params),
+    });
     const newAction = { type: SIGNUP_SUCCESS, payload };
     yield put(newAction);
   } catch (e) {

@@ -60,7 +60,13 @@ class CreateCompanyDialog extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.onSubmit(this.state);
+    const { selectedCategories, selectedViolations, ...rest } = this.state;
+    const data = {
+      ...rest,
+      selectedCategories: selectedCategories.map(item => item.value),
+      selectedViolations: selectedViolations.map(item => item.value),
+    };
+    this.props.onSubmit(data);
   }
 
   renderDialogError() {

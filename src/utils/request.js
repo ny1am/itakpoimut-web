@@ -1,4 +1,4 @@
-import { TOKEN } from 'constants';
+import { API_ROOT } from 'constants';
 import { loadAuth } from '../store/storage';
 
 function parseJSON(response) {
@@ -15,13 +15,19 @@ function checkStatus(response) {
   return response.json().then(err => {throw err;});
 }
 
-export default function request(url, params) {
-  if (params && params[TOKEN]) {
-    const auth = loadAuth() || {};
-    params.headers || (params.headers = {});
-    params.headers['Authorization'] = `JWT ${auth.token}`;
-  }
-  return fetch(url, params)
+const request = (url, params) => {
+  return fetch(`${API_ROOT}${url}`, params)
     .then(checkStatus)
     .then(parseJSON);
-}
+};
+
+const secureRequest = (url, params) => {
+  const auth = loadAuth() || {};
+  const newParams = Object.assign({ headers: {} }, params);
+  newParams.headers['Authorization'] = `JWT ${auth.token}`;
+  return request(url, newParams);
+};
+
+export { secureRequest };
+
+export default request;

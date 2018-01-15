@@ -1,7 +1,7 @@
 import { call, put, takeEvery, fork, all } from 'redux-saga/effects';
+import toFormData from 'object-to-formdata';
 
-import request from 'utils/request';
-import { API_ROOT, TOKEN } from 'constants';
+import { secureRequest } from 'utils/request';
 import {
   USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS,
   SAVE_USER_PROFILE_REQUEST, SAVE_USER_PROFILE_SUCCESS,
@@ -10,11 +10,7 @@ import { updateUser } from '../store/storage';
 
 function* fetchData() {
   try {
-    const url = `${API_ROOT}/userProfile`;
-    const requestParams = {
-      [TOKEN]: true,
-    };
-    const payload = yield call(request, url, requestParams);
+    const payload = yield call(secureRequest, `/userProfile`);
     const newAction = { type: USER_PROFILE_SUCCESS, payload };
     yield put(newAction);
   } catch (e) {
@@ -23,18 +19,13 @@ function* fetchData() {
 }
 
 function* saveData({ fname, lname, userpic }) {
+  const url = `/userProfile`;
+  const params = { fname, lname, userpic };
   try {
-    const body = new FormData();
-    body.append('fname', fname);
-    body.append('lname', lname);
-    body.append('userpic', userpic);
-    const url = `${API_ROOT}/userProfile`;
-    const requestParams = {
+    const payload = yield call(secureRequest, url, {
       method: 'POST',
-      body,
-      [TOKEN]: true,
-    };
-    const payload = yield call(request, url, requestParams);
+      body: toFormData(params),
+    });
     const newAction = { type: SAVE_USER_PROFILE_SUCCESS, payload };
     payload.user && updateUser(payload.user);
     yield put(newAction);

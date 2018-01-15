@@ -1,19 +1,16 @@
 import { call, put, takeEvery, fork, all } from 'redux-saga/effects';
+import queryString from 'query-string';
 
-import request from 'utils/request';
-import { API_ROOT, TOKEN } from 'constants';
+import { secureRequest } from 'utils/request';
 import {
   ADD_CATEGORY_DATA_REQUEST, ADD_CATEGORY_DATA_SUCCESS,
   ADD_CATEGORY_SAVE_REQUEST, ADD_CATEGORY_SAVE_SUCCESS,
 } from 'constants/addCategory';
 
 function* fetchData({ companyId }) {
+  const url = `/addCategory?company_id=${companyId}`;
   try {
-    const url = `${API_ROOT}/addCategory?company_id=${companyId}`;
-    const requestParams = {
-      [TOKEN]: true,
-    };
-    const payload = yield call(request, url, requestParams);
+    const payload = yield call(secureRequest, url);
     const newAction = { type: ADD_CATEGORY_DATA_SUCCESS, payload };
     yield put(newAction);
   } catch (e) {
@@ -22,20 +19,17 @@ function* fetchData({ companyId }) {
 }
 
 function* saveData({ companyId, selectedCategories }) {
+  const url = `/addCategory`;
+  const params = {
+    'company_id': companyId,
+    'selectedCategories[]': selectedCategories,
+  };
   try {
-    const body = new URLSearchParams();
-    body.append('company_id', companyId);
-    selectedCategories.forEach(category => {
-      body.append('selectedCategories[]', category);
-    });
-    const url = `${API_ROOT}/addCategory`;
-    const requestParams = {
+    const payload = yield call(secureRequest, url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body,
-      [TOKEN]: true,
-    };
-    const payload = yield call(request, url, requestParams);
+      body: queryString.stringify(params),
+    });
     const newAction = { type: ADD_CATEGORY_SAVE_SUCCESS, payload };
     yield put(newAction);
   } catch (e) {
