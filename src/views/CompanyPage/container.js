@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import queryString from 'query-string';
 
-import { get, addComment, getComments } from 'actions/company';
+import { get } from 'actions/company';
+import { add as addComment, get as getComments } from 'actions/comments';
 
 import CompanyPageComponent from './CompanyPage';
 

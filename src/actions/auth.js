@@ -1,4 +1,5 @@
 import { WAIT_FOR_ACTION, ERROR_ACTION } from 'redux-wait-for-action';
+
 import {
   AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE,
   LOGOUT

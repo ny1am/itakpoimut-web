@@ -1,4 +1,5 @@
 import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
+
 import { LANDING_REQUEST, LANDING_SUCCESS } from 'constants/landing';
 
 export function get() {

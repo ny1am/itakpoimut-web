@@ -6,6 +6,7 @@ import addCategorySaga from './addCategory';
 import addViolationSaga from './addViolation';
 import companiesSaga from './companies';
 import companySaga from './company';
+import commentsSaga from './comments';
 import createCompanySaga from './createCompany';
 import userProfileSaga from './userProfile';
 import signupSaga from './signup';
@@ -19,6 +20,7 @@ export default function* rootSaga() {
     fork(addViolationSaga),
     fork(companiesSaga),
     fork(companySaga),
+    fork(commentsSaga),
     fork(createCompanySaga),
     fork(userProfileSaga),
     fork(signupSaga),

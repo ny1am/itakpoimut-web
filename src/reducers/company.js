@@ -1,8 +1,5 @@
-import {
-  COMPANY_SUCCESS,
-  COMMENTS_SUCCESS,
-  ADD_COMMENT_SUCCESS,
-} from 'constants/company';
+import { COMPANY_SUCCESS } from 'constants/company';
+import { COMMENTS_SUCCESS, ADD_COMMENT_SUCCESS } from 'constants/comments';
 
 const initialState = {};
 
