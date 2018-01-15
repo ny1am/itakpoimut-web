@@ -1,6 +1,7 @@
 import { call, put, takeEvery, all, fork } from 'redux-saga/effects';
 import queryString from 'query-string';
 
+import takeFirst from 'utils/takeFirst';
 import request, { secureRequest } from 'utils/request';
 import {
   COMMENTS_REQUEST, COMMENTS_SUCCESS,
@@ -42,7 +43,7 @@ function* fetchDataSaga() {
 }
 
 function* addCommentSaga() {
-  yield takeEvery(ADD_COMMENT_REQUEST, addComment);
+  yield takeFirst(ADD_COMMENT_REQUEST, addComment);
 }
 
 function* commentsSaga() {

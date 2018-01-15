@@ -1,6 +1,7 @@
 import { call, put, takeEvery, fork, all } from 'redux-saga/effects';
 import toFormData from 'object-to-formdata';
 
+import takeFirst from 'utils/takeFirst';
 import { secureRequest } from 'utils/request';
 import {
   CREATE_COMPANY_DATA_REQUEST, CREATE_COMPANY_DATA_SUCCESS,
@@ -41,7 +42,7 @@ function* fetchDataSaga() {
 }
 
 function* saveDataSaga() {
-  yield takeEvery(CREATE_COMPANY_SAVE_REQUEST, saveData);
+  yield takeFirst(CREATE_COMPANY_SAVE_REQUEST, saveData);
 }
 
 function* createCompanySaga() {

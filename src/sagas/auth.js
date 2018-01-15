@@ -1,6 +1,7 @@
 import { call, put, takeEvery, all, fork } from 'redux-saga/effects';
 import queryString from 'query-string';
 
+import takeFirst from 'utils/takeFirst';
 import request from 'utils/request';
 import {
   AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE,
@@ -32,7 +33,7 @@ function* logout() {
 }
 
 function* authSaga() {
-  yield takeEvery(AUTH_REQUEST, auth);
+  yield takeFirst(AUTH_REQUEST, auth);
 }
 
 function* logoutSaga() {

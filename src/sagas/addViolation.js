@@ -1,6 +1,7 @@
 import { call, put, takeEvery, fork, all } from 'redux-saga/effects';
 import queryString from 'query-string';
 
+import takeFirst from 'utils/takeFirst';
 import { secureRequest } from 'utils/request';
 import {
   ADD_VIOLATION_DATA_REQUEST, ADD_VIOLATION_DATA_SUCCESS,
@@ -43,7 +44,7 @@ function* fetchDataSaga() {
 }
 
 function* saveDataSaga() {
-  yield takeEvery(ADD_VIOLATION_SAVE_REQUEST, saveData);
+  yield takeFirst(ADD_VIOLATION_SAVE_REQUEST, saveData);
 }
 
 function* addViolationSaga() {

@@ -1,6 +1,7 @@
 import { call, put, takeEvery, fork, all } from 'redux-saga/effects';
 import toFormData from 'object-to-formdata';
 
+import takeFirst from 'utils/takeFirst';
 import { secureRequest } from 'utils/request';
 import {
   USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS,
@@ -39,7 +40,7 @@ function* fetchDataSaga() {
 }
 
 function* saveDataSaga() {
-  yield takeEvery(SAVE_USER_PROFILE_REQUEST, saveData);
+  yield takeFirst(SAVE_USER_PROFILE_REQUEST, saveData);
 }
 
 function* userProfileSaga() {
