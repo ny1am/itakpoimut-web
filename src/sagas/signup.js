@@ -5,6 +5,7 @@ import request from 'utils/request';
 import {
   SIGNUP_REQUEST, SIGNUP_SUCCESS,
 } from 'constants/signup';
+import { requestError } from 'actions/global';
 
 function* saveData({ fname, lname, email, password }) {
   const url = `/signup`;
@@ -17,8 +18,8 @@ function* saveData({ fname, lname, email, password }) {
     });
     const newAction = { type: SIGNUP_SUCCESS, payload };
     yield put(newAction);
-  } catch (e) {
-    //do nothing; todo: error handling
+  } catch (error) {
+    yield put(requestError(error));
   }
 }
 

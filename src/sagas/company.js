@@ -4,14 +4,15 @@ import request from 'utils/request';
 import {
   COMPANY_REQUEST, COMPANY_SUCCESS,
 } from 'constants/company';
+import { requestError } from 'actions/global';
 
 function* fetchData({ id }) {
   try {
     const payload = yield call(request, `/company/${id}`);
     const newAction = { type: COMPANY_SUCCESS, payload };
     yield put(newAction);
-  } catch (e) {
-    //do nothing; todo: error handling
+  } catch (error) {
+    yield put(requestError(error));
   }
 }
 

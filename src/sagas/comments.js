@@ -7,6 +7,7 @@ import {
   COMMENTS_REQUEST, COMMENTS_SUCCESS,
   ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS,
 } from 'constants/comments';
+import { requestError } from 'actions/global';
 
 function* fetchData({ id, currentPage }) {
   const url = `/comments/${id}?currentPage=${currentPage}`;
@@ -14,8 +15,8 @@ function* fetchData({ id, currentPage }) {
     const payload = yield call(request, url);
     const newAction = { type: COMMENTS_SUCCESS, payload };
     yield put(newAction);
-  } catch (e) {
-    //do nothing; todo: error handling
+  } catch (error) {
+    yield put(requestError(error));
   }
 }
 
@@ -33,8 +34,8 @@ function* addComment({ companyId, text }) {
     });
     const newAction = { type: ADD_COMMENT_SUCCESS, payload };
     yield put(newAction);
-  } catch (e) {
-    //do nothing; todo: error handling
+  } catch (error) {
+    yield put(requestError(error));
   }
 }
 

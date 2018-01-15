@@ -20,22 +20,16 @@ const enhanceDialog = ({ onInit, onSubmit, successText }) => (Component) => {
       const { dispatch } = this.context.store;
       const { changeLoading } = this.props;
       changeLoading(true);
-      //todo: revise error handling
       return onSubmit(params, dispatch).then(data => {
-        if (data.result === 'success') {
-          if (successText) {
-            dispatch(showDialog(SUCCESS_DIALOG, {
-              title: 'Дякуємо!',
-              body: successText
-            }));
-          } else {
-            dispatch(hideDialog());
-          }
-        } else if (data.result === 'error') {
-          this.setState({
-            errors: data.errors
-          });
+        if (successText) {
+          dispatch(showDialog(SUCCESS_DIALOG, {
+            title: 'Дякуємо!',
+            body: successText
+          }));
+        } else {
+          dispatch(hideDialog());
         }
+        return data;
       }).catch(payload => {
         this.setState({
           errors: payload.errors
@@ -47,7 +41,12 @@ const enhanceDialog = ({ onInit, onSubmit, successText }) => (Component) => {
 
     render() {
       const { initialData, ...props } = this.props;
-      return <Component {...props} {...initialData} errors={this.state.errors} onSubmit={this.onSubmit} />;
+      return (<Component
+        {...props}
+        {...initialData}
+        errors={this.state.errors}
+        onSubmit={this.onSubmit}
+      />);
     }
 
   }

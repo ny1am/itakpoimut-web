@@ -5,8 +5,9 @@ import takeFirst from 'utils/takeFirst';
 import { secureRequest } from 'utils/request';
 import {
   ADD_VIOLATION_DATA_REQUEST, ADD_VIOLATION_DATA_SUCCESS,
-  ADD_VIOLATION_SAVE_REQUEST, ADD_VIOLATION_SAVE_SUCCESS,
+  ADD_VIOLATION_SAVE_REQUEST, ADD_VIOLATION_SAVE_SUCCESS
 } from 'constants/addViolation';
+import { requestError } from 'actions/global';
 
 function* fetchData({ companyId }) {
   const url = `/addViolation?company_id=${companyId}`;
@@ -14,8 +15,8 @@ function* fetchData({ companyId }) {
     const payload = yield call(secureRequest, url);
     const newAction = { type: ADD_VIOLATION_DATA_SUCCESS, payload };
     yield put(newAction);
-  } catch (e) {
-    //do nothing; todo: error handling
+  } catch (error) {
+    yield put(requestError(error));
   }
 }
 
@@ -34,8 +35,8 @@ function* saveData({ companyId, selectedViolations }) {
     const payload = yield call(secureRequest, url, requestParams);
     const newAction = { type: ADD_VIOLATION_SAVE_SUCCESS, payload };
     yield put(newAction);
-  } catch (e) {
-    //do nothing; todo: error handling
+  } catch (error) {
+    yield put(requestError(error));
   }
 }
 

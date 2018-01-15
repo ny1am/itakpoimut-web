@@ -23,24 +23,26 @@ class Container extends React.Component {
 
   onSubmit(params) {
     this.props.onSubmit(params).then(data => {
-      if (data.successSave) {
-        this.setState({
-          successSave: true,
-          errors: null,
-          user: data.user,
-        });
-      } else {
-        this.setState({
-          successSave: false,
-          errors: data.errors,
-        });
-      }
+      this.setState({
+        successSave: true,
+        errors: null,
+        user: data.user,
+      });
       return data;
+    }).catch(payload => {
+      this.setState({
+        successSave: false,
+        errors: payload.errors,
+      });
     });
   }
 
   render() {
-    return <UserProfilePageComponent {...this.props} {...this.state} onSubmit={this.onSubmit} />;
+    return (<UserProfilePageComponent
+      {...this.props}
+      {...this.state}
+      onSubmit={this.onSubmit}
+    />);
   }
 }
 

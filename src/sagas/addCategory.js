@@ -7,6 +7,7 @@ import {
   ADD_CATEGORY_DATA_REQUEST, ADD_CATEGORY_DATA_SUCCESS,
   ADD_CATEGORY_SAVE_REQUEST, ADD_CATEGORY_SAVE_SUCCESS,
 } from 'constants/addCategory';
+import { requestError } from 'actions/global';
 
 function* fetchData({ companyId }) {
   const url = `/addCategory?company_id=${companyId}`;
@@ -14,8 +15,8 @@ function* fetchData({ companyId }) {
     const payload = yield call(secureRequest, url);
     const newAction = { type: ADD_CATEGORY_DATA_SUCCESS, payload };
     yield put(newAction);
-  } catch (e) {
-    //do nothing; todo: error handling
+  } catch (error) {
+    yield put(requestError(error));
   }
 }
 
@@ -33,8 +34,8 @@ function* saveData({ companyId, selectedCategories }) {
     });
     const newAction = { type: ADD_CATEGORY_SAVE_SUCCESS, payload };
     yield put(newAction);
-  } catch (e) {
-    //do nothing; todo: error handling
+  } catch (error) {
+    yield put(requestError(error));
   }
 }
 

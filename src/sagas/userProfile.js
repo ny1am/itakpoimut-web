@@ -7,6 +7,7 @@ import {
   USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS,
   SAVE_USER_PROFILE_REQUEST, SAVE_USER_PROFILE_SUCCESS,
 } from 'constants/userProfile';
+import { requestError } from 'actions/global';
 import { updateUser } from '../store/storage';
 
 function* fetchData() {
@@ -14,8 +15,8 @@ function* fetchData() {
     const payload = yield call(secureRequest, `/userProfile`);
     const newAction = { type: USER_PROFILE_SUCCESS, payload };
     yield put(newAction);
-  } catch (e) {
-    //do nothing; todo: error handling
+  } catch (error) {
+    yield put(requestError(error));
   }
 }
 
@@ -30,8 +31,8 @@ function* saveData({ fname, lname, userpic }) {
     const newAction = { type: SAVE_USER_PROFILE_SUCCESS, payload };
     payload.user && updateUser(payload.user);
     yield put(newAction);
-  } catch (e) {
-    //do nothing; todo: error handling
+  } catch (error) {
+    yield put(requestError(error));
   }
 }
 

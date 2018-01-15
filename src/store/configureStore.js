@@ -6,6 +6,7 @@ import createSagaMiddleware from 'redux-saga';
 import createReduxWaitForMiddleware from 'redux-wait-for-action';
 // import logger from 'redux-logger';
 
+import patchReduxWaitForMiddleware from './middlewares/patchReduxWaitForMiddleware';
 import pageLoadingMiddleware from './middlewares/pageLoadingMiddleware';
 import scrollMiddleware from './middlewares/scrollMiddleware';
 import rootReducer from '../reducers';
@@ -18,6 +19,7 @@ function configureStoreProd(initialState) {
   const sagaMiddleware = createSagaMiddleware();
   const middlewares = [
     sagaMiddleware,
+    patchReduxWaitForMiddleware,
     createReduxWaitForMiddleware(),
     pageLoadingMiddleware,
     scrollMiddleware,
@@ -41,6 +43,7 @@ function configureStoreDev(initialState) {
     // Redux middleware that spits an error on you when you try to mutate your state either inside a dispatch or between dispatches.
     reduxImmutableStateInvariant(),
     sagaMiddleware,
+    patchReduxWaitForMiddleware,
     createReduxWaitForMiddleware(),
     pageLoadingMiddleware,
     scrollMiddleware,

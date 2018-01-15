@@ -5,6 +5,7 @@ import request from 'utils/request';
 import {
   AUTOCOMPLETE_REQUEST, AUTOCOMPLETE_SUCCESS
 } from 'constants/autocomplete';
+import { requestError } from 'actions/global';
 
 function* fetchData({ title, category }) {
   const params = { title, category };
@@ -13,8 +14,8 @@ function* fetchData({ title, category }) {
     const payload = yield call(request, url);
     const newAction = { type: AUTOCOMPLETE_SUCCESS, payload };
     yield put(newAction);
-  } catch (e) {
-    //do nothing; todo: error handling
+  } catch (error) {
+    yield put(requestError(error));
   }
 }
 

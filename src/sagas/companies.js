@@ -5,6 +5,7 @@ import request from 'utils/request';
 import {
   COMPANIES_REQUEST, COMPANIES_SUCCESS,
 } from 'constants/companies';
+import { requestError } from 'actions/global';
 
 function* fetchData({ currentPage, sortOrder, title, filters }) {
   const urlParams = Object.assign({}, {
@@ -17,8 +18,8 @@ function* fetchData({ currentPage, sortOrder, title, filters }) {
     const payload = yield call(request, url);
     const newAction = { type: COMPANIES_SUCCESS, payload };
     yield put(newAction);
-  } catch (e) {
-    //do nothing; todo: error handling
+  } catch (error) {
+    yield put(requestError(error));
   }
 }
 

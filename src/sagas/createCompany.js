@@ -7,14 +7,15 @@ import {
   CREATE_COMPANY_DATA_REQUEST, CREATE_COMPANY_DATA_SUCCESS,
   CREATE_COMPANY_SAVE_REQUEST, CREATE_COMPANY_SAVE_SUCCESS,
 } from 'constants/createCompany';
+import { requestError } from 'actions/global';
 
 function* fetchData() {
   try {
     const payload = yield call(secureRequest, `/createCompany`);
     const newAction = { type: CREATE_COMPANY_DATA_SUCCESS, payload };
     yield put(newAction);
-  } catch (e) {
-    //do nothing; todo: error handling
+  } catch (error) {
+    yield put(requestError(error));
   }
 }
 
@@ -32,8 +33,8 @@ function* saveData({ title, description, company_site, selectedCategories, selec
     });
     const newAction = { type: CREATE_COMPANY_SAVE_SUCCESS, payload };
     yield put(newAction);
-  } catch (e) {
-    //do nothing; todo: error handling
+  } catch (error) {
+    yield put(requestError(error));
   }
 }
 
