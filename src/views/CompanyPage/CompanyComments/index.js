@@ -18,10 +18,7 @@ class CompanyComments extends React.Component {
 
   onSubmit(companyId, text) {
     return this.props.onSubmit(companyId, text).then(data => {
-      if (!data.error) {
-        //todo: change to id
-        scrollIntoViewIfNeeded(ReactDOM.findDOMNode(this.refs.comments));
-      }
+      scrollIntoViewIfNeeded(ReactDOM.findDOMNode(this.refs.comments));
       return data;
     });
   }
