@@ -1,23 +1,20 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 
-import request from 'utils/request';
 import {
   COMPANY_REQUEST, COMPANY_SUCCESS,
 } from 'constants/company';
-import { requestError } from 'actions/global';
+import apiRequest from './utils/apiRequest';
 
-function* fetchData({ id }) {
-  try {
-    const payload = yield call(request, `/company/${id}`);
+function* fetchCompany({ id }) {
+  const { payload } = yield apiRequest(`/company/${id}`);
+  if (payload) {
     const newAction = { type: COMPANY_SUCCESS, payload };
     yield put(newAction);
-  } catch (error) {
-    yield put(requestError(error));
   }
 }
 
-function* fetchDataSaga() {
-  yield takeEvery(COMPANY_REQUEST, fetchData);
+function* fetchCompanySaga() {
+  yield takeEvery(COMPANY_REQUEST, fetchCompany);
 }
 
-export default fetchDataSaga;
+export default fetchCompanySaga;

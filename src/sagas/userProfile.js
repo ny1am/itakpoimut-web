@@ -1,54 +1,45 @@
-import { call, put, takeEvery, fork, all } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 import toFormData from 'object-to-formdata';
 
-import takeFirst from 'utils/takeFirst';
-import { secureRequest } from 'utils/request';
 import {
   USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS,
   SAVE_USER_PROFILE_REQUEST, SAVE_USER_PROFILE_SUCCESS,
 } from 'constants/userProfile';
-import { requestError } from 'actions/global';
 import { updateUser } from '../store/storage';
+import { combine, takeFirst } from './utils/effects';
+import apiSecureRequest from './utils/apiSecureRequest';
 
-function* fetchData() {
-  try {
-    const payload = yield call(secureRequest, `/userProfile`);
+function* fetchUserProfile() {
+  const { payload } = yield apiSecureRequest(`/userProfile`);
+  if (payload) {
     const newAction = { type: USER_PROFILE_SUCCESS, payload };
     yield put(newAction);
-  } catch (error) {
-    yield put(requestError(error));
   }
 }
 
-function* saveData({ fname, lname, userpic }) {
+function* saveUserProfile({ fname, lname, userpic }) {
   const url = `/userProfile`;
-  const params = { fname, lname, userpic };
-  try {
-    const payload = yield call(secureRequest, url, {
-      method: 'POST',
-      body: toFormData(params),
-    });
+  const options = {
+    method: 'POST',
+    body: toFormData({ fname, lname, userpic }),
+  };
+  const { payload } = yield apiSecureRequest(url, options);
+  if (payload) {
+    yield call(updateUser, payload.user);
     const newAction = { type: SAVE_USER_PROFILE_SUCCESS, payload };
-    payload.user && updateUser(payload.user);
     yield put(newAction);
-  } catch (error) {
-    yield put(requestError(error));
   }
 }
 
-function* fetchDataSaga() {
-  yield takeEvery(USER_PROFILE_REQUEST, fetchData);
+function* fetchUserProfileSaga() {
+  yield takeEvery(USER_PROFILE_REQUEST, fetchUserProfile);
 }
 
-function* saveDataSaga() {
-  yield takeFirst(SAVE_USER_PROFILE_REQUEST, saveData);
+function* saveUserProfileSaga() {
+  yield takeFirst(SAVE_USER_PROFILE_REQUEST, saveUserProfile);
 }
 
-function* userProfileSaga() {
-  yield all([
-    fork(fetchDataSaga),
-    fork(saveDataSaga),
-  ]);
-}
-
-export default userProfileSaga;
+export default combine([
+  fetchUserProfileSaga,
+  saveUserProfileSaga,
+]);

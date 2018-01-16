@@ -1,57 +1,48 @@
-import { call, put, takeEvery, fork, all } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 import queryString from 'query-string';
 
-import takeFirst from 'utils/takeFirst';
-import { secureRequest } from 'utils/request';
 import {
   ADD_CATEGORY_DATA_REQUEST, ADD_CATEGORY_DATA_SUCCESS,
   ADD_CATEGORY_SAVE_REQUEST, ADD_CATEGORY_SAVE_SUCCESS,
 } from 'constants/addCategory';
-import { requestError } from 'actions/global';
+import { combine, takeFirst } from './utils/effects';
+import apiSecureRequest from './utils/apiSecureRequest';
 
-function* fetchData({ companyId }) {
+function* fetchAddCategory({ companyId }) {
   const url = `/addCategory?company_id=${companyId}`;
-  try {
-    const payload = yield call(secureRequest, url);
+  const { payload } = yield apiSecureRequest(url);
+  if (payload) {
     const newAction = { type: ADD_CATEGORY_DATA_SUCCESS, payload };
     yield put(newAction);
-  } catch (error) {
-    yield put(requestError(error));
   }
 }
 
-function* saveData({ companyId, selectedCategories }) {
+function* saveAddCategory({ companyId, selectedCategories }) {
   const url = `/addCategory`;
-  const params = {
-    'company_id': companyId,
-    'selectedCategories[]': selectedCategories,
+  const options = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: queryString.stringify({
+      'company_id': companyId,
+      'selectedCategories[]': selectedCategories,
+    }),
   };
-  try {
-    const payload = yield call(secureRequest, url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: queryString.stringify(params),
-    });
+  const { payload } = yield apiSecureRequest(url, options);
+  if (payload) {
     const newAction = { type: ADD_CATEGORY_SAVE_SUCCESS, payload };
     yield put(newAction);
-  } catch (error) {
-    yield put(requestError(error));
   }
 }
 
-function* fetchDataSaga() {
-  yield takeEvery(ADD_CATEGORY_DATA_REQUEST, fetchData);
+function* fetchAddCategorySaga() {
+  yield takeEvery(ADD_CATEGORY_DATA_REQUEST, fetchAddCategory);
 }
 
-function* saveDataSaga() {
-  yield takeFirst(ADD_CATEGORY_SAVE_REQUEST, saveData);
+function* saveAddCategorySaga() {
+  yield takeFirst(ADD_CATEGORY_SAVE_REQUEST, saveAddCategory);
 }
 
-function* addCategorySaga() {
-  yield all([
-    fork(fetchDataSaga),
-    fork(saveDataSaga),
-  ]);
-}
-
-export default addCategorySaga;
+export default combine([
+  fetchAddCategorySaga,
+  saveAddCategorySaga,
+]);

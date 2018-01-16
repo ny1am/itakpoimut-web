@@ -1,57 +1,49 @@
-import { call, put, takeEvery, all, fork } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 import queryString from 'query-string';
 
-import takeFirst from 'utils/takeFirst';
-import request, { secureRequest } from 'utils/request';
 import {
   COMMENTS_REQUEST, COMMENTS_SUCCESS,
   ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS,
 } from 'constants/comments';
-import { requestError } from 'actions/global';
+import { combine, takeFirst } from './utils/effects';
+import apiSecureRequest from './utils/apiSecureRequest';
+import apiRequest from './utils/apiRequest';
 
-function* fetchData({ id, currentPage }) {
+function* fetchComments({ id, currentPage }) {
   const url = `/comments/${id}?currentPage=${currentPage}`;
-  try {
-    const payload = yield call(request, url);
+  const { payload } = yield apiRequest(url);
+  if (payload) {
     const newAction = { type: COMMENTS_SUCCESS, payload };
     yield put(newAction);
-  } catch (error) {
-    yield put(requestError(error));
   }
 }
 
 function* addComment({ companyId, text }) {
   const url = `/addComment`;
-  const params = {
-    _company: companyId,
-    text,
+  const options = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: queryString.stringify({
+      _company: companyId,
+      text,
+    }),
   };
-  try {
-    const payload = yield call(secureRequest, url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: queryString.stringify(params),
-    });
+  const { payload } = yield apiSecureRequest(url, options);
+  if (payload) {
     const newAction = { type: ADD_COMMENT_SUCCESS, payload };
     yield put(newAction);
-  } catch (error) {
-    yield put(requestError(error));
   }
 }
 
-function* fetchDataSaga() {
-  yield takeEvery(COMMENTS_REQUEST, fetchData);
+function* fetchCommentsSaga() {
+  yield takeEvery(COMMENTS_REQUEST, fetchComments);
 }
 
 function* addCommentSaga() {
   yield takeFirst(ADD_COMMENT_REQUEST, addComment);
 }
 
-function* commentsSaga() {
-  yield all([
-    fork(fetchDataSaga),
-    fork(addCommentSaga),
-  ]);
-}
-
-export default commentsSaga;
+export default combine([
+  fetchCommentsSaga,
+  addCommentSaga,
+]);

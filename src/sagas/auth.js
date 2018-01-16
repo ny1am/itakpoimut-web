@@ -1,27 +1,27 @@
-import { call, put, takeEvery, all, fork } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 import queryString from 'query-string';
 
-import takeFirst from 'utils/takeFirst';
-import request from 'utils/request';
 import {
   AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE,
   LOGOUT,
 } from 'constants/auth';
 import { saveAuth } from '../store/storage';
+import { combine, takeFirst } from './utils/effects';
+import apiRequest from './utils/apiRequest';
 
 function* auth({ username, password }) {
   const url = `/login`;
-  const params = { username, password };
-  try {
-    const payload = yield call(request, url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: queryString.stringify(params),
-    });
+  const options = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: queryString.stringify({ username, password }),
+  };
+  const { payload, error } = yield apiRequest(url, options);
+  if (payload) {
     const newAction = { type: AUTH_SUCCESS, payload };
     yield call(saveAuth, payload);
     yield put(newAction);
-  } catch (error) {
+  } else {
     const newAction = { type: AUTH_FAILURE, error };
     yield logout();
     yield put(newAction);
@@ -40,11 +40,7 @@ function* logoutSaga() {
   yield takeEvery(LOGOUT, logout);
 }
 
-function* authSagas() {
-  yield all([
-    fork(authSaga),
-    fork(logoutSaga),
-  ]);
-}
-
-export default authSagas;
+export default combine([
+  authSaga,
+  logoutSaga,
+]);

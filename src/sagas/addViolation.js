@@ -1,58 +1,48 @@
-import { call, put, takeEvery, fork, all } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 import queryString from 'query-string';
 
-import takeFirst from 'utils/takeFirst';
-import { secureRequest } from 'utils/request';
 import {
   ADD_VIOLATION_DATA_REQUEST, ADD_VIOLATION_DATA_SUCCESS,
   ADD_VIOLATION_SAVE_REQUEST, ADD_VIOLATION_SAVE_SUCCESS
 } from 'constants/addViolation';
-import { requestError } from 'actions/global';
+import { combine, takeFirst } from './utils/effects';
+import apiSecureRequest from './utils/apiSecureRequest';
 
-function* fetchData({ companyId }) {
+function* fetchAddViolation({ companyId }) {
   const url = `/addViolation?company_id=${companyId}`;
-  try {
-    const payload = yield call(secureRequest, url);
+  const { payload } = yield apiSecureRequest(url);
+  if (payload) {
     const newAction = { type: ADD_VIOLATION_DATA_SUCCESS, payload };
     yield put(newAction);
-  } catch (error) {
-    yield put(requestError(error));
   }
 }
 
-function* saveData({ companyId, selectedViolations }) {
+function* saveAddViolation({ companyId, selectedViolations }) {
   const url = `/addViolation`;
-  const params = {
-    'company_id': companyId,
-    'selectedViolations[]': selectedViolations,
+  const options = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: queryString.stringify({
+      'company_id': companyId,
+      'selectedViolations[]': selectedViolations,
+    }),
   };
-  try {
-    const requestParams = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: queryString.stringify(params),
-    };
-    const payload = yield call(secureRequest, url, requestParams);
+  const { payload } = yield apiSecureRequest(url, options);
+  if (payload) {
     const newAction = { type: ADD_VIOLATION_SAVE_SUCCESS, payload };
     yield put(newAction);
-  } catch (error) {
-    yield put(requestError(error));
   }
 }
 
-function* fetchDataSaga() {
-  yield takeEvery(ADD_VIOLATION_DATA_REQUEST, fetchData);
+function* fetchAddViolationSaga() {
+  yield takeEvery(ADD_VIOLATION_DATA_REQUEST, fetchAddViolation);
 }
 
-function* saveDataSaga() {
-  yield takeFirst(ADD_VIOLATION_SAVE_REQUEST, saveData);
+function* saveAddViolationSaga() {
+  yield takeFirst(ADD_VIOLATION_SAVE_REQUEST, saveAddViolation);
 }
 
-function* addViolationSaga() {
-  yield all([
-    fork(fetchDataSaga),
-    fork(saveDataSaga),
-  ]);
-}
-
-export default addViolationSaga;
+export default combine([
+  fetchAddViolationSaga,
+  saveAddViolationSaga,
+]);
