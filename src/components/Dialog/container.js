@@ -77,7 +77,6 @@ class Container extends React.Component {
     };
     onPreloadStart(preloadOpts);
     promise.then(data => {
-      onPreloadEnd(preloadOpts);
       const initialData = data || null;
       this.setState({
         isAppFetching: false,
@@ -85,7 +84,15 @@ class Container extends React.Component {
         ready: true,
       });
       return data;
-    }).catch(console.err); // eslint-disable-line
+    }).catch(error => {
+      this.setState({
+        isAppFetching: false,
+        ready: true,
+        appFetchingError: error
+      });
+    }).finally(() => {
+      onPreloadEnd(preloadOpts);
+    });
   }
 
   render() {

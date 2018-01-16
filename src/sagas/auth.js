@@ -29,7 +29,7 @@ function* auth({ username, password }) {
 }
 
 function* logout() {
-  yield call(saveAuth);
+  yield call(saveAuth, null);
 }
 
 function* authSaga() {

@@ -65,7 +65,6 @@ class PreloadSwitch extends React.Component {
     };
     store.dispatch(preload.start(preloadOpts));
     (promise || Promise.resolve()).then((data) => {
-      store.dispatch(preload.end(preloadOpts));
       const initialData = extractData((data&&data[0])?data[0]:null);
       this.setState({
         isAppFetching: false,
@@ -80,6 +79,8 @@ class PreloadSwitch extends React.Component {
         ready: true,
         appFetchingError: err
       });
+    }).finally(() => {
+      store.dispatch(preload.end(preloadOpts));
     });
   }
 
