@@ -3,10 +3,10 @@ import { enhanceDialog } from 'components/Dialog';
 
 import AddCategoryDialogComponent from './AddCategoryDialog';
 
-const props = {
-  onInit: ({ companyId }, dispatch) => dispatch(get(companyId)),
-  onSubmit: (params, dispatch) => dispatch(save(params)),
+const mapProps = (dispatch) => ({
+  onInit: ({ companyId }) => dispatch(get(companyId)),
+  onSubmit: (params) => dispatch(save(params)),
   successText: 'Запит на додання сфери надіслано. Адміністратор розгляне його найближчим часом.',
-};
+});
 
-export default enhanceDialog(props)(AddCategoryDialogComponent);
+export default enhanceDialog(mapProps)(AddCategoryDialogComponent);

@@ -9,7 +9,6 @@ import * as preload from 'actions/preload';
 import DialogComponent from './Dialog';
 import routes from './routes';
 
-
 class Container extends React.Component {
 
   constructor(props) {
@@ -67,11 +66,12 @@ class Container extends React.Component {
       isAppFetching: true,
       initialData: null,
     });
-    const component = routes[dialogType].component;
-    const promise = component.fetch ? component.fetch(dialogProps, dispatch) : Promise.resolve();
+    const { fetch } = routes[dialogType].component;
+    const fetchResult = fetch && fetch(dialogProps, dispatch);
+    const promise = fetchResult || Promise.resolve();
     const preloadOpts = {
       preloadType: 'dialog',
-      instant: !component.fetch,
+      instant: !fetchResult,
       prevRoute: this.props.dialogType,
       route: dialogType,
     };

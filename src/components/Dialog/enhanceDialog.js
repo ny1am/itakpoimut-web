@@ -5,8 +5,13 @@ import { SUCCESS_DIALOG } from 'constants/dialog';
 import { showDialog, hideDialog } from 'actions/dialog';
 import { getDisplayName } from 'utils';
 
-const enhanceDialog = ({ onInit, onSubmit, successText }) => (Component) => {
+const enhanceDialog = (mapProps) => (Component) => {
   class EnhancedDialog extends React.Component {
+
+    static fetch(dialogProps, dispatch) {
+      const { onInit } = mapProps(dispatch);
+      return onInit && onInit(dialogProps);
+    }
 
     constructor(props) {
       super(props);
@@ -19,8 +24,9 @@ const enhanceDialog = ({ onInit, onSubmit, successText }) => (Component) => {
     onSubmit(params) {
       const { dispatch } = this.context.store;
       const { changeLoading } = this.props;
+      const { onSubmit, successText } = mapProps(dispatch);
       changeLoading(true);
-      return onSubmit(params, dispatch).then(data => {
+      return onSubmit(params).then(data => {
         if (successText) {
           dispatch(showDialog(SUCCESS_DIALOG, {
             title: 'Дякуємо!',
@@ -50,8 +56,6 @@ const enhanceDialog = ({ onInit, onSubmit, successText }) => (Component) => {
     }
 
   }
-
-  onInit && (EnhancedDialog.fetch = onInit);
 
   EnhancedDialog.contextTypes = {
     store: PropTypes.shape({
