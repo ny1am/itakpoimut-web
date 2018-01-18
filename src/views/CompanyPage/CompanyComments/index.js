@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
+import { scrollIntoViewIfNeeded } from 'scroll-into-view-if-needed';
 
 import Pagination from 'components/Pagination';
 import Comment from 'components/Comment';
