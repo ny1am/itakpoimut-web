@@ -23,7 +23,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "clone-deep": "^1.0.0",
     "dateformat": "^3.0.2",
     "history": "4.6.0",
     "isomorphic-fetch": "^2.2.1",
