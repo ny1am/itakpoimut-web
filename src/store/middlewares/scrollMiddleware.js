@@ -4,8 +4,8 @@ import { PRELOAD_LOCATION_CHANGE_END } from 'constants';
 
 export default () => next => action => {
 
-  const { type, preloadType, hash, prevRoute, route } = action;
-  if (type === PRELOAD_LOCATION_CHANGE_END && preloadType === 'page') {
+  const { type, hash, prevRoute, route } = action;
+  if (type === PRELOAD_LOCATION_CHANGE_END) {
     const idToScroll = hash;
     if (idToScroll) {
       const el = document.getElementById(idToScroll.slice(1)) || document.body;

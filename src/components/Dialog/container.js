@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { hideDialog } from 'actions/dialog';
 import { PLEASE_SIGNUP_DIALOG } from 'constants/dialog';
-import * as preload from 'actions/preload';
+import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
 
 import DialogComponent from './Dialog';
 import routes from './routes';
@@ -60,7 +60,7 @@ class Container extends React.Component {
     if (!dialogType) {
       return;
     }
-    const { dialogProps, onPreloadStart, onPreloadEnd } = props;
+    const { dialogProps } = props;
     const { dispatch } = this.context.store;
     this.setState({
       isAppFetching: true,
@@ -69,14 +69,7 @@ class Container extends React.Component {
     const { fetch } = routes[dialogType].component;
     const fetchResult = fetch && fetch(dialogProps, dispatch);
     const promise = fetchResult || Promise.resolve();
-    const preloadOpts = {
-      preloadType: 'dialog',
-      instant: !fetchResult,
-      prevRoute: this.props.dialogType,
-      route: dialogType,
-    };
-    onPreloadStart(preloadOpts);
-    promise.then(data => {
+    wrapPromiseWithProgress(promise).then(data => {
       const initialData = data || null;
       this.setState({
         isAppFetching: false,
@@ -90,8 +83,6 @@ class Container extends React.Component {
         ready: true,
         appFetchingError: error
       });
-    }).finally(() => {
-      onPreloadEnd(preloadOpts);
     });
   }
 
@@ -160,8 +151,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   onClose: () => dispatch(hideDialog()),
-  onPreloadStart: (params) => dispatch(preload.start(params)),
-  onPreloadEnd: (params) => dispatch(preload.end(params)),
   dispatch
 });
 

@@ -1,10 +1,2 @@
-import React from 'react';
-import Progress from 'react-progress-2';
-
-import './styles.scss';
-
-const ProgressBar = () => (
-  <Progress.Component />
-);
-
-export default ProgressBar;
+export { default as wrapPromise } from './wrapPromise';
+export { default } from './ProgressBar';

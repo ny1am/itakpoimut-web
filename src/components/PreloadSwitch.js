@@ -6,7 +6,7 @@ import * as preload from 'actions/preload';
 import { appReady } from 'actions/global';
 import { routeConfig } from 'components/Routes';
 import { reactRouterFetch, hasPageLocationChanged } from 'utils';
-
+import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
 
 const extractData = (data) => {
   if (!data) {
@@ -58,13 +58,12 @@ class PreloadSwitch extends React.Component {
     const promise = reactRouterFetch(routeConfig, location, opts);
     const preloadOpts = {
       preloadType: 'page',
-      instant: !promise,
       prevRoute: this.props.location.pathname,
       route: props.location.pathname,
       hash: props.location.hash,
     };
     store.dispatch(preload.start(preloadOpts));
-    (promise || Promise.resolve()).then((data) => {
+    wrapPromiseWithProgress(promise || Promise.resolve()).then((data) => {
       const initialData = extractData((data&&data[0])?data[0]:null);
       this.setState({
         isAppFetching: false,

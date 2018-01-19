@@ -7,7 +7,6 @@ import createReduxWaitForMiddleware from 'redux-wait-for-action';
 // import logger from 'redux-logger';
 
 import patchReduxWaitForMiddleware from './middlewares/patchReduxWaitForMiddleware';
-import pageLoadingMiddleware from './middlewares/pageLoadingMiddleware';
 import scrollMiddleware from './middlewares/scrollMiddleware';
 import rootReducer from '../reducers';
 import sagas from '../sagas';
@@ -21,7 +20,6 @@ function configureStoreProd(initialState) {
     sagaMiddleware,
     patchReduxWaitForMiddleware,
     createReduxWaitForMiddleware(),
-    pageLoadingMiddleware,
     scrollMiddleware,
     reactRouterMiddleware,
   ];
@@ -45,7 +43,6 @@ function configureStoreDev(initialState) {
     sagaMiddleware,
     patchReduxWaitForMiddleware,
     createReduxWaitForMiddleware(),
-    pageLoadingMiddleware,
     scrollMiddleware,
     reactRouterMiddleware,
     // logger

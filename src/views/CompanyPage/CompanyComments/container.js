@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
-//todo: refactor according to Dependency Inversion
-import Progress from 'react-progress-2';
 
+import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
 import { get, add } from 'actions/comments';
 import CompanyCommentsComponent from './CompanyComments';
 
@@ -35,11 +34,8 @@ class Container extends React.Component {
     const { currentPage } = queryString.parse(oldProps.location.search);
     const newPage = queryString.parse(location.search).currentPage;
     if (currentPage !== newPage) {
-      Progress.show();
-      return onInit(companyId, newPage).then(payload => {
-        Progress.hide();
-        return payload;
-      });
+      const promise = onInit(companyId, newPage);
+      return wrapPromiseWithProgress(promise);
     }
   }
 
