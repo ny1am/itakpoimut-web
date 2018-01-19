@@ -11,21 +11,15 @@ import CompaniesPageComponent from './CompaniesPage';
 class Container extends React.Component {
   static fetch(match, location, { store, dispatch }) {
     const { title, currentPage, sortOrder, selectedCategory } = queryString.parse(location.search);
-    //todo: change location here?
     //sync with redux store
-    const wrapperPromise = selectedCategory !== undefined
-      ? dispatch(changeCategory(selectedCategory))
-      : Promise.resolve();
-
-    return wrapperPromise.then(() => {
-      const filters = store.getState().companies;
-      return dispatch(get({
-        title,
-        currentPage,
-        sortOrder,
-        filters,
-      }));
-    });
+    selectedCategory && dispatch(changeCategory(selectedCategory));
+    const filters = store.getState().companies;
+    return dispatch(get({
+      title,
+      currentPage,
+      sortOrder,
+      filters,
+    }));
   }
 
   render() {
