@@ -1,13 +1,11 @@
-import { COMPANY_SUCCESS } from 'constants/company';
 import { COMMENTS_SUCCESS } from 'constants/comments';
 
 const initialState = {};
 
-const companyReducer = (state = initialState, action) => {
+const commentsReducer = (state = initialState, action) => {
   switch(action.type) {
 
-    case COMMENTS_SUCCESS:
-    case COMPANY_SUCCESS: {
+    case COMMENTS_SUCCESS: {
       return Object.assign({}, state, action.payload);
     }
 
@@ -16,4 +14,4 @@ const companyReducer = (state = initialState, action) => {
   }
 };
 
-export default companyReducer;
+export default commentsReducer;

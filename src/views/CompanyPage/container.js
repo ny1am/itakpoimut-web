@@ -7,6 +7,7 @@ import CompanyPageComponent from './CompanyPage';
 
 class Container extends React.Component {
   static fetch({ params }, location, { dispatch, prevLocation }) {
+    //todo: match change based checking
     if (!prevLocation || location.pathname !== prevLocation.pathname) {
       return dispatch(get(params.id));
     }

@@ -6,7 +6,7 @@ import DialogLink from 'components/DialogLink';
 import Loyalty from 'components/Loyalty';
 import { http, violationByName, categoryByName } from 'utils';
 
-import CompanyComments from './CompanyComments';
+import CompanyComments from 'views/CompanyComments';
 import styles from './styles.scss';
 
 const CompanyPage = ({ company }) => (
@@ -77,7 +77,7 @@ const CompanyPage = ({ company }) => (
           </div>
         </section>
         <div className={styles.commentsWrapper}>
-          <CompanyComments company={company} />
+          <CompanyComments companyId={company._id} />
         </div>
       </div>
     </div>

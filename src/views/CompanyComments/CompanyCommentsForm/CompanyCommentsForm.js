@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { LOGIN_DIALOG } from 'constants/dialog';
 import DialogLink from 'components/DialogLink';
 import Avatar from 'components/Avatar';
+import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
 
 import styles from './styles.scss';
 
@@ -25,21 +26,23 @@ class CompanyCommentsForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { onSubmit, company } = this.props;
+    const { onSubmit, companyId } = this.props;
     const { text } = this.state;
-    return onSubmit(company._id, text).then(data => {
+    const promise = onSubmit(companyId, text).then(data => {
+      //todo: slight performance issue here
       this.setState({ text: '' });
       return data;
     });
+    return wrapPromiseWithProgress(promise);
   }
 
   render() {
-    const { loggedUser, company } = this.props;
+    const { loggedUser, companyId } = this.props;
     const { text } = this.state;
     if (loggedUser) {
       return (
         <form action="/addComment" className={styles.form} method="post" onSubmit={this.handleSubmit}>
-          <input type="hidden" name="_company" value={company._id} />
+          <input type="hidden" name="_company" value={companyId} />
           <h2>
             Додати коментар
           </h2>
@@ -73,9 +76,7 @@ class CompanyCommentsForm extends React.Component {
 
 CompanyCommentsForm.propTypes = {
   loggedUser: PropTypes.object,
-  company: PropTypes.shape({
-    _id: PropTypes.number.isRequired,
-  }).isRequired,
+  companyId: PropTypes.number.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 

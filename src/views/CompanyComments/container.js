@@ -18,8 +18,7 @@ class Container extends React.Component {
   }
 
   componentDidMount() {
-    const { location, onInit } = this.props;
-    const companyId = this.props.company._id;
+    const { companyId, location, onInit } = this.props;
     const { currentPage } = queryString.parse(location.search);
     return onInit(companyId, currentPage).then(payload => {
       this.setState({ ready: true });
@@ -30,13 +29,17 @@ class Container extends React.Component {
   componentWillReceiveProps(newProps) {
     const oldProps = this.props;
     const { location, onInit } = newProps;
-    const companyId = oldProps.company._id;
+    const { companyId } = oldProps;
     const { currentPage } = queryString.parse(oldProps.location.search);
     const newPage = queryString.parse(location.search).currentPage;
     if (currentPage !== newPage) {
       const promise = onInit(companyId, newPage);
       return wrapPromiseWithProgress(promise);
     }
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return this.props.comments !== nextProps.comments || !this.state.ready;
   }
 
   render() {
@@ -51,17 +54,16 @@ class Container extends React.Component {
 
 Container.propTypes = {
   location: PropTypes.object.isRequired,
-  company: PropTypes.shape({
-    _id: PropTypes.number.isRequired,
-  }).isRequired,
+  companyId: PropTypes.number.isRequired,
+  comments: PropTypes.array,
   onInit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  commentsCount: state.company.commentsCount,
-  comments: state.company.comments,
-  currentPage: state.company.currentPage,
-  totalPages: state.company.totalPages,
+  commentsCount: state.comments.commentsCount,
+  comments: state.comments.comments,
+  currentPage: state.comments.currentPage,
+  totalPages: state.comments.totalPages,
 });
 
 const mapDispatchToProps = (dispatch) => ({

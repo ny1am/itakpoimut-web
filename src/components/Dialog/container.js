@@ -130,14 +130,6 @@ Container.propTypes = {
    * dialog close function
    */
   onClose: PropTypes.func.isRequired,
-  /**
-   * preload start function
-   */
-  onPreloadStart: PropTypes.func.isRequired,
-  /**
-   * preload end function
-   */
-  onPreloadEnd: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
