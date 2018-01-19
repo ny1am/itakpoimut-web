@@ -18,9 +18,8 @@ class Container extends React.Component {
   }
 }
 
-//todo: revise, get from initialData
-const mapStateToProps = (state) => ({
-  company: state.company.company,
+const mapStateToProps = (state, ownProps) => ({
+  company: state.company[ownProps.match.params.id],
 });
 
 export default connect(mapStateToProps)(Container);
