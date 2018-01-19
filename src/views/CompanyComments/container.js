@@ -5,8 +5,13 @@ import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 
 import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
-import { get, add } from 'actions/comments';
+import { get } from 'actions/comments';
 import CompanyCommentsComponent from './CompanyComments';
+
+const getCurrentPage = (location) => {
+  const { currentPage } = queryString.parse(location.search);
+  return currentPage;
+};
 
 class Container extends React.Component {
 
@@ -18,8 +23,8 @@ class Container extends React.Component {
   }
 
   componentDidMount() {
-    const { companyId, location, onInit } = this.props;
-    const { currentPage } = queryString.parse(location.search);
+    const { companyId, onInit } = this.props;
+    const currentPage = getCurrentPage(this.props.location);
     return onInit(companyId, currentPage).then(payload => {
       this.setState({ ready: true });
       return payload;
@@ -27,11 +32,9 @@ class Container extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    const oldProps = this.props;
-    const { location, onInit } = newProps;
-    const { companyId } = oldProps;
-    const { currentPage } = queryString.parse(oldProps.location.search);
-    const newPage = queryString.parse(location.search).currentPage;
+    const { companyId, onInit } = newProps;
+    const currentPage = getCurrentPage(this.props.location);
+    const newPage = getCurrentPage(newProps.location);
     if (currentPage !== newPage) {
       const promise = onInit(companyId, newPage);
       return wrapPromiseWithProgress(promise);
@@ -68,7 +71,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onInit: (companyId, currentPage) => dispatch(get(companyId, currentPage)),
-  onSubmit: (companyId, text) => dispatch(add(companyId, text)),
   dispatch
 });
 

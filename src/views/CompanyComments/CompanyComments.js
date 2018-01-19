@@ -21,7 +21,7 @@ class CompanyComments extends React.Component {
 
   render() {
     const {
-      companyId, comments, commentsCount, currentPage, totalPages, onSubmit
+      companyId, comments, commentsCount, currentPage, totalPages
     } = this.props;
     return (
       <div className="container">
@@ -53,7 +53,7 @@ class CompanyComments extends React.Component {
             }
           />
         </section>
-        <CompanyCommentsForm companyId={companyId} onSubmit={onSubmit} />
+        <CompanyCommentsForm companyId={companyId} />
       </div>
     );
   }
@@ -65,7 +65,6 @@ CompanyComments.propTypes = {
   comments: PropTypes.array,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
-  onSubmit: PropTypes.func.isRequired,
 };
 
 CompanyComments.defaultProps = {
