@@ -9,7 +9,7 @@ import { http, violationByName, categoryByName } from 'utils';
 import CompanyComments from './CompanyComments';
 import styles from './styles.scss';
 
-const CompanyPage = ({ commentsCount, comments, company, currentPage, totalPages, onAddComment }) => (
+const CompanyPage = ({ company }) => (
   <div className="pattern-content">
     <div className="container">
       <div className={styles.wrapper}>
@@ -77,14 +77,7 @@ const CompanyPage = ({ commentsCount, comments, company, currentPage, totalPages
           </div>
         </section>
         <div className={styles.commentsWrapper}>
-          <CompanyComments
-            commentsCount={commentsCount}
-            comments={comments}
-            company={company}
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onSubmit={onAddComment}
-          />
+          <CompanyComments company={company} />
         </div>
       </div>
     </div>
@@ -103,11 +96,6 @@ CompanyPage.propTypes = {
     })),
     categories: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
-  commentsCount: PropTypes.number,
-  comments: PropTypes.array,
-  currentPage: PropTypes.number,
-  totalPages: PropTypes.number,
-  onAddComment: PropTypes.func.isRequired,
 };
 
 export default CompanyPage;

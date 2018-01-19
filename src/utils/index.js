@@ -31,17 +31,14 @@ export const http = (url) => {
 
 export const reactRouterFetch = (routes, location, options) => {
   const branch = matchRoutes(routes, location.pathname);
-  if (branch.length > 0) {
-    const promises = branch
-      .filter(({ route }) => route.component && route.component.fetch)
-      .map(({ route, match }) => {
-        return route.component.fetch(match, location, options);
-      });
-    if (promises && promises.length > 0) {
-      return Promise.all(promises);
-    } else {
-      return null;
-    }
+  const promises = branch
+    .filter(({ route }) => route.component && route.component.fetch)
+    .map(({ route, match }) => {
+      return route.component.fetch(match, location, options);
+    })
+    .filter(promise => promise);
+  if (promises && promises.length > 0) {
+    return Promise.all(promises);
   } else {
     return null;
   }

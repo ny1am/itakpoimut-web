@@ -3,11 +3,8 @@ import Progress from 'react-progress-2';
 import { PRELOAD_LOCATION_CHANGE_START, PRELOAD_LOCATION_CHANGE_END } from 'constants';
 
 export default () => next => action => {
-  if (!action) {
-    return;
-  }
 
-  if (action.type === PRELOAD_LOCATION_CHANGE_START && !(action.preloadType === 'dialog' && action.instant)) {
+  if (action.type === PRELOAD_LOCATION_CHANGE_START && !action.instant) {
     try {
       Progress.show();
     } catch(e) {
@@ -15,7 +12,7 @@ export default () => next => action => {
     }
   }
 
-  if (action.type === PRELOAD_LOCATION_CHANGE_END && !(action.preloadType === 'dialog' && action.instant)) {
+  if (action.type === PRELOAD_LOCATION_CHANGE_END && !action.instant) {
     Progress.hide();
   }
 

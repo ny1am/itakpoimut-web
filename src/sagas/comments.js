@@ -1,10 +1,12 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
+import { push } from 'react-router-redux';
 import queryString from 'query-string';
 
 import {
   COMMENTS_REQUEST, COMMENTS_SUCCESS,
   ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS,
 } from 'constants/comments';
+import { get } from 'actions/comments';
 import { combine, takeFirst } from './utils/effects';
 import apiSecureRequest from './utils/apiSecureRequest';
 import apiRequest from './utils/apiRequest';
@@ -30,13 +32,18 @@ function* addComment({ companyId, text }) {
   };
   const { payload } = yield apiSecureRequest(url, options);
   if (payload) {
+    const currentPage = 1;
+    yield put(push({
+      search: queryString.stringify({ currentPage }),
+    }));
+    yield put(get(companyId, currentPage));
     const newAction = { type: ADD_COMMENT_SUCCESS, payload };
     yield put(newAction);
   }
 }
 
 function* fetchCommentsSaga() {
-  yield takeEvery(COMMENTS_REQUEST, fetchComments);
+  yield takeFirst(COMMENTS_REQUEST, fetchComments);
 }
 
 function* addCommentSaga() {
