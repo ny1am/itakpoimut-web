@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { get } from 'actions/landing';
+import { get as getCategories } from 'actions/category';
 
 import LandingPageComponent from './LandingPage';
 
 class Container extends React.Component {
   static fetch(match, location, { dispatch }) {
-    return dispatch(get());
+    return Promise.all([
+      dispatch(get()),
+      dispatch(getCategories()),
+    ]);
   }
   render() {
     const { initialData, ...rest } = this.props;
@@ -19,4 +24,8 @@ Container.propTypes = {
   initialData: PropTypes.object,
 };
 
-export default Container;
+const mapStateToProps = (state) => ({
+  categoriesList: state.category,
+});
+
+export default connect(mapStateToProps)(Container);

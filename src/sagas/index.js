@@ -1,5 +1,6 @@
 import { combine } from './utils/effects';
 import landingSaga from './landing';
+import categorySaga from './category';
 import autocompleteSaga from './autocomplete';
 import addCategorySaga from './addCategory';
 import addViolationSaga from './addViolation';
@@ -13,6 +14,7 @@ import authSaga from './auth';
 
 export default combine([
   landingSaga,
+  categorySaga,
   autocompleteSaga,
   addCategorySaga,
   addViolationSaga,

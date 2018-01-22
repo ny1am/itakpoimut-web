@@ -5,20 +5,8 @@ import { Switch, withRouter } from 'react-router-dom';
 import * as preload from 'actions/preload';
 import { appReady } from 'actions/global';
 import { routeConfig } from 'components/Routes';
-import { reactRouterFetch, hasPageLocationChanged } from 'utils';
+import { reactRouterFetch, hasPageLocationChanged, extractFetchData } from 'utils';
 import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
-
-const extractData = (data) => {
-  if (!data) {
-    return null;
-  } else if (data instanceof Array) {
-    return data.reduce((result, requestData) => {
-      return Object.assign({}, result, requestData);
-    }, {});
-  } else {
-    return data;
-  }
-};
 
 class PreloadSwitch extends React.Component {
 
@@ -64,7 +52,7 @@ class PreloadSwitch extends React.Component {
     };
     store.dispatch(preload.start(preloadOpts));
     wrapPromiseWithProgress(promise || Promise.resolve()).then((data) => {
-      const initialData = extractData((data&&data[0])?data[0]:null);
+      const initialData = extractFetchData((data&&data[0])?data[0]:null);
       this.setState({
         isAppFetching: false,
         initialData,

@@ -54,17 +54,15 @@ class AddCategoryDialog extends React.Component {
   }
 
   renderCompanyCategories() {
-    function renderList(list) {
-      return list.map((item, index) =>(
-        <li key={index}>
-          {categoryByName(item)}
-        </li>
-      ));
-    }
-    if (this.props.companyCategories.length > 0) {
+    const { companyCategories } = this.props;
+    if (companyCategories.length > 0) {
       return (
         <ul className={styles.prevCategories}>
-          {renderList(this.props.companyCategories)}
+          {companyCategories.map((item, index) =>(
+            <li key={index}>
+              {categoryByName(item)}
+            </li>
+          ))}
         </ul>
       );
     } else {
@@ -73,30 +71,32 @@ class AddCategoryDialog extends React.Component {
   }
 
   renderCategories() {
-    function renderList(list, selectedCategories, selectCategory) {
-      return list.map((item, index) =>(
-        <li key={index}>
-          <div className="check-row">
-            <Checkbox id={"ctg_"+item}
-              className="row-checkbox"
-              name="selectedCategories[]"
-              value={item}
-              checked={selectedCategories.indexOf(item) > -1}
-              onChange={selectCategory}
-            />
-            <label htmlFor={"ctg_"+item}>
-              {categoryByName(item)}
-            </label>
-          </div>
-        </li>
-      ));
-    }
-    if (this.props.categoriesList.length > 0) {
+    const { categoriesList, companyCategories } = this.props;
+    const { userSelectedCategories } = this.state;
+    const filteredCategoriesList = categoriesList.filter(item => {
+      return companyCategories.indexOf(item.name) === -1;
+    });
+    if (filteredCategoriesList.length > 0) {
       return (
         <div className={styles.categoriesHolder}>
           <span>Оберіть сфери зі списку:</span>
           <ul className={styles.categories}>
-            {renderList(this.props.categoriesList, this.state.userSelectedCategories, this.selectCategory)}
+            {filteredCategoriesList.map((item, index) =>(
+              <li key={index}>
+                <div className="check-row">
+                  <Checkbox id={"ctg_"+item.name}
+                    className="row-checkbox"
+                    name="selectedCategories[]"
+                    value={item.name}
+                    checked={userSelectedCategories.indexOf(item.name) > -1}
+                    onChange={this.selectCategory}
+                  />
+                  <label htmlFor={"ctg_"+item.name}>
+                    {item.text}
+                  </label>
+                </div>
+              </li>
+            ))}
           </ul>
         </div>
       );
@@ -158,7 +158,10 @@ class AddCategoryDialog extends React.Component {
 
 AddCategoryDialog.propTypes = {
   companyId: PropTypes.number,
-  categoriesList: PropTypes.array,
+  categoriesList: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  })),
   companyCategories: PropTypes.array,
   onSubmit: PropTypes.func,
 };

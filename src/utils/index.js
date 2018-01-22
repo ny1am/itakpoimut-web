@@ -56,3 +56,15 @@ export const hasPageLocationChanged = (prevLocation, nextLocation) => {
 export const getDisplayName = (Component) => (
   Component.displayName || Component.name || 'Component'
 );
+
+export const extractFetchData = (data) => {
+  if (!data) {
+    return null;
+  } else if (data instanceof Array) {
+    return data.reduce((result, requestData) => {
+      return Object.assign({}, result, requestData);
+    }, {});
+  } else {
+    return data;
+  }
+};

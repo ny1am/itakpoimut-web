@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { hideDialog } from 'actions/dialog';
 import { PLEASE_SIGNUP_DIALOG } from 'constants/dialog';
 import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
+import { extractFetchData } from 'utils';
 
 import DialogComponent from './Dialog';
 import routes from './routes';
@@ -70,7 +71,7 @@ class Container extends React.Component {
     const fetchResult = fetch && fetch(dialogProps, dispatch);
     const promise = fetchResult || Promise.resolve();
     wrapPromiseWithProgress(promise).then(data => {
-      const initialData = data || null;
+      const initialData = extractFetchData(data);
       this.setState({
         isAppFetching: false,
         initialData,

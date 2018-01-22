@@ -5,6 +5,7 @@ import { push } from 'react-router-redux';
 import queryString from 'query-string';
 
 import { get, clearFilters, changeLoyalty, changeCategory, changeViolation } from 'actions/companies';
+import { get as getCategories } from 'actions/category';
 
 import CompaniesPageComponent from './CompaniesPage';
 
@@ -14,12 +15,16 @@ class Container extends React.Component {
     //sync with redux store
     selectedCategory && dispatch(changeCategory(selectedCategory));
     const filters = store.getState().companies;
-    return dispatch(get({
+    const companiesPromise = dispatch(get({
       title,
       currentPage,
       sortOrder,
       filters,
     }));
+    return Promise.all([
+      companiesPromise,
+      dispatch(getCategories()),
+    ]);
   }
 
   render() {
@@ -60,6 +65,7 @@ Container.propTypes = {
 
 const mapStateToProps = (state) => ({
   filters: state.companies,
+  categoriesList: state.category,
 });
 
 const mapDispatchToProps = (dispatch) => ({
