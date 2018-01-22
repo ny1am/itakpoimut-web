@@ -48,7 +48,7 @@ const CompanyPage = ({ company }) => (
                 {company.violations.map((item, index) => (
                   <li key={index}>
                     <label>
-                      {violationByName(item.name)}
+                      {violationByName(item)}
                     </label>
                   </li>
                 ))}
@@ -91,9 +91,7 @@ CompanyPage.propTypes = {
     title: PropTypes.string.isRequired,
     company_site: PropTypes.string,
     description: PropTypes.string,
-    violations: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
-    })),
+    violations: PropTypes.arrayOf(PropTypes.string),
     categories: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
 };

@@ -6,6 +6,7 @@ import globalReducer from './global';
 import menuReducer from './menu';
 import companyReducer from './company';
 import categoryReducer from './category';
+import violationReducer from './violation';
 import commentsReducer from './comments';
 import companiesReducer from './companies';
 
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   auth: authReducer,
   company: companyReducer,
   category: categoryReducer,
+  violation: violationReducer,
   comments: commentsReducer,
   companies: companiesReducer,
   router: routerReducer,

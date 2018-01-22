@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Checkbox from 'components/Checkbox';
-import { violationByName } from 'utils';
 
 import styles from './styles.scss';
 
@@ -13,33 +12,31 @@ class AddViolationDialog extends React.Component {
     this.handleViolationChange = this.handleViolationChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      companyId: props.companyId,
       selectedViolations: [],
     };
   }
 
-  handleViolationChange(e) {
-    const value = e.target.value;
-    let selectedViolations = this.state.selectedViolations;
-    if (e.target.checked) {
-      selectedViolations = selectedViolations.filter(item => item !== value);
-      selectedViolations.push(value);
-    } else {
-      selectedViolations = selectedViolations.filter(item => item !== value);
-    }
-    this.setState({
-      selectedViolations,
-    });
+  handleViolationChange({ target: { value, checked } }) {
+    const { selectedViolations } = this.state;
+    const newViolations = selectedViolations.filter(item => item !== value);
+    checked && newViolations.push(value);
+    this.setState({ selectedViolations: newViolations });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.onSubmit(this.state);
+    this.props.onSubmit({
+      companyId: this.props.companyId,
+      selectedViolations: this.state.selectedViolations,
+    });
   }
 
   render() {
-    const { violationsList } = this.props;
+    const { violationsList, company } = this.props;
     const { selectedViolations } = this.state;
+    const filteredViolations = violationsList.filter(
+      item => company.violations.indexOf(item.name) === -1
+    );
     return (
       <div className={`dialog_content ${styles.wrapper}`}>
         <h1>
@@ -50,18 +47,18 @@ class AddViolationDialog extends React.Component {
             Тут ви можете відмітити порушення компанії
           </p>
           <ul className={styles.violations}>
-            {violationsList.map(item => (
-              <li key={item} className="row">
+            {filteredViolations.map(item => (
+              <li key={item.name} className="row">
                 <div className="check-row">
-                  <Checkbox id={"vlt_"+item}
+                  <Checkbox id={"vlt_"+item.name}
                     className="row-checkbox"
                     name="selectedViolations[]"
-                    value={item}
-                    checked={selectedViolations.indexOf(item) > -1}
+                    value={item.name}
+                    checked={selectedViolations.indexOf(item.name) > -1}
                     onChange={this.handleViolationChange}
                   />
-                  <label htmlFor={"vlt_"+item}>
-                    {violationByName(item)}
+                  <label htmlFor={"vlt_"+item.name}>
+                    {item.text}
                   </label>
                 </div>
               </li>
@@ -79,8 +76,14 @@ class AddViolationDialog extends React.Component {
 }
 
 AddViolationDialog.propTypes = {
-  violationsList: PropTypes.array,
   companyId: PropTypes.number.isRequired,
+  company: PropTypes.shape({
+    violations: PropTypes.arrayOf(PropTypes.string.isRequired),
+  }),
+  violationsList: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  })).isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 
