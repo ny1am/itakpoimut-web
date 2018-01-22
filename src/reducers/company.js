@@ -1,16 +1,12 @@
-import { COMPANY_SUCCESS } from 'constants/company';
+import { FETCH_COMPANY_SUCCESS } from 'constants/company';
 
 const initialState = {};
 
 const companyReducer = (state = initialState, action) => {
   switch(action.type) {
 
-    case COMPANY_SUCCESS: {
-      const { cached } = action;
+    case FETCH_COMPANY_SUCCESS: {
       const { company } = action.payload;
-      if (cached) {
-        return state;
-      }
       return Object.assign({}, state, {
         [company._id]: company,
       });

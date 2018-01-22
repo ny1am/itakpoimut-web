@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 
-import { get, save } from 'actions/addCategory';
+import { save } from 'actions/addCategory';
+import { get } from 'actions/company';
 import { get as getCategories } from 'actions/category';
 import { enhanceDialog } from 'components/Dialog';
 
@@ -17,8 +18,9 @@ const mapProps = (dispatch) => ({
   successText: 'Запит на додання сфери надіслано. Адміністратор розгляне його найближчим часом.',
 });
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
   categoriesList: state.category,
+  company: state.company[ownProps.companyId],
 });
 
 export default enhanceDialog(mapProps)(

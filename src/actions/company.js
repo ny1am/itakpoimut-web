@@ -1,13 +1,13 @@
 import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
 
 import {
-  COMPANY_REQUEST, COMPANY_SUCCESS,
+  GET_COMPANY, GET_COMPANY_SUCCESS,
 } from 'constants/company';
 
 export function get(id) {
   return {
-    type: COMPANY_REQUEST,
+    type: GET_COMPANY,
     id,
-    [WAIT_FOR_ACTION]: COMPANY_SUCCESS,
+    [WAIT_FOR_ACTION]: GET_COMPANY_SUCCESS,
   };
 }

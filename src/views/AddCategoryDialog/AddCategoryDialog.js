@@ -14,7 +14,6 @@ class AddCategoryDialog extends React.Component {
     this.deleteSelectedCategory = this.deleteSelectedCategory.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.state = {
-      companyId: props.companyId,
       userSelectedCategories: []
     };
   }
@@ -54,11 +53,11 @@ class AddCategoryDialog extends React.Component {
   }
 
   renderCompanyCategories() {
-    const { companyCategories } = this.props;
-    if (companyCategories.length > 0) {
+    const { company } = this.props;
+    if (company.categories.length > 0) {
       return (
         <ul className={styles.prevCategories}>
-          {companyCategories.map((item, index) =>(
+          {company.categories.map((item, index) =>(
             <li key={index}>
               {categoryByName(item)}
             </li>
@@ -71,10 +70,10 @@ class AddCategoryDialog extends React.Component {
   }
 
   renderCategories() {
-    const { categoriesList, companyCategories } = this.props;
+    const { categoriesList, company } = this.props;
     const { userSelectedCategories } = this.state;
     const filteredCategoriesList = categoriesList.filter(item => {
-      return companyCategories.indexOf(item.name) === -1;
+      return company.categories.indexOf(item.name) === -1;
     });
     if (filteredCategoriesList.length > 0) {
       return (
@@ -158,16 +157,16 @@ class AddCategoryDialog extends React.Component {
 
 AddCategoryDialog.propTypes = {
   companyId: PropTypes.number,
+  //todo: shape here
+  company: PropTypes.object.isRequired,
   categoriesList: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
   })),
-  companyCategories: PropTypes.array,
   onSubmit: PropTypes.func,
 };
 
 AddCategoryDialog.defaultProps = {
-  companyCategories: [],
   categoriesList: []
 };
 
