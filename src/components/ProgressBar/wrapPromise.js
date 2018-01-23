@@ -1,14 +1,22 @@
 import Progress from 'react-progress-2';
 
-const wrapPromise = (promise) => {
+import { wrapWithSideEffect } from 'utils';
+
+const PROGRESS_DELAY = 20;
+
+const showProgress = () => {
   try {
     Progress.show();
   } catch(e) {
     // do nothing; todo: use another lib for a progress component
   }
-  return promise.finally(() => {
-    Progress.hide();
-  });
+};
+
+const hideProgress = Progress.hide;
+
+const wrapPromise = (promise) => {
+  return wrapWithSideEffect(showProgress, PROGRESS_DELAY)(promise)
+    .finally(hideProgress);
 };
 
 export default wrapPromise;

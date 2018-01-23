@@ -57,6 +57,13 @@ export const getDisplayName = (Component) => (
   Component.displayName || Component.name || 'Component'
 );
 
+export const wrapWithSideEffect = (sideEffect, delay) => (promise) => {
+  const timer = setTimeout(sideEffect, delay);
+  return promise.finally(() => {
+    clearTimeout(timer);
+  });
+};
+
 export const extractFetchData = (data) => {
   if (!data) {
     return null;
