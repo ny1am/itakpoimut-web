@@ -1,15 +1,16 @@
 import { push } from 'react-router-redux';
 
+import { history } from '../store/configureStore';
+
 /**
  * Shows dialog
  */
 export function showDialog(dialogType, dialogProps) {
-  return push({
-    state: {
-      dialogType,
-      dialogProps
-    }
-  });
+  const newLocation = {
+    ...history.location,
+    state: { dialogType, dialogProps }
+  };
+  return push(newLocation);
 }
 
 /**

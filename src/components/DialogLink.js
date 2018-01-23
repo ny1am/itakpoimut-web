@@ -1,12 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const DialogLink = ({ dialogType, dialogProps, children, ...restProps }) => (
-  <Link to={{state: {dialogType, dialogProps}}} {...restProps}>
-    {children}
-  </Link>
-);
+import { showDialog } from 'actions/dialog';
+
+const DialogLink = (props) => {
+  const { dialogType, dialogProps, showDialog, children, ...rest } = props;
+  const onClick = () => showDialog(dialogType, dialogProps);
+  return (
+    <button onClick={onClick} {...rest}>
+      {children}
+    </button>
+  );
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  showDialog: (...args) => dispatch(showDialog(...args)),
+});
 
 DialogLink.propTypes = {
   /**
@@ -21,6 +31,7 @@ DialogLink.propTypes = {
    */
   dialogProps: PropTypes.object,
   children: PropTypes.node,
+  showDialog: PropTypes.func.isRequired,
 };
 
-export default DialogLink;
+export default connect(null, mapDispatchToProps)(DialogLink);
