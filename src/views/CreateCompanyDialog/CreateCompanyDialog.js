@@ -186,11 +186,11 @@ class CreateCompanyDialog extends React.Component {
 
 CreateCompanyDialog.propTypes = {
   errors: PropTypes.object,
-  categoriesList: PropTypes.array,
-  violationsList: PropTypes.array,
+  categoriesList: PropTypes.array.isRequired,
+  violationsList: PropTypes.array.isRequired,
   selectedCategories: PropTypes.array,
   selectedViolations: PropTypes.array,
-  onSubmit: PropTypes.func,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 CreateCompanyDialog.defaultProps = {
