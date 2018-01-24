@@ -18,8 +18,10 @@ const LoyaltyFilters = ({ value, list, onChange }) => (
               id={"rnk_"+loyalty.name}
               name="selectedLoyalty"
               value={loyalty.name}
-              checked={loyalty===value}
-              onChange={({ target: { checked } }) => onChange(checked, loyalty)}
+              checked={loyalty.name===value}
+              onChange={
+                ({ target: { checked } }) => onChange(checked, loyalty.name)
+              }
               className="row-checkbox"
             />
             <label htmlFor={"rnk_"+loyalty.name} className={"loyalty-color "+loyalty.name}>
@@ -33,10 +35,7 @@ const LoyaltyFilters = ({ value, list, onChange }) => (
 );
 
 LoyaltyFilters.propTypes = {
-  value: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  }),
+  value: PropTypes.string,
   list: PropTypes.array.isRequired,
   onChange: PropTypes.func.isRequired,
 };

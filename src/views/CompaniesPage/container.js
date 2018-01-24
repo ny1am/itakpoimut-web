@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createSelector } from 'reselect';
 import { push } from 'react-router-redux';
 import queryString from 'query-string';
 
-import { get, clearFilters, changeLoyalty, changeCategory, addViolationFilter, removeViolationFilter } from 'actions/companies';
+import {
+  get, changeLoyalty, changeCategory, addViolationFilter, removeViolationFilter
+} from 'actions/companies';
 import { get as getCategories } from 'actions/category';
 import { get as getViolations } from 'actions/violation';
 import loyalty from 'utils/enums/loyalty';
@@ -50,15 +51,9 @@ Container.propTypes = {
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,
-  selectedLoyalty: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  }),
-  selectedCategory: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  }),
-  selectedViolations: PropTypes.array,
+  selectedLoyalty: PropTypes.string,
+  selectedCategory: PropTypes.string,
+  selectedViolations: PropTypes.arrayOf(PropTypes.string),
   initialData: PropTypes.shape({
     companiesCount: PropTypes.number,
     companies: PropTypes.array,
@@ -71,33 +66,15 @@ Container.propTypes = {
   })
 };
 
-const getAllViolations = state => state.violation;
-const getSelectedViolations = state => state.companies.selectedViolations;
-
-export const violationSelector = createSelector(
-  [ getAllViolations, getSelectedViolations ],
-  (violations, selectedViolations) => {
-    return selectedViolations.map(
-      name => violations.find(v => v.name === name)
-    );
-  }
-);
-
-const mapStateToProps = (state) => {
-  const { companies, category, violation } = state;
-  const { selectedLoyalty, selectedCategory } = companies;
-  const result = {
-    selectedLoyalty: loyalty.find(l => l.name === selectedLoyalty),
-    selectedCategory: category.find(c => c.name === selectedCategory),
-    selectedViolations: violationSelector(state),
-    categoriesList: category,
-    violationsList: violation
-  };
-  return result;
-};
+const mapStateToProps = ({ companies, category, violation }) => ({
+  selectedLoyalty: companies.selectedLoyalty,
+  selectedCategory: companies.selectedCategory,
+  selectedViolations: companies.selectedViolations,
+  categoriesList: category,
+  violationsList: violation
+});
 
 const mapDispatchToProps = (dispatch) => ({
-  onClearFilters: () => dispatch(clearFilters()),
   onLoyaltyChange: (newValue) => dispatch(changeLoyalty(newValue)),
   onCategoryChange: (newValue) => dispatch(changeCategory(newValue)),
   onAddViolationFilter: (value) => dispatch(addViolationFilter(value)),

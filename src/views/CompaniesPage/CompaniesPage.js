@@ -18,61 +18,33 @@ class CompaniesPage extends React.Component {
     this.handleLoyaltyChange = this.handleLoyaltyChange.bind(this);
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleViolationChange = this.handleViolationChange.bind(this);
-    this.clearFilters = this.clearFilters.bind(this);
   }
 
   refresh() {
     const title = this.titleInput.value;
-    const { sortOrder } = this.props;
-    this.props.onRefresh({
-      currentPage: 1,
-      sortOrder,
-      title,
-    });
+    const currentPage = 1;
+    const { sortOrder, onRefresh } = this.props;
+    onRefresh({ currentPage, sortOrder, title });
   }
 
   handleLoyaltyChange(checked, value) {
-    const selectedLoyalty = checked ? value.name : null;
+    const selectedLoyalty = checked ? value : null;
     this.props.onLoyaltyChange(selectedLoyalty);
     this.refresh();
   }
 
   handleCategoryChange(checked, value) {
-    const selectedCategory = checked ? value.name : null;
+    const selectedCategory = checked ? value : null;
     this.props.onCategoryChange(selectedCategory);
     this.refresh();
   }
 
   handleViolationChange(checked, value) {
     const { onAddViolationFilter, onRemoveViolationFilter } = this.props;
-    const handleChange = checked ? onAddViolationFilter : onRemoveViolationFilter;
-    handleChange(value.name);
+    const handleChange =
+      checked ? onAddViolationFilter : onRemoveViolationFilter;
+    handleChange(value);
     this.refresh();
-  }
-
-  clearFilters() {
-    this.props.onClearFilters();
-    this.refresh();
-  }
-
-  getSelectedFilters() {
-    const { selectedLoyalty, selectedCategory, selectedViolations } = this.props;
-    const result = [];
-    selectedLoyalty && result.push({
-      text: selectedLoyalty.text,
-      onRemove: () => this.handleLoyaltyChange(false, selectedLoyalty)
-    });
-    selectedCategory && result.push({
-      text: selectedCategory.text,
-      onRemove: () => this.handleCategoryChange(false, selectedCategory)
-    });
-    result.push(...selectedViolations.map(violation => {
-      return {
-        text: violation.text,
-        onRemove: () => this.handleViolationChange(false, violation)
-      };
-    }));
-    return result;
   }
 
   renderFilters() {
@@ -105,7 +77,6 @@ class CompaniesPage extends React.Component {
   }
 
   render() {
-    const selectedFilters = this.getSelectedFilters();
     const { companies, companiesCount, allCompaniesCount, currentPage, totalPages, sortOrder, title } = this.props;
     return (
       <div className="pattern-content">
@@ -116,7 +87,7 @@ class CompaniesPage extends React.Component {
               innerRef={input => (this.titleInput = input)}
               onSubmit={this.refresh}
             />
-            <SelectedFilters filters={selectedFilters} onRemoveAll={this.clearFilters} />
+            <SelectedFilters onChange={this.refresh} />
           </div>
           <div className={styles.searchBody}>
             <div className={styles.searchParams}>
@@ -140,18 +111,9 @@ class CompaniesPage extends React.Component {
 
 CompaniesPage.propTypes = {
   title: PropTypes.string,
-  selectedLoyalty: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  }),
-  selectedCategory: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  }),
-  selectedViolations: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  })),
+  selectedLoyalty: PropTypes.string,
+  selectedCategory: PropTypes.string,
+  selectedViolations: PropTypes.arrayOf(PropTypes.string),
 
   loyaltiesList: PropTypes.array.isRequired,
   categoriesList: PropTypes.array.isRequired,
@@ -164,7 +126,6 @@ CompaniesPage.propTypes = {
   currentPage: PropTypes.number.isRequired,
   sortOrder: PropTypes.string.isRequired,
 
-  onClearFilters: PropTypes.func.isRequired,
   onLoyaltyChange: PropTypes.func.isRequired,
   onCategoryChange: PropTypes.func.isRequired,
   onAddViolationFilter: PropTypes.func.isRequired,

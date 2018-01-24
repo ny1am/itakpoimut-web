@@ -18,9 +18,9 @@ const ViolationFilters = ({ value, list, onChange }) => (
               className="row-checkbox"
               name="selectedViolations[]"
               value={violation.name}
-              checked={value.indexOf(violation) !== -1}
+              checked={value.indexOf(violation.name) !== -1}
               onChange={
-                ({ target: { checked } }) => onChange(checked, violation)
+                ({ target: { checked } }) => onChange(checked, violation.name)
               }
             />
             <label htmlFor={"vlt_"+violation.name}>
@@ -34,7 +34,7 @@ const ViolationFilters = ({ value, list, onChange }) => (
 );
 
 ViolationFilters.propTypes = {
-  value: PropTypes.array,
+  value: PropTypes.arrayOf(PropTypes.string.isRequired),
   list: PropTypes.array.isRequired,
   onChange: PropTypes.func.isRequired,
 };

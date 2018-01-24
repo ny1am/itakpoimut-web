@@ -8,7 +8,7 @@ import styles from './styles.scss';
 
 const CategoryFilters = ({ value, list, onChange }) => {
   const items = list.map((category) => ({
-    priority: value && category.name===value.name,
+    priority: category.name===value,
     key: category.name,
     node: (
       <div className="check-row" key={"ctg_"+category.name}>
@@ -16,8 +16,10 @@ const CategoryFilters = ({ value, list, onChange }) => {
           id={"ctg_"+category.name}
           name="selectedCategory"
           value={category.name}
-          checked={category===value}
-          onChange={({ target: { checked } }) => onChange(checked, category)}
+          checked={category.name===value}
+          onChange={
+            ({ target: { checked } }) => onChange(checked, category.name)
+          }
           className="row-checkbox"
         />
         <label htmlFor={"ctg_"+category.name}>
@@ -41,10 +43,7 @@ const CategoryFilters = ({ value, list, onChange }) => {
 };
 
 CategoryFilters.propTypes = {
-  value: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  }),
+  value: PropTypes.string,
   list: PropTypes.array.isRequired,
   onChange: PropTypes.func.isRequired,
 };
