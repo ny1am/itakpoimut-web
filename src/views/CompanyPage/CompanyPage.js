@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { ADD_VIOLATION_DIALOG, ADD_CATEGORY_DIALOG } from 'constants/dialog';
 import DialogLink from 'components/DialogLink';
 import Loyalty from 'components/Loyalty';
-import { http, violationByName, categoryByName } from 'utils';
+import { http } from 'utils';
 
 import CompanyComments from 'views/CompanyComments';
 import styles from './styles.scss';
@@ -48,7 +48,7 @@ const CompanyPage = ({ company }) => (
                 {company.violations.map((item, index) => (
                   <li key={index}>
                     <label>
-                      {violationByName(item)}
+                      {item.text}
                     </label>
                   </li>
                 ))}
@@ -65,7 +65,7 @@ const CompanyPage = ({ company }) => (
             <ul className={styles.categories}>
               {company.categories.map((item, index) => (
                 <li key={index} className={styles.item}>
-                  {categoryByName(item)}
+                  {item.text}
                 </li>
               ))}
               <li>
@@ -91,8 +91,14 @@ CompanyPage.propTypes = {
     title: PropTypes.string.isRequired,
     company_site: PropTypes.string,
     description: PropTypes.string,
-    violations: PropTypes.arrayOf(PropTypes.string),
-    categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+    violations: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    })),
+    categories: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    })).isRequired,
   }).isRequired,
 };
 

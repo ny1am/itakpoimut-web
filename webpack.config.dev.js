@@ -12,7 +12,6 @@ module.exports = {
       components: path.resolve(__dirname, 'src/components/'),
       constants: path.resolve(__dirname, 'src/constants/'),
       views: path.resolve(__dirname, 'src/views/'),
-      shared: path.resolve(__dirname, 'src/shared/'),
       utils: path.resolve(__dirname, 'src/utils/')
     }
   },

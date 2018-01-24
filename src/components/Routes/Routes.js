@@ -18,7 +18,8 @@ class Routes extends React.Component {
     this.setState({ hasError: false });
   }
 
-  componentDidCatch() {
+  componentDidCatch(error, info) {
+    console.error(error, info); // eslint-disable-line
     this.setState({ hasError: true });
   }
 

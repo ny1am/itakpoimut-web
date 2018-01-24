@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
 import { push } from 'react-router-redux';
 import queryString from 'query-string';
 
 import { get, clearFilters, changeLoyalty, changeCategory, changeViolation } from 'actions/companies';
 import { get as getCategories } from 'actions/category';
+import { get as getViolations } from 'actions/violation';
+import loyalty from 'utils/enums/loyalty';
 
 import CompaniesPageComponent from './CompaniesPage';
 
@@ -22,18 +25,19 @@ class Container extends React.Component {
       filters,
     }));
     return Promise.all([
-      companiesPromise,
       dispatch(getCategories()),
+      dispatch(getViolations()),
+      companiesPromise,
     ]);
   }
 
   render() {
     const { currentPage, sortOrder, title } = queryString.parse(this.props.location.search);
-    const { filters, initialData, ...props } = this.props;
+    const { initialData, ...props } = this.props;
     return (<CompaniesPageComponent
-      {...filters}
       {...initialData}
       {...props}
+      loyaltiesList={loyalty}
       title={title}
       currentPage={Number(currentPage || 1)}
       sortOrder={sortOrder || 'asc'}
@@ -46,11 +50,15 @@ Container.propTypes = {
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,
-  filters: PropTypes.shape({
-    selectedLoyalty: PropTypes.string,
-    selectedCategory: PropTypes.string,
-    selectedViolations: PropTypes.array,
-  }).isRequired,
+  selectedLoyalty: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  }),
+  selectedCategory: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  }),
+  selectedViolations: PropTypes.array,
   initialData: PropTypes.shape({
     companiesCount: PropTypes.number,
     companies: PropTypes.array,
@@ -63,20 +71,40 @@ Container.propTypes = {
   })
 };
 
-const mapStateToProps = (state) => ({
-  filters: state.companies,
-  categoriesList: state.category,
-});
+const getAllViolations = state => state.violation;
+const getSelectedViolations = state => state.companies.selectedViolations;
+
+export const violationSelector = createSelector(
+  [ getAllViolations, getSelectedViolations ],
+  (violations, selectedViolations) => {
+    return selectedViolations.map(
+      name => violations.find(v => v.name === name)
+    );
+  }
+);
+
+const mapStateToProps = (state) => {
+  const { companies, category, violation } = state;
+  const { selectedLoyalty, selectedCategory } = companies;
+  const result = {
+    selectedLoyalty: loyalty.find(l => l.name === selectedLoyalty),
+    selectedCategory: category.find(c => c.name === selectedCategory),
+    selectedViolations: violationSelector(state),
+    categoriesList: category,
+    violationsList: violation
+  };
+  return result;
+};
 
 const mapDispatchToProps = (dispatch) => ({
   onClearFilters: () => dispatch(clearFilters()),
   onLoyaltyChange: (newValue) => dispatch(changeLoyalty(newValue)),
   onCategoryChange: (newValue) => dispatch(changeCategory(newValue)),
   onViolationChange: (newValue) => dispatch(changeViolation(newValue)),
-  onRefresh: ({ currentPage, sortOrder, title }) => dispatch(push(`/companies?title=${title}&sortOrder=${sortOrder}&currentPage=${currentPage}#results`)),
+  onRefresh: ({ currentPage, sortOrder, title }) => dispatch(push(
+    `/companies?title=${title}&sortOrder=${sortOrder}&currentPage=${currentPage}#results`
+  )),
   dispatch
 });
 
-export default connect(
-  mapStateToProps, mapDispatchToProps
-)(Container);
+export default connect(mapStateToProps, mapDispatchToProps)(Container);

@@ -18,8 +18,10 @@ const ViolationFilters = ({ value, list, onChange }) => (
               className="row-checkbox"
               name="selectedViolations[]"
               value={violation.name}
-              checked={value.indexOf(violation.name) !== -1}
-              onChange={onChange}
+              checked={value.indexOf(violation) !== -1}
+              onChange={
+                ({ target: { checked } }) => onChange(checked, violation)
+              }
             />
             <label htmlFor={"vlt_"+violation.name}>
               {violation.text}

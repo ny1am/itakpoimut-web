@@ -16,7 +16,7 @@ class AddViolationDialog extends React.Component {
     };
   }
 
-  handleViolationChange({ target: { value, checked } }) {
+  handleViolationChange(checked, value) {
     const { selectedViolations } = this.state;
     const newViolations = selectedViolations.filter(item => item !== value);
     checked && newViolations.push(value);
@@ -25,9 +25,11 @@ class AddViolationDialog extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.onSubmit({
-      companyId: this.props.companyId,
-      selectedViolations: this.state.selectedViolations,
+    const { companyId, onSubmit } = this.props;
+    const { selectedViolations } = this.state;
+    onSubmit({
+      companyId,
+      selectedViolations: selectedViolations.map(item => item.name),
     });
   }
 
@@ -35,7 +37,7 @@ class AddViolationDialog extends React.Component {
     const { violationsList, company } = this.props;
     const { selectedViolations } = this.state;
     const filteredViolations = violationsList.filter(
-      item => company.violations.indexOf(item.name) === -1
+      item => company.violations.map(v => v.name).indexOf(item.name) === -1
     );
     return (
       <div className={`dialog_content ${styles.wrapper}`}>
@@ -54,8 +56,11 @@ class AddViolationDialog extends React.Component {
                     className="row-checkbox"
                     name="selectedViolations[]"
                     value={item.name}
-                    checked={selectedViolations.indexOf(item.name) > -1}
-                    onChange={this.handleViolationChange}
+                    checked={selectedViolations.indexOf(item) > -1}
+                    onChange={
+                      ({ target: { checked } }) =>
+                        this.handleViolationChange(checked, item)
+                    }
                   />
                   <label htmlFor={"vlt_"+item.name}>
                     {item.text}
@@ -78,7 +83,10 @@ class AddViolationDialog extends React.Component {
 AddViolationDialog.propTypes = {
   companyId: PropTypes.number.isRequired,
   company: PropTypes.shape({
-    violations: PropTypes.arrayOf(PropTypes.string.isRequired),
+    violations: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    })),
   }),
   violationsList: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,

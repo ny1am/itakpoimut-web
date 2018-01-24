@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Checkbox from 'components/Checkbox';
-import { categoryByName } from 'utils';
 
 import styles from './styles.scss';
 
@@ -29,12 +28,12 @@ class AddCategoryDialog extends React.Component {
     });
   }
 
-  selectCategory(event) {
+  selectCategory(checked, value) {
     let selectedCategories = this.state.userSelectedCategories;
-    if (event.target.checked) {
-      selectedCategories.push(event.target.value);
+    if (checked) {
+      selectedCategories.push(value);
     } else {
-      let index = selectedCategories.indexOf(event.target.value);
+      let index = selectedCategories.indexOf(value);
       if (index > -1) {
         selectedCategories.splice(index, 1);
       }
@@ -46,9 +45,11 @@ class AddCategoryDialog extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const { companyId } = this.props;
+    const { userSelectedCategories } = this.state;
     this.props.onSubmit({
-      companyId: this.props.companyId,
-      selectedCategories: this.state.userSelectedCategories,
+      companyId,
+      selectedCategories: userSelectedCategories.map(item => item.name),
     });
   }
 
@@ -59,7 +60,7 @@ class AddCategoryDialog extends React.Component {
         <ul className={styles.prevCategories}>
           {company.categories.map((item, index) =>(
             <li key={index}>
-              {categoryByName(item)}
+              {item.text}
             </li>
           ))}
         </ul>
@@ -73,7 +74,8 @@ class AddCategoryDialog extends React.Component {
     const { categoriesList, company } = this.props;
     const { userSelectedCategories } = this.state;
     const filteredCategoriesList = categoriesList.filter(item => {
-      return company.categories.indexOf(item.name) === -1;
+      return company.categories
+        .map(category => category.name).indexOf(item.name) === -1;
     });
     if (filteredCategoriesList.length > 0) {
       return (
@@ -86,9 +88,12 @@ class AddCategoryDialog extends React.Component {
                   <Checkbox id={"ctg_"+item.name}
                     className="row-checkbox"
                     name="selectedCategories[]"
-                    value={item.name}
-                    checked={userSelectedCategories.indexOf(item.name) > -1}
-                    onChange={this.selectCategory}
+                    value={item}
+                    checked={userSelectedCategories.indexOf(item) > -1}
+                    onChange={
+                      ({ target: { checked } }) =>
+                        this.selectCategory(checked, item)
+                    }
                   />
                   <label htmlFor={"ctg_"+item.name}>
                     {item.text}
@@ -109,7 +114,7 @@ class AddCategoryDialog extends React.Component {
       return list.map((item, index) => (
         <li key={index}>
           <div className={styles.newTitle}>
-            {categoryByName(item)}
+            {item.text}
           </div>
           <div className={styles.delete} onClick={()=>{deleteSelectedCategory(item);}} />
         </li>
