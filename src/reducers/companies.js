@@ -1,5 +1,6 @@
 import {
-  LOYALTY_CHANGED, CATEGORY_CHANGED, VIOLATION_CHANGED,
+  LOYALTY_CHANGED, CATEGORY_CHANGED,
+  ADD_VIOLATION_FILTER, REMOVE_VIOLATION_FILTER,
   CLEAR_FILTERS,
 } from 'constants/companies';
 
@@ -25,10 +26,21 @@ const companiesReducer = (state = initialState, action) => {
         selectedCategory: action.newValue,
       });
 
-    case VIOLATION_CHANGED:
+    case ADD_VIOLATION_FILTER: {
+      const selectedViolations = [...state.selectedViolations, action.value];
       return Object.assign({}, state, {
-        selectedViolations: action.newValue,
+        selectedViolations,
       });
+    }
+
+    case REMOVE_VIOLATION_FILTER: {
+      const selectedViolations = state.selectedViolations.filter(
+        violation => violation !== action.value
+      );
+      return Object.assign({}, state, {
+        selectedViolations,
+      });
+    }
 
     default:
       return state;

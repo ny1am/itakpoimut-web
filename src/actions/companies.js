@@ -2,7 +2,8 @@ import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
 
 import {
   COMPANIES_REQUEST, COMPANIES_SUCCESS,
-  LOYALTY_CHANGED, CATEGORY_CHANGED, VIOLATION_CHANGED,
+  LOYALTY_CHANGED, CATEGORY_CHANGED,
+  ADD_VIOLATION_FILTER, REMOVE_VIOLATION_FILTER,
   CLEAR_FILTERS,
 } from 'constants/companies';
 
@@ -37,9 +38,16 @@ export function changeCategory(newValue) {
   };
 }
 
-export function changeViolation(newValue) {
+export function addViolationFilter(value) {
   return {
-    type: VIOLATION_CHANGED,
-    newValue
+    type: ADD_VIOLATION_FILTER,
+    value
+  };
+}
+
+export function removeViolationFilter(value) {
+  return {
+    type: REMOVE_VIOLATION_FILTER,
+    value
   };
 }

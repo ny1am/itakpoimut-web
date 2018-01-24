@@ -44,10 +44,9 @@ class CompaniesPage extends React.Component {
   }
 
   handleViolationChange(checked, value) {
-    let { selectedViolations } = this.props;
-    selectedViolations = selectedViolations.filter(item => item !== value);
-    checked && selectedViolations.push(value);
-    this.props.onViolationChange(selectedViolations.map(v => v.name));
+    const { onAddViolationFilter, onRemoveViolationFilter } = this.props;
+    const handleChange = checked ? onAddViolationFilter : onRemoveViolationFilter;
+    handleChange(value.name);
     this.refresh();
   }
 
@@ -168,7 +167,8 @@ CompaniesPage.propTypes = {
   onClearFilters: PropTypes.func.isRequired,
   onLoyaltyChange: PropTypes.func.isRequired,
   onCategoryChange: PropTypes.func.isRequired,
-  onViolationChange: PropTypes.func.isRequired,
+  onAddViolationFilter: PropTypes.func.isRequired,
+  onRemoveViolationFilter: PropTypes.func.isRequired,
   onRefresh: PropTypes.func.isRequired,
 };
 

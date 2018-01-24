@@ -5,7 +5,7 @@ import { createSelector } from 'reselect';
 import { push } from 'react-router-redux';
 import queryString from 'query-string';
 
-import { get, clearFilters, changeLoyalty, changeCategory, changeViolation } from 'actions/companies';
+import { get, clearFilters, changeLoyalty, changeCategory, addViolationFilter, removeViolationFilter } from 'actions/companies';
 import { get as getCategories } from 'actions/category';
 import { get as getViolations } from 'actions/violation';
 import loyalty from 'utils/enums/loyalty';
@@ -100,7 +100,8 @@ const mapDispatchToProps = (dispatch) => ({
   onClearFilters: () => dispatch(clearFilters()),
   onLoyaltyChange: (newValue) => dispatch(changeLoyalty(newValue)),
   onCategoryChange: (newValue) => dispatch(changeCategory(newValue)),
-  onViolationChange: (newValue) => dispatch(changeViolation(newValue)),
+  onAddViolationFilter: (value) => dispatch(addViolationFilter(value)),
+  onRemoveViolationFilter: (value) => dispatch(removeViolationFilter(value)),
   onRefresh: ({ currentPage, sortOrder, title }) => dispatch(push(
     `/companies?title=${title}&sortOrder=${sortOrder}&currentPage=${currentPage}#results`
   )),
