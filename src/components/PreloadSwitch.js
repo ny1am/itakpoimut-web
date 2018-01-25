@@ -5,7 +5,9 @@ import { Switch, withRouter } from 'react-router-dom';
 import * as preload from 'actions/preload';
 import { appReady } from 'actions/global';
 import { routeConfig } from 'components/Routes';
-import { reactRouterFetch, hasPageLocationChanged, extractFetchData } from 'utils';
+import {
+  reactRouterFetch, hasPageLocationChanged, extractFetchData
+} from 'utils';
 import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
 
 class PreloadSwitch extends React.Component {
@@ -45,7 +47,6 @@ class PreloadSwitch extends React.Component {
     const opts = { store, dispatch: store.dispatch, prevLocation };
     const promise = reactRouterFetch(routeConfig, location, opts);
     const preloadOpts = {
-      preloadType: 'page',
       prevRoute: this.props.location.pathname,
       route: props.location.pathname,
       hash: props.location.hash,

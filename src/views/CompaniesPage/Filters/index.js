@@ -22,7 +22,8 @@ const Filters = ({ refresh }) => (
 );
 
 Filters.propTypes = {
-  refresh: PropTypes.func.isRequired, 
+  //todo: rename
+  refresh: PropTypes.func.isRequired,
 };
 
 export default Filters;
