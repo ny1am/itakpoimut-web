@@ -6,7 +6,7 @@ const companyReducer = (state = initialState, action) => {
   switch(action.type) {
 
     case FETCH_COMPANY_SUCCESS: {
-      const { company } = action.payload;
+      const company = action.payload;
       return Object.assign({}, state, {
         [company._id]: company,
       });
