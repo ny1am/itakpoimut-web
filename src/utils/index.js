@@ -59,3 +59,7 @@ export const extractFetchData = (data) => {
     return data;
   }
 };
+
+export const keyValueToObjectReducer = (result, { key, value }) => (
+  Object.assign(result, {[key] : value})
+);

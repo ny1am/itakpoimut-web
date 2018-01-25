@@ -5,10 +5,25 @@ import { connect } from 'react-redux';
 import { hideDialog } from 'actions/dialog';
 import { PLEASE_SIGNUP_DIALOG } from 'constants/dialog';
 import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
-import { extractFetchData } from 'utils';
+import { keyValueToObjectReducer } from 'utils';
 
 import DialogComponent from './Dialog';
 import routes from './routes';
+
+const emptyFetchResult = {
+  promise: Promise.resolve()
+};
+
+const extractInitialData = (names, values) => {
+  const initialData = values
+    .map((value, index) => ({
+      key: names[index],
+      value
+    }))
+    .filter(item => item.key)
+    .reduce(keyValueToObjectReducer, {});
+  return initialData;
+};
 
 class Container extends React.Component {
 
@@ -20,7 +35,6 @@ class Container extends React.Component {
       isAppFetching: false,
       initialData: null,
       loading: false,
-      ready: false,
     };
   }
 
@@ -68,29 +82,31 @@ class Container extends React.Component {
       initialData: null,
     });
     const { fetch } = routes[dialogType].component;
-    const fetchResult = fetch && fetch(dialogProps, dispatch);
-    const promise = fetchResult || Promise.resolve();
-    wrapPromiseWithProgress(promise).then(data => {
-      const initialData = extractFetchData(data);
+    const fetchResult =
+      (fetch && fetch(dialogProps, dispatch)) || [emptyFetchResult];
+    const promise = Promise.all(fetchResult.map(item => item.promise));
+    wrapPromiseWithProgress(promise).then(values => {
+      const fetchNames = fetchResult.map(item => item.prop);
+      const initialData = extractInitialData(fetchNames, values);
       this.setState({
-        isAppFetching: false,
         initialData,
-        ready: true,
       });
-      return data;
+      return values;
     }).catch(error => {
       this.setState({
-        isAppFetching: false,
-        ready: true,
         appFetchingError: error
+      });
+    }).finally(() => {
+      this.setState({
+        isAppFetching: false,
       });
     });
   }
 
   render() {
     const { dialogProps, onClose } = this.props;
-    const { dialogType, initialData, loading, ready } = this.state;
-    if (!dialogType || !ready) {
+    const { dialogType, initialData, loading } = this.state;
+    if (!dialogType) {
       return null;
     }
     return (<DialogComponent
