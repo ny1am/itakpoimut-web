@@ -36,7 +36,7 @@ class CompaniesPage extends React.Component {
             <SelectedFilters onChange={this.refresh} />
           </div>
           <div className={styles.searchBody}>
-            <Filters refresh={this.refresh} />
+            <Filters onChange={this.refresh} />
             <SearchResults
               companies={companies}
               companiesCount={companiesCount}

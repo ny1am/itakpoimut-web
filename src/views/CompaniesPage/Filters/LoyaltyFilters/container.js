@@ -9,10 +9,22 @@ const mapStateToProps = ({ companies }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onChange: (value) => dispatch(changeLoyalty(value)),
+  onChange: (checked, value) => {
+    const newValue = checked ? value : null;
+    return dispatch(changeLoyalty(newValue));
+  },
   dispatch
 });
 
+const mergeProps = (stateProps, dispatchProps, ownProps) => (
+  Object.assign(stateProps, dispatchProps, ownProps, {
+    onChange: (...args) => {
+      dispatchProps.onChange(...args);
+      ownProps.onChange();
+    }
+  })
+);
+
 export default connect(
-  mapStateToProps, mapDispatchToProps
+  mapStateToProps, mapDispatchToProps, mergeProps
 )(LoyaltyFiltersComponent);

@@ -6,24 +6,23 @@ import CategoryFilters from './CategoryFilters';
 import ViolationFilters from './ViolationFilters';
 import styles from './styles.scss';
 
-const Filters = ({ refresh }) => (
+const Filters = ({ onChange }) => (
   <div className={styles.searchParams}>
     <form action="/companies" method="POST">
       <summary className={styles.searchParamsHeader}>
         Фільтри
       </summary>
       <div className={styles.searchParamsBody}>
-        <LoyaltyFilters refresh={refresh} />
-        <CategoryFilters refresh={refresh} />
-        <ViolationFilters refresh={refresh} />
+        <LoyaltyFilters onChange={onChange} />
+        <CategoryFilters onChange={onChange} />
+        <ViolationFilters onChange={onChange} />
       </div>
     </form>
   </div>
 );
 
 Filters.propTypes = {
-  //todo: rename
-  refresh: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default Filters;

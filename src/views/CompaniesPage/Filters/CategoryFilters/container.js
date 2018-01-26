@@ -10,10 +10,22 @@ const mapStateToProps = ({ companies, category }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onChange: (value) => dispatch(changeCategory(value)),
+  onChange: (checked, value) => {
+    const newValue = checked ? value : null;
+    return dispatch(changeCategory(newValue));
+  },
   dispatch
 });
 
+const mergeProps = (stateProps, dispatchProps, ownProps) => (
+  Object.assign(stateProps, dispatchProps, ownProps, {
+    onChange: (...args) => {
+      dispatchProps.onChange(...args);
+      ownProps.onChange();
+    }
+  })
+);
+
 export default connect(
-  mapStateToProps, mapDispatchToProps
+  mapStateToProps, mapDispatchToProps, mergeProps
 )(CategoryFiltersComponent);
