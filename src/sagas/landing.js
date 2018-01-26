@@ -1,20 +1,37 @@
 import { put, takeEvery } from 'redux-saga/effects';
+import { combine } from './utils/effects';
 
 import {
-  LANDING_REQUEST, LANDING_SUCCESS,
+  LAST_COMMENTS_REQUEST, LAST_COMMENTS_SUCCESS,
+  NEW_COMPANIES_REQUEST, NEW_COMPANIES_SUCCESS,
 } from 'constants/landing';
 import apiRequest from './utils/apiRequest';
 
-function* fetchData() {
-  const { payload } = yield apiRequest(`/`);
+function* getLastComments() {
+  const { payload } = yield apiRequest(`/lastComments`);
   if (payload) {
-    const newAction = { type: LANDING_SUCCESS, payload };
+    const newAction = { type: LAST_COMMENTS_SUCCESS, payload };
     yield put(newAction);
   }
 }
 
-function* landingSaga() {
-  yield takeEvery(LANDING_REQUEST, fetchData);
+function* getLastCommentsSaga() {
+  yield takeEvery(LAST_COMMENTS_REQUEST, getLastComments);
 }
 
-export default landingSaga;
+function* getNewCompanies() {
+  const { payload } = yield apiRequest(`/newCompanies`);
+  if (payload) {
+    const newAction = { type: NEW_COMPANIES_SUCCESS, payload };
+    yield put(newAction);
+  }
+}
+
+function* getNewCompaniesSaga() {
+  yield takeEvery(NEW_COMPANIES_REQUEST, getNewCompanies);
+}
+
+export default combine([
+  getLastCommentsSaga,
+  getNewCompaniesSaga,
+]);

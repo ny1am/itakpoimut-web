@@ -92,6 +92,7 @@ class PreloadSwitch extends React.Component {
     if (!ready) {
       return null;
     }
+    //todo: revise somehow.
     const children = React.Children.map(this.props.children, child => {
       const ViewComponent = child.props.component;
       return React.cloneElement(child, {

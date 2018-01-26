@@ -1,10 +1,20 @@
 import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
 
-import { LANDING_REQUEST, LANDING_SUCCESS } from 'constants/landing';
+import {
+  LAST_COMMENTS_REQUEST, LAST_COMMENTS_SUCCESS,
+  NEW_COMPANIES_REQUEST, NEW_COMPANIES_SUCCESS,
+} from 'constants/landing';
 
-export function get() {
+export function getLastComments() {
   return ({
-    type: LANDING_REQUEST,
-    [WAIT_FOR_ACTION]: LANDING_SUCCESS,
+    type: LAST_COMMENTS_REQUEST,
+    [WAIT_FOR_ACTION]: LAST_COMMENTS_SUCCESS,
+  });
+}
+
+export function getNewCompanies() {
+  return ({
+    type: NEW_COMPANIES_REQUEST,
+    [WAIT_FOR_ACTION]: NEW_COMPANIES_SUCCESS,
   });
 }
