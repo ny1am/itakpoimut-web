@@ -9,14 +9,16 @@ import LandingPageComponent from './LandingPage';
 
 class Container extends React.Component {
   static fetch(match, location, { dispatch }) {
-    return Promise.all([
-      dispatch(get()),
-      dispatch(getCategories()),
-    ]);
+    return [{
+      prop: 'landingData',
+      promise: dispatch(get()),
+    }, {
+      promise: dispatch(getCategories())
+    }];
   }
   render() {
     const { initialData, ...rest } = this.props;
-    return <LandingPageComponent {...rest} {...initialData} />;
+    return <LandingPageComponent {...rest} {...initialData.landingData} />;
   }
 }
 

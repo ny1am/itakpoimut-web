@@ -22,18 +22,21 @@ class Container extends React.Component {
       sortOrder,
       filters,
     }));
-    return Promise.all([
-      dispatch(getCategories()),
-      dispatch(getViolations()),
-      companiesPromise,
-    ]);
+    return [{
+      promise: dispatch(getCategories()),
+    }, {
+      promise: dispatch(getViolations()),
+    }, {
+      prop: 'companiesData',
+      promise: companiesPromise
+    }];
   }
 
   render() {
     const { currentPage, sortOrder, title } = queryString.parse(this.props.location.search);
     const { initialData, ...props } = this.props;
     return (<CompaniesPageComponent
-      {...initialData}
+      {...initialData.companiesData}
       {...props}
       title={title}
       currentPage={Number(currentPage || 1)}
@@ -48,11 +51,13 @@ Container.propTypes = {
     search: PropTypes.string,
   }).isRequired,
   initialData: PropTypes.shape({
-    companiesCount: PropTypes.number,
-    companies: PropTypes.array,
-    allCompaniesCount: PropTypes.number,
-    recordsPerPage: PropTypes.number,
-    totalPages: PropTypes.number,
+    companiesData: PropTypes.shape({
+      companiesCount: PropTypes.number,
+      companies: PropTypes.array,
+      allCompaniesCount: PropTypes.number,
+      recordsPerPage: PropTypes.number,
+      totalPages: PropTypes.number,
+    })
   })
 };
 

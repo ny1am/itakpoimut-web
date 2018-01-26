@@ -8,7 +8,10 @@ import UserProfilePageComponent from './UserProfilePage';
 
 class Container extends React.Component {
   static fetch(match, location, { dispatch }) {
-    return dispatch(get());
+    return [{
+      prop: 'user',
+      promise: dispatch(get()),
+    }];
   }
 
   constructor(props) {
@@ -17,7 +20,7 @@ class Container extends React.Component {
     this.state = {
       errors: null,
       successSave: false,
-      user: props.initialData,
+      user: props.initialData.user,
     };
   }
 

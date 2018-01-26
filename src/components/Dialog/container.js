@@ -5,24 +5,13 @@ import { connect } from 'react-redux';
 import { hideDialog } from 'actions/dialog';
 import { PLEASE_SIGNUP_DIALOG } from 'constants/dialog';
 import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
-import { keyValueToObjectReducer } from 'utils';
+import { extractInitialData } from 'utils';
 
 import DialogComponent from './Dialog';
 import routes from './routes';
 
 const emptyFetchResult = {
   promise: Promise.resolve()
-};
-
-const extractInitialData = (names, values) => {
-  const initialData = values
-    .map((value, index) => ({
-      key: names[index],
-      value
-    }))
-    .filter(item => item.key)
-    .reduce(keyValueToObjectReducer, {});
-  return initialData;
 };
 
 class Container extends React.Component {
@@ -88,18 +77,12 @@ class Container extends React.Component {
     wrapPromiseWithProgress(promise).then(values => {
       const fetchNames = fetchResult.map(item => item.prop);
       const initialData = extractInitialData(fetchNames, values);
-      this.setState({
-        initialData,
-      });
+      this.setState({ initialData });
       return values;
     }).catch(error => {
-      this.setState({
-        appFetchingError: error
-      });
+      this.setState({ appFetchingError: error });
     }).finally(() => {
-      this.setState({
-        isAppFetching: false,
-      });
+      this.setState({ isAppFetching: false });
     });
   }
 

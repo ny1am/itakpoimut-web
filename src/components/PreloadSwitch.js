@@ -1,14 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch, withRouter } from 'react-router-dom';
+import { matchRoutes } from 'react-router-config';
 
 import * as preload from 'actions/preload';
 import { appReady } from 'actions/global';
 import { routeConfig } from 'components/Routes';
-import {
-  reactRouterFetch, hasPageLocationChanged, extractFetchData
-} from 'utils';
+import { hasPageLocationChanged, extractInitialData } from 'utils';
 import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
+
+const getFetchResult = (routes, location, options) => {
+  const branch = matchRoutes(routes, location.pathname);
+  const fetchResult = branch
+    .filter(({ route }) => route.component && route.component.fetch)
+    .map(({ route, match }) => {
+      return route.component.fetch(match, location, options);
+    })
+    .reduce((a, b) => a.concat(b), [])
+    .filter(result => result);
+  if (fetchResult.length > 0) {
+    return fetchResult;
+  } else {
+    return [{
+      promise: Promise.resolve()
+    }];
+  }
+};
 
 class PreloadSwitch extends React.Component {
 
@@ -45,30 +62,28 @@ class PreloadSwitch extends React.Component {
       appFetchingError: null,
     });
     const opts = { store, dispatch: store.dispatch, prevLocation };
-    const promise = reactRouterFetch(routeConfig, location, opts);
     const preloadOpts = {
       prevRoute: this.props.location.pathname,
       route: props.location.pathname,
       hash: props.location.hash,
     };
+    const fetchResult = getFetchResult(routeConfig, location, opts);
+    const promise = Promise.all(fetchResult.map(item => item.promise));
     store.dispatch(preload.start(preloadOpts));
-    wrapPromiseWithProgress(promise || Promise.resolve()).then((data) => {
-      const initialData = extractFetchData((data&&data[0])?data[0]:null);
-      this.setState({
-        isAppFetching: false,
-        initialData,
-        ready: true,
-      });
-      store.dispatch(appReady());
+    wrapPromiseWithProgress(promise).then(values => {
+      const fetchNames = fetchResult.map(item => item.prop);
+      const initialData = extractInitialData(fetchNames, values);
+      this.setState({ initialData });
     })
     .catch((err) => {
+      this.setState({ appFetchingError: err });
+    }).finally(() => {
       this.setState({
         isAppFetching: false,
         ready: true,
-        appFetchingError: err
       });
-    }).finally(() => {
       store.dispatch(preload.end(preloadOpts));
+      store.dispatch(appReady());
     });
   }
 

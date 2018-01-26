@@ -1,5 +1,3 @@
-import { matchRoutes } from 'react-router-config';
-
 export const roleModerator = (user) => {
   return user && user.roles.indexOf('moderator') !== -1;
 };
@@ -10,21 +8,6 @@ export const http = (url) => {
     return url;
   } else {
     return 'http://'+url;
-  }
-};
-
-export const reactRouterFetch = (routes, location, options) => {
-  const branch = matchRoutes(routes, location.pathname);
-  const promises = branch
-    .filter(({ route }) => route.component && route.component.fetch)
-    .map(({ route, match }) => {
-      return route.component.fetch(match, location, options);
-    })
-    .filter(promise => promise);
-  if (promises && promises.length > 0) {
-    return Promise.all(promises);
-  } else {
-    return null;
   }
 };
 
@@ -48,18 +31,17 @@ export const wrapWithSideEffect = (sideEffect, delay) => (promise) => {
   });
 };
 
-export const extractFetchData = (data) => {
-  if (!data) {
-    return null;
-  } else if (data instanceof Array) {
-    return data.reduce((result, requestData) => {
-      return Object.assign({}, result, requestData);
-    }, {});
-  } else {
-    return data;
-  }
-};
-
 export const keyValueToObjectReducer = (result, { key, value }) => (
   Object.assign(result, {[key] : value})
 );
+
+export const extractInitialData = (names, values) => {
+  const initialData = values
+    .map((value, index) => ({
+      key: names[index],
+      value
+    }))
+    .filter(item => item.key)
+    .reduce(keyValueToObjectReducer, {});
+  return initialData;
+};

@@ -9,7 +9,9 @@ class Container extends React.Component {
   static fetch({ params }, location, { dispatch, prevLocation }) {
     //todo: match change based checking
     if (!prevLocation || location.pathname !== prevLocation.pathname) {
-      return dispatch(get(params.id));
+      return [{
+        promise: dispatch(get(params.id))
+      }];
     }
     return null;
   }
