@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) => (
-  Object.assign(stateProps, dispatchProps, ownProps, {
+  Object.assign({}, stateProps, dispatchProps, ownProps, {
     onChange: (...args) => {
       dispatchProps.onChange(...args);
       ownProps.onChange();
