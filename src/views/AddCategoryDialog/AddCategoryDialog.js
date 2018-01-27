@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Checkbox from 'components/Checkbox';
+import CheckRow from 'components/CheckRow';
 
 import styles from './styles.scss';
 
@@ -70,21 +70,15 @@ class AddCategoryDialog extends React.Component {
           <ul className={styles.categories}>
             {list.map((item, index) =>(
               <li key={index}>
-                <div className="check-row">
-                  <Checkbox id={"ctg_"+item.name}
-                    className="row-checkbox"
-                    name="selectedCategories[]"
-                    value={item}
-                    checked={selected.indexOf(item) > -1}
-                    onChange={
-                      ({ target: { checked } }) =>
-                        this.selectCategory(checked, item)
-                    }
-                  />
-                  <label htmlFor={"ctg_"+item.name}>
-                    {item.text}
-                  </label>
-                </div>
+                <CheckRow text={item.text}
+                  name="selectedCategories[]"
+                  value={item}
+                  checked={selected.indexOf(item) > -1}
+                  onChange={
+                    ({ target: { checked } }) =>
+                      this.selectCategory(checked, item)
+                  }
+                />
               </li>
             ))}
           </ul>
@@ -149,10 +143,10 @@ class AddCategoryDialog extends React.Component {
 AddCategoryDialog.propTypes = {
   companyId: PropTypes.number,
   company: PropTypes.shape({
-    categories: PropTypes.shape({
+    categories: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
-    })
+    }))
   }).isRequired,
   categoriesList: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,

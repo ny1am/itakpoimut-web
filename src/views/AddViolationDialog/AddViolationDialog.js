@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Checkbox from 'components/Checkbox';
+import CheckRow from 'components/CheckRow';
 
 import styles from './styles.scss';
 
@@ -51,21 +51,15 @@ class AddViolationDialog extends React.Component {
           <ul className={styles.violations}>
             {filteredViolations.map(item => (
               <li key={item.name} className="row">
-                <div className="check-row">
-                  <Checkbox id={"vlt_"+item.name}
-                    className="row-checkbox"
-                    name="selectedViolations[]"
-                    value={item.name}
-                    checked={selectedViolations.indexOf(item) > -1}
-                    onChange={
-                      ({ target: { checked } }) =>
-                        this.handleViolationChange(checked, item)
-                    }
-                  />
-                  <label htmlFor={"vlt_"+item.name}>
-                    {item.text}
-                  </label>
-                </div>
+                <CheckRow text={item.text}
+                  name="selectedViolations[]"
+                  value={item.name}
+                  checked={selectedViolations.indexOf(item) > -1}
+                  onChange={
+                    ({ target: { checked } }) =>
+                      this.handleViolationChange(checked, item)
+                  }
+                />
               </li>
             ))}
           </ul>
