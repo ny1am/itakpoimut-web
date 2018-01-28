@@ -1,59 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import debounce from 'lodash.debounce';
-import enhanceWithClickOutside from 'react-click-outside';
 
 import AutocompletePopup from './AutocompletePopup';
 import styles from './styles.scss';
 
-class AutocompleteSearch extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      shown: false,
-      title: '',
-      category: '',
-      companies: []
-    };
-    this.changeTitle = this.changeTitle.bind(this);
-    this.changeCategory = this.changeCategory.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.search = this.search.bind(this);
-    this.delayedSearch = debounce(this.search, 300);
-    this.handleClickOutside = this.handleClickOutside.bind(this);
-  }
-  changeTitle(e) {
-    const title = e.target.value;
-    this.setState({ title }, this.delayedSearch);
-  }
-  changeCategory(e) {
-    const category = e.target.value;
-    this.setState({ category }, this.delayedSearch);
-  }
-  onSubmit(e) {
-    e.preventDefault();
-    const { title, category: selectedCategory } = this.state;
-    this.props.onSubmit({ title, selectedCategory });
-  }
-  search() {
-    const { title, category } = this.state;
-    this.props.onSearch({ title, category }).then(data => {
-      this.setState({
-        companies: data.results,
-        shown: true,
-      });
-    });
-  }
-  handleClickOutside() {
-    const shown = false;
-    this.setState({ shown });
-  }
+class AutocompleteSearch extends React.PureComponent {
   render() {
-    const { companies, shown, title, category } = this.state;
-    const { categories } = this.props;
+    const { categories, companies, shown, title, category } = this.props;
+    const { onSubmit, changeTitle, changeCategory, search } = this.props;
     return (
       <article className={styles.wrapper}>
-        <form action="/companies" method="GET" onSubmit={this.onSubmit}>
+        <form action="/companies" method="GET" onSubmit={onSubmit}>
           <div className={styles.searchWrapper}>
             <div className={styles.searchInput}>
               <input type="text"
@@ -61,15 +18,15 @@ class AutocompleteSearch extends React.Component {
                 placeholder="Введіть назву компанії"
                 autoComplete="off"
                 value={title}
-                onChange={this.changeTitle}
-                onFocus={this.search}
+                onChange={changeTitle}
+                onFocus={search}
               />
               {companies.length > 0 && shown && (
                 <AutocompletePopup companies={companies} />
               )}
             </div>
             <div className={styles.select}>
-              <select name="selectedCategory" value={category} onChange={this.changeCategory}>
+              <select name="selectedCategory" value={category} onChange={changeCategory}>
                 <option value="">Всі сфери</option>
                 {categories.map(item => (
                   <option value={item.name} key={item.name}>
@@ -91,8 +48,14 @@ AutocompleteSearch.propTypes = {
     name: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
   })).isRequired,
-  onSearch: PropTypes.func.isRequired,
+  companies: PropTypes.array,
+  shown: PropTypes.bool,
+  title: PropTypes.string,
+  category: PropTypes.string,
+  search: PropTypes.func.isRequired,
+  changeTitle: PropTypes.func.isRequired,
+  changeCategory: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default enhanceWithClickOutside(AutocompleteSearch);
+export default AutocompleteSearch;
