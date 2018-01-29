@@ -45,3 +45,8 @@ export const extractInitialData = (names, values) => {
     .reduce(keyValueToObjectReducer, {});
   return initialData;
 };
+
+export const preventDefault = (fn, ...args) => (event) => {
+  event.preventDefault();
+  return fn(...args);
+};

@@ -6,6 +6,7 @@ import styles from './styles.scss';
 
 const PAGE_NUMBER_SIZE = 5;
 
+//todo: revise this
 class Pagination extends React.Component {
 
   renderPageElement(page, innerText) {

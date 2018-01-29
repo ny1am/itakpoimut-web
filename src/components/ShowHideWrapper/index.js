@@ -8,8 +8,6 @@ class ShowHideWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
-    this.changeVisibility = this.changeVisibility.bind(this);
-    this.prepareVisibilityMap = this.prepareVisibilityMap.bind(this);
     const hidden = true;
     this.state = {
       hidden,
@@ -47,11 +45,13 @@ class ShowHideWrapper extends React.Component {
   render() {
     const { visibilityMap, hidden } = this.state;
     const { items, className } = this.props;
-    const toggleClassName = `${styles.trigger} ${hidden?styles.close:styles.open}`;
+    const toggleClassName =
+      `${styles.trigger} ${hidden?styles.close:styles.open}`;
+    const visibleItems = items.filter(item => visibilityMap[item.key]);
     return (
       <React.Fragment>
         <ul className={className||''}>
-          {items.filter(item => visibilityMap[item.key]).map(item => (
+          {visibleItems.map(item => (
             <li key={item.key} className="row">
               {item.node}
             </li>

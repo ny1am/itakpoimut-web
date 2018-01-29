@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { preventDefault } from 'utils';
+
 import styles from './styles.scss';
 
-const preventEventWrapper = (func) => (event) => {
-  event.preventDefault();
-  return func();
-};
-
 const SearchInput = ({ value, innerRef, onSubmit }) => (
-  <form action="/companies" method="POST" onSubmit={preventEventWrapper(onSubmit)}>
+  <form action="/companies" method="POST" onSubmit={preventDefault(onSubmit)}>
     <div className={styles.wrapper}>
       <div className={styles.input}>
         <input type="text"

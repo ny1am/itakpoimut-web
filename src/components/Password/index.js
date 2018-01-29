@@ -8,11 +8,11 @@ class Password extends React.Component {
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
-    this.state = {hidden: true};
+    this.state = { hidden: true };
   }
 
   toggle() {
-    this.setState({hidden: !this.state.hidden});
+    this.setState({ hidden: !this.state.hidden });
   }
 
   render() {
