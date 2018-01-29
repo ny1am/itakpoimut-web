@@ -50,3 +50,17 @@ export const preventDefault = (fn, ...args) => (event) => {
   event.preventDefault();
   return fn(...args);
 };
+
+export const getFirstErrorElement = (errors, holder = document) => {
+  if (errors !== null && typeof errors === 'object') {
+    const keys = Object.keys(errors);
+    if (keys && keys.length > 0) {
+      const firstName = keys[0];
+      const element = holder.querySelector(`[name="${firstName}"]`);
+      if (element) {
+        return element.parentElement || element;
+      }
+    }
+  }
+  return null;
+};

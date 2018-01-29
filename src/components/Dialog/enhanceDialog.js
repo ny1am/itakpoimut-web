@@ -1,9 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ReactDOM from 'react-dom';
+import { scrollIntoViewIfNeeded } from 'scroll-into-view-if-needed';
 
 import { SUCCESS_DIALOG } from 'constants/dialog';
 import { showDialog, hideDialog } from 'actions/dialog';
-import { getDisplayName } from 'utils';
+import { getDisplayName, getFirstErrorElement } from 'utils';
+
+const scrollToError = (errors, holder) => {
+  const element = getFirstErrorElement(errors, holder);
+  element && scrollIntoViewIfNeeded(element);
+};
 
 const enhanceDialog = (mapProps) => (Component) => {
   class EnhancedDialog extends React.Component {
@@ -25,6 +32,7 @@ const enhanceDialog = (mapProps) => (Component) => {
       const { dispatch } = this.context.store;
       const { changeLoading } = this.props;
       const { onSubmit, successText } = mapProps(dispatch);
+      //todo: context
       changeLoading(true);
       return onSubmit(params).then(data => {
         if (successText) {
@@ -40,6 +48,8 @@ const enhanceDialog = (mapProps) => (Component) => {
         this.setState({
           errors: payload.errors
         });
+        const holder = ReactDOM.findDOMNode(this);
+        scrollToError(payload.errors, holder);
       }).finally(() => {
         changeLoading(false);
       });
