@@ -51,21 +51,6 @@
   }
 }
 
-.description, .nameSearch, .categorySearch, .addCompany {
-  max-width: 960px;
-  margin: 138px auto 10px auto;
-  box-sizing: border-box;
-  position: relative;
-  @media (max-width: 640px) {
-    padding: 0;
-    margin-top: 40px;
-    min-height: auto;
-    &:before {
-      background: none;
-    }
-  }
-}
-
 .description {
   padding-left: 309px;
   min-height: 217px;
@@ -127,6 +112,23 @@
     background-position: 0px 0px;
     width: 300px;
     height: 300px;
+  }
+}
+
+.description, .nameSearch, .categorySearch, .addCompany {
+  max-width: 960px;
+  margin: 138px auto 10px auto;
+  box-sizing: border-box;
+  position: relative;
+  @media (max-width: 640px) {
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 40px;
+    min-height: auto;
+    &:before {
+      background-image: none;
+      background-position: 0;
+    }
   }
 }
 
