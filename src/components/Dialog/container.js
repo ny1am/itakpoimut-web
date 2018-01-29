@@ -24,6 +24,7 @@ class Container extends React.Component {
       isAppFetching: false,
       initialData: null,
       loading: false,
+      ready: false,
     };
   }
 
@@ -82,14 +83,17 @@ class Container extends React.Component {
     }).catch(error => {
       this.setState({ appFetchingError: error });
     }).finally(() => {
-      this.setState({ isAppFetching: false });
+      this.setState({
+        isAppFetching: false,
+        ready: true
+      });
     });
   }
 
   render() {
     const { dialogProps, onClose } = this.props;
-    const { dialogType, initialData, loading } = this.state;
-    if (!dialogType) {
+    const { dialogType, initialData, loading, ready } = this.state;
+    if (!dialogType || !ready) {
       return null;
     }
     return (<DialogComponent
