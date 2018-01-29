@@ -26,15 +26,18 @@ class Layout extends React.Component {
       disableScroll.on(element, {
         disableWheel: false,
       });
+      document.body.style.overflowY = 'hidden';
     } else {
       disableScroll.off(element);
+      document.body.style.overflowY = '';
     }
   }
 
   render() {
     const { overflowShown, children } = this.props;
+    const className = `${styles.wrapper} ${overflowShown?styles.fixed:''}`;
     return (
-      <div ref="layout" className={`${styles.wrapper} ${overflowShown?styles.fixed:''}`}>
+      <div ref="layout" className={className}>
         <Header />
         <Menu />
         {children}
