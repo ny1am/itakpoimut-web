@@ -261,21 +261,16 @@ aside.dialog__aside button, .regularLink {
   background-color: transparent;
 }
 
-div.check-row {
-  position: relative;
-  &>label {
-    display: inline-block;
-    color: #929292;
-    line-height: 1.3;
-    word-wrap: break-word;
-    box-sizing: border-box;
-    width: 100%;
-    padding-left: 30px;
-  }
-}
-
-div.row-checkbox {
-  position: absolute;
-  top: 2px;
-  left: 0;
+.loyalty-color {
+	@media (max-width: 760px) {
+		&.loyal {
+			color: rgb(110, 157, 58);
+		}
+		&.disloyal {
+			color: rgb(165, 41, 41);
+		}
+		&.probation {
+			color: rgb(247, 149, 33);
+		}
+	}
 }

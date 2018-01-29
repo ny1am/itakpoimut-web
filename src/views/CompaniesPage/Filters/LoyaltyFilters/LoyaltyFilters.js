@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Radio from 'components/Radio';
+import CheckRow from 'components/CheckRow';
 import loyalty from 'utils/enums/loyalty';
 
 import styles from '../styles.scss';
@@ -14,21 +14,17 @@ const LoyaltyFilters = ({ value, list, onChange }) => (
     <ul className={styles.searchGroup}>
       {list.map((loyalty, index) => (
         <li key={index} className="row">
-          <div className="check-row">
-            <Radio
-              id={"rnk_"+loyalty.name}
-              name="selectedLoyalty"
-              value={loyalty.name}
-              checked={loyalty.name===value}
-              onChange={
-                ({ target: { checked } }) => onChange(checked, loyalty.name)
-              }
-              className="row-checkbox"
-            />
-            <label htmlFor={"rnk_"+loyalty.name} className={"loyalty-color "+loyalty.name}>
-              {loyalty.text}
-            </label>
-          </div>
+          <CheckRow
+            type="radio"
+            name="selectedLoyalty"
+            value={loyalty.name}
+            checked={loyalty.name===value}
+            onChange={
+              ({ target: { checked } }) => onChange(checked, loyalty.name)
+            }
+            text={loyalty.text}
+            textClassName={"loyalty-color "+loyalty.name}
+          />
         </li>
       ))}
     </ul>
