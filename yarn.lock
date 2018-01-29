@@ -2113,6 +2113,12 @@ dir-glob@^2.0.0:
     arrify "^1.0.1"
     path-type "^3.0.0"
 
+disable-scroll@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/disable-scroll/-/disable-scroll-0.4.0.tgz#9dfd1656837ee85e45240707067782a67eac6eb4"
+  dependencies:
+    scrollingelement "^1.5.2"
+
 doctrine@1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/doctrine/-/doctrine-1.5.0.tgz#379dce730f6166f76cefa4e6707a159b02c5a6fa"
@@ -5893,6 +5899,10 @@ scroll-restoration-polyfill@^0.6.1:
   dependencies:
     get-scroll "^2.0.0"
     one-event "^1.2.0"
+
+scrollingelement@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/scrollingelement/-/scrollingelement-1.5.2.tgz#b63b71114d864e3671ca1e854ea1f93af61f107e"
 
 scss-tokenizer@^0.2.3:
   version "0.2.3"

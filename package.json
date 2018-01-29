@@ -24,6 +24,7 @@
   "license": "MIT",
   "dependencies": {
     "dateformat": "^3.0.2",
+    "disable-scroll": "^0.4.0",
     "history": "^4.6.0",
     "isomorphic-fetch": "^2.2.1",
     "lodash.debounce": "^4.0.8",
