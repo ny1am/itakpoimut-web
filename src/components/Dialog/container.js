@@ -21,6 +21,7 @@ class Container extends React.Component {
     this.changeLoading = this.changeLoading.bind(this);
     this.state = {
       dialogType: props.dialogType,
+      appFetchingError: null,
       isAppFetching: false,
       initialData: null,
       loading: false,
@@ -68,6 +69,7 @@ class Container extends React.Component {
     const { dialogProps } = props;
     const { dispatch } = this.context.store;
     this.setState({
+      appFetchingError: null,
       isAppFetching: true,
       initialData: null,
     });
