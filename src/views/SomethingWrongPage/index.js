@@ -9,7 +9,7 @@ const SomethingWrongPage = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>Ой!</div>
-      <div className={styles.expl}>Сервер не працює</div>
+      <div className={styles.expl}>У нас проблеми :(</div>
     </div>
   );
 };

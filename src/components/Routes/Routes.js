@@ -2,31 +2,13 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 
 import PreloadSwitch from 'components/PreloadSwitch';
-import NotFoundPage from 'views/NotFoundPage';
 
 import SecureRoute from './SecureRoute';
 import routeConfig from './routeConfig';
 
 class Routes extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  componentWillReceiveProps() {
-    this.setState({ hasError: false });
-  }
-
-  componentDidCatch(error, info) {
-    console.error(error, info); // eslint-disable-line
-    this.setState({ hasError: true });
-  }
-
   render() {
-    if (this.state.hasError) {
-      return <NotFoundPage />;
-    }
     return (
       <PreloadSwitch>
         {routeConfig.map(cfg => {
