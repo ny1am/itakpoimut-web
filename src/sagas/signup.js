@@ -3,7 +3,7 @@ import queryString from 'query-string';
 
 import {
   SIGNUP_REQUEST, SIGNUP_SUCCESS,
-} from 'constants/signup';
+} from 'consts/signup';
 import { takeFirst } from './utils/effects';
 import apiRequest from './utils/apiRequest';
 

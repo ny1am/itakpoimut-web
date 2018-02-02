@@ -4,7 +4,7 @@ import toFormData from 'object-to-formdata';
 import {
   USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS,
   SAVE_USER_PROFILE_REQUEST, SAVE_USER_PROFILE_SUCCESS,
-} from 'constants/userProfile';
+} from 'consts/userProfile';
 import { updateUser } from '../store/storage';
 import { combine, takeFirst } from './utils/effects';
 import apiSecureRequest from './utils/apiSecureRequest';

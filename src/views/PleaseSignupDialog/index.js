@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LOGIN_DIALOG, SIGNUP_DIALOG } from 'constants/dialog';
+import { LOGIN_DIALOG, SIGNUP_DIALOG } from 'consts/dialog';
 import DialogLink from 'components/DialogLink';
 
 import styles from './styles.scss';

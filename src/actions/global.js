@@ -1,4 +1,4 @@
-import { APP_READY, GENERIC_REQUEST_ERROR } from 'constants';
+import { APP_READY, GENERIC_REQUEST_ERROR } from 'consts';
 
 export const appReady = () => ({
   type: APP_READY

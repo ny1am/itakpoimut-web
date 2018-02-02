@@ -13,8 +13,8 @@ module.exports = {
   "parser": "babel-eslint",
   "settings": {
     "import/resolver": {
-      "webpack": {
-        "config": path.resolve(__dirname, './webpack.config.dev.js')
+      "node": {
+        "paths": path.resolve(__dirname, './src')
       }
     }
   },

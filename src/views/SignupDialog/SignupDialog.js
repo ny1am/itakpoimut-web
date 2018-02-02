@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { LOGIN_DIALOG } from 'constants/dialog';
+import { LOGIN_DIALOG } from 'consts/dialog';
 import DialogLink from 'components/DialogLink';
 import Password from 'components/Password';
 

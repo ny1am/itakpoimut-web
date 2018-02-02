@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { scrollIntoViewIfNeeded } from 'scroll-into-view-if-needed';
+import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
 import { get, save } from 'actions/userProfile';
 import { getFirstErrorElement } from 'utils';

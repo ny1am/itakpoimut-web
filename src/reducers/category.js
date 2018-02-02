@@ -1,4 +1,4 @@
-import { FETCH_CATEGORIES_SUCCESS } from 'constants/category';
+import { FETCH_CATEGORIES_SUCCESS } from 'consts/category';
 
 const initialState = null;
 

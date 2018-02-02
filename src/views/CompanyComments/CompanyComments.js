@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
-import { scrollIntoViewIfNeeded } from 'scroll-into-view-if-needed';
+import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
 import Pagination from 'components/Pagination';
 import Comment from 'components/Comment';

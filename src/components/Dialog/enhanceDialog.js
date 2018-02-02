@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import { scrollIntoViewIfNeeded } from 'scroll-into-view-if-needed';
+import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
-import { SUCCESS_DIALOG } from 'constants/dialog';
+import { SUCCESS_DIALOG } from 'consts/dialog';
 import { showDialog, hideDialog } from 'actions/dialog';
 import { getDisplayName, getFirstErrorElement } from 'utils';
 

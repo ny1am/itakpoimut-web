@@ -1,6 +1,6 @@
-import { scrollIntoViewIfNeeded } from 'scroll-into-view-if-needed';
+import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
-import { PRELOAD_LOCATION_CHANGE_END } from 'constants';
+import { PRELOAD_LOCATION_CHANGE_END } from 'consts';
 
 export default () => next => action => {
 

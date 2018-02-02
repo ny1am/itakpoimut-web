@@ -3,7 +3,7 @@ import queryString from 'query-string';
 
 import {
   ADD_CATEGORY_SAVE_REQUEST, ADD_CATEGORY_SAVE_SUCCESS,
-} from 'constants/addCategory';
+} from 'consts/addCategory';
 import { takeFirst } from './utils/effects';
 import apiSecureRequest from './utils/apiSecureRequest';
 

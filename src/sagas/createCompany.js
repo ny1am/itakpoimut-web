@@ -3,7 +3,7 @@ import toFormData from 'object-to-formdata';
 
 import {
   CREATE_COMPANY_SAVE_REQUEST, CREATE_COMPANY_SAVE_SUCCESS,
-} from 'constants/createCompany';
+} from 'consts/createCompany';
 import { takeFirst } from './utils/effects';
 import apiSecureRequest from './utils/apiSecureRequest';
 

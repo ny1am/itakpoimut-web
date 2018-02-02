@@ -3,7 +3,7 @@ import queryString from 'query-string';
 
 import {
   COMPANIES_REQUEST, COMPANIES_SUCCESS,
-} from 'constants/companies';
+} from 'consts/companies';
 import apiRequest from './utils/apiRequest';
 
 function* fetchData({ currentPage, sortOrder, title, filters }) {

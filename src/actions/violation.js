@@ -2,7 +2,7 @@ import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
 
 import {
   GET_VIOLATIONS, GET_VIOLATIONS_SUCCESS,
-} from 'constants/violation';
+} from 'consts/violation';
 
 export function get() {
   return ({

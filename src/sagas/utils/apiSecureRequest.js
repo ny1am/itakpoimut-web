@@ -2,7 +2,7 @@ import { call, put } from 'redux-saga/effects';
 
 import { showDialog } from 'actions/dialog';
 import { logout } from 'actions/auth';
-import { PLEASE_SIGNUP_DIALOG } from 'constants/dialog';
+import { PLEASE_SIGNUP_DIALOG } from 'consts/dialog';
 import { loadAuth } from '../../store/storage';
 import apiRequest from './apiRequest';
 

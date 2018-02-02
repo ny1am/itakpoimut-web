@@ -2,7 +2,7 @@ import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
 
 import {
   GET_CATEGORIES, GET_CATEGORIES_SUCCESS,
-} from 'constants/category';
+} from 'consts/category';
 
 export function get() {
   return ({

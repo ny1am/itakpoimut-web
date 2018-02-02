@@ -1,4 +1,4 @@
-import { FETCH_VIOLATIONS_SUCCESS } from 'constants/violation';
+import { FETCH_VIOLATIONS_SUCCESS } from 'consts/violation';
 
 const initialState = null;
 

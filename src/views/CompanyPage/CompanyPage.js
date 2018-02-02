@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ADD_VIOLATION_DIALOG, ADD_CATEGORY_DIALOG } from 'constants/dialog';
+import { ADD_VIOLATION_DIALOG, ADD_CATEGORY_DIALOG } from 'consts/dialog';
 import DialogLink from 'components/DialogLink';
 import Loyalty from 'components/Loyalty';
 import { http } from 'utils';

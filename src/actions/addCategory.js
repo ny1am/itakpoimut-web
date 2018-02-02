@@ -2,7 +2,7 @@ import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
 
 import {
   ADD_CATEGORY_SAVE_REQUEST, ADD_CATEGORY_SAVE_SUCCESS,
-} from 'constants/addCategory';
+} from 'consts/addCategory';
 
 export function save({ companyId, selectedCategories }) {
   return {

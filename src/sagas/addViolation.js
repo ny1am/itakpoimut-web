@@ -3,7 +3,7 @@ import queryString from 'query-string';
 
 import {
   ADD_VIOLATION_SAVE_REQUEST, ADD_VIOLATION_SAVE_SUCCESS
-} from 'constants/addViolation';
+} from 'consts/addViolation';
 import { takeFirst } from './utils/effects';
 import apiSecureRequest from './utils/apiSecureRequest';
 

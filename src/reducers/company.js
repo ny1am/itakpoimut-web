@@ -1,4 +1,4 @@
-import { FETCH_COMPANY_SUCCESS } from 'constants/company';
+import { FETCH_COMPANY_SUCCESS } from 'consts/company';
 
 const initialState = {};
 

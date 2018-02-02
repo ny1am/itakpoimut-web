@@ -3,7 +3,7 @@ import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
 import {
   LAST_COMMENTS_REQUEST, LAST_COMMENTS_SUCCESS,
   NEW_COMPANIES_REQUEST, NEW_COMPANIES_SUCCESS,
-} from 'constants/landing';
+} from 'consts/landing';
 
 export function getLastComments() {
   return ({

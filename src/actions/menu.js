@@ -1,4 +1,4 @@
-import { SHOW_MENU, HIDE_MENU } from 'constants/menu';
+import { SHOW_MENU, HIDE_MENU } from 'consts/menu';
 
 export const show =() => ({
   type: SHOW_MENU

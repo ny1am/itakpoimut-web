@@ -3,7 +3,7 @@ import { put, select, takeEvery } from 'redux-saga/effects';
 import {
   FETCH_VIOLATIONS_SUCCESS,
   GET_VIOLATIONS, GET_VIOLATIONS_SUCCESS,
-} from 'constants/violation';
+} from 'consts/violation';
 import apiRequest from './utils/apiRequest';
 
 function* fetchViolationList() {

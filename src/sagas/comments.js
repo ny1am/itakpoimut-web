@@ -5,7 +5,7 @@ import queryString from 'query-string';
 import {
   COMMENTS_REQUEST, COMMENTS_SUCCESS,
   ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS,
-} from 'constants/comments';
+} from 'consts/comments';
 import { get } from 'actions/comments';
 import { combine, takeFirst } from './utils/effects';
 import apiSecureRequest from './utils/apiSecureRequest';

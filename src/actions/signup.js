@@ -2,7 +2,7 @@ import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
 
 import {
   SIGNUP_REQUEST, SIGNUP_SUCCESS,
-} from 'constants/signup';
+} from 'consts/signup';
 
 export function signup({ fname, lname, email, password }) {
   return {

@@ -5,7 +5,7 @@ import {
   LOYALTY_CHANGED, CATEGORY_CHANGED,
   ADD_VIOLATION_FILTER, REMOVE_VIOLATION_FILTER,
   CLEAR_FILTERS,
-} from 'constants/companies';
+} from 'consts/companies';
 
 export function get({ currentPage = 1, sortOrder = 'asc', title = '', filters = {} }) {
   return {

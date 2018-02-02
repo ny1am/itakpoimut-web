@@ -1,4 +1,4 @@
-import { APP_READY } from 'constants';
+import { APP_READY } from 'consts';
 
 const initialState = {
   appReady: false,

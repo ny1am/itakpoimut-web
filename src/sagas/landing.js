@@ -4,7 +4,7 @@ import { combine } from './utils/effects';
 import {
   LAST_COMMENTS_REQUEST, LAST_COMMENTS_SUCCESS,
   NEW_COMPANIES_REQUEST, NEW_COMPANIES_SUCCESS,
-} from 'constants/landing';
+} from 'consts/landing';
 import apiRequest from './utils/apiRequest';
 
 function* getLastComments() {

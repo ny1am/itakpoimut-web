@@ -2,7 +2,7 @@ import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
 
 import {
   AUTOCOMPLETE_REQUEST, AUTOCOMPLETE_SUCCESS
-} from 'constants/autocomplete';
+} from 'consts/autocomplete';
 
 export function search({ title, category }) {
   return ({

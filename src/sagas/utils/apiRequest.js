@@ -1,7 +1,7 @@
 import { call, put } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 
-import { API_ROOT } from 'constants';
+import { API_ROOT } from 'consts';
 import request from 'utils/request';
 import { requestError } from 'actions/global';
 import { hideDialog } from 'actions/dialog';

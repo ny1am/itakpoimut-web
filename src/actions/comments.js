@@ -3,7 +3,7 @@ import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
 import {
   COMMENTS_REQUEST, COMMENTS_SUCCESS,
   ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS,
-} from 'constants/comments';
+} from 'consts/comments';
 
 export function get(id, currentPage = 1) {
   return {

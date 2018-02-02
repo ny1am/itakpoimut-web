@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { CREATE_COMPANY_DIALOG } from 'constants/dialog';
+import { CREATE_COMPANY_DIALOG } from 'consts/dialog';
 import DialogLink from 'components/DialogLink';
 import AutocompleteSearch from 'components/AutocompleteSearch';
 import LandingSection from 'components/LandingSection';

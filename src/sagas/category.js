@@ -3,7 +3,7 @@ import { put, select, takeEvery } from 'redux-saga/effects';
 import {
   FETCH_CATEGORIES_SUCCESS,
   GET_CATEGORIES, GET_CATEGORIES_SUCCESS,
-} from 'constants/category';
+} from 'consts/category';
 import apiRequest from './utils/apiRequest';
 
 function* fetchCategoryList() {

@@ -1,6 +1,6 @@
 import { WAIT_FOR_ACTION, ERROR_ACTION } from 'redux-wait-for-action';
 
-import { GENERIC_REQUEST_ERROR } from 'constants';
+import { GENERIC_REQUEST_ERROR } from 'consts';
 
 export default () => next => action => {
 

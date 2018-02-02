@@ -2,7 +2,7 @@ import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
 
 import {
   ADD_VIOLATION_SAVE_REQUEST, ADD_VIOLATION_SAVE_SUCCESS,
-} from 'constants/addViolation';
+} from 'consts/addViolation';
 
 export function save({ companyId, selectedViolations }) {
   return {

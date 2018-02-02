@@ -4,7 +4,7 @@ import queryString from 'query-string';
 import {
   AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE,
   LOGOUT,
-} from 'constants/auth';
+} from 'consts/auth';
 import { saveAuth } from '../store/storage';
 import { combine, takeFirst } from './utils/effects';
 import apiRequest from './utils/apiRequest';

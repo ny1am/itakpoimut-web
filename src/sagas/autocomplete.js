@@ -3,7 +3,7 @@ import queryString from 'query-string';
 
 import {
   AUTOCOMPLETE_REQUEST, AUTOCOMPLETE_SUCCESS
-} from 'constants/autocomplete';
+} from 'consts/autocomplete';
 import apiRequest from './utils/apiRequest';
 
 function* fetchData({ title, category }) {

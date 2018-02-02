@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { hideDialog } from 'actions/dialog';
-import { PLEASE_SIGNUP_DIALOG } from 'constants/dialog';
+import { PLEASE_SIGNUP_DIALOG } from 'consts/dialog';
 import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
 import { extractInitialData } from 'utils';
 

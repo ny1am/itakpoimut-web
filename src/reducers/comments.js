@@ -1,4 +1,4 @@
-import { COMMENTS_SUCCESS } from 'constants/comments';
+import { COMMENTS_SUCCESS } from 'consts/comments';
 
 const initialState = {};
 

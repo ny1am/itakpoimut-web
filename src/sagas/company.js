@@ -3,7 +3,7 @@ import { put, select, takeEvery } from 'redux-saga/effects';
 import {
   FETCH_COMPANY_SUCCESS,
   GET_COMPANY, GET_COMPANY_SUCCESS,
-} from 'constants/company';
+} from 'consts/company';
 import apiRequest from './utils/apiRequest';
 
 function* fetchCompany({ id }) {

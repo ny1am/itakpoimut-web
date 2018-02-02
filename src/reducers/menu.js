@@ -1,5 +1,5 @@
-import { PRELOAD_LOCATION_CHANGE_END } from 'constants';
-import { SHOW_MENU, HIDE_MENU } from 'constants/menu';
+import { PRELOAD_LOCATION_CHANGE_END } from 'consts';
+import { SHOW_MENU, HIDE_MENU } from 'consts/menu';
 
 const initialState = false;
 

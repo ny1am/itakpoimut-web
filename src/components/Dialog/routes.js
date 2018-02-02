@@ -5,7 +5,7 @@ import SignupDialog from 'views/SignupDialog';
 import CreateCompanyDialog from 'views/CreateCompanyDialog';
 import AddViolationDialog from 'views/AddViolationDialog';
 import AddCategoryDialog from 'views/AddCategoryDialog';
-import { LOGIN_DIALOG, SIGNUP_DIALOG, PLEASE_SIGNUP_DIALOG, CREATE_COMPANY_DIALOG, ADD_VIOLATION_DIALOG, ADD_CATEGORY_DIALOG, SUCCESS_DIALOG } from 'constants/dialog';
+import { LOGIN_DIALOG, SIGNUP_DIALOG, PLEASE_SIGNUP_DIALOG, CREATE_COMPANY_DIALOG, ADD_VIOLATION_DIALOG, ADD_CATEGORY_DIALOG, SUCCESS_DIALOG } from 'consts/dialog';
 
 const routes = {
   [PLEASE_SIGNUP_DIALOG]: {

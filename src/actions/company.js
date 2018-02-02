@@ -2,7 +2,7 @@ import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
 
 import {
   GET_COMPANY, GET_COMPANY_SUCCESS,
-} from 'constants/company';
+} from 'consts/company';
 
 export function get(id) {
   return {

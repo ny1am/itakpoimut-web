@@ -1,8 +1,8 @@
 import {
   AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE,
   LOGOUT
-} from 'constants/auth';
-import { SAVE_USER_PROFILE_SUCCESS } from 'constants/userProfile';
+} from 'consts/auth';
+import { SAVE_USER_PROFILE_SUCCESS } from 'consts/userProfile';
 
 const initialState = {
   loggedUser: null,
