@@ -31,13 +31,14 @@ const enhanceDialog = (mapProps) => (Component) => {
     onSubmit(params) {
       const { dispatch } = this.context.store;
       const { changeLoading } = this.props;
-      const { onSubmit, successText } = mapProps(dispatch);
+      const props = mapProps(dispatch);
+      const { onSubmit, successTitle = 'Дякуємо!', successText } = props;
       //todo: context
       changeLoading(true);
       return onSubmit(params).then(data => {
         if (successText) {
           dispatch(showDialog(SUCCESS_DIALOG, {
-            title: 'Дякуємо!',
+            title: successTitle,
             body: successText
           }));
         } else {
