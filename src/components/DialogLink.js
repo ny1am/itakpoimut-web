@@ -8,7 +8,7 @@ const DialogLink = (props) => {
   const { dialogType, dialogProps, showDialog, children, ...rest } = props;
   const onClick = () => showDialog(dialogType, dialogProps);
   return (
-    <button onClick={onClick} {...rest}>
+    <button type="button" onClick={onClick} {...rest}>
       {children}
     </button>
   );
