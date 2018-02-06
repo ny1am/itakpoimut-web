@@ -5,7 +5,8 @@ import SignupDialog from 'views/SignupDialog';
 import CreateCompanyDialog from 'views/CreateCompanyDialog';
 import AddViolationDialog from 'views/AddViolationDialog';
 import AddCategoryDialog from 'views/AddCategoryDialog';
-import { LOGIN_DIALOG, SIGNUP_DIALOG, PLEASE_SIGNUP_DIALOG, CREATE_COMPANY_DIALOG, ADD_VIOLATION_DIALOG, ADD_CATEGORY_DIALOG, SUCCESS_DIALOG } from 'consts/dialog';
+import ChangePasswordDialog from 'views/ChangePasswordDialog';
+import { LOGIN_DIALOG, SIGNUP_DIALOG, PLEASE_SIGNUP_DIALOG, CREATE_COMPANY_DIALOG, ADD_VIOLATION_DIALOG, ADD_CATEGORY_DIALOG, SUCCESS_DIALOG, CHANGE_PASSWORD_DIALOG } from 'consts/dialog';
 
 const routes = {
   [PLEASE_SIGNUP_DIALOG]: {
@@ -31,6 +32,10 @@ const routes = {
   },
   [ADD_CATEGORY_DIALOG]: {
     component: AddCategoryDialog,
+    secure: true,
+  },
+  [CHANGE_PASSWORD_DIALOG]: {
+    component: ChangePasswordDialog,
     secure: true,
   },
 };

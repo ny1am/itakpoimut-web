@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import Avatar from 'components/Avatar';
 import FileUpload from 'components/FileUpload';
+import DialogLink from 'components/DialogLink';
+import { CHANGE_PASSWORD_DIALOG } from 'consts/dialog';
 
 import styles from './styles.scss';
 
@@ -98,6 +100,15 @@ class UserProfilePage extends React.Component {
                     maxLength="25"
                   />
                 </div>
+                {user.provider === 'local' &&
+                  <div className="row">
+                    <DialogLink
+                      className={styles.link}
+                      dialogType={CHANGE_PASSWORD_DIALOG}>
+                      Змінити пароль
+                    </DialogLink>
+                  </div>
+                }
               </section>
 
               <section className={styles.block}>
