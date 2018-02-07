@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet';
 
 import Avatar from 'components/Avatar';
 import FileUpload from 'components/FileUpload';
@@ -51,6 +52,9 @@ class UserProfilePage extends React.Component {
     const successSave = !!this.props.successSave;
     return (
       <div className="pattern-content">
+        <Helmet>
+          <title>Профіль</title>
+        </Helmet>
         <div className="container">
           <div className={styles.content}>
             {successSave &&

@@ -1,9 +1,13 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 import styles from './styles.scss';
 
 const AboutPage = () => (
   <div className="container">
+    <Helmet>
+      <title>Про нас</title>
+    </Helmet>
     <div className={styles.wrapper}>
       <div className={styles.restrict}>
         <section className={styles.section}>

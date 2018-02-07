@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet';
 
 import SearchResults from './SearchResults';
 import SelectedFilters from './SelectedFilters';
@@ -26,6 +27,9 @@ class CompaniesPage extends React.Component {
     const { companies, companiesCount, allCompaniesCount, currentPage, totalPages, sortOrder, title } = this.props;
     return (
       <div className="pattern-content">
+        <Helmet>
+          <title>Всі компанії</title>
+        </Helmet>
         <div className="container">
           <div className={styles.searchBar}>
             <SearchInput

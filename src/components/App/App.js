@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 import Loading from 'components/Loading';
 import ProgressBar from 'components/ProgressBar';
@@ -19,6 +20,10 @@ class App extends React.Component {
         <ProgressBar />
         <Dialog />
 
+        <Helmet
+          titleTemplate="%s - &laquo;И так поймут&raquo; каталог ЗМІ та бізнесу"
+          defaultTitle="&laquo;И так поймут&raquo; каталог ЗМІ та бізнесу"
+        />
         <Layout>
           <main className={styles.content}>
             <Routes />

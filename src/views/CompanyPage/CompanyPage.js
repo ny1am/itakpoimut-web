@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet';
 
 import { ADD_VIOLATION_DIALOG, ADD_CATEGORY_DIALOG } from 'consts/dialog';
 import DialogLink from 'components/DialogLink';
@@ -11,6 +12,9 @@ import styles from './styles.scss';
 
 const CompanyPage = ({ company }) => (
   <div className="pattern-content">
+    <Helmet>
+      <title>{company.title}</title>
+    </Helmet>
     <div className="container">
       <div className={styles.wrapper}>
         <section>
