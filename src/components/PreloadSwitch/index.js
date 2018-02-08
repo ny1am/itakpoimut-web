@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Switch, withRouter } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 
-import { locationChanged } from 'actions/preload';
-import { appReady } from 'actions/global';
-import { enhanceRouteWithProps } from 'components/Routes';
-import { hasPageLocationChanged, extractInitialData } from 'utils';
+import { extractInitialData } from 'utils';
 import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
 
 import extractFetchConfig from './extractFetchConfig';
+import enhanceRouteWithProps from './enhanceRouteWithProps';
 
 class PreloadSwitch extends React.Component {
 
@@ -31,8 +29,7 @@ class PreloadSwitch extends React.Component {
   componentWillReceiveProps (nextProps) {
     const nextLocation = nextProps.location;
     const location = this.props.location;
-    //checks if actual location changed (not dialog via location.state)
-    if (hasPageLocationChanged(nextLocation, location)) {
+    if (nextLocation !== location) {
       this.fetchRoutes({
         nextLocation,
         location
@@ -46,25 +43,16 @@ class PreloadSwitch extends React.Component {
 
   getFetchConfig({ nextLocation, location }) {
     const { store } = this.context;
-    const { dispatch } = store;
-    const fetchResult = extractFetchConfig(nextLocation, {
+    const { routeConfig } = this.props;
+    const fetchResult = extractFetchConfig(nextLocation, routeConfig, {
       store,
-      dispatch,
+      dispatch: store.dispatch,
       prevLocation: location
     });
     return {
       fetchKeys: fetchResult.map(item => item.prop),
       fetchPromises: fetchResult.map(item => item.promise)
     };
-  }
-
-  onDataFetched ({ nextLocation, location }) {
-    const { store: { dispatch } } = this.context;
-    dispatch(locationChanged({
-      location: nextLocation,
-      prevLocation: location
-    }));
-    dispatch(appReady());
   }
 
   fetchRoutes ({ nextLocation, location }) {
@@ -83,21 +71,20 @@ class PreloadSwitch extends React.Component {
         isAppFetching: false,
         ready: true,
       });
-    })
-    .finally(() => {
-      this.onDataFetched({ nextLocation, location });
+      const { onDataFetched } = this.props;
+      onDataFetched && onDataFetched({ nextLocation, location });
     });
     return promise;
   }
 
   render () {
     const { ready, initialData } = this.state;
-    const { children } = this.props;
+    const { children, location } = this.props;
     if (!ready) {
       return null;
     }
     return (
-      <Switch>
+      <Switch location={location}>
         {React.Children.map(children, child => (
           enhanceRouteWithProps(child, { initialData })
         ))}
@@ -115,10 +102,12 @@ PreloadSwitch.propTypes = {
    * location object
    */
   location: PropTypes.object.isRequired,
+  routeConfig: PropTypes.array.isRequired,
+  onDataFetched: PropTypes.func,
   /**
    * children
    */
   children: PropTypes.node,
 };
 
-export default withRouter(PreloadSwitch);
+export default PreloadSwitch;

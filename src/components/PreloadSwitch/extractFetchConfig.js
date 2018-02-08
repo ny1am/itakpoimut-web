@@ -1,8 +1,6 @@
 import { matchRoutes } from 'react-router-config';
 
-import { routeConfig } from 'components/Routes';
-
-const extractFetchConfig = (location, options) => {
+const extractFetchConfig = (location, routeConfig, options) => {
   const branch = matchRoutes(routeConfig, location.pathname);
   const fetchResult = branch
     .filter(({ route }) => route && route.component && route.component.fetch)

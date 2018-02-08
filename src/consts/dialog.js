@@ -1,9 +1,9 @@
-export const PLEASE_SIGNUP_DIALOG = 'PLEASE_SIGNUP_DIALOG';
-export const SUCCESS_DIALOG = 'SUCCESS_DIALOG';
+export const PLEASE_SIGNUP_DIALOG = '/dialog/please-signup';
+export const SUCCESS_DIALOG = '/dialog/success';
 
-export const LOGIN_DIALOG = 'LOGIN_DIALOG';
-export const SIGNUP_DIALOG = 'SIGNUP_DIALOG';
-export const CREATE_COMPANY_DIALOG = 'CREATE_COMPANY_DIALOG';
-export const ADD_VIOLATION_DIALOG = 'ADD_VIOLATION_DIALOG';
-export const ADD_CATEGORY_DIALOG = 'ADD_CATEGORY_DIALOG';
-export const CHANGE_PASSWORD_DIALOG = 'CHANGE_PASSWORD_DIALOG';
+export const LOGIN_DIALOG = '/dialog/login';
+export const SIGNUP_DIALOG = '/dialog/signup';
+export const CREATE_COMPANY_DIALOG = '/dialog/create-company';
+export const ADD_VIOLATION_DIALOG = '/dialog/add-violation/:companyId';
+export const ADD_CATEGORY_DIALOG = '/dialog/add-category/:companyId';
+export const CHANGE_PASSWORD_DIALOG = '/dialog/change-password';
