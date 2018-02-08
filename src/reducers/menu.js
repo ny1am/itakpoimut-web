@@ -1,4 +1,4 @@
-import { PRELOAD_LOCATION_CHANGE_END } from 'consts';
+import { PRELOAD_LOCATION_CHANGED } from 'consts';
 import { SHOW_MENU, HIDE_MENU } from 'consts/menu';
 
 const initialState = false;
@@ -9,7 +9,7 @@ const menuReducer = (state = initialState, action) => {
     case SHOW_MENU:
       return true;
 
-    case PRELOAD_LOCATION_CHANGE_END:
+    case PRELOAD_LOCATION_CHANGED:
     case HIDE_MENU:
       return false;
 

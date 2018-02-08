@@ -1,15 +1,7 @@
-import { PRELOAD_LOCATION_CHANGE_START, PRELOAD_LOCATION_CHANGE_END } from 'consts';
+import { PRELOAD_LOCATION_CHANGED } from 'consts';
 
-export const start =({ prevRoute, route, hash }) => ({
-  type: PRELOAD_LOCATION_CHANGE_START,
-  prevRoute,
-  route,
-  hash
-});
-
-export const end =({ prevRoute, route, hash }) => ({
-  type: PRELOAD_LOCATION_CHANGE_END,
-  prevRoute,
-  route,
-  hash
+export const locationChanged =({ location, prevLocation }) => ({
+  type: PRELOAD_LOCATION_CHANGED,
+  location,
+  prevLocation,
 });

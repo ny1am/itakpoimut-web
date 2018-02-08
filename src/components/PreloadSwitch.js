@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Switch, withRouter } from 'react-router-dom';
 import { matchRoutes } from 'react-router-config';
 
-import * as preload from 'actions/preload';
+import { locationChanged } from 'actions/preload';
 import { appReady } from 'actions/global';
 import { routeConfig } from 'components/Routes';
 import { hasPageLocationChanged, extractInitialData } from 'utils';
@@ -40,13 +40,20 @@ class PreloadSwitch extends React.Component {
   }
 
   componentWillMount () {
-    this.fetchRoutes(this.props, null);
+    this.fetchRoutes({
+      nextLocation: this.props.location,
+      location: null
+    });
   }
 
   componentWillReceiveProps (nextProps) {
-    const { props } = this;
-    if (hasPageLocationChanged(props.location, nextProps.location)) {
-      this.fetchRoutes(nextProps, props.location);
+    const nextLocation = nextProps.location;
+    const location = this.props.location;
+    if (hasPageLocationChanged(nextLocation, location)) {
+      this.fetchRoutes({
+        nextLocation,
+        location
+      });
     }
   }
 
@@ -54,22 +61,16 @@ class PreloadSwitch extends React.Component {
     return !nextState.isAppFetching;
   }
 
-  fetchRoutes (props, prevLocation) {
-    const { location } = props;
+  fetchRoutes ({ nextLocation, location }) {
     const { store } = this.context;
+    const { dispatch } = store;
     this.setState({
       isAppFetching: true,
       appFetchingError: null,
     });
-    const opts = { store, dispatch: store.dispatch, prevLocation };
-    const preloadOpts = {
-      prevRoute: this.props.location.pathname,
-      route: props.location.pathname,
-      hash: props.location.hash,
-    };
-    const fetchResult = getFetchResult(routeConfig, location, opts);
+    const opts = { store, dispatch, prevLocation: location };
+    const fetchResult = getFetchResult(routeConfig, nextLocation, opts);
     const promise = Promise.all(fetchResult.map(item => item.promise));
-    store.dispatch(preload.start(preloadOpts));
     wrapPromiseWithProgress(promise).then(values => {
       const fetchNames = fetchResult.map(item => item.prop);
       const initialData = extractInitialData(fetchNames, values);
@@ -82,8 +83,11 @@ class PreloadSwitch extends React.Component {
         isAppFetching: false,
         ready: true,
       });
-      store.dispatch(preload.end(preloadOpts));
-      store.dispatch(appReady());
+      dispatch(locationChanged({
+        location: nextLocation,
+        prevLocation: location
+      }));
+      dispatch(appReady());
     });
   }
 
