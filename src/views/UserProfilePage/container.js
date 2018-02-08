@@ -15,7 +15,7 @@ const scrollToError = (errors, holder) => {
 };
 
 class Container extends React.Component {
-  static fetch(match, location, { dispatch }) {
+  static fetch(location, { dispatch }) {
     return [{
       prop: 'user',
       promise: dispatch(get()),

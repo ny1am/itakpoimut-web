@@ -8,7 +8,7 @@ import { get as getCategories } from 'actions/category';
 import LandingPageComponent from './LandingPage';
 
 class Container extends React.Component {
-  static fetch(match, location, { dispatch }) {
+  static fetch(location, { dispatch }) {
     return [{
       prop: 'newCompanies',
       promise: dispatch(getNewCompanies()),

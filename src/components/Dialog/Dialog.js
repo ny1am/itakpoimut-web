@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-import routes from './routes';
+import findRoute from './utils/findRoute';
 import Loading from './Loading';
 import styles from './styles.scss';
 
@@ -20,10 +20,7 @@ class Dialog extends React.Component {
 
   render() {
     const { dialogType, dialogProps, loading, onClose, ...rest } = this.props;
-    if (!dialogType) {
-      return null;
-    }
-    const SpecificDialog = routes[dialogType].component;
+    const SpecificDialog = findRoute(dialogType).component;
     return (
       <div className={styles.shade}>
         <div ref="dialog" className={styles.dialog}>

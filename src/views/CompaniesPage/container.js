@@ -11,7 +11,7 @@ import { get as getViolations } from 'actions/violation';
 import CompaniesPageComponent from './CompaniesPage';
 
 class Container extends React.Component {
-  static fetch(match, location, { store, dispatch }) {
+  static fetch(location, { store, dispatch }) {
     const { title, currentPage, sortOrder, selectedCategory } = queryString.parse(location.search);
     //sync with redux store
     selectedCategory && dispatch(changeCategory(selectedCategory));

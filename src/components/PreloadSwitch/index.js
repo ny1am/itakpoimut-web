@@ -4,7 +4,7 @@ import { Switch, withRouter } from 'react-router-dom';
 
 import { locationChanged } from 'actions/preload';
 import { appReady } from 'actions/global';
-import { routeConfig, enhanceRouteWithProps } from 'components/Routes';
+import { enhanceRouteWithProps } from 'components/Routes';
 import { hasPageLocationChanged, extractInitialData } from 'utils';
 import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
 
@@ -47,7 +47,7 @@ class PreloadSwitch extends React.Component {
   getFetchConfig({ nextLocation, location }) {
     const { store } = this.context;
     const { dispatch } = store;
-    const fetchResult = extractFetchConfig(routeConfig, nextLocation, {
+    const fetchResult = extractFetchConfig(nextLocation, {
       store,
       dispatch,
       prevLocation: location
@@ -71,19 +71,23 @@ class PreloadSwitch extends React.Component {
     this.setState({ isAppFetching: true });
     const { fetchKeys, fetchPromises } =
       this.getFetchConfig({ nextLocation, location });
-    const promise = wrapPromiseWithProgress(Promise.all(fetchPromises));
-    promise.then(values => extractInitialData(fetchKeys, values))
+
+    const promise = wrapPromiseWithProgress(Promise.all(fetchPromises))
+    .then(values => extractInitialData(fetchKeys, values))
     .then(initialData => {
       this.setState({ initialData });
       return initialData;
     })
     .finally(() => {
-      this.onDataFetched({ nextLocation, location });
       this.setState({
         isAppFetching: false,
         ready: true,
       });
+    })
+    .finally(() => {
+      this.onDataFetched({ nextLocation, location });
     });
+    return promise;
   }
 
   render () {

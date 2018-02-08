@@ -8,11 +8,8 @@ import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
 import { extractInitialData } from 'utils';
 
 import DialogComponent from './Dialog';
-import routes from './routes';
-
-const emptyFetchResult = {
-  promise: Promise.resolve()
-};
+import findRoute from './utils/findRoute';
+import extractFetchConfig from './utils/extractFetchConfig';
 
 class Container extends React.Component {
 
@@ -21,7 +18,6 @@ class Container extends React.Component {
     this.changeLoading = this.changeLoading.bind(this);
     this.state = {
       dialogType: props.dialogType,
-      appFetchingError: null,
       isAppFetching: false,
       initialData: null,
       loading: false,
@@ -31,7 +27,11 @@ class Container extends React.Component {
 
   componentWillMount () {
     const nextDialogType = this.guardDialogType(this.state.dialogType);
-    this.fetchInitialData(this.props, nextDialogType);
+    const location = {
+      pathname: nextDialogType,
+      params: this.props.dialogProps
+    };
+    this.fetchInitialData(location);
   }
 
   componentWillReceiveProps (nextProps) {
@@ -39,7 +39,11 @@ class Container extends React.Component {
     if (this.state.dialogType === nextDialogType || !nextDialogType) {
      return;
     }
-    this.fetchInitialData(nextProps, nextDialogType);
+    const location = {
+      pathname: nextDialogType,
+      params: nextProps.dialogProps,
+    };
+    this.fetchInitialData(location);
   }
 
   shouldComponentUpdate (nextProps, nextState) {
@@ -53,7 +57,7 @@ class Container extends React.Component {
   guardDialogType(dialogType) {
     let nextDialogType = dialogType;
     if (nextDialogType) {
-      const route = routes[nextDialogType];
+      const route = findRoute(nextDialogType);
       if (route.secure && !this.props.loggedUser) {
         nextDialogType = PLEASE_SIGNUP_DIALOG;
       }
@@ -62,34 +66,32 @@ class Container extends React.Component {
     return nextDialogType;
   }
 
-  fetchInitialData (props, dialogType) {
-    if (!dialogType) {
-      return;
-    }
-    const { dialogProps } = props;
+  getFetchConfig(location) {
     const { dispatch } = this.context.store;
-    this.setState({
-      appFetchingError: null,
-      isAppFetching: true,
-      initialData: null,
-    });
-    const { fetch } = routes[dialogType].component;
-    const fetchResult =
-      (fetch && fetch(dialogProps, dispatch)) || [emptyFetchResult];
-    const promise = Promise.all(fetchResult.map(item => item.promise));
-    wrapPromiseWithProgress(promise).then(values => {
-      const fetchNames = fetchResult.map(item => item.prop);
-      const initialData = extractInitialData(fetchNames, values);
+    const fetchResult = extractFetchConfig(location, { dispatch });
+    return {
+      fetchKeys: fetchResult.map(item => item.prop),
+      fetchPromises: fetchResult.map(item => item.promise)
+    };
+  }
+
+  fetchInitialData (location) {
+    this.setState({ isAppFetching: true });
+    const { fetchKeys, fetchPromises } = this.getFetchConfig(location);
+
+    const promise = wrapPromiseWithProgress(Promise.all(fetchPromises))
+    .then(values => extractInitialData(fetchKeys, values))
+    .then(initialData => {
       this.setState({ initialData });
-      return values;
-    }).catch(error => {
-      this.setState({ appFetchingError: error });
-    }).finally(() => {
+      return initialData;
+    })
+    .finally(() => {
       this.setState({
         isAppFetching: false,
         ready: true
       });
     });
+    return promise;
   }
 
   render() {

@@ -15,9 +15,9 @@ const scrollToError = (errors, holder) => {
 const enhanceDialog = (mapProps) => (Component) => {
   class EnhancedDialog extends React.Component {
 
-    static fetch(dialogProps, dispatch) {
+    static fetch(location, { dispatch }) {
       const { onInit } = mapProps(dispatch);
-      return onInit && onInit(dialogProps);
+      return onInit && onInit(location.params);
     }
 
     constructor(props) {
