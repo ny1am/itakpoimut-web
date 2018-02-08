@@ -26,7 +26,7 @@ class AddViolationDialog extends React.Component {
                 <CheckRow text={item.text}
                   name="selectedViolations[]"
                   value={item.name}
-                  checked={selectedViolations.indexOf(item) > -1}
+                  checked={selectedViolations.includes(item)}
                   onChange={
                     ({ target: { checked } }) =>
                       onSelectViolation(checked, item)

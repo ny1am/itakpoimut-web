@@ -59,7 +59,7 @@ class AddCategoryDialog extends React.Component {
                     <CheckRow text={item.text}
                       name="selectedCategories[]"
                       value={item}
-                      checked={selectedCategories.indexOf(item) > -1}
+                      checked={selectedCategories.includes(item)}
                       onChange={
                         ({ target: { checked } }) => onSelectCategory(checked, item)
                       }

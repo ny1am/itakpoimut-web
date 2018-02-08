@@ -16,7 +16,7 @@ const ViolationFilters = ({ value, list, onChange }) => (
           <CheckRow text={violation.text}
             name="selectedViolations[]"
             value={violation.name}
-            checked={value.indexOf(violation.name) !== -1}
+            checked={value.includes(violation.name)}
             onChange={
               ({ target: { checked } }) => onChange(checked, violation.name)
             }

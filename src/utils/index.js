@@ -15,9 +15,9 @@ export const http = (url) => {
 * checkes wheather route has been changed, with dialogs being not taken in care of.
 */
 export const hasPageLocationChanged = (prevLocation, nextLocation) => {
-  const currentDialog = (prevLocation.state || {}).dialogType;
-  const nextDialog = (nextLocation.state || {}).dialogType;
-  return (prevLocation !== nextLocation && currentDialog == nextDialog);
+  const currentDialog = (prevLocation.state || {}).dialogType || null;
+  const nextDialog = (nextLocation.state || {}).dialogType || null;
+  return (prevLocation !== nextLocation && currentDialog === nextDialog);
 };
 
 export const getDisplayName = (Component) => (

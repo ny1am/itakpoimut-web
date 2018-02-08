@@ -39,7 +39,7 @@ class Container extends React.Component {
     const { violationsList, company } = this.props;
     const { selectedViolations } = this.state;
     const filteredViolations = violationsList.filter(
-      item => company.violations.map(v => v.name).indexOf(item.name) === -1
+      item => !company.violations.map(v => v.name).includes(item.name)
     );
     return (
       <AddViolationDialogComponent

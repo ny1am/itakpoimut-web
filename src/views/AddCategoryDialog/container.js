@@ -10,8 +10,8 @@ import AddCategoryDialogComponent from './AddCategoryDialog';
 
 const filterCategories = (allCategories, companyCategories) => (
   allCategories.filter(item => {
-    return companyCategories
-      .map(category => category.name).indexOf(item.name) === -1;
+    return !companyCategories
+      .map(category => category.name).includes(item.name);
   })
 );
 
