@@ -44,8 +44,9 @@ class Container extends React.Component {
   }
 
   render() {
-    const categories = this.props.categoriesList;
-    const companyCategories = this.props.company.categories;
+    const { initialData } = this.props;
+    const categories = initialData.categoriesList;
+    const companyCategories = initialData.company.categories;
     const filteredCategories = filterCategories(categories, companyCategories);
     const { selectedCategories } = this.state;
     return (
@@ -62,16 +63,18 @@ class Container extends React.Component {
 
 Container.propTypes = {
   companyId: PropTypes.number,
-  company: PropTypes.shape({
-    categories: PropTypes.arrayOf(PropTypes.shape({
+  initialData: PropTypes.shape({
+    company: PropTypes.shape({
+      categories: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        text: PropTypes.string.isRequired,
+      }))
+    }).isRequired,
+    categoriesList: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
-    }))
+    })),
   }).isRequired,
-  categoriesList: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  })),
   onSubmit: PropTypes.func,
 };
 

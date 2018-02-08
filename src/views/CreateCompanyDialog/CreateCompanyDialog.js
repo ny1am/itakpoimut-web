@@ -86,6 +86,7 @@ class CreateCompanyDialog extends React.Component {
     const titleClass = errors.title?'row--error':'';
     const descriptionClass = errors.description?'row--error':'';
     const company_siteClass = errors.company_site?'row--error':'';
+    const { categoriesList, violationsList } = this.props.initialData;
     return (
       <div className={`dialog_content ${styles.wrapper}`}>
         <h1>
@@ -130,7 +131,7 @@ class CreateCompanyDialog extends React.Component {
                   backspaceRemoves={false}
                   value={this.state.selectedCategories}
                   onChange={this.handleCategoryChange}
-                  options={this.props.categoriesList.map(item =>({label: item.text, value: item.name}))}
+                  options={categoriesList.map(item =>({label: item.text, value: item.name}))}
                 />
               </div>
               <div className={"row "+descriptionClass}>
@@ -170,7 +171,7 @@ class CreateCompanyDialog extends React.Component {
                   backspaceRemoves={false}
                   value={this.state.selectedViolations}
                   onChange={this.handleViolationChange}
-                  options={this.props.violationsList.map(item =>({label: item.text, value: item.name}))}
+                  options={violationsList.map(item =>({label: item.text, value: item.name}))}
                 />
               </div>
             </div>
@@ -186,8 +187,10 @@ class CreateCompanyDialog extends React.Component {
 
 CreateCompanyDialog.propTypes = {
   errors: PropTypes.object,
-  categoriesList: PropTypes.array.isRequired,
-  violationsList: PropTypes.array.isRequired,
+  initialData: PropTypes.shape({
+    categoriesList: PropTypes.array.isRequired,
+    violationsList: PropTypes.array.isRequired,
+  }).isRequired,
   selectedCategories: PropTypes.array,
   selectedViolations: PropTypes.array,
   onSubmit: PropTypes.func.isRequired,

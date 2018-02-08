@@ -36,7 +36,7 @@ class Container extends React.Component {
   }
 
   render() {
-    const { violationsList, company } = this.props;
+    const { violationsList, company } = this.props.initialData;
     const { selectedViolations } = this.state;
     const filteredViolations = violationsList.filter(
       item => !company.violations.map(v => v.name).includes(item.name)
@@ -54,16 +54,18 @@ class Container extends React.Component {
 
 Container.propTypes = {
   companyId: PropTypes.number.isRequired,
-  company: PropTypes.shape({
-    violations: PropTypes.arrayOf(PropTypes.shape({
+  initialData: PropTypes.shape({
+    company: PropTypes.shape({
+      violations: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        text: PropTypes.string.isRequired,
+      })),
+    }),
+    violationsList: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,
-    })),
-  }),
-  violationsList: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  })).isRequired,
+    })).isRequired,
+  }).isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 

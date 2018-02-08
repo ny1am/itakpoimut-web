@@ -57,10 +57,8 @@ const enhanceDialog = (mapProps) => (Component) => {
     }
 
     render() {
-      const { initialData, ...props } = this.props;
       return (<Component
-        {...props}
-        {...initialData}
+        {...this.props}
         errors={this.state.errors}
         onSubmit={this.onSubmit}
       />);
@@ -75,7 +73,6 @@ const enhanceDialog = (mapProps) => (Component) => {
   };
 
   EnhancedDialog.propTypes = {
-    initialData: PropTypes.object,
     changeLoading: PropTypes.func.isRequired,
   };
 
