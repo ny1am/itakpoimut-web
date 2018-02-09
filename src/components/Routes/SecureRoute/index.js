@@ -1,6 +1,2 @@
-import container from './container';
-import SecureRouteComponent from './SecureRoute';
-
-export { SecureRouteComponent };
-
-export default container;
+export { default as SecureRouteComponent } from './SecureRoute';
+export { default } from './container';
