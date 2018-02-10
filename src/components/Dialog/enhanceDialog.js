@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import hoistNonReactStatics from 'hoist-non-react-statics';
 import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
-import { SUCCESS_DIALOG } from 'consts/dialog';
-import { showDialog, hideDialog } from 'actions/dialog';
+import { hideDialog } from 'actions/dialog';
 import { getDisplayName, getFirstErrorElement } from 'utils';
 
 const scrollToError = (errors, holder) => {
@@ -15,33 +15,32 @@ const scrollToError = (errors, holder) => {
 const enhanceDialog = (mapProps) => (Component) => {
   class EnhancedDialog extends React.Component {
 
-    static fetch(location, { dispatch }) {
-      const { onInit } = mapProps(dispatch);
-      return onInit && onInit(location.params);
-    }
-
     constructor(props) {
       super(props);
       this.onSubmit = this.onSubmit.bind(this);
       this.state = {
+        success: null,
         errors: {},
       };
     }
 
-    onSubmit(params) {
+    componentWillMount() {
       const { dispatch } = this.context.store;
+      this.mappedProps = mapProps(dispatch);
+    }
+
+    onSubmit(params) {
       const { changeLoading } = this.props;
-      const props = mapProps(dispatch);
-      const { onSubmit, successTitle = 'Дякуємо!', successText } = props;
+      const { onSubmit, SuccessDialog } = this.mappedProps;
       //todo: context
       changeLoading(true);
       return onSubmit(params).then(data => {
-        if (successText) {
-          dispatch(showDialog(SUCCESS_DIALOG, {
-            title: successTitle,
-            body: successText
-          }));
+        if (SuccessDialog) {
+          this.setState({
+            success: true,
+          });
         } else {
+          const { dispatch } = this.context.store;
           dispatch(hideDialog());
         }
         return data;
@@ -57,6 +56,12 @@ const enhanceDialog = (mapProps) => (Component) => {
     }
 
     render() {
+      if(this.state.success) {
+        const { SuccessDialog } = this.mappedProps;
+        return (
+          <SuccessDialog />
+        );
+      }
       return (<Component
         {...this.props}
         errors={this.state.errors}
@@ -75,6 +80,8 @@ const enhanceDialog = (mapProps) => (Component) => {
   EnhancedDialog.propTypes = {
     changeLoading: PropTypes.func.isRequired,
   };
+
+  hoistNonReactStatics(EnhancedDialog, Component);
 
   EnhancedDialog.displayName = `EnhancedDialog(${getDisplayName(Component)})`;
 

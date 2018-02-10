@@ -1,4 +1,4 @@
-div.shade {
+.shade {
   position: fixed;
   top: 0;
   z-index: 10;
@@ -11,7 +11,7 @@ div.shade {
   overflow: auto;
 }
 
-div.dialog {
+.dialog {
   display: inline-block;
   min-width: 375px;
   z-index: 11;
@@ -41,7 +41,7 @@ div.dialog {
   }  
 }
 
-button.close {
+.close {
   background-image: url(/assets/img/icons-sprite.png);
   background-position: -114px -58px;
   width: 12px;
@@ -58,4 +58,8 @@ button.close {
     width: 30px;
     height: 30px;
   }
+}
+
+.hidden {
+  display: none;
 }

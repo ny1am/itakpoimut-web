@@ -1,39 +1,34 @@
 import PleaseSignupDialog from 'views/PleaseSignupDialog';
-import SuccessDialog from 'views/SuccessDialog';
 import LoginDialog from 'views/LoginDialog';
 import SignupDialog from 'views/SignupDialog';
 import CreateCompanyDialog from 'views/CreateCompanyDialog';
 import AddViolationDialog from 'views/AddViolationDialog';
 import AddCategoryDialog from 'views/AddCategoryDialog';
 import ChangePasswordDialog from 'views/ChangePasswordDialog';
-import { LOGIN_DIALOG, SIGNUP_DIALOG, PLEASE_SIGNUP_DIALOG, CREATE_COMPANY_DIALOG, ADD_VIOLATION_DIALOG, ADD_CATEGORY_DIALOG, SUCCESS_DIALOG, CHANGE_PASSWORD_DIALOG } from 'consts/dialog';
 
 const routeConfig = [{
-  path: PLEASE_SIGNUP_DIALOG,
+  path: '/dialog/please-signup',
   component: PleaseSignupDialog,
 }, {
-  path: SUCCESS_DIALOG,
-  component: SuccessDialog,
-}, {
-  path: LOGIN_DIALOG,
+  path: '/dialog/login',
   component: LoginDialog,
 }, {
-  path: SIGNUP_DIALOG,
+  path: '/dialog/signup',
   component: SignupDialog,
 }, {
-  path: CREATE_COMPANY_DIALOG,
+  path: '/dialog/create-company',
   component: CreateCompanyDialog,
   secure: true,
 }, {
-  path: ADD_VIOLATION_DIALOG,
+  path: '/dialog/add-violation/:companyId',
   component: AddViolationDialog,
   secure: true,
 }, {
-  path: ADD_CATEGORY_DIALOG,
+  path: '/dialog/add-category/:companyId',
   component: AddCategoryDialog,
   secure: true,
 }, {
-  path: CHANGE_PASSWORD_DIALOG,
+  path: '/dialog/change-password',
   component: ChangePasswordDialog,
   secure: true,
 }];

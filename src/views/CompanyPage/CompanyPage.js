@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
-import { ADD_VIOLATION_DIALOG, ADD_CATEGORY_DIALOG } from 'consts/dialog';
 import DialogLink from 'components/DialogLink';
 import Loyalty from 'components/Loyalty';
 import { http } from 'utils';
@@ -58,7 +57,10 @@ const CompanyPage = ({ company }) => (
                 ))}
               </ul>
             )}
-            <DialogLink dialogType={ADD_VIOLATION_DIALOG} dialogProps={{companyId: company._id}} className={styles.addViolation}>
+            <DialogLink
+              dialogType={`/dialog/add-violation/${company._id}`}
+              className={styles.addViolation}
+            >
               Додати порушення
             </DialogLink>
           </div>
@@ -73,7 +75,10 @@ const CompanyPage = ({ company }) => (
                 </li>
               ))}
               <li>
-                <DialogLink dialogType={ADD_CATEGORY_DIALOG} dialogProps={{companyId: company._id}} className={styles.addCategory}>
+                <DialogLink
+                  dialogType={`/dialog/add-category/${company._id}`}
+                  className={styles.addCategory}
+                >
                   Додати сферу
                 </DialogLink>
               </li>

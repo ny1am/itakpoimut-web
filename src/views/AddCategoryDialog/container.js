@@ -7,6 +7,7 @@ import { get as getCategories } from 'actions/category';
 import { enhanceDialog } from 'components/Dialog';
 
 import AddCategoryDialogComponent from './AddCategoryDialog';
+import SuccessDialog from './SuccessDialog';
 
 const filterCategories = (allCategories, companyCategories) => (
   allCategories.filter(item => {
@@ -16,6 +17,17 @@ const filterCategories = (allCategories, companyCategories) => (
 );
 
 class Container extends React.Component {
+
+  static fetch(location, { dispatch, params }) {
+    const { companyId } = params;
+    return [{
+      prop: 'company',
+      promise: dispatch(get(companyId))
+    }, {
+      prop: 'categoriesList',
+      promise: dispatch(getCategories())
+    }];
+  }
 
   constructor(props) {
     super(props);
@@ -27,7 +39,8 @@ class Container extends React.Component {
   }
 
   onSubmit() {
-    const { companyId, onSubmit } = this.props;
+    const { onSubmit } = this.props;
+    const companyId = this.props.initialData.company._id;
     const { selectedCategories } = this.state;
     return onSubmit({
       companyId,
@@ -62,9 +75,9 @@ class Container extends React.Component {
 }
 
 Container.propTypes = {
-  companyId: PropTypes.number,
   initialData: PropTypes.shape({
     company: PropTypes.shape({
+      _id: PropTypes.number.isRequired,
       categories: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string.isRequired,
         text: PropTypes.string.isRequired,
@@ -79,17 +92,8 @@ Container.propTypes = {
 };
 
 const mapProps = (dispatch) => ({
-  onInit: ({ companyId }) => {
-    return [{
-      prop: 'company',
-      promise: dispatch(get(companyId))
-    }, {
-      prop: 'categoriesList',
-      promise: dispatch(getCategories())
-    }];
-  },
   onSubmit: (params) => dispatch(save(params)),
-  successText: 'Запит на додання сфери надіслано. Адміністратор розгляне його найближчим часом.',
+  SuccessDialog,
 });
 
 export default enhanceDialog(mapProps)(

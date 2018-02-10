@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch } from 'react-router-dom';
 
-import { extractInitialData } from 'utils';
 import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
 
-import extractFetchConfig from './extractFetchConfig';
-import enhanceRouteWithProps from './enhanceRouteWithProps';
+import extractFetchConfig from './utils/extractFetchConfig';
+import enhanceRouteWithProps from './utils/enhanceRouteWithProps';
+import extractInitialData from './utils/extractInitialData';
 
 class PreloadSwitch extends React.Component {
 
@@ -79,14 +79,14 @@ class PreloadSwitch extends React.Component {
 
   render () {
     const { ready, initialData } = this.state;
-    const { children, location } = this.props;
+    const { children, location, passThroughProps } = this.props;
     if (!ready) {
       return null;
     }
     return (
       <Switch location={location}>
         {React.Children.map(children, child => (
-          enhanceRouteWithProps(child, { initialData })
+          enhanceRouteWithProps(child, { initialData, ...passThroughProps })
         ))}
       </Switch>
     );
@@ -104,6 +104,8 @@ PreloadSwitch.propTypes = {
   location: PropTypes.object.isRequired,
   routeConfig: PropTypes.array.isRequired,
   onDataFetched: PropTypes.func,
+  //todo: not sure if needed
+  passThroughProps: PropTypes.object,
   /**
    * children
    */

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { CREATE_COMPANY_DIALOG } from 'consts/dialog';
 import DialogLink from 'components/DialogLink';
 
 import userLinks from './userLinks';
@@ -26,7 +25,10 @@ const Menu = ({ loggedUser, shown, onMenuHide }) => {
           </ul>
           <div className={styles.aside}>
             <Link className={styles.search} to="/companies" />
-            <DialogLink dialogType={CREATE_COMPANY_DIALOG} className={styles.addCompany}>
+            <DialogLink
+              dialogType="/dialog/create-company"
+              className={styles.addCompany}
+            >
               Запропонувати компанію
             </DialogLink>
           </div>

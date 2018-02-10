@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { SIGNUP_DIALOG } from 'consts/dialog';
 import DialogLink from 'components/DialogLink';
 import Password from 'components/Password';
 
@@ -73,7 +72,7 @@ class LoginDialog extends React.Component {
           </button>
         </form>
         <aside className="dialog__aside">
-          <DialogLink dialogType={SIGNUP_DIALOG} className="regularLink">
+          <DialogLink dialogType="/dialog/signup" className="regularLink">
             Реєстрація
           </DialogLink>
         </aside>

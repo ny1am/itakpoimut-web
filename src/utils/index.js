@@ -26,17 +26,6 @@ export const keyValueToObjectReducer = (result, { key, value }) => (
   Object.assign(result, {[key] : value})
 );
 
-export const extractInitialData = (names, values) => {
-  const initialData = values
-    .map((value, index) => ({
-      key: names[index],
-      value
-    }))
-    .filter(item => item.key)
-    .reduce(keyValueToObjectReducer, {});
-  return initialData;
-};
-
 export const preventDefault = (fn, ...args) => (event) => {
   event.preventDefault();
   return fn(...args);

@@ -5,7 +5,6 @@ import { Helmet } from 'react-helmet';
 import Avatar from 'components/Avatar';
 import FileUpload from 'components/FileUpload';
 import DialogLink from 'components/DialogLink';
-import { CHANGE_PASSWORD_DIALOG } from 'consts/dialog';
 
 import styles from './styles.scss';
 
@@ -108,7 +107,8 @@ class UserProfilePage extends React.Component {
                   <div className="row">
                     <DialogLink
                       className={styles.link}
-                      dialogType={CHANGE_PASSWORD_DIALOG}>
+                      dialogType="/dialog/change-password"
+                    >
                       Змінити пароль
                     </DialogLink>
                   </div>

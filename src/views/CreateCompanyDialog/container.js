@@ -1,12 +1,16 @@
+import React from 'react';
+
 import { get as getCategories } from 'actions/category';
 import { get as getViolations } from 'actions/violation';
 import { save } from 'actions/createCompany';
 import { enhanceDialog } from 'components/Dialog';
 
 import CreateCompanyDialogComponent from './CreateCompanyDialog';
+import SuccessDialog from './SuccessDialog';
 
-const mapProps = (dispatch) => ({
-  onInit: () => {
+class Container extends React.Component {
+
+  static fetch(location, { dispatch }) {
     return [{
       prop: 'categoriesList',
       promise: dispatch(getCategories())
@@ -14,11 +18,18 @@ const mapProps = (dispatch) => ({
       prop: 'violationsList',
       promise: dispatch(getViolations())
     }];
-  },
+  }
+
+  render() {
+    return <CreateCompanyDialogComponent {...this.props} />;
+  }
+}
+
+const mapProps = (dispatch) => ({
   onSubmit: (params) => dispatch(save(params)),
-  successText: 'Запит на створення компанії надіслано. Адміністратор розгляне його найближчим часом.',
+  SuccessDialog,
 });
 
 export default enhanceDialog(mapProps)(
-  CreateCompanyDialogComponent
+  Container
 );

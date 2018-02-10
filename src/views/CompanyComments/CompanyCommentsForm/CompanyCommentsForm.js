@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { LOGIN_DIALOG } from 'consts/dialog';
 import DialogLink from 'components/DialogLink';
 import Avatar from 'components/Avatar';
 import { preventDefault } from 'utils';
@@ -39,7 +38,7 @@ class CompanyCommentsForm extends React.Component {
     } else {
       return (
         <div className={styles.notLoggedIn}>
-          Для того, щоб залишити коментар, вам необхідно <DialogLink dialogType={LOGIN_DIALOG}>ввійти</DialogLink>
+          Для того, щоб залишити коментар, вам необхідно <DialogLink dialogType="/dialog/login">ввійти</DialogLink>
         </div>
       );
     }

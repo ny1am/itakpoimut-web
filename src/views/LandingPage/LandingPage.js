@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { CREATE_COMPANY_DIALOG } from 'consts/dialog';
 import DialogLink from 'components/DialogLink';
 import AutocompleteSearch from 'components/AutocompleteSearch';
 import LandingSection from 'components/LandingSection';
@@ -63,7 +62,10 @@ const LandingPage = ({ categoriesList, newCompanies, comments }) => (
           <p className={styles.text}>
             Допоможіть нам стати кращими, пропонуючи компанії, яких ще немає у базі. Ми зацікавлені у тому, аби наш сервіс представляв якомога більшу кількість різноманітних компаній - як лояльних до української мови, так і порушників. Зазначимо, що ви тільки пропонуєте компанію на розгляд. Після того її затверджує модератор, і система сама присвоює компанії статус лояльної/порушника на основі наявності/відсутності порушень.
           </p>
-          <DialogLink dialogType={CREATE_COMPANY_DIALOG} className="page__button">
+          <DialogLink
+            dialogType="/dialog/create-company"
+            className="page__button"
+          >
             Запропонувати компанію
           </DialogLink>
         </section>

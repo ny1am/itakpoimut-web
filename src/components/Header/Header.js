@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { LOGIN_DIALOG, CREATE_COMPANY_DIALOG } from 'consts/dialog';
 import DialogLink from 'components/DialogLink';
 import Avatar from 'components/Avatar';
 
@@ -27,7 +26,10 @@ const Header = ({ loggedUser, onLogout, onMenuShow }) => (
               <button key="logout" className={styles.logout} onClick={onLogout} />
             </React.Fragment>
           :
-            <DialogLink dialogType={LOGIN_DIALOG} className={styles.login}>
+            <DialogLink
+              dialogType="/dialog/login"
+              className={styles.login}
+            >
               Вхід/Реєстрація
             </DialogLink>
           }
@@ -37,7 +39,10 @@ const Header = ({ loggedUser, onLogout, onMenuShow }) => (
     <header className={styles.mobile}>
       <button className={styles.menu} onClick={onMenuShow} />
       <div className={styles.buttons}>
-        <DialogLink dialogType={CREATE_COMPANY_DIALOG} className={styles.addCompany} />
+        <DialogLink
+          dialogType="/dialog/create-company"
+          className={styles.addCompany}
+        />
         <Link to="/companies" className={styles.search} />
         {loggedUser ?
           <React.Fragment>
@@ -45,7 +50,7 @@ const Header = ({ loggedUser, onLogout, onMenuShow }) => (
             <button key="logout" className={styles.logout} onClick={onLogout} />
           </React.Fragment>
         :
-          <DialogLink dialogType={LOGIN_DIALOG} className={styles.user} />
+          <DialogLink dialogType="/dialog/login" className={styles.user} />
         }
       </div>
     </header>

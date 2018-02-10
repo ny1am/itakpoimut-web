@@ -5,10 +5,10 @@ import { history } from '../store/configureStore';
 /**
  * Shows dialog
  */
-export function showDialog(dialogType, dialogProps) {
+export function showDialog(dialogType) {
   const newLocation = {
     ...history.location,
-    state: { dialogType, dialogProps }
+    state: { dialogType }
   };
   return push(newLocation);
 }

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.scss';
 
-const SuccessDialog = ({ title, body }) => (
+const SuccessDialog = ({ title = 'Дякуємо!', body }) => (
   <div className={`dialog_content ${styles.wrapper}`}>
     <h1>
       {title}
@@ -14,7 +14,7 @@ const SuccessDialog = ({ title, body }) => (
 );
 
 SuccessDialog.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   body: PropTypes.string.isRequired,
 };
 

@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { showDialog } from 'actions/dialog';
 
 const DialogLink = (props) => {
-  const { dialogType, dialogProps, showDialog, children, ...rest } = props;
-  const onClick = () => showDialog(dialogType, dialogProps);
+  const { dialogType, showDialog, children, ...rest } = props;
+  const onClick = () => showDialog(dialogType);
   return (
     <button type="button" onClick={onClick} {...rest}>
       {children}
@@ -26,10 +26,6 @@ DialogLink.propTypes = {
     PropTypes.string,
     PropTypes.bool,
   ]),
-  /**
-   * Specific dialog props
-   */
-  dialogProps: PropTypes.object,
   children: PropTypes.node,
   showDialog: PropTypes.func.isRequired,
 };

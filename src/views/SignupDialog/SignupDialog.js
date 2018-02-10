@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { LOGIN_DIALOG } from 'consts/dialog';
 import DialogLink from 'components/DialogLink';
 import Password from 'components/Password';
 
@@ -113,7 +112,7 @@ class SignupDialog extends React.Component {
           <button className="dialog__button" type="submit">Зареєструватись</button>
         </form>
         <aside className="dialog__aside">
-          <DialogLink dialogType={LOGIN_DIALOG} className="regularLink">
+          <DialogLink dialogType="/dialog/login" className="regularLink">
             У мене вже є аккаунт
           </DialogLink>
         </aside>

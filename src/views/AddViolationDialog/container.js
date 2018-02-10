@@ -7,8 +7,20 @@ import { save } from 'actions/addViolation';
 import { enhanceDialog } from 'components/Dialog';
 
 import AddViolationDialogComponent from './AddViolationDialog';
+import SuccessDialog from './SuccessDialog';
 
 class Container extends React.Component {
+
+  static fetch(location, { dispatch, params }) {
+    const { companyId } = params;
+    return [{
+      prop: 'company',
+      promise: dispatch(get(companyId))
+    }, {
+      prop: 'violationsList',
+      promise: dispatch(getViolations())
+    }];
+  }
 
   constructor(props) {
     super(props);
@@ -27,7 +39,8 @@ class Container extends React.Component {
   }
 
   onSubmit() {
-    const { companyId, onSubmit } = this.props;
+    const { onSubmit } = this.props;
+    const companyId = this.props.initialData.company._id;
     const { selectedViolations } = this.state;
     return onSubmit({
       companyId,
@@ -53,9 +66,9 @@ class Container extends React.Component {
 }
 
 Container.propTypes = {
-  companyId: PropTypes.number.isRequired,
   initialData: PropTypes.shape({
     company: PropTypes.shape({
+      _id: PropTypes.number.isRequired,
       violations: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string.isRequired,
         text: PropTypes.string.isRequired,
@@ -70,17 +83,8 @@ Container.propTypes = {
 };
 
 const mapProps = (dispatch) => ({
-  onInit: ({ companyId }) => {
-    return [{
-      prop: 'company',
-      promise: dispatch(get(companyId))
-    }, {
-      prop: 'violationsList',
-      promise: dispatch(getViolations())
-    }];
-  },
   onSubmit: (params) => dispatch(save(params)),
-  successText: 'Запит на додання порушення надіслано. Адміністратор розгляне його найближчим часом.',
+  SuccessDialog,
 });
 
 export default enhanceDialog(mapProps)(
