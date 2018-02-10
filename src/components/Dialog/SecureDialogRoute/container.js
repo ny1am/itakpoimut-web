@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 
 import SecureDialogRouteComponent from './SecureDialogRoute';
 
-const mapStateToProps = (state) => ({
-  loggedUser: state.auth.loggedUser,
+const mapStateToProps = ({ auth }) => ({
+  loggedUser: auth.loggedUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
