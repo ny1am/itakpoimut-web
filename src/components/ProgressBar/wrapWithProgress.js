@@ -14,9 +14,9 @@ const showProgress = () => {
 
 const hideProgress = Progress.hide;
 
-const wrapPromise = (promise) => {
+const wrapWithProgress = (promise) => {
   return wrapWithSideEffect(showProgress, PROGRESS_DELAY)(promise)
     .finally(hideProgress);
 };
 
-export default wrapPromise;
+export default wrapWithProgress;

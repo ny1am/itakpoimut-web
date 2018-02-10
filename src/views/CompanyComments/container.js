@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 
-import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
+import { wrapWithProgress } from 'components/ProgressBar';
 import { get } from 'actions/comments';
 import CompanyCommentsComponent from './CompanyComments';
 
@@ -37,7 +37,7 @@ class Container extends React.Component {
     const newPage = getCurrentPage(newProps.location);
     if (currentPage !== newPage) {
       const promise = onInit(companyId, newPage);
-      return wrapPromiseWithProgress(promise);
+      return wrapWithProgress(promise);
     }
   }
 

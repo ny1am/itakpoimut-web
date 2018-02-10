@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Switch } from 'react-router-dom';
 
-import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
+import { wrapWithProgress } from 'components/ProgressBar';
 
 import extractFetchConfig from './utils/extractFetchConfig';
 import enhanceRouteWithProps from './utils/enhanceRouteWithProps';
@@ -60,7 +60,7 @@ class PreloadSwitch extends React.Component {
     const { fetchKeys, fetchPromises } =
       this.getFetchConfig({ nextLocation, location });
 
-    const promise = wrapPromiseWithProgress(Promise.all(fetchPromises))
+    const promise = wrapWithProgress(Promise.all(fetchPromises))
     .then(values => extractInitialData(fetchKeys, values))
     .then(initialData => {
       this.setState({ initialData });

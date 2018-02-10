@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { add } from 'actions/comments';
-import { wrapPromise as wrapPromiseWithProgress } from 'components/ProgressBar';
+import { wrapWithProgress } from 'components/ProgressBar';
 
 import CompanyCommentsFormComponent from './CompanyCommentsForm';
 
@@ -30,7 +30,7 @@ class Container extends React.Component {
       this.setState({ text: '' });
       return data;
     });
-    return wrapPromiseWithProgress(promise);
+    return wrapWithProgress(promise);
   }
 
   render() {
