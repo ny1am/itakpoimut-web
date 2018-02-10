@@ -26,7 +26,7 @@ const Menu = ({ loggedUser, shown, onMenuHide }) => {
           <div className={styles.aside}>
             <Link className={styles.search} to="/companies" />
             <DialogLink
-              dialogType="/dialog/create-company"
+              to="/dialog/create-company"
               className={styles.addCompany}
             >
               Запропонувати компанію

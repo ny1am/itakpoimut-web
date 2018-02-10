@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 import { showDialog } from 'actions/dialog';
 
 const DialogLink = (props) => {
-  const { dialogType, showDialog, children, ...rest } = props;
-  const onClick = () => showDialog(dialogType);
+  const { to, showDialog, children, ...rest } = props;
+  const onClick = () => showDialog(to);
   return (
     <button type="button" onClick={onClick} {...rest}>
       {children}
@@ -19,13 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 DialogLink.propTypes = {
-  /**
-   * dialog type
-   */
-  dialogType: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.bool,
-  ]),
+  to: PropTypes.string.isRequired,
   children: PropTypes.node,
   showDialog: PropTypes.func.isRequired,
 };

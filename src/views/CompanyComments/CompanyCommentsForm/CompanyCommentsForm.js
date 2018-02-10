@@ -31,14 +31,17 @@ class CompanyCommentsForm extends React.Component {
             />
           </div>
           <div className={styles.actions}>
-            <button className="dialog__button" type="submit">Додати коментар</button>
+            <button className="dialog__button" type="submit">
+              Додати коментар
+            </button>
           </div>
         </form>
       );
     } else {
       return (
         <div className={styles.notLoggedIn}>
-          Для того, щоб залишити коментар, вам необхідно <DialogLink dialogType="/dialog/login">ввійти</DialogLink>
+          {`Для того, щоб залишити коментар, вам необхідно `}
+          <DialogLink to="/dialog/login">ввійти</DialogLink>
         </div>
       );
     }

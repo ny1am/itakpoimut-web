@@ -107,7 +107,7 @@ class UserProfilePage extends React.Component {
                   <div className="row">
                     <DialogLink
                       className={styles.link}
-                      dialogType="/dialog/change-password"
+                      to="/dialog/change-password"
                     >
                       Змінити пароль
                     </DialogLink>

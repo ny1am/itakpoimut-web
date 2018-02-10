@@ -62,10 +62,7 @@ const LandingPage = ({ categoriesList, newCompanies, comments }) => (
           <p className={styles.text}>
             Допоможіть нам стати кращими, пропонуючи компанії, яких ще немає у базі. Ми зацікавлені у тому, аби наш сервіс представляв якомога більшу кількість різноманітних компаній - як лояльних до української мови, так і порушників. Зазначимо, що ви тільки пропонуєте компанію на розгляд. Після того її затверджує модератор, і система сама присвоює компанії статус лояльної/порушника на основі наявності/відсутності порушень.
           </p>
-          <DialogLink
-            dialogType="/dialog/create-company"
-            className="page__button"
-          >
+          <DialogLink to="/dialog/create-company" className="page__button">
             Запропонувати компанію
           </DialogLink>
         </section>

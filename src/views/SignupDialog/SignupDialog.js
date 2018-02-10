@@ -112,7 +112,7 @@ class SignupDialog extends React.Component {
           <button className="dialog__button" type="submit">Зареєструватись</button>
         </form>
         <aside className="dialog__aside">
-          <DialogLink dialogType="/dialog/login" className="regularLink">
+          <DialogLink to="/dialog/login" className="regularLink">
             У мене вже є аккаунт
           </DialogLink>
         </aside>

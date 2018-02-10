@@ -12,6 +12,7 @@ const scrollToError = (errors, holder) => {
   element && scrollIntoViewIfNeeded(element);
 };
 
+//todo: refactor to enhanceForm
 const enhanceDialog = (mapProps) => (Component) => {
   class EnhancedDialog extends React.Component {
 
