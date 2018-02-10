@@ -1,7 +1,6 @@
 {
-  "name": "app-web-new",
-  "version": "0.1.0",
-  "private": true,
+  "name": "app-web",
+  "version": "2.0.0",
   "dependencies": {
     "autoprefixer": "7.1.6",
     "babel-core": "6.26.0",

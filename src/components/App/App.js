@@ -3,11 +3,8 @@ import { Helmet } from 'react-helmet';
 
 import Loading from 'components/Loading';
 import ProgressBar from 'components/ProgressBar';
-import Routes from 'components/Routes';
-import Layout from 'components/Layout';
+import Page from 'components/Page';
 import Dialog from 'components/Dialog';
-
-import styles from './styles.scss';
 
 /**
  * Main component. Used as a router entry point. Contains ubiquitous components.
@@ -15,21 +12,16 @@ import styles from './styles.scss';
 class App extends React.Component {
 
   render() {
+    const title = `"И так поймут" Kаталог ЗМІ та бізнесу`;
     return (
       <React.Fragment>
+        <Helmet
+          titleTemplate={`%s - ${title}`}
+          defaultTitle={title}
+        />
         <ProgressBar />
         <Dialog />
-
-        <Helmet
-          titleTemplate="%s - &laquo;И так поймут&raquo; каталог ЗМІ та бізнесу"
-          defaultTitle="&laquo;И так поймут&raquo; каталог ЗМІ та бізнесу"
-        />
-        <Layout>
-          <main className={styles.content}>
-            <Routes />
-          </main>
-        </Layout>
-
+        <Page />
         <Loading />
       </React.Fragment>
     );
