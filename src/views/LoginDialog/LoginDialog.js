@@ -5,6 +5,8 @@ import FacebookLogin from 'components/FacebookLogin';
 import DialogLink from 'components/DialogLink';
 import Password from 'components/Password';
 
+import styles from './styles.scss';
+
 class LoginDialog extends React.Component {
 
   constructor(props) {
@@ -31,7 +33,7 @@ class LoginDialog extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.onSubmit('local', this.state);
+    this.props.onSubmit('form', this.state);
   }
 
   handleFacebookSubmit(accessToken) {
@@ -40,7 +42,6 @@ class LoginDialog extends React.Component {
   }
 
   render() {
-    //todo handle global error
     const errors = this.props.errors || {};
     const usernameClass = errors.username?'row--error':'';
     const passwordClass = errors.password?'row--error':'';
@@ -49,7 +50,15 @@ class LoginDialog extends React.Component {
         <h1>
           Вхід
         </h1>
-        <FacebookLogin onChange={this.handleFacebookSubmit}/>
+        {errors.global &&
+          <div className={styles.error}>
+            {errors.global}
+          </div>
+        }
+        <div className={styles.socials}>
+          <FacebookLogin onChange={this.handleFacebookSubmit}/>
+        </div>
+        <div className={styles.separator}>або</div>
         <form action="/login" method="post" onSubmit={this.handleSubmit}>
           <div className={usernameClass+' row'}>
             <label className="row__label" htmlFor="username">

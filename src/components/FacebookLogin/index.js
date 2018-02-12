@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FacebookLoginComponent from 'react-facebook-login';
+import FacebookLoginComponent from 'react-facebook-login/dist/facebook-login-render-props';
+
+import styles from './styles.scss';
 
 class FacebookLogin extends React.Component {
 
@@ -16,8 +18,19 @@ class FacebookLogin extends React.Component {
   render() {
     return (<FacebookLoginComponent
       appId="308939522798119"
-      autoLoad={false}
       callback={this.responseFacebook}
+      render={({ onClick, isProcessing, isDisabled, isSdkLoaded }) => {
+        const disabled = isProcessing || !isSdkLoaded || isDisabled;
+        return (
+          <button
+            className={styles.button}
+            onClick={onClick}
+            disabled={disabled}
+          >
+            Вхід через Facebook
+          </button>
+        );
+      }}
     />);
   }
 }
