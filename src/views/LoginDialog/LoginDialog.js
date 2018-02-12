@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import FacebookLogin from 'components/FacebookLogin';
+import GoogleLogin from 'components/GoogleLogin';
 import DialogLink from 'components/DialogLink';
 import Password from 'components/Password';
 
@@ -15,6 +16,7 @@ class LoginDialog extends React.Component {
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleFacebookSubmit = this.handleFacebookSubmit.bind(this);
+    this.handleGoogleSubmit = this.handleGoogleSubmit.bind(this);
     this.state = {
       username: '',
       password: '',
@@ -41,6 +43,11 @@ class LoginDialog extends React.Component {
     this.props.onSubmit('facebook', accessToken);
   }
 
+  handleGoogleSubmit(accessToken) {
+    //todo handle empty accessToken
+    this.props.onSubmit('google', accessToken);
+  }
+
   render() {
     const errors = this.props.errors || {};
     const usernameClass = errors.username?'row--error':'';
@@ -57,6 +64,7 @@ class LoginDialog extends React.Component {
         }
         <div className={styles.socials}>
           <FacebookLogin onChange={this.handleFacebookSubmit}/>
+          <GoogleLogin onChange={this.handleGoogleSubmit}/>
         </div>
         <div className={styles.separator}>або</div>
         <form action="/login" method="post" onSubmit={this.handleSubmit}>

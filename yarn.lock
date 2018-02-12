@@ -2,6 +2,10 @@
 # yarn lockfile v1
 
 
+"@types/react@*":
+  version "16.0.36"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.36.tgz#ceb5639013bdb92a94147883052e69bb2c22c69b"
+
 abab@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.4.tgz#5faad9c2c07f60dd76770f71cf025b62a63cfd4e"
@@ -5500,6 +5504,13 @@ react-error-overlay@^4.0.0:
 react-facebook-login@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-facebook-login/-/react-facebook-login-4.0.0.tgz#f2384dd36d197a9ce6decc2f3189bc9e4ccac57d"
+
+react-google-login@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/react-google-login/-/react-google-login-3.0.4.tgz#fe06a89047cfea0140fe086f923b77ac57b2c7fa"
+  dependencies:
+    "@types/react" "*"
+    prop-types "^15.6.0"
 
 react-helmet@^5.2.0:
   version "5.2.0"

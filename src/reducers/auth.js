@@ -1,5 +1,6 @@
 import {
-  AUTH_REQUEST, FB_AUTH_REQUEST, AUTH_SUCCESS, AUTH_FAILURE,
+  AUTH_REQUEST, FB_AUTH_REQUEST, GOOGLE_AUTH_REQUEST,
+  AUTH_SUCCESS, AUTH_FAILURE,
   LOGOUT
 } from 'consts/auth';
 import { SAVE_USER_PROFILE_SUCCESS } from 'consts/userProfile';
@@ -14,6 +15,7 @@ const authReducer = (state = initialState, action) => {
   switch(action.type) {
 
     case FB_AUTH_REQUEST:
+    case GOOGLE_AUTH_REQUEST:
     case AUTH_REQUEST: {
       return Object.assign({}, state, {
         loading: true,
