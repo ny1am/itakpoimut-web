@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import GoogleLoginComponent from 'react-google-login';
 
+import { GOOGLE_CLIENT_ID } from 'consts';
+
 import styles from './styles.scss';
 
 class GoogleLogin extends React.Component {
@@ -17,7 +19,7 @@ class GoogleLogin extends React.Component {
 
   render() {
     return (<GoogleLoginComponent
-      clientId="132410874020-p7hkqq8u1kfl5cfflv9fgsk3kiqqj2nf.apps.googleusercontent.com"
+      clientId={GOOGLE_CLIENT_ID}
       buttonText="Вхід через Google+"
       className={styles.button}
       onSuccess={this.responseGoogle}

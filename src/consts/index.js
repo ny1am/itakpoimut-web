@@ -1,4 +1,6 @@
-export const API_ROOT = 'http://localhost:5001'; //todo: config
+export const API_ROOT = process.env.REACT_APP_API_ROOT;
+export const FACEBOOK_APP_ID = process.env.REACT_APP_FACEBOOK_APP_ID;
+export const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 export const APP_READY = 'APP_READY';
 export const PRELOAD_LOCATION_CHANGED = 'PRELOAD_LOCATION_CHANGED';
