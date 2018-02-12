@@ -3,7 +3,6 @@ import { push } from 'react-router-redux';
 
 import { API_ROOT } from 'consts';
 import request from 'utils/request';
-import { requestError } from 'actions/global';
 import { hideDialog } from 'actions/dialog';
 
 function* apiRequest(url, options) {
@@ -15,7 +14,6 @@ function* apiRequest(url, options) {
       yield put(hideDialog());
       yield put(push('/oops'));
     }
-    yield put(requestError(error));
     return { error };
   }
 }
