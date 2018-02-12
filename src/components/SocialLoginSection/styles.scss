@@ -1,0 +1,29 @@
+.socials {
+	margin-bottom: 33px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.separator {
+	margin-bottom: 40px;
+	color: rgb(102, 102, 102);
+	font-size: 1rem;
+	font-style: italic;
+	position: relative;
+	&:before, &:after {
+		content: '';
+		display: inline-block;
+		height: 1px;
+		background-color: rgb(225, 225, 225);
+		position: absolute;
+		top: 50%;
+		margin-top: 1px;
+		width: 40%;
+	}
+	&:before {
+		left: 0;
+	}
+	&:after {
+		right: 0;
+	}
+}

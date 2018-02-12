@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import SocialLoginSection from 'components/SocialLoginSection';
 import DialogLink from 'components/DialogLink';
 import Password from 'components/Password';
+
+import styles from './styles.scss';
 
 class SignupDialog extends React.Component {
 
@@ -13,6 +16,8 @@ class SignupDialog extends React.Component {
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFacebookSubmit = this.handleFacebookSubmit.bind(this);
+    this.handleGoogleSubmit = this.handleGoogleSubmit.bind(this);
     this.state = {
       fname: '',
       lname: '',
@@ -44,7 +49,17 @@ class SignupDialog extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { fname, lname, email, password } = this.state;
-    this.props.onSubmit({ fname, lname, email, password });
+    this.props.onSubmit('form', { fname, lname, email, password });
+  }
+
+  handleFacebookSubmit(accessToken) {
+    //todo handle empty accessToken
+    this.props.onSubmit('facebook', accessToken);
+  }
+
+  handleGoogleSubmit(accessToken) {
+    //todo handle empty accessToken
+    this.props.onSubmit('google', accessToken);
   }
 
   render() {
@@ -59,6 +74,15 @@ class SignupDialog extends React.Component {
         <h1>
           Реєстрація
         </h1>
+        {errors.global &&
+          <div className={styles.error}>
+            {errors.global}
+          </div>
+        }
+        <SocialLoginSection
+          handleFacebookSubmit={this.handleFacebookSubmit}
+          handleGoogleSubmit={this.handleGoogleSubmit}
+        />
         <form action="/signup" method="post" onSubmit={this.handleSubmit}>
           <div className={fnameClass+' row'}>
             <label className="row__label" htmlFor="fname">

@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import FacebookLogin from 'components/FacebookLogin';
-import GoogleLogin from 'components/GoogleLogin';
+import SocialLoginSection from 'components/SocialLoginSection';
 import DialogLink from 'components/DialogLink';
 import Password from 'components/Password';
 
@@ -62,11 +61,10 @@ class LoginDialog extends React.Component {
             {errors.global}
           </div>
         }
-        <div className={styles.socials}>
-          <FacebookLogin onChange={this.handleFacebookSubmit}/>
-          <GoogleLogin onChange={this.handleGoogleSubmit}/>
-        </div>
-        <div className={styles.separator}>або</div>
+        <SocialLoginSection
+          handleFacebookSubmit={this.handleFacebookSubmit}
+          handleGoogleSubmit={this.handleGoogleSubmit}
+        />
         <form action="/login" method="post" onSubmit={this.handleSubmit}>
           <div className={usernameClass+' row'}>
             <label className="row__label" htmlFor="username">
