@@ -7,6 +7,7 @@ import AutocompleteSearch from 'components/AutocompleteSearch';
 import LandingSection from 'components/LandingSection';
 import CompanyPreview from 'components/CompanyPreview';
 import Comment from 'components/Comment';
+import StandaloneQuote from 'components/StandaloneQuote';
 
 import styles from './styles.scss';
 
@@ -27,7 +28,7 @@ const LandingPage = ({ categoriesList, newCompanies, comments }) => (
       <div className="container">
         <section className={styles.description}>
           <h1 className={styles.title}>
-            <q className="standalone-quote">И так поймут</q> Каталог <abbr title="Засоби масової інформації">ЗМІ</abbr> та бізнесу
+            <StandaloneQuote>И так поймут</StandaloneQuote> Каталог <abbr title="Засоби масової інформації">ЗМІ</abbr> та бізнесу
           </h1>
           <p className={styles.text}>
             Це сервіс, де можна перевірити, чи компанія обслуговує своїх клієнтів українською мовою: чи має україномовний сайт, інструкції, етикетки, різні супровідні документи та навіть сторінки у соцмережах.

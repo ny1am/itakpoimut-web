@@ -4,6 +4,11 @@ button {
   font-weight: inherit;
   background-color: transparent;
   color: inherit;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
 }
 a {
   text-decoration: none;
@@ -25,12 +30,6 @@ input,textarea {
   box-sizing: border-box;
 }
 select {
-  outline: none;
-}
-button {
-  margin: 0;
-  padding: 0;
-  border: 0;
   outline: none;
 }
 summary {
@@ -80,10 +79,6 @@ body {
   min-height: 100vh;
 }
 
-button {
-  cursor: pointer;
-}
-
 p {
   margin: 20px auto;
   font-style: italic;
@@ -91,13 +86,6 @@ p {
   &:last-child {
     margin-bottom: 0;
   }
-}
-
-hr {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-bottom: 1px solid #d7d7d7;
 }
 
 #app {
@@ -126,13 +114,6 @@ q {
 }
 :lang(uk) q {
   quotes: "«" "»";
-}
-.standalone-quote {
-  position: relative;
-  &:before {
-    position: absolute;
-    right: 100%;
-  }
 }
 
 div.pattern-content {

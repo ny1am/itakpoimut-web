@@ -1,0 +1,7 @@
+.quote {
+  position: relative;
+  &:before {
+    position: absolute;
+    right: 100%;
+  }
+}
