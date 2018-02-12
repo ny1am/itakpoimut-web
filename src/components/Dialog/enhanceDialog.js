@@ -30,12 +30,12 @@ const enhanceDialog = (mapProps) => (Component) => {
       this.mappedProps = mapProps(dispatch);
     }
 
-    onSubmit(params) {
+    onSubmit(...args) {
       const { changeLoading } = this.props;
       const { onSubmit, SuccessDialog } = this.mappedProps;
       //todo: context
       changeLoading(true);
-      return onSubmit(params).then(data => {
+      return onSubmit(...args).then(data => {
         if (SuccessDialog) {
           this.setState({
             success: true,

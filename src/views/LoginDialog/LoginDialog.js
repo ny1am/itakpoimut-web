@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import FacebookLogin from 'components/FacebookLogin';
 import DialogLink from 'components/DialogLink';
 import Password from 'components/Password';
 
@@ -11,6 +12,7 @@ class LoginDialog extends React.Component {
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFacebookSubmit = this.handleFacebookSubmit.bind(this);
     this.state = {
       username: '',
       password: '',
@@ -29,10 +31,16 @@ class LoginDialog extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.onSubmit(this.state);
+    this.props.onSubmit('local', this.state);
+  }
+
+  handleFacebookSubmit(accessToken) {
+    //todo handle empty accessToken
+    this.props.onSubmit('facebook', accessToken);
   }
 
   render() {
+    //todo handle global error
     const errors = this.props.errors || {};
     const usernameClass = errors.username?'row--error':'';
     const passwordClass = errors.password?'row--error':'';
@@ -41,6 +49,7 @@ class LoginDialog extends React.Component {
         <h1>
           Вхід
         </h1>
+        <FacebookLogin onChange={this.handleFacebookSubmit}/>
         <form action="/login" method="post" onSubmit={this.handleSubmit}>
           <div className={usernameClass+' row'}>
             <label className="row__label" htmlFor="username">
