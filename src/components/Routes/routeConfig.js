@@ -3,6 +3,7 @@ import CompanyPage from 'views/CompanyPage';
 import CompaniesPage from 'views/CompaniesPage';
 import UserProfilePage from 'views/UserProfilePage';
 import AboutPage from 'views/AboutPage';
+import ResetPasswordPage from 'views/ResetPasswordPage';
 import NotFoundPage from 'views/NotFoundPage';
 import SomethingWrongPage from 'views/SomethingWrongPage';
 
@@ -23,6 +24,9 @@ const routeConfig = [{
 }, {
   path: '/about',
   component: AboutPage,
+}, {
+  path: '/reset/:token',
+  component: ResetPasswordPage,
 }, {
   path: '/oops',
   component: SomethingWrongPage,

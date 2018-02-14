@@ -33,7 +33,7 @@ class ForgetPasswordDialog extends React.Component {
     const onSubmit = preventDefault(this.handleSubmit);
     return (
       <div className={`dialog_content ${styles.wrapper}`}>
-        <h1 className="dialog__h1">
+        <h1>
           Відновлення паролю
         </h1>
         <p>

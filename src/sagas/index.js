@@ -12,6 +12,7 @@ import createCompanySaga from './createCompany';
 import userProfileSaga from './userProfile';
 import signupSaga from './signup';
 import forgetPasswordSaga from './forgetPassword';
+import resetPasswordSaga from './resetPassword';
 import authSaga from './auth';
 import changePasswordSaga from './changePassword';
 
@@ -29,6 +30,7 @@ export default combine([
   userProfileSaga,
   signupSaga,
   forgetPasswordSaga,
+  resetPasswordSaga,
   authSaga,
   changePasswordSaga,
 ]);

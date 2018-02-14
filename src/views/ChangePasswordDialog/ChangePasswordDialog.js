@@ -38,7 +38,7 @@ class ChangePasswordDialog extends React.Component {
     const onSubmit = preventDefault(this.handleSubmit);
     return (
       <div className="dialog_content">
-        <h1 className="dialog__h1">
+        <h1>
           Змінити пароль
         </h1>
         <form action="/changePassword" method="post" onSubmit={onSubmit}>
