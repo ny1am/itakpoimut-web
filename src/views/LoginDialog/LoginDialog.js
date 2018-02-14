@@ -90,6 +90,11 @@ class LoginDialog extends React.Component {
               onChange={this.handlePasswordChange}
               maxLength="25"
             />
+            <aside className={styles.forget}>
+              <DialogLink to="/dialog/forget-password">
+                Забули пароль?
+              </DialogLink>
+            </aside>
           </div>
           <button className="dialog__button" type="submit">
             Ввійти
