@@ -5,5 +5,6 @@ export const GOOGLE_CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 export const ADMIN_URL = process.env.REACT_APP_ADMIN_URL;
 export const ADMIN_AUTH_KEY = process.env.REACT_APP_ADMIN_AUTH_KEY;
 
+export const GENERIC_REQUEST_ERROR = 'GENERIC_REQUEST_ERROR';
 export const APP_READY = 'APP_READY';
 export const PRELOAD_LOCATION_CHANGED = 'PRELOAD_LOCATION_CHANGED';
