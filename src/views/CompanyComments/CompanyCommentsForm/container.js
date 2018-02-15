@@ -7,7 +7,7 @@ import { wrapWithProgress } from 'components/ProgressBar';
 
 import CompanyCommentsFormComponent from './CompanyCommentsForm';
 
-class Container extends React.Component {
+class CompanyCommentsFormContainer extends React.Component {
 
   constructor(props) {
     super(props);
@@ -47,7 +47,7 @@ class Container extends React.Component {
   }
 }
 
-Container.propTypes = {
+CompanyCommentsFormContainer.propTypes = {
   loggedUser: PropTypes.object,
   companyId: PropTypes.number.isRequired,
   onSubmit: PropTypes.func.isRequired,
@@ -64,4 +64,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(
   mapStateToProps, mapDispatchToProps
-)(Container);
+)(CompanyCommentsFormContainer);

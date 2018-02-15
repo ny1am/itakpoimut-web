@@ -8,7 +8,7 @@ import { enhanceDialog } from 'components/Dialog';
 import CreateCompanyDialogComponent from './CreateCompanyDialog';
 import SuccessDialog from './SuccessDialog';
 
-class Container extends React.Component {
+class CreateCompanyDialogContainer extends React.Component {
 
   static fetch(location, { dispatch }) {
     return [{
@@ -31,5 +31,5 @@ const mapProps = (dispatch) => ({
 });
 
 export default enhanceDialog(mapProps)(
-  Container
+  CreateCompanyDialogContainer
 );

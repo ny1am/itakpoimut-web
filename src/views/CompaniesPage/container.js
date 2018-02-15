@@ -10,7 +10,7 @@ import { get as getViolations } from 'actions/violation';
 
 import CompaniesPageComponent from './CompaniesPage';
 
-class Container extends React.Component {
+class CompaniesPageContainer extends React.Component {
   static fetch(location, { store, dispatch }) {
     const { title, currentPage, sortOrder, selectedCategory } = queryString.parse(location.search);
     //sync with redux store
@@ -46,7 +46,7 @@ class Container extends React.Component {
 }
 
 
-Container.propTypes = {
+CompaniesPageContainer.propTypes = {
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,
@@ -68,4 +68,4 @@ const mapDispatchToProps = (dispatch) => ({
   dispatch
 });
 
-export default connect(null, mapDispatchToProps)(Container);
+export default connect(null, mapDispatchToProps)(CompaniesPageContainer);

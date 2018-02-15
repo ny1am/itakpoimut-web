@@ -14,7 +14,7 @@ const scrollToError = (errors, holder) => {
   element && scrollIntoViewIfNeeded(element);
 };
 
-class Container extends React.Component {
+class UserProfilePageContainer extends React.Component {
   static fetch(location, { dispatch }) {
     return [{
       prop: 'user',
@@ -60,7 +60,7 @@ class Container extends React.Component {
   }
 }
 
-Container.propTypes = {
+UserProfilePageContainer.propTypes = {
   initialData: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
@@ -72,4 +72,4 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(
   null, mapDispatchToProps
-)(Container);
+)(UserProfilePageContainer);

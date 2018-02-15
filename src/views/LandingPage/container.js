@@ -7,7 +7,7 @@ import { get as getCategories } from 'actions/category';
 
 import LandingPageComponent from './LandingPage';
 
-class Container extends React.Component {
+class LandingPageContainer extends React.Component {
   static fetch(location, { dispatch }) {
     return [{
       prop: 'newCompanies',
@@ -25,7 +25,7 @@ class Container extends React.Component {
   }
 }
 
-Container.propTypes = {
+LandingPageContainer.propTypes = {
   initialData: PropTypes.object,
 };
 
@@ -33,4 +33,4 @@ const mapStateToProps = (state) => ({
   categoriesList: state.category,
 });
 
-export default connect(mapStateToProps)(Container);
+export default connect(mapStateToProps)(LandingPageContainer);

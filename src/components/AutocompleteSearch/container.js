@@ -11,7 +11,7 @@ import { search } from 'actions/autocomplete';
 import AutocompleteSearchComponent from './AutocompleteSearch';
 
 //todo: clean up this component, use portals
-class Container extends React.Component {
+class AutocompleteSearchContainer extends React.Component {
 
   constructor(props) {
     super(props);
@@ -70,7 +70,7 @@ class Container extends React.Component {
 
 }
 
-Container.propTypes = {
+AutocompleteSearchContainer.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     text: PropTypes.string.isRequired,
@@ -89,7 +89,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(null, mapDispatchToProps)(
-  onClickOutside(Container, {
+  onClickOutside(AutocompleteSearchContainer, {
     handleClickOutside: instance => (instance.hidePopup)
   })
 );

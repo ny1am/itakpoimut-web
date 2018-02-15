@@ -13,7 +13,7 @@ const getCurrentPage = (location) => {
   return currentPage;
 };
 
-class Container extends React.Component {
+class CompanyCommentsContainer extends React.Component {
 
   constructor(props) {
     super(props);
@@ -55,7 +55,7 @@ class Container extends React.Component {
 
 }
 
-Container.propTypes = {
+CompanyCommentsContainer.propTypes = {
   location: PropTypes.object.isRequired,
   companyId: PropTypes.number.isRequired,
   comments: PropTypes.array,
@@ -75,5 +75,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Container)
+  connect(mapStateToProps, mapDispatchToProps)(CompanyCommentsContainer)
 );

@@ -16,7 +16,7 @@ const filterCategories = (allCategories, companyCategories) => (
   })
 );
 
-class Container extends React.Component {
+class AddCategoryDialogContainer extends React.Component {
 
   static fetch(location, { dispatch, params }) {
     const { companyId } = params;
@@ -74,7 +74,7 @@ class Container extends React.Component {
   }
 }
 
-Container.propTypes = {
+AddCategoryDialogContainer.propTypes = {
   initialData: PropTypes.shape({
     company: PropTypes.shape({
       _id: PropTypes.number.isRequired,
@@ -97,5 +97,5 @@ const mapProps = (dispatch) => ({
 });
 
 export default enhanceDialog(mapProps)(
-  Container
+  AddCategoryDialogContainer
 );

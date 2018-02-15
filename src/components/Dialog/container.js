@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import DialogComponent from './Dialog';
 
-class Container extends React.Component {
+class DialogContainer extends React.Component {
 
   constructor(props) {
     super(props);
@@ -41,8 +41,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-Container.propTypes = {
+DialogContainer.propTypes = {
   dialogType: PropTypes.string,
 };
 
-export default connect(mapStateToProps)(Container);
+export default connect(mapStateToProps)(DialogContainer);

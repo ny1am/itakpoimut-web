@@ -9,7 +9,7 @@ import { enhanceDialog } from 'components/Dialog';
 import AddViolationDialogComponent from './AddViolationDialog';
 import SuccessDialog from './SuccessDialog';
 
-class Container extends React.Component {
+class AddViolationDialogContainer extends React.Component {
 
   static fetch(location, { dispatch, params }) {
     const { companyId } = params;
@@ -65,7 +65,7 @@ class Container extends React.Component {
   }
 }
 
-Container.propTypes = {
+AddViolationDialogContainer.propTypes = {
   initialData: PropTypes.shape({
     company: PropTypes.shape({
       _id: PropTypes.number.isRequired,
@@ -88,5 +88,5 @@ const mapProps = (dispatch) => ({
 });
 
 export default enhanceDialog(mapProps)(
-  Container
+  AddViolationDialogContainer
 );
