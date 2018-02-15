@@ -7,7 +7,7 @@ import { resetPassword } from 'actions/resetPassword';
 
 import ResetPasswordPageComponent from './ResetPasswordPage';
 import ResetPasswordPageWrapper from './ResetPasswordPageWrapper';
-import Success from './Success';
+import SuccessView from './SuccessView';
 
 class ResetPasswordPageContainer extends React.PureComponent {
 
@@ -34,7 +34,7 @@ class ResetPasswordPageContainer extends React.PureComponent {
     return (
       <ResetPasswordPageWrapper>
         {success ?
-          <Success />
+          <SuccessView />
         :
           <ResetPasswordPageComponent
             errors={errors}

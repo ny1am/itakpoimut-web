@@ -7,7 +7,7 @@ import { save } from 'actions/addViolation';
 import { enhanceDialog } from 'components/Dialog';
 
 import AddViolationDialogComponent from './AddViolationDialog';
-import SuccessDialog from './SuccessDialog';
+import SuccessView from './SuccessView';
 
 class AddViolationDialogContainer extends React.Component {
 
@@ -84,7 +84,7 @@ AddViolationDialogContainer.propTypes = {
 
 const mapProps = (dispatch) => ({
   onSubmit: (params) => dispatch(save(params)),
-  SuccessDialog,
+  SuccessView,
 });
 
 export default enhanceDialog(mapProps)(

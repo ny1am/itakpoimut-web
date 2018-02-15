@@ -32,11 +32,11 @@ const enhanceDialog = (mapProps) => (Component) => {
 
     onSubmit(...args) {
       const { changeLoading } = this.props;
-      const { onSubmit, SuccessDialog } = this.mappedProps;
+      const { onSubmit, SuccessView } = this.mappedProps;
       //todo: context
       changeLoading(true);
       return onSubmit(...args).then(data => {
-        if (SuccessDialog) {
+        if (SuccessView) {
           this.setState({
             success: true,
           });
@@ -58,9 +58,9 @@ const enhanceDialog = (mapProps) => (Component) => {
 
     render() {
       if(this.state.success) {
-        const { SuccessDialog } = this.mappedProps;
+        const { SuccessView } = this.mappedProps;
         return (
-          <SuccessDialog />
+          <SuccessView />
         );
       }
       return (<Component

@@ -7,7 +7,7 @@ import { get as getCategories } from 'actions/category';
 import { enhanceDialog } from 'components/Dialog';
 
 import AddCategoryDialogComponent from './AddCategoryDialog';
-import SuccessDialog from './SuccessDialog';
+import SuccessView from './SuccessView';
 
 const filterCategories = (allCategories, companyCategories) => (
   allCategories.filter(item => {
@@ -93,7 +93,7 @@ AddCategoryDialogContainer.propTypes = {
 
 const mapProps = (dispatch) => ({
   onSubmit: (params) => dispatch(save(params)),
-  SuccessDialog,
+  SuccessView,
 });
 
 export default enhanceDialog(mapProps)(

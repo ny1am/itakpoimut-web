@@ -6,7 +6,7 @@ import { save } from 'actions/createCompany';
 import { enhanceDialog } from 'components/Dialog';
 
 import CreateCompanyDialogComponent from './CreateCompanyDialog';
-import SuccessDialog from './SuccessDialog';
+import SuccessView from './SuccessView';
 
 class CreateCompanyDialogContainer extends React.Component {
 
@@ -27,7 +27,7 @@ class CreateCompanyDialogContainer extends React.Component {
 
 const mapProps = (dispatch) => ({
   onSubmit: (params) => dispatch(save(params)),
-  SuccessDialog,
+  SuccessView,
 });
 
 export default enhanceDialog(mapProps)(

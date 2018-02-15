@@ -1,18 +1,18 @@
 import React from 'react';
 
-import SuccessDialogComponent from 'components/SuccessDialog';
+import SuccessViewComponent from 'components/SuccessView';
 import DialogLink from 'components/DialogLink';
 
 import styles from './styles.scss';
 
 const Success = () => (
-  <SuccessDialogComponent title="Вітаємо!">
+  <SuccessViewComponent title="Вітаємо!">
     <p className={styles.successMsg}>
       {`Тепер ви можете `}
       <DialogLink className={styles.link} to="/dialog/login">ввійти</DialogLink>
       {` з вашим новим паролем!`}
     </p>
-  </SuccessDialogComponent>
+  </SuccessViewComponent>
 );
 
 export default Success;

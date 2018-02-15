@@ -1,11 +1,11 @@
 import React from 'react';
 
-import SuccessDialogComponent from 'components/SuccessDialog';
+import SuccessViewComponent from 'components/SuccessView';
 
-const SuccessDialog = () => (
-  <SuccessDialogComponent>
+const SuccessView = () => (
+  <SuccessViewComponent>
     <p>Запит на створення компанії надіслано. Адміністратор розгляне його найближчим часом.</p>
-  </SuccessDialogComponent>
+  </SuccessViewComponent>
 );
 
-export default SuccessDialog;
+export default SuccessView;
