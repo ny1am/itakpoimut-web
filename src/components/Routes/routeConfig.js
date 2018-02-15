@@ -18,7 +18,7 @@ const routeConfig = [{
   path: '/companies',
   component: CompaniesPage,
 }, {
-  path: '/userProfile',
+  path: '/user-profile',
   component: UserProfilePage,
   secure: true,
 }, {

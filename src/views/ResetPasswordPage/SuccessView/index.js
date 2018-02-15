@@ -5,7 +5,7 @@ import DialogLink from 'components/DialogLink';
 
 import styles from './styles.scss';
 
-const Success = () => (
+const SuccessView = () => (
   <SuccessViewComponent title="Вітаємо!">
     <p className={styles.successMsg}>
       {`Тепер ви можете `}
@@ -15,4 +15,4 @@ const Success = () => (
   </SuccessViewComponent>
 );
 
-export default Success;
+export default SuccessView;

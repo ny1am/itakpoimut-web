@@ -17,10 +17,10 @@ const Header = ({ loggedUser, onLogout, onMenuShow }) => (
         <div className={styles.aside}>
           {loggedUser ?
             <React.Fragment>
-              <Link key="userpick" to="/userProfile">
+              <Link key="userpick" to="/user-profile">
                 <Avatar className={styles.userpic} user={loggedUser} size={48} />
               </Link>
-              <Link key="fname" to="/userProfile" className={styles.name}>
+              <Link key="fname" to="/user-profile" className={styles.name}>
                 {loggedUser.fname}
               </Link>
               <button key="logout" className={styles.logout} onClick={onLogout} />
@@ -40,7 +40,7 @@ const Header = ({ loggedUser, onLogout, onMenuShow }) => (
         <Link to="/companies" className={styles.search} />
         {loggedUser ?
           <React.Fragment>
-            <Link key="profile" to="/userProfile" className={styles.user} />
+            <Link key="profile" to="/user-profile" className={styles.user} />
             <button key="logout" className={styles.logout} onClick={onLogout} />
           </React.Fragment>
         :
