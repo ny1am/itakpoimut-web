@@ -21,7 +21,7 @@ const Footer = () => {
           </ul>
         </nav>
         <div className={styles.helpers}>
-          <a href="https://www.facebook.com/groups/i.tak.poymut" target="_blank" title="facebook" className={styles.facebook} />
+          <a href="https://www.facebook.com/groups/i.tak.poymut" target="_blank" rel="noopener" title="facebook" className={styles.facebook} />
           <a href="#top" title="Нагору" className={styles.up} />
         </div>
       </div>
