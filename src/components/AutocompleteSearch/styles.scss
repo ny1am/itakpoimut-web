@@ -3,11 +3,11 @@ article.wrapper {
   box-sizing: border-box;
   background-color: rgba(37,37,37,0.8);
   border-radius: 10px 5px 5px;
-  width: 87.5%;
+  width: 100%;
   padding: 27px;
   margin-left: auto;
   margin-right: auto;
-  @media (max-width: 1170px) { 
+  @media (max-width: 1010px) { 
     padding: 8px;
     width: 100%;
     padding: calc(5px + 1%);
