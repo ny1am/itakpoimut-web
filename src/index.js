@@ -4,6 +4,7 @@ import configureStore, { history } from './store/configureStore';
 import { loadAuth } from './store/storage';
 import Root from 'components/Root';
 import promiseFinally from 'promise.prototype.finally';
+import FontFaceObserver from 'fontfaceobserver';
 import 'isomorphic-fetch';
 import 'scroll-restoration-polyfill';
 
@@ -13,6 +14,14 @@ import './styles/main.scss';
 
 promiseFinally.shim();
 window.history.scrollRestoration = 'manual';
+
+const fontObserver = new FontFaceObserver('Lato', {});
+
+fontObserver.load().then(() => {
+  document.body.classList.add('fontLoaded');
+}, () => {
+  document.body.classList.remove('fontLoaded');
+});
 
 const auth = loadAuth();
 let initState = undefined;
