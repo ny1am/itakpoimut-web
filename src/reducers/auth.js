@@ -32,14 +32,9 @@ const authReducer = (state = initialState, action) => {
     }
 
     case SAVE_USER_PROFILE_SUCCESS: {
-      //todo: revise on the server error handling
-      if (action.payload.user) {
-        return Object.assign({}, state, {
-          loggedUser: action.payload.user,
-        });
-      } else {
-        return state;
-      }
+      return Object.assign({}, state, {
+        loggedUser: action.payload.user,
+      });
     }
 
     case AUTH_FAILURE: {
