@@ -57,14 +57,6 @@ function configureStoreDev(initialState) {
 
   sagaMiddleware.run(sagas);
 
-  if (module.hot) {
-    // Enable Webpack hot module replacement for reducers
-    module.hot.accept('../reducers', () => {
-      const nextReducer = require('../reducers').default; // eslint-disable-line global-require
-      store.replaceReducer(nextReducer);
-    });
-  }
-
   return store;
 }
 

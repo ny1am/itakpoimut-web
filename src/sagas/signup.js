@@ -7,7 +7,7 @@ import {
 import { takeFirst } from './utils/effects';
 import apiRequest from './utils/apiRequest';
 
-function* saveData({ fname, lname, email, password }) {
+function* signup({ fname, lname, email, password }) {
   const url = `/signup`;
   const options = {
     method: 'POST',
@@ -22,7 +22,7 @@ function* saveData({ fname, lname, email, password }) {
 }
 
 function* signupSaga() {
-  yield takeFirst(SIGNUP_REQUEST, saveData);
+  yield takeFirst(SIGNUP_REQUEST, signup);
 }
 
 export default signupSaga;
