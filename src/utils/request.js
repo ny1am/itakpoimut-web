@@ -2,7 +2,11 @@ function parseJSON(response) {
   if (response.status === 204 || response.status === 205) {
     return null;
   }
-  return response.json();
+  const contentType = response.headers.get("content-type");
+  if (contentType && contentType.indexOf("application/json") !== -1) {
+    return response.json();
+  }
+  return null;
 }
 
 function checkStatus(response) {
