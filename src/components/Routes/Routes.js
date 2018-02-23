@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { locationChanged } from 'actions/preload';
 import { appReady } from 'actions/global';
@@ -48,10 +49,12 @@ class Routes extends React.Component {
 
   render() {
     const { location } = this.state;
+    const { loggedUser } = this.props;
     return (
       <PreloadSwitch
         location={location}
         routeConfig={routeConfig}
+        loggedUser={loggedUser}
         onDataFetched={this.onDataFetched}
       >
         {routeConfig.map(cfg => {
@@ -63,12 +66,17 @@ class Routes extends React.Component {
   }
 }
 
+const mapStateToProps = ({ auth }) => ({
+  loggedUser: auth.loggedUser
+});
+
 Routes.contextTypes = {
   store: PropTypes.object.isRequired,
 };
 
 Routes.propTypes = {
   location: PropTypes.object.isRequired,
+  loggedUser: PropTypes.object
 };
 
-export default withRouter(Routes);
+export default withRouter(connect(mapStateToProps)(Routes));

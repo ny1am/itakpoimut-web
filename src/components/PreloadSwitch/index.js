@@ -41,10 +41,18 @@ class PreloadSwitch extends React.Component {
     return !nextState.isAppFetching;
   }
 
+  getRouteConfig() {
+    const { routeConfig, loggedUser } = this.props;
+    if (!loggedUser) {
+      return routeConfig.filter(cfg => !cfg.secure);
+    }
+    return routeConfig;
+  }
+
   getFetchConfig({ nextLocation, location }) {
     const { store } = this.context;
-    const { routeConfig } = this.props;
-    const fetchResult = extractFetchConfig(nextLocation, routeConfig, {
+    const config = this.getRouteConfig();
+    const fetchResult = extractFetchConfig(nextLocation, config, {
       store,
       dispatch: store.dispatch,
       prevLocation: location
@@ -103,6 +111,8 @@ PreloadSwitch.propTypes = {
    */
   location: PropTypes.object.isRequired,
   routeConfig: PropTypes.array.isRequired,
+  //todo: change to isLogged
+  loggedUser: PropTypes.object,
   onDataFetched: PropTypes.func,
   //todo: not sure if needed
   passThroughProps: PropTypes.object,

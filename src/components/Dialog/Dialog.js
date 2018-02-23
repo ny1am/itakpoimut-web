@@ -47,12 +47,13 @@ class Dialog extends React.Component {
 
   render() {
     const { location, ready } = this.state;
-    const { loading } = this.props;
+    const { loading, loggedUser } = this.props;
     return (
       <DialogWrapper loading={loading} visible={ready}>
         <PreloadSwitch
           location={location}
           routeConfig={routeConfig}
+          loggedUser={loggedUser}
           onDataFetched={this.onDialogReady}
           passThroughProps={{...this.props}}
         >
@@ -69,6 +70,7 @@ class Dialog extends React.Component {
 Dialog.propTypes = {
   dialogType: PropTypes.string,
   loading: PropTypes.bool,
+  loggedUser: PropTypes.object
 };
 
 export default Dialog;
