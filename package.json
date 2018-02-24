@@ -79,6 +79,7 @@
     "test": "node scripts/test.js --env=jsdom"
   },
   "devDependencies": {
+    "firebase-tools": "^3.17.4",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6"
   },
