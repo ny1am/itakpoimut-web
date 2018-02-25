@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import LayoutComponent from './Layout';
+import PageLayoutComponent from './PageLayout';
 
 const mapStateToProps = (state) => {
   //todo: move dialog logic to HOC maybe
@@ -12,4 +12,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(LayoutComponent);
+export default connect(mapStateToProps)(PageLayoutComponent);

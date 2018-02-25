@@ -7,6 +7,7 @@ import { locationChanged } from 'actions/preload';
 import { appReady } from 'actions/global';
 import PreloadSwitch from 'components/PreloadSwitch';
 
+import PageLayout from './PageLayout';
 import SecureRoute from './SecureRoute';
 import routeConfig from './routeConfig';
 
@@ -14,7 +15,7 @@ const statelessLocation = (location) => (
   Object.assign({}, location, { state: null })
 );
 
-class Routes extends React.Component {
+class PageContainer extends React.PureComponent {
 
   constructor(props) {
     super(props);
@@ -56,6 +57,7 @@ class Routes extends React.Component {
         routeConfig={routeConfig}
         loggedUser={loggedUser}
         onDataFetched={this.onDataFetched}
+        Wrapper={PageLayout}
       >
         {routeConfig.map(cfg => {
           const RouteComponent = cfg.secure ? SecureRoute : Route;
@@ -70,13 +72,13 @@ const mapStateToProps = ({ auth }) => ({
   loggedUser: auth.loggedUser
 });
 
-Routes.contextTypes = {
+PageContainer.contextTypes = {
   store: PropTypes.object.isRequired,
 };
 
-Routes.propTypes = {
+PageContainer.propTypes = {
   location: PropTypes.object.isRequired,
   loggedUser: PropTypes.object
 };
 
-export default withRouter(connect(mapStateToProps)(Routes));
+export default withRouter(connect(mapStateToProps)(PageContainer));

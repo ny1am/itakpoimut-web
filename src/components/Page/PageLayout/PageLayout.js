@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import disableScroll from 'disable-scroll';
 
-import Header from 'components/Header';
-import Menu from 'components/Menu';
-import Footer from 'components/Footer';
+import Header from './Header';
+import Menu from './Menu';
+import Footer from './Footer';
 
 import styles from './styles.scss';
 
-class Layout extends React.Component {
+class PageLayout extends React.PureComponent {
 
   componentDidMount() {
     this.scrollHandler();
@@ -40,16 +40,18 @@ class Layout extends React.Component {
       <div ref="layout" className={className}>
         <Header />
         <Menu />
-        {children}
+        <main className={styles.content}>
+          {children}
+        </main>
         <Footer />
       </div>
     );
   }
 }
 
-Layout.propTypes = {
+PageLayout.propTypes = {
   overflowShown: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
 };
 
-export default Layout;
+export default PageLayout;

@@ -9,7 +9,7 @@ import { roleModerator } from 'utils';
 import userLinks from './userLinks';
 import styles from './styles.scss';
 
-class Menu extends React.Component {
+class Menu extends React.PureComponent {
 
   renderAdminLink() {
     const { loggedUser } = this.props;
