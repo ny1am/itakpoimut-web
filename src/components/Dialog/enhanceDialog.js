@@ -31,9 +31,8 @@ const enhanceDialog = (mapProps) => (Component) => {
     }
 
     onSubmit(...args) {
-      const { changeLoading } = this.props;
+      const { changeLoading } = this.context;
       const { onSubmit, SuccessView } = this.mappedProps;
-      //todo: context
       changeLoading(true);
       return onSubmit(...args).then(data => {
         if (SuccessView) {
@@ -76,9 +75,6 @@ const enhanceDialog = (mapProps) => (Component) => {
     store: PropTypes.shape({
       dispatch: PropTypes.func.isRequired,
     }).isRequired,
-  };
-
-  EnhancedDialog.propTypes = {
     changeLoading: PropTypes.func.isRequired,
   };
 

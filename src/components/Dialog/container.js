@@ -14,26 +14,39 @@ class DialogContainer extends React.Component {
     };
   }
 
+  getChildContext() {
+    return {
+      loading: this.state.loading,
+      changeLoading: this.changeLoading,
+    };
+  }
+
   changeLoading(loading) {
     this.setState({ loading });
   }
 
   render() {
     const { dialogType, loggedUser, ...props } = this.props;
-    const { loading } = this.state;
     if (!dialogType) {
       return null;
     }
     return (<DialogComponent
       dialogType={dialogType}
-      loading={loading}
-      changeLoading={this.changeLoading}
       loggedUser={loggedUser}
       {...props}
     />);
   }
-
 }
+
+DialogContainer.childContextTypes = {
+  loading: PropTypes.bool.isRequired,
+  changeLoading: PropTypes.func.isRequired,
+};
+
+DialogContainer.propTypes = {
+  dialogType: PropTypes.string,
+  loggedUser: PropTypes.object,
+};
 
 const mapStateToProps = ({ router, auth }) => {
   const dialogState = router.location.state || {};
@@ -41,11 +54,6 @@ const mapStateToProps = ({ router, auth }) => {
     dialogType: dialogState.dialogType || null,
     loggedUser: auth.loggedUser,
   };
-};
-
-DialogContainer.propTypes = {
-  dialogType: PropTypes.string,
-  loggedUser: PropTypes.object,
 };
 
 export default connect(mapStateToProps)(DialogContainer);

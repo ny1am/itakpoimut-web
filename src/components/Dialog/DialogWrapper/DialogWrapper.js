@@ -10,7 +10,8 @@ import styles from './styles.scss';
 class DialogWrapper extends React.Component {
 
   render() {
-    const { children, loading, visible, onClose } = this.props;
+    const { children, visible, onClose } = this.props;
+    const { loading } = this.context;
     const shadeClassName = `${styles.shade} ${visible?'':styles.hidden}`;
     return (
       <div className={shadeClassName}>
@@ -23,6 +24,10 @@ class DialogWrapper extends React.Component {
     );
   }
 }
+
+DialogWrapper.contextTypes = {
+  loading: PropTypes.bool.isRequired,
+};
 
 DialogWrapper.propTypes = {
   children: PropTypes.node.isRequired,
