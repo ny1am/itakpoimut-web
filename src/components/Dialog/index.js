@@ -1,3 +1,3 @@
 export { default as enhanceDialog } from './enhanceDialog';
-export { default as DialogWrapper } from './DialogWrapper';
+export { default as DialogLayout } from './DialogLayout';
 export { default } from './container';

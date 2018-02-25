@@ -1,10 +1,15 @@
 import React from 'react';
 
-const enhanceRouteWithProps = (element, passThroughProps) => {
+const enhanceRouteWithProps = (element, Wrapper, passThroughProps) => {
   const Component = element.props.component;
+  const WrapperComponent = Wrapper || React.Fragment;
   return React.cloneElement(element, {
     component: null,
-    render: (props) => (<Component {...props} {...passThroughProps} />)//eslint-disable-line
+    render: (props) => (//eslint-disable-line
+      <WrapperComponent>
+        <Component {...props} {...passThroughProps} />
+      </WrapperComponent>
+    )
   });
 };
 

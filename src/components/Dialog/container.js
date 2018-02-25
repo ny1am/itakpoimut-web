@@ -8,32 +8,25 @@ class DialogContainer extends React.Component {
 
   constructor(props) {
     super(props);
-    this.changeLoading = this.changeLoading.bind(this);
+    this.changeLoading = (loading => this.setState({ loading })).bind(this);
     this.state = {
       loading: false,
     };
   }
 
-  getChildContext() {
-    return {
-      loading: this.state.loading,
-      changeLoading: this.changeLoading,
-    };
-  }
-
-  changeLoading(loading) {
-    this.setState({ loading });
-  }
+  getChildContext = () => ({
+    loading: this.state.loading,
+    changeLoading: this.changeLoading,
+  });
 
   render() {
-    const { dialogType, loggedUser, ...props } = this.props;
+    const { dialogType, loggedUser } = this.props;
     if (!dialogType) {
       return null;
     }
     return (<DialogComponent
       dialogType={dialogType}
       loggedUser={loggedUser}
-      {...props}
     />);
   }
 }

@@ -87,14 +87,14 @@ class PreloadSwitch extends React.Component {
 
   render () {
     const { ready, initialData } = this.state;
-    const { children, location, passThroughProps } = this.props;
+    const { children, location, Wrapper } = this.props;
     if (!ready) {
       return null;
     }
     return (
       <Switch location={location}>
         {React.Children.map(children, child => (
-          enhanceRouteWithProps(child, { initialData, ...passThroughProps })
+          enhanceRouteWithProps(child, Wrapper, { initialData })
         ))}
       </Switch>
     );
@@ -114,8 +114,7 @@ PreloadSwitch.propTypes = {
   //todo: change to isLogged
   loggedUser: PropTypes.object,
   onDataFetched: PropTypes.func,
-  //todo: not sure if needed
-  passThroughProps: PropTypes.object,
+  Wrapper: PropTypes.func,
   /**
    * children
    */
