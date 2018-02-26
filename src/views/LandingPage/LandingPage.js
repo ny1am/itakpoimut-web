@@ -4,14 +4,13 @@ import { Link } from 'react-router-dom';
 
 import DialogLink from 'components/DialogLink';
 import AutocompleteSearch from 'components/AutocompleteSearch';
-import LandingSection from 'components/LandingSection';
-import CompanyPreview from 'components/CompanyPreview';
-import Comment from 'components/Comment';
 import StandaloneQuote from 'components/StandaloneQuote';
+import NewCompanies from 'components/NewCompanies';
+import LastComments from 'components/LastComments';
 
 import styles from './styles.scss';
 
-const LandingPage = ({ categoriesList, newCompanies, comments }) => (
+const LandingPage = ({ categoriesList }) => (
   <React.Fragment>
     <section className={styles.banner}>
       <div className="container">
@@ -67,28 +66,8 @@ const LandingPage = ({ categoriesList, newCompanies, comments }) => (
             Запропонувати компанію
           </DialogLink>
         </section>
-        {newCompanies &&
-          <LandingSection title="Нові компанії">
-            <ul className={styles.newCompanies}>
-              {newCompanies.map(item => (
-                <li key={item._id}>
-                  <CompanyPreview company={item}/>
-                </li>
-              ))}
-            </ul>
-          </LandingSection>
-        }
-        {comments &&
-          <LandingSection title="Останні коментарі">
-            <ul className={styles.comments}>
-              {comments.map(item => (
-                <li key={item._id}>
-                  <Comment comment={item} company={item._company} />
-                </li>
-              ))}
-            </ul>
-          </LandingSection>
-        }
+        <NewCompanies />
+        <LastComments />
       </div>
     </div>
   </React.Fragment>
@@ -96,8 +75,6 @@ const LandingPage = ({ categoriesList, newCompanies, comments }) => (
 
 LandingPage.propTypes = {
   categoriesList: PropTypes.array,
-  newCompanies: PropTypes.array,
-  comments: PropTypes.array,
 };
 
 export default LandingPage;

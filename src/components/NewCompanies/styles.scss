@@ -1,0 +1,28 @@
+.newCompanies {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  & > li {
+    width: 151px;
+    margin-top: 60px;
+    display: inline-block;
+    vertical-align: top;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  @media (max-width: 1010px) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    & > li {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+  @media (max-width: 480px) {
+    justify-content: space-around;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
