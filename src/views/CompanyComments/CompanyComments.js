@@ -10,7 +10,7 @@ import { scrollIntoViewIfNeeded } from 'utils';
 import CompanyCommentsForm from './CompanyCommentsForm';
 import styles from './styles.scss';
 
-class CompanyComments extends React.Component {
+class CompanyComments extends React.PureComponent {
 
   componentDidUpdate(prevProps) {
     if (this.props.comments !== prevProps.comments) {

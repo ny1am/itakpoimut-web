@@ -10,7 +10,7 @@ import CompanyCommentsComponent from './CompanyComments';
 
 const getCurrentPage = (location) => {
   const { currentPage } = queryString.parse(location.search);
-  return currentPage;
+  return currentPage || '1';
 };
 
 class CompanyCommentsContainer extends React.Component {
@@ -35,7 +35,7 @@ class CompanyCommentsContainer extends React.Component {
     const { companyId, onInit } = newProps;
     const currentPage = getCurrentPage(this.props.location);
     const newPage = getCurrentPage(newProps.location);
-    if (currentPage !== newPage) {
+    if (currentPage !== newPage && newProps.location.hash !== '#new-comment') {
       const promise = onInit(companyId, newPage);
       return wrapWithProgress(promise);
     }

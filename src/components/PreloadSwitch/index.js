@@ -57,24 +57,25 @@ class PreloadSwitch extends React.Component {
       dispatch: store.dispatch,
       prevLocation: location
     });
-    return {
-      fetchKeys: fetchResult.map(item => item.prop),
-      fetchPromises: fetchResult.map(item => item.promise)
-    };
+    return fetchResult;
   }
 
   fetchRoutes ({ nextLocation, location }) {
     this.setState({ isAppFetching: true });
-    const { fetchKeys, fetchPromises } =
-      this.getFetchConfig({ nextLocation, location });
+    const fetchResult = this.getFetchConfig({ nextLocation, location });
 
-    const promise = wrapWithProgress(Promise.all(fetchPromises))
-    .then(values => extractInitialData(fetchKeys, values))
-    .then(initialData => {
-      this.setState({ initialData });
-      return initialData;
-    })
-    .finally(() => {
+    let promise = Promise.resolve();
+    if (fetchResult) {
+      const fetchPromises = fetchResult.map(item => item.promise);
+      const fetchKeys = fetchResult.map(item => item.prop);
+      promise = wrapWithProgress(Promise.all(fetchPromises))
+        .then(values => extractInitialData(fetchKeys, values))
+        .then(initialData => {
+          this.setState({ initialData });
+          return initialData;
+        });
+    }
+    promise = promise.finally(() => {
       this.setState({
         isAppFetching: false,
         ready: true,

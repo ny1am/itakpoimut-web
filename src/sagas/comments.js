@@ -1,4 +1,4 @@
-import { put } from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import queryString from 'query-string';
 
@@ -6,7 +6,6 @@ import {
   COMMENTS_REQUEST, COMMENTS_SUCCESS,
   ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS,
 } from 'consts/comments';
-import { get } from 'actions/comments';
 import { combine, takeFirst } from './utils/effects';
 import apiSecureRequest from './utils/apiSecureRequest';
 import apiRequest from './utils/apiRequest';
@@ -35,8 +34,9 @@ function* addComment({ companyId, text }) {
     const currentPage = 1;
     yield put(push({
       search: queryString.stringify({ currentPage }),
+      hash: 'new-comment'
     }));
-    yield put(get(companyId, currentPage));
+    yield call(fetchComments, { id: companyId, currentPage });
     const newAction = { type: ADD_COMMENT_SUCCESS, payload };
     yield put(newAction);
   }

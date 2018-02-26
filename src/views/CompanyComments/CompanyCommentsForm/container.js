@@ -26,7 +26,6 @@ class CompanyCommentsFormContainer extends React.Component {
     const { onSubmit, companyId } = this.props;
     const { text } = this.state;
     const promise = onSubmit(companyId, text).then(data => {
-      //todo: slight performance issue here
       this.setState({ text: '' });
       return data;
     });

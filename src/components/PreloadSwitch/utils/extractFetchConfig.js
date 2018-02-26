@@ -12,9 +12,7 @@ const extractFetchConfig = (location, routeConfig, options) => {
   if (fetchResult.length > 0) {
     return fetchResult;
   } else {
-    return [{
-      promise: Promise.resolve()
-    }];
+    return null;
   }
 };
 
