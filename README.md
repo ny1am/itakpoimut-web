@@ -3,12 +3,18 @@ This project requires `node` >= 6 and `npm` >= 5. It's recomended to install `ya
 To start this project:
   
   1. cd into the root directory
-  2. Install the dependencies `npm i` or `yarn`.
-  3. Start it: `npm start` / `yarn start`
+  2. install the dependencies `npm i` or `yarn`
+  3. start it `npm start` / `yarn start`
 
-to build production version, please use command
-`npm run build` / `yarn build`
-you will find result in the `/build` folder.
+To build production version:
+
+  1. `npm run build` / `yarn build`
+  2. find result in the `/build` folder
+
+To deploy this project to firebase:
+
+  1. Build `npm run build` / `yarn build`
+  2. Deploy `firebase deploy`
 
 Architecture is based on <a href="https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0" target="_blank">Presentational and Container Components</a> pattern
 
