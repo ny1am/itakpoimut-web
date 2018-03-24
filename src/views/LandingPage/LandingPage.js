@@ -12,7 +12,7 @@ import styles from './styles.scss';
 
 const LandingPage = ({ categoriesList }) => (
   <React.Fragment>
-    <section className={styles.banner}>
+    <section className={styles.hero}>
       <div className="container">
         <h1 className={styles.bannerHeader}>
           База компаній громадської ініціативи <q>И так поймут</q>
