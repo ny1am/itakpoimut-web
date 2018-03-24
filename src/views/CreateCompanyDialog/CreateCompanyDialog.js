@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
+import randomstring from 'randomstring';
 
 import FileUpload from 'components/FileUpload';
 
@@ -24,6 +25,7 @@ class CreateCompanyDialog extends React.Component {
       selectedCategories: [],
       selectedViolations: [],
       attachment: null,
+      submitKey: randomstring.generate(7),
     };
   }
 
@@ -66,7 +68,9 @@ class CreateCompanyDialog extends React.Component {
       selectedCategories: selectedCategories.map(item => item.value),
       selectedViolations: selectedViolations.map(item => item.value),
     };
-    this.props.onSubmit(data);
+    this.props.onSubmit(data).finally(() => {
+      this.setState({ submitKey: randomstring.generate(7) });
+    });
   }
 
   renderDialogError() {
@@ -87,6 +91,7 @@ class CreateCompanyDialog extends React.Component {
     const descriptionClass = errors.description?'row--error':'';
     const company_siteClass = errors.company_site?'row--error':'';
     const { categoriesList, violationsList } = this.props.initialData;
+    const { submitKey } = this.state;
     return (
       <div className={`dialog_content ${styles.wrapper}`}>
         <h1>
@@ -102,7 +107,12 @@ class CreateCompanyDialog extends React.Component {
               <label className="row__label">
                 Лого компанії
               </label>
-              <FileUpload className={styles.attachment} error={!!errors.attachment} onChange={this.handleAttachment} />
+              <FileUpload
+                className={styles.attachment}
+                serverError={!!errors.attachment}
+                onChange={this.handleAttachment}
+                stateKey={submitKey}
+              />
               <div className="hint">
                 JPEG або PNG,<br/> розміром до 1 Mb
               </div>

@@ -3,56 +3,96 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.scss';
 
-class FileUpload extends React.Component {
+class FileUpload extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.onChange = this.onChange.bind(this);
+    this.setupFileReader();
     this.state = {
-      result: props.error?'error':null,
+      previewSrc: null,
+      validationResult: null,
+      dirty: false,
     };
   }
 
   componentWillReceiveProps(newProps) {
-    if (!this.props.error && newProps.error) {
+    //todo: don't like this
+    if (newProps.stateKey !== this.props.stateKey) {
       this.setState({
-        result: 'error',
+        validationResult: null,
+        dirty: false,
       });
     }
   }
 
-  onChange() {
+  setupFileReader() {
+    this.reader = new FileReader();
+    this.reader.addEventListener('load', () => {
+      this.setState({ previewSrc: this.reader.result });
+    }, false);
+  }
+
+  validate(file) {
+    return file && file.type.startsWith('image/');
+  }
+
+  onChange = () => {
+    const { onChange } = this.props;
     let file = this.fileUpload.files[0];
-    //validation for drag and drop
-    if (file && file.type.indexOf('image/') !== 0) {
-      file = null;
-    }
-    if (file) {
-      this.setState({ result: 'success' });
+    const isValid = this.validate(file);
+    if (isValid) {
+      this.reader.readAsDataURL(file);
     } else {
-      this.setState({ result: null });
+      file = null;
+      this.setState({
+        previewSrc: null,
+      });
     }
-    this.props.onChange(file);
+    this.setState({
+      //todo: not sure about null
+      validationResult: (isValid ? 'success' : null),
+      dirty: true,
+    }, () => onChange(file));
   }
 
   render() {
-    const wrapperClassName = `${this.props.className} ${this.state.result?styles[this.state.result]:''}`;
+    const { imgSrc, serverError, className } = this.props;
+    const { previewSrc, dirty } = this.state;
+    const imageToShow = previewSrc || imgSrc;
+    let validationResult = null;
+    if (dirty) {
+      validationResult = this.state.validationResult;
+    } else if (serverError) {
+      validationResult = 'error';
+    }
+    const wrapperClassName = `${styles.wrapper} ${className} ${validationResult?styles[validationResult]:''}`;
     return (
       <div className={wrapperClassName}>
-        {this.props.children &&
-          React.Children.toArray(this.props.children)
+        {imageToShow ?
+          <img
+            src={imageToShow}
+            className={styles.preview}
+          />
+        :
+          <div className={styles.placeholder} />
         }
-        <input type="file" accept="image/*" onChange={this.onChange} ref={(ref) => this.fileUpload = ref} />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={this.onChange}
+          ref={ref => (this.fileUpload = ref)}
+        />
       </div>
     );
   }
 }
 
 FileUpload.propTypes = {
-  error: PropTypes.bool,
+  imgSrc: PropTypes.string,
+  serverError: PropTypes.bool,
   className: PropTypes.string.isRequired,
-  children: PropTypes.node,
   onChange: PropTypes.func.isRequired,
+  stateKey: PropTypes.string,
 };
 
 export default FileUpload;

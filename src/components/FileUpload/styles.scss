@@ -1,6 +1,48 @@
-div.error {
-  border-color: rgba(255,0,0,0.5);
+.wrapper {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 2px dashed #e1e1e1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    border-color: #b4b4b4;
+  }
+
+  &.error {
+    border-color: rgba(255, 0, 0, 0.5);
+  }
+
+  &.success {
+    border-color: rgba(0, 200, 0, 0.5);
+  }
+
+  & > input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 }
-div.success {
-  border-color: rgba(0,200,0,0.5);
+
+.placeholder {
+  background-image: url(/assets/img/icons-sprite.png);
+  background-position: -82px 0px;
+  width: 66px;
+  height: 58px;
 }

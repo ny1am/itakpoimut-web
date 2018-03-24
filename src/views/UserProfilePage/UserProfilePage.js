@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
+import randomstring from 'randomstring';
 
-import Avatar from 'components/Avatar';
 import FileUpload from 'components/FileUpload';
 import DialogLink from 'components/DialogLink';
 
@@ -21,6 +21,7 @@ class UserProfilePage extends React.Component {
       fname: user.fname || '',
       lname: user.lname || '',
       userpic: null,
+      submitKey: randomstring.generate(7),
     };
   }
 
@@ -40,7 +41,9 @@ class UserProfilePage extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.onSubmit(this.state);
+    this.props.onSubmit(this.state).finally(() => {
+      this.setState({ submitKey: randomstring.generate(7) });
+    });
   }
 
   render() {
@@ -49,6 +52,7 @@ class UserProfilePage extends React.Component {
     const fnameClass = errors.fname?'row--error':'';
     const lnameClass = errors.lname?'row--error':'';
     const successSave = !!this.props.successSave;
+    const { submitKey } = this.state;
     return (
       <div className="pattern-content">
         <Helmet>
@@ -119,9 +123,13 @@ class UserProfilePage extends React.Component {
                 <h1>
                   Ваше фото
                 </h1>
-                <FileUpload key={successSave} className={styles.userpic} error={!!errors.userpic} onChange={this.handleAttachment}>
-                  <Avatar user={user} />
-                </FileUpload>
+                <FileUpload
+                  imgSrc={user.picture_url}
+                  className={styles.userpic}
+                  serverError={!!errors.userpic}
+                  onChange={this.handleAttachment}
+                  stateKey={submitKey}
+                />
                 <div className="hint">
                   JPEG або PNG,<br/> розміром до 1 Mb
                 </div>
