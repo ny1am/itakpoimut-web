@@ -4,8 +4,7 @@ article.wrapper {
 }
 
 article.wrapper > div {
-  display: 
-  inline-block;
+  display: inline-block;
 }
 
 div.logo {
@@ -53,7 +52,10 @@ span.time {
   text-align: right;
   color: #b7b7b7;
   font-style: italic;
-  word-break: break-word;
+  word-break: break-all;
+  @supports (word-break: break-word) {
+    word-break: break-word;
+  }
   &:hover {
     text-decoration: underline;
   }
@@ -67,5 +69,8 @@ p.text {
   font-style: normal;
   margin: 12px 0;
   line-height: 1.2;
-  word-wrap: break-word;
+  word-break: break-all;
+  @supports (word-break: break-word) {
+    word-break: break-word;
+  }
 }

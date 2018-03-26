@@ -59,7 +59,10 @@
   font-size: 3.5rem;
   line-height: 1.1;
   color: #444;
-  word-break: break-word;
+  word-break: break-all;
+  @supports (word-break: break-word) {
+    word-break: break-word;
+  }
   @media (max-width: 800px) {
     font-size: 3rem;
   }
