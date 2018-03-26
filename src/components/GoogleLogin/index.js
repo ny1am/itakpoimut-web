@@ -8,23 +8,20 @@ import styles from './styles.scss';
 
 class GoogleLogin extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.responseGoogle = this.responseGoogle.bind(this);
-  }
-
-  responseGoogle({ accessToken }) {
+  responseGoogle = ({ accessToken }) => {
     this.props.onChange(accessToken);
   }
 
   render() {
-    return (<GoogleLoginComponent
-      clientId={GOOGLE_CLIENT_ID}
-      buttonText="Вхід через Google+"
-      className={styles.button}
-      onSuccess={this.responseGoogle}
-      onFailure={this.responseGoogle}
-    />);
+    return (
+      <GoogleLoginComponent
+        clientId={GOOGLE_CLIENT_ID}
+        buttonText="Вхід через Google+"
+        className={styles.button}
+        onSuccess={this.responseGoogle}
+        onFailure={this.responseGoogle}
+      />
+    );
   }
 }
 

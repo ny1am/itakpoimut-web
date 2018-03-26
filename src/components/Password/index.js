@@ -1,34 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import styles from './styles.scss';
 
-class Password extends React.Component {
+class Password extends React.PureComponent {
 
-  constructor(props) {
-    super(props);
-    this.toggle = this.toggle.bind(this);
-    this.state = { hidden: true };
-  }
+  state = {
+    hidden: true
+  };
 
-  toggle() {
+  toggle = () => {
     this.setState({ hidden: !this.state.hidden });
   }
 
   render() {
     const { hidden } = this.state;
     const { className, ...props } = this.props;
-    const inputClassName = `${styles.password} ${className||''}`;
-    const toggleClassName = `${styles.toggle} ${hidden?'':styles.shown}`;
     return (
       <div className={styles.wrapper}>
         <input
-          className={inputClassName}
+          className={cn(styles.password, className)}
           {...props}
           type={hidden?'password':'text'}
         />
         <div
-          className={toggleClassName}
+          className={cn(styles.toggle, { [styles.shown]: !hidden })}
           title={hidden?'Показати пароль':'Сховати пароль'}
           onClick={this.toggle}
         />

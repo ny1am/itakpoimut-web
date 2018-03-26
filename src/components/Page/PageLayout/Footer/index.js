@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import cn from 'classnames';
 
 import { userLinks } from '../Menu';
 
@@ -29,11 +30,11 @@ const Footer = () => {
             target="_blank"
             rel="noopener"
             title="facebook"
-            className={`${styles.facebook} ${styles.btn}`}
+            className={cn(styles.facebook, styles.btn)}
           />
           <button onClick={gotoTop}
             title="Нагору"
-            className={`${styles.up} ${styles.btn}`}
+            className={cn(styles.up, styles.btn)}
           />
         </div>
       </div>

@@ -1,56 +1,42 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import SocialLoginSection from 'components/SocialLoginSection';
 import DialogLink from 'components/DialogLink';
 import Password from 'components/Password';
+import { preventDefault } from 'utils';
 
 import styles from './styles.scss';
 
-class LoginDialog extends React.Component {
+class LoginDialog extends React.PureComponent {
 
-  constructor(props) {
-    super(props);
-    this.handleUsernameChange = this.handleUsernameChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleFacebookSubmit = this.handleFacebookSubmit.bind(this);
-    this.handleGoogleSubmit = this.handleGoogleSubmit.bind(this);
-    this.state = {
-      username: '',
-      password: '',
-    };
+  state = {
+    username: '',
+    password: '',
   }
 
-  handleUsernameChange(e) {
-    const username = e.target.value;
-    this.setState({ username });
+  onInputChange = ({ target: { name, value } }) => {
+    this.setState({ [name]: value });
   }
 
-  handlePasswordChange(e) {
-    const password = e.target.value;
-    this.setState({ password });
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit = () => {
     this.props.onSubmit('form', this.state);
   }
 
-  handleFacebookSubmit(accessToken) {
+  handleFacebookSubmit = (accessToken) => {
     //todo handle empty accessToken
     this.props.onSubmit('facebook', accessToken);
   }
 
-  handleGoogleSubmit(accessToken) {
+  handleGoogleSubmit = (accessToken) => {
     //todo handle empty accessToken
     this.props.onSubmit('google', accessToken);
   }
 
   render() {
-    const errors = this.props.errors || {};
-    const usernameClass = errors.username?'row--error':'';
-    const passwordClass = errors.password?'row--error':'';
+    const { errors = {} } = this.props;
+    const onSubmit = preventDefault(this.handleSubmit);
     return (
       <div className="dialog_content">
         <h1>
@@ -65,8 +51,8 @@ class LoginDialog extends React.Component {
           handleFacebookSubmit={this.handleFacebookSubmit}
           handleGoogleSubmit={this.handleGoogleSubmit}
         />
-        <form action="/login" method="post" onSubmit={this.handleSubmit}>
-          <div className={usernameClass+' row'}>
+        <form action="/login" method="post" onSubmit={onSubmit}>
+          <div className={cn('row', { 'row--error': errors.username })}>
             <label className="row__label" htmlFor="username">
               {errors.username || 'E-mail'}
             </label>
@@ -74,11 +60,11 @@ class LoginDialog extends React.Component {
               className="row__input higher"
               name="username"
               value={this.state.username}
-              onChange={this.handleUsernameChange}
+              onChange={this.onInputChange}
               maxLength="50"
             />
           </div>
-          <div className={passwordClass+' row'}>
+          <div className={cn('row', { 'row--error': errors.password })}>
             <label className="row__label" htmlFor="password">
               {errors.password || 'Пароль'}
             </label>
@@ -87,7 +73,7 @@ class LoginDialog extends React.Component {
               className="row__input higher password"
               name="password"
               value={this.state.password}
-              onChange={this.handlePasswordChange}
+              onChange={this.onInputChange}
               maxLength="25"
             />
             <aside className={styles.forget}>
@@ -113,10 +99,6 @@ class LoginDialog extends React.Component {
 LoginDialog.propTypes = {
   errors: PropTypes.object,
   onSubmit: PropTypes.func,
-};
-
-LoginDialog.defaultProps = {
-  errors: {}
 };
 
 export default LoginDialog;

@@ -1,13 +1,14 @@
 import React from 'react';
+import cn from 'classnames';
 
 import DialogLink from 'components/DialogLink';
 
 import styles from './styles.scss';
 
-class PleaseSignupDialog extends React.Component {
+class PleaseSignupDialog extends React.PureComponent {
   render() {
     return (
-      <div className={`dialog_content ${styles.wrapper}`}>
+      <div className={cn('dialog_content', styles.wrapper)}>
         <div className={styles.icon} />
         <div className={styles.text}>
           Ця дія доступна тільки зареєстрованим користувачам

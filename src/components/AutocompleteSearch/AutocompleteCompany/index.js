@@ -15,7 +15,7 @@ const AutocompleteCompany = ({ company }) => (
       {company.title}
     </div>
     <div className={styles.loyalty}>
-      <Loyalty company={company} />
+      <Loyalty company={company} adaptive />
     </div>
   </Link>
 );

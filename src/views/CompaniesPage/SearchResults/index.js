@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import cn from 'classnames';
 
 import Pagination from 'components/Pagination';
 import CompanyOverview from 'components/CompanyOverview';
@@ -9,7 +10,6 @@ import styles from './styles.scss';
 
 const SearchResults = ({ sortOrder, companies, companiesCount, allCompaniesCount, currentPage, totalPages, baseUrl }) => {
   const newSortOrder = (sortOrder === 'asc' ? 'desc' : 'asc');
-  const sortClassName = `${styles.sort} ${styles[newSortOrder]}`;
   if (companies.length > 0) {
     return (
       <div className={styles.wrapper}>
@@ -19,7 +19,10 @@ const SearchResults = ({ sortOrder, companies, companiesCount, allCompaniesCount
             <span>
               Підібрано {companiesCount} з {allCompaniesCount} компаній
             </span>
-            <Link to={`${baseUrl}&sortOrder=${newSortOrder}#results`} className={sortClassName}>
+            <Link
+              to={`${baseUrl}&sortOrder=${newSortOrder}#results`}
+              className={cn(styles.sort, styles[newSortOrder])}
+            >
               За алфавітом
             </Link>
           </div>

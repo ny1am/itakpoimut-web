@@ -16,21 +16,17 @@ const scrollToError = (errors, holder) => {
 const enhanceDialog = (mapProps) => (Component) => {
   class EnhancedDialog extends React.Component {
 
-    constructor(props) {
-      super(props);
-      this.onSubmit = this.onSubmit.bind(this);
-      this.state = {
-        success: null,
-        errors: {},
-      };
-    }
+    state = {
+      success: null,
+      errors: {},
+    };
 
     componentWillMount() {
       const { dispatch } = this.context.store;
       this.mappedProps = mapProps(dispatch);
     }
 
-    onSubmit(...args) {
+    onSubmit = (...args) => {
       const { changeLoading } = this.context;
       const { onSubmit, SuccessView } = this.mappedProps;
       changeLoading(true);

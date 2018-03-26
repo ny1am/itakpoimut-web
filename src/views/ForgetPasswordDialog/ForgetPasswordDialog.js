@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import DialogLink from 'components/DialogLink';
 import { preventDefault } from 'utils';
@@ -8,31 +9,24 @@ import styles from './styles.scss';
 
 class ForgetPasswordDialog extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {
-      email: '',
-    };
+  state = {
+    email: '',
   }
 
-  handleEmailChange(e) {
-    const email = e.target.value;
-    this.setState({ email });
+  onInputChange = ({ target: { name, value } }) => {
+    this.setState({ [name]: value });
   }
 
-  handleSubmit() {
+  handleSubmit = () => {
     this.props.onSubmit(this.state.email);
   }
 
   render() {
-    const errors = this.props.errors || {};
-    const emailClass = errors.email?'row--error':'';
+    const { errors = {} } = this.props;
     const { email } = this.state;
     const onSubmit = preventDefault(this.handleSubmit);
     return (
-      <div className={`dialog_content ${styles.wrapper}`}>
+      <div className={cn('dialog_content', styles.wrapper)}>
         <h1>
           Відновлення паролю
         </h1>
@@ -40,7 +34,7 @@ class ForgetPasswordDialog extends React.Component {
           Вкажіть, будь ласка, e-mail, і ми скинемо вам посилання на відновлення паролю
         </p>
         <form action="/forgot" method="post" noValidate onSubmit={onSubmit}>
-          <div className={emailClass+' row'}>
+          <div className={cn('row', { 'row--error': errors.email })}>
             <label className="row__label" htmlFor="email">
               {errors.email || 'E-mail'}
             </label>
@@ -49,7 +43,7 @@ class ForgetPasswordDialog extends React.Component {
               className="row__input higher"
               name="email"
               value={email}
-              onChange={this.handleEmailChange}
+              onChange={this.onInputChange}
               maxLength="50"
             />
           </div>

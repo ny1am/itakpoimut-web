@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import styles from './styles.scss';
 
-class Checkbox extends React.Component {
+class Checkbox extends React.PureComponent {
   render() {
     const { className, id, ...props } = this.props;
-    const wrapperClassName = `${styles.checkbox} ${className||''}`;
     return (
-      <div className={wrapperClassName}>
+      <div className={cn(styles.checkbox, className)}>
         <input type="checkbox"
           {...props}
           id={id}

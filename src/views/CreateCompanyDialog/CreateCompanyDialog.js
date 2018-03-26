@@ -2,66 +2,46 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import randomstring from 'randomstring';
+import cn from 'classnames';
 
 import FileUpload from 'components/FileUpload';
+import { preventDefault } from 'utils';
 
 import styles from './styles.scss';
 
-class CreateCompanyDialog extends React.Component {
+class CreateCompanyDialog extends React.PureComponent {
 
-  constructor(props) {
-    super(props);
-    this.handleCategoryChange = this.handleCategoryChange.bind(this);
-    this.handleViolationChange = this.handleViolationChange.bind(this);
-    this.handleTitleChange = this.handleTitleChange.bind(this);
-    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
-    this.handleCompanySiteChange = this.handleCompanySiteChange.bind(this);
-    this.handleAttachment = this.handleAttachment.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {
-      title: '',
-      description: '',
-      company_site: '',
-      selectedCategories: [],
-      selectedViolations: [],
-      attachment: null,
-      submitKey: randomstring.generate(7),
-    };
+  state = {
+    title: '',
+    description: '',
+    company_site: '',
+    selectedCategories: [],
+    selectedViolations: [],
+    attachment: null,
+    submitKey: randomstring.generate(7),
   }
 
-  handleCategoryChange(value) {
+  onInputChange = ({ target: { name, value } }) => {
+    this.setState({ [name]: value });
+  }
+
+  handleCategoryChange = (value) => {
     this.setState({
       selectedCategories: value,
     });
   }
 
-  handleViolationChange(value) {
+  handleViolationChange = (value) => {
     this.setState({
       selectedViolations: value,
     });
   }
 
-  handleTitleChange(e) {
-    const title = e.target.value;
-    this.setState({ title });
-  }
-
-  handleDescriptionChange(e) {
-    const description = e.target.value;
-    this.setState({ description });
-  }
-
-  handleCompanySiteChange(e) {
-    const company_site = e.target.value;
-    this.setState({ company_site });
-  }
-
-  handleAttachment(attachment) {
+  handleAttachment = (attachment) => {
     this.setState({ attachment });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit = () => {
     const { selectedCategories, selectedViolations, ...rest } = this.state;
     const data = {
       ...rest,
@@ -73,35 +53,30 @@ class CreateCompanyDialog extends React.Component {
     });
   }
 
-  renderDialogError() {
-    const errors = this.props.errors || {};
-    if (errors.dialog) {
-      return (
-        <div className={styles.error}>
-          {errors.dialog}
-        </div>
-      );
-    } else {
-      return null;
-    }
-  }
   render() {
-    const errors = this.props.errors || {};
-    const titleClass = errors.title?'row--error':'';
-    const descriptionClass = errors.description?'row--error':'';
-    const company_siteClass = errors.company_site?'row--error':'';
+    const { errors = {} } = this.props;
     const { categoriesList, violationsList } = this.props.initialData;
     const { submitKey } = this.state;
+    const onSubmit = preventDefault(this.handleSubmit);
     return (
-      <div className={`dialog_content ${styles.wrapper}`}>
+      <div className={cn('dialog_content', styles.wrapper)}>
         <h1>
           Запропонувати компанію
         </h1>
-        {this.renderDialogError()}
+        {errors.dialog &&
+          <div className={styles.error}>
+            {errors.dialog}
+          </div>
+        }
         <p>
           Зазначимо, що ви тільки пропонуєте компанію на розгляд. Після того її затверджує модератор, і система сама присвоює компанії статус лояльної/порушника на основі наявності/відсутності порушень.
         </p>
-        <form action="/createCompany" method="post" encType="multipart/form-data" onSubmit={this.handleSubmit}>
+        <form
+          action="/createCompany"
+          method="post"
+          encType="multipart/form-data"
+          onSubmit={onSubmit}
+        >
           <div className={styles.logoRow}>
             <div className={styles.attachmentWrapper}>
               <label className="row__label">
@@ -118,7 +93,7 @@ class CreateCompanyDialog extends React.Component {
               </div>
             </div>
             <div>
-              <div className={"row "+titleClass}>
+              <div className={cn('row', { 'row--error': errors.title })}>
                 <label className="row__label" htmlFor="title">
                   {errors.title || 'Назва компанії'}
                 </label>
@@ -126,7 +101,7 @@ class CreateCompanyDialog extends React.Component {
                   className="row__input"
                   name="title"
                   value={this.state.title}
-                  onChange={this.handleTitleChange}
+                  onChange={this.onInputChange}
                   maxLength="300"
                 />
               </div>
@@ -144,7 +119,7 @@ class CreateCompanyDialog extends React.Component {
                   options={categoriesList.map(item =>({label: item.text, value: item.name}))}
                 />
               </div>
-              <div className={"row "+descriptionClass}>
+              <div className={cn('row', { 'row--error': errors.description })}>
                 <label className="row__label" htmlFor="description">
                   {errors.description || 'Опис компанії'}
                 </label>
@@ -153,10 +128,10 @@ class CreateCompanyDialog extends React.Component {
                   name="description"
                   maxLength="300"
                   value={this.state.description}
-                  onChange={this.handleDescriptionChange}
+                  onChange={this.onInputChange}
                 />
               </div>
-              <div className={"row "+company_siteClass}>
+              <div className={cn('row', { 'row--error': errors.company_site })}>
                 <label className="row__label" htmlFor="company_site">
                   {errors.company_site || 'Посилання на сайт (якщо є)'}
                 </label>
@@ -166,7 +141,7 @@ class CreateCompanyDialog extends React.Component {
                     name="company_site"
                     maxLength="100"
                     value={this.state.company_site}
-                    onChange={this.handleCompanySiteChange}
+                    onChange={this.onInputChange}
                   />
                 </div>
               </div>
@@ -187,7 +162,9 @@ class CreateCompanyDialog extends React.Component {
             </div>
           </div>
           <div className={styles.actions}>
-            <button className="dialog__button" type="submit">Додати</button>
+            <button className="dialog__button" type="submit">
+              Додати
+            </button>
           </div>
         </form>
       </div>
@@ -207,7 +184,6 @@ CreateCompanyDialog.propTypes = {
 };
 
 CreateCompanyDialog.defaultProps = {
-  errors: {},
   selectedCategories: [],
   selectedViolations: []
 };

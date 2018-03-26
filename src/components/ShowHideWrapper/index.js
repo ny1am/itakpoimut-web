@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import styles from './styles.scss';
 
@@ -7,7 +8,6 @@ class ShowHideWrapper extends React.Component {
 
   constructor(props) {
     super(props);
-    this.toggle = this.toggle.bind(this);
     const hidden = true;
     this.state = {
       hidden,
@@ -15,7 +15,7 @@ class ShowHideWrapper extends React.Component {
     };
   }
 
-  toggle() {
+  toggle = () => {
     const hidden = !this.state.hidden;
     this.setState({ hidden }, this.changeVisibility);
   }
@@ -45,8 +45,6 @@ class ShowHideWrapper extends React.Component {
   render() {
     const { visibilityMap, hidden } = this.state;
     const { items, className } = this.props;
-    const toggleClassName =
-      `${styles.trigger} ${hidden?styles.close:styles.open}`;
     const visibleItems = items.filter(item => visibilityMap[item.key]);
     return (
       <React.Fragment>
@@ -57,7 +55,14 @@ class ShowHideWrapper extends React.Component {
             </li>
           ))}
         </ul>
-        <div className={toggleClassName} onClick={this.toggle} />
+        <div
+          className={cn(
+            styles.trigger,
+            { [styles.close]: hidden },
+            { [styles.open]: !hidden },
+          )}
+          onClick={this.toggle}
+        />
       </React.Fragment>
     );
   }

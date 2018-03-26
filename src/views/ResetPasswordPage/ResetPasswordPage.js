@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import Password from 'components/Password';
 import DialogLink from 'components/DialogLink';
@@ -9,28 +10,20 @@ import styles from './styles.scss';
 
 class ResetPasswordPage extends React.PureComponent {
 
-  constructor(props) {
-    super(props);
-    this.onPasswordChange = this.onPasswordChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.state = {
-      password: ''
-    };
+  state = {
+    password: ''
   }
 
-  onPasswordChange({ target: { value } }) {
-    this.setState({
-      password: value
-    });
+  onInputChange = ({ target: { name, value } }) => {
+    this.setState({ [name]: value });
   }
 
-  onSubmit() {
+  onSubmit = () => {
     this.props.onSubmit(this.state.password);
   }
 
   render() {
-    const errors = this.props.errors || {};
-    const passwordClass = errors.password?'row--error':'';
+    const { errors = {} } = this.props;
     const { password } = this.state;
     const onSubmit = preventDefault(this.onSubmit);
     return (
@@ -48,7 +41,7 @@ class ResetPasswordPage extends React.PureComponent {
           </div>
         }
         <form action="/reset" method="post" onSubmit={onSubmit}>
-          <div className={passwordClass+' row'}>
+          <div className={cn('row', { 'row--error': errors.password })}>
             <label className="row__label" htmlFor="password">
               {errors.password || 'Новий пароль'}
             </label>
@@ -56,7 +49,7 @@ class ResetPasswordPage extends React.PureComponent {
               className="row__input higher"
               name="password"
               value={password}
-              onChange={this.onPasswordChange}
+              onChange={this.onInputChange}
               maxLength="25"
             />
           </div>

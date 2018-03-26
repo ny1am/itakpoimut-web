@@ -26,7 +26,11 @@ class AutocompleteSearch extends React.PureComponent {
               )}
             </div>
             <div className={styles.select}>
-              <select name="selectedCategory" value={category} onChange={changeCategory}>
+              <select
+                name="selectedCategory"
+                value={category}
+                onChange={changeCategory}
+              >
                 <option value="">Всі сфери</option>
                 {categories.map(item => (
                   <option value={item.name} key={item.name}>

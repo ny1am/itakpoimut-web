@@ -5,27 +5,35 @@ import CheckRow from 'components/CheckRow';
 
 import styles from '../styles.scss';
 
-const ViolationFilters = ({ value, list, onChange }) => (
-  <React.Fragment>
-    <h3 className={styles.searchSubtitle}>
-      Порушення
-    </h3>
-    <ul className={styles.searchGroup}>
-      {list.map((violation, index) => (
-        <li key={index} className="row">
-          <CheckRow text={violation.text}
-            name="selectedViolations[]"
-            value={violation.name}
-            checked={value.includes(violation.name)}
-            onChange={
-              ({ target: { checked } }) => onChange(checked, violation.name)
-            }
-          />
-        </li>
-      ))}
-    </ul>
-  </React.Fragment>
-);
+class ViolationFilters extends React.PureComponent {
+
+  onChange = ({ target: { checked, value } }) => {
+    return this.props.onChange(checked, value);
+  }
+
+  render() {
+    const { value, list } = this.props;
+    return (
+      <React.Fragment>
+        <h3 className={styles.searchSubtitle}>
+          Порушення
+        </h3>
+        <ul className={styles.searchGroup}>
+          {list.map((violation, index) => (
+            <li key={index} className="row">
+              <CheckRow text={violation.text}
+                name="selectedViolations[]"
+                value={violation.name}
+                checked={value.includes(violation.name)}
+                onChange={this.onChange}
+              />
+            </li>
+          ))}
+        </ul>
+      </React.Fragment>
+    );
+  }
+}
 
 ViolationFilters.propTypes = {
   value: PropTypes.arrayOf(PropTypes.string.isRequired),

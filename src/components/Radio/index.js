@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import styles from './styles.scss';
 
 class Radio extends React.Component {
   render() {
     const { className, id, ...props } = this.props;
-    const wrapperClassName = `${styles.radio} ${className||''}`;
     return (
-      <div className={wrapperClassName}>
+      <div className={cn(styles.radio, className)}>
         <input type="radio"
           {...props}
           id={id}

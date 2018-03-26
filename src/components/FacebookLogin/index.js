@@ -8,12 +8,7 @@ import styles from './styles.scss';
 
 class FacebookLogin extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.responseFacebook = this.responseFacebook.bind(this);
-  }
-
-  responseFacebook({ accessToken }) {
+  responseFacebook = ({ accessToken }) => {
     this.props.onChange(accessToken);
   }
 

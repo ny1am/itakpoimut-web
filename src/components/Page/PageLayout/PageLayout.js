@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import disableScroll from 'disable-scroll';
+import cn from 'classnames';
 
 import Header from './Header';
 import Menu from './Menu';
@@ -35,9 +36,11 @@ class PageLayout extends React.PureComponent {
 
   render() {
     const { overflowShown, children } = this.props;
-    const className = `${styles.wrapper} ${overflowShown?styles.fixed:''}`;
     return (
-      <div ref="layout" className={className}>
+      <div ref="layout" className={cn(
+        styles.wrapper,
+        { [styles.fixed]: overflowShown }
+      )}>
         <Header />
         <Menu />
         <main className={styles.content}>

@@ -30,7 +30,12 @@ const CompanyPage = ({ company }) => (
                   {company.title}
                 </div>
                 {company.company_site && (
-                  <a href={http(company.company_site)} className={styles.url} target="_blank" rel="noopener">
+                  <a
+                    href={http(company.company_site)}
+                    className={styles.url}
+                    target="_blank"
+                    rel="noopener"
+                  >
                     {http(company.company_site)}
                   </a>
                 )}

@@ -1,40 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import Password from 'components/Password';
 import { preventDefault } from 'utils';
 
-class ChangePasswordDialog extends React.Component {
+class ChangePasswordDialog extends React.PureComponent {
 
-  constructor(props) {
-    super(props);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleNewPasswordChange = this.handleNewPasswordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.state = {
-      password: '',
-      newPassword: '',
-    };
+  state = {
+    password: '',
+    newPassword: '',
   }
 
-  handlePasswordChange(e) {
-    const password = e.target.value;
-    this.setState({ password });
+  onInputChange = ({ target: { name, value } }) => {
+    this.setState({ [name]: value });
   }
 
-  handleNewPasswordChange(e) {
-    const newPassword = e.target.value;
-    this.setState({ newPassword });
-  }
-
-  handleSubmit() {
+  handleSubmit = () => {
     this.props.onSubmit(this.state);
   }
 
   render() {
-    const errors = this.props.errors || {};
-    const passwordClass = errors.password?'row--error':'';
-    const newPasswordClass = errors.newPassword?'row--error':'';
+    const { errors = {} } = this.props;
+    const { password, newPassword } = this.state;
     const onSubmit = preventDefault(this.handleSubmit);
     return (
       <div className="dialog_content">
@@ -42,7 +30,7 @@ class ChangePasswordDialog extends React.Component {
           Змінити пароль
         </h1>
         <form action="/changePassword" method="post" onSubmit={onSubmit}>
-          <div className={passwordClass+' row'}>
+          <div className={cn('row', { 'row--error': errors.password })}>
             <label className="row__label" htmlFor="password">
               {errors.password || 'Існуючий пароль'}
             </label>
@@ -50,12 +38,12 @@ class ChangePasswordDialog extends React.Component {
               id="password"
               className="row__input higher password"
               name="password"
-              value={this.state.password}
-              onChange={this.handlePasswordChange}
+              value={password}
+              onChange={this.onInputChange}
               maxLength="25"
             />
           </div>
-          <div className={newPasswordClass+' row'}>
+          <div className={cn('row', { 'row--error': errors.newPassword })}>
             <label className="row__label" htmlFor="newPassword">
               {errors.newPassword || 'Новий пароль'}
             </label>
@@ -63,8 +51,8 @@ class ChangePasswordDialog extends React.Component {
               id="newPassword"
               className="row__input higher password"
               name="newPassword"
-              value={this.state.newPassword}
-              onChange={this.handleNewPasswordChange}
+              value={newPassword}
+              onChange={this.onInputChange}
               maxLength="25"
             />
           </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import styles from './styles.scss';
 
@@ -65,9 +66,12 @@ class FileUpload extends React.PureComponent {
     } else if (serverError) {
       validationResult = 'error';
     }
-    const wrapperClassName = `${styles.wrapper} ${className} ${validationResult?styles[validationResult]:''}`;
     return (
-      <div className={wrapperClassName}>
+      <div className={cn(
+        styles.wrapper,
+        className,
+        { [styles[validationResult]] : validationResult }
+      )}>
         {imageToShow ?
           <img
             src={imageToShow}

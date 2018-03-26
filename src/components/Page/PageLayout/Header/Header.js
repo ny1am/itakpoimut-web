@@ -18,7 +18,11 @@ const Header = ({ loggedUser, onLogout, onMenuShow }) => (
           {loggedUser ?
             <React.Fragment>
               <Link key="userpick" to="/user-profile">
-                <Avatar className={styles.userpic} user={loggedUser} size={48} />
+                <Avatar
+                  className={styles.userpic}
+                  user={loggedUser}
+                  size={48}
+                />
               </Link>
               <Link key="fname" to="/user-profile" className={styles.name}>
                 {loggedUser.fname}

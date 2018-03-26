@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import cn from 'classnames';
 
 import AdminButton from 'components/AdminButton';
 import DialogLink from 'components/DialogLink';
@@ -25,11 +26,10 @@ class Menu extends React.PureComponent {
 
   render() {
     const { shown, onMenuHide } = this.props;
-    const mobileClassName = `${styles.mobile} ${shown?styles.shown:''}`;
     return (
       <React.Fragment>
         <nav className={styles.desktop}>
-          <div className={`container ${styles.container}`}>
+          <div className={cn('container', styles.container)}>
             <ul className={styles.menu}>
               {userLinks.map((item, index) => (
                 <li key={index}>
@@ -51,7 +51,10 @@ class Menu extends React.PureComponent {
             </div>
           </div>
         </nav>
-        <section className={mobileClassName}>
+        <section className={cn(
+          styles.mobile,
+          { [styles.shown]: shown }
+        )}>
           <div className={styles.content}>
             <header className={styles.header}>
               <button className={styles.close} onClick={onMenuHide} />

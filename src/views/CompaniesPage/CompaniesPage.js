@@ -11,12 +11,7 @@ import styles from './styles.scss';
 
 class CompaniesPage extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.refresh = this.refresh.bind(this);
-  }
-
-  refresh() {
+  refresh = () => {
     const title = this.titleInput.value;
     const currentPage = 1;
     const { sortOrder, onRefresh } = this.props;

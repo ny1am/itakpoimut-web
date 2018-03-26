@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import CheckRow from 'components/CheckRow';
 import { preventDefault } from 'utils';
@@ -14,7 +15,7 @@ class AddCategoryDialog extends React.Component {
     } = this.props;
     const onSubmit = preventDefault(this.props.onSubmit);
     return (
-      <div className={`dialog_content ${styles.wrapper}`}>
+      <div className={cn('dialog_content', styles.wrapper)}>
         <h1>
           Додати сферу
         </h1>

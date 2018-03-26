@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import styles from './styles.scss';
 
 const StandaloneQuote = ({className, children, ...props}) => {
-  const quoteClassName = `${styles.quote} ${className||''}`;
   return (
-    <q className={quoteClassName} {...props}>
+    <q className={cn(styles.quote, className)} {...props}>
       {children}
     </q>
   );

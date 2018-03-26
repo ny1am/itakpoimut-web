@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import cn from 'classnames';
 
 import styles from './styles.scss';
 
@@ -59,7 +60,10 @@ class Pagination extends React.Component {
       });
     }
     return pages.map((page, index) => (
-      <li key={index} className={`${styles.page} ${page.active?styles.active:''}`}>
+      <li
+        key={index}
+        className={cn(styles.page, { [styles.active]: page.active })}
+      >
         {this.renderPageElement(page.index, page.index)}
       </li>
     ));

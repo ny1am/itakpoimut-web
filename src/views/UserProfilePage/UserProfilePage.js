@@ -2,21 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import randomstring from 'randomstring';
+import cn from 'classnames';
 
 import FileUpload from 'components/FileUpload';
 import DialogLink from 'components/DialogLink';
+import { preventDefault } from 'utils';
 
 import styles from './styles.scss';
 
-class UserProfilePage extends React.Component {
+class UserProfilePage extends React.PureComponent {
 
   constructor(props) {
     super(props);
-    this.handleFnameChange = this.handleFnameChange.bind(this);
-    this.handleLnameChange = this.handleLnameChange.bind(this);
-    this.handleAttachment = this.handleAttachment.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    const user = props.user || {};
+    const { user = {} } = props;
     this.state = {
       fname: user.fname || '',
       lname: user.lname || '',
@@ -25,34 +23,25 @@ class UserProfilePage extends React.Component {
     };
   }
 
-  handleFnameChange(e) {
-    const fname = e.target.value;
-    this.setState({ fname });
+  onInputChange = ({ target: { name, value } }) => {
+    this.setState({ [name]: value });
   }
 
-  handleLnameChange(e) {
-    const lname = e.target.value;
-    this.setState({ lname });
-  }
-
-  handleAttachment(userpic) {
+  handleAttachment = (userpic) => {
     this.setState({ userpic });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit = () => {
     this.props.onSubmit(this.state).finally(() => {
       this.setState({ submitKey: randomstring.generate(7) });
     });
   }
 
   render() {
-    const errors = this.props.errors || {};
-    const user = this.props.user || {};
-    const fnameClass = errors.fname?'row--error':'';
-    const lnameClass = errors.lname?'row--error':'';
+    const { errors = {}, user = {} } = this.props;
     const successSave = !!this.props.successSave;
     const { submitKey } = this.state;
+    const onSubmit = preventDefault(this.handleSubmit);
     return (
       <div className="pattern-content">
         <Helmet>
@@ -70,7 +59,7 @@ class UserProfilePage extends React.Component {
                 {errors.page}
               </div>
             }
-            <form action="/userProfile" method="post" onSubmit={this.handleSubmit}>
+            <form action="/userProfile" method="post" onSubmit={onSubmit}>
               <section className={styles.block}>
                 <h1>
                   Ваші особисті дані
@@ -83,7 +72,7 @@ class UserProfilePage extends React.Component {
                     {user.email}
                   </div>
                 </div>
-                <div className={fnameClass+' row'}>
+                <div className={cn('row', { 'row--error': errors.fname })}>
                   <label className="row__label" htmlFor="fname">
                     {errors.fname || 'Ім\'я'}
                   </label>
@@ -91,11 +80,11 @@ class UserProfilePage extends React.Component {
                     className="row__input"
                     name="fname"
                     value={this.state.fname}
-                    onChange={this.handleFnameChange}
+                    onChange={this.onInputChange}
                     maxLength="25"
                   />
                 </div>
-                <div className={lnameClass+' row'}>
+                <div className={cn('row', { 'row--error': errors.lname })}>
                   <label className="row__label" htmlFor="lname">
                     {errors.lname || 'Прізвище'}
                   </label>
@@ -103,7 +92,7 @@ class UserProfilePage extends React.Component {
                     className="row__input"
                     name="lname"
                     value={this.state.lname}
-                    onChange={this.handleLnameChange}
+                    onChange={this.onInputChange}
                     maxLength="25"
                   />
                 </div>
@@ -153,10 +142,6 @@ UserProfilePage.propTypes = {
   errors: PropTypes.object,
   successSave: PropTypes.bool,
   onSubmit: PropTypes.func,
-};
-
-UserProfilePage.defaultProps = {
-  errors: {}
 };
 
 export default UserProfilePage;

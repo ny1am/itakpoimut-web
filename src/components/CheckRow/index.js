@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import randomstring from 'randomstring';
+import cn from 'classnames';
 
 import Checkbox from 'components/Checkbox';
 import Radio from 'components/Radio';
@@ -12,7 +13,7 @@ const types = {
   radio: Radio,
 };
 
-class CheckRow extends React.Component {
+class CheckRow extends React.PureComponent {
 
   constructor(props) {
     super(props);
@@ -25,7 +26,6 @@ class CheckRow extends React.Component {
     const { id } = this.state;
     const { text, textClassName, checked, type, ...props } = this.props;
     const Component = types[type];
-    const labelClassName = `${checked?styles.checked:''} ${textClassName||''}`;
     return (
       <div className={styles.wrapper}>
         <Component
@@ -34,7 +34,10 @@ class CheckRow extends React.Component {
           className={styles.box}
           id={id}
         />
-        <label className={labelClassName} htmlFor={id}>
+        <label
+          className={cn({ [styles.checked] : checked }, textClassName)}
+          htmlFor={id}
+        >
           {text}
         </label>
       </div>

@@ -23,15 +23,14 @@ class UserProfilePageContainer extends React.Component {
 
   constructor(props) {
     super(props);
-    this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-      errors: null,
+      errors: undefined,
       successSave: false,
       user: props.initialData.user,
     };
   }
 
-  onSubmit(params) {
+  onSubmit = (params) => {
     return this.props.onSubmit(params).then(data => {
       this.setState({
         successSave: true,
@@ -69,6 +68,6 @@ const mapDispatchToProps = (dispatch) => ({
   dispatch
 });
 
-export default connect(
-  null, mapDispatchToProps
-)(UserProfilePageContainer);
+export default connect(null, mapDispatchToProps)(
+  UserProfilePageContainer
+);

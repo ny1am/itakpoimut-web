@@ -7,7 +7,7 @@ import { preventDefault } from 'utils';
 
 import styles from './styles.scss';
 
-class CompanyCommentsForm extends React.Component {
+class CompanyCommentsForm extends React.PureComponent {
 
   render() {
     const { loggedUser, text, onTextChange } = this.props;
@@ -25,7 +25,7 @@ class CompanyCommentsForm extends React.Component {
             <textarea
               name="text"
               value={text}
-              onChange={({ target }) => onTextChange(target.value)}
+              onChange={({ target: { value } }) => onTextChange(value)}
               placeholder="Введіть ваш коментар"
               maxLength="500"
             />
@@ -50,7 +50,7 @@ class CompanyCommentsForm extends React.Component {
 }
 
 CompanyCommentsForm.propTypes = {
-  text :PropTypes.string,
+  text: PropTypes.string,
   loggedUser: PropTypes.object,
   onTextChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
