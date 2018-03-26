@@ -21,10 +21,13 @@
   box-sizing: border-box;
   padding: 0 10px 40px;
   width: 72%;
-  display: flex; 
+  display: flex;
   flex-grow: 1;
   flex-direction: column;
+  position: sticky;
+  top: 0;
   @media (max-width: 640px) {
+    position: static;
     width: 100%;
     padding: 40px 0;
   }

@@ -13,6 +13,7 @@
 
 .searchBody {
   display: flex;
+  align-items: flex-start;
   @media (max-width: 640px) {
     flex-wrap: wrap;
   }
