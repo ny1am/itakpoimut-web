@@ -34,7 +34,7 @@ class UserProfilePageContainer extends React.Component {
     return this.props.onSubmit(params).then(data => {
       this.setState({
         successSave: true,
-        errors: null,
+        errors: undefined,
         user: data.user,
       });
       window.scrollTo(0, 0);
