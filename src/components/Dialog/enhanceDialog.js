@@ -5,7 +5,7 @@ import hoistNonReactStatics from 'hoist-non-react-statics';
 import { hideDialog } from 'actions/dialog';
 import { getDisplayName } from 'utils';
 
-import enhanceForm from './enhanceForm';
+import { enhanceForm } from 'components/Form';
 
 const enhanceDialog = (mapProps) => (Component) => {
   class EnhancedDialog extends React.Component {

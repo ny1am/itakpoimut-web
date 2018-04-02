@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Loading from './Loading';
+import { Loading } from 'components/Form';
 import styles from './styles.scss';
 
 /**

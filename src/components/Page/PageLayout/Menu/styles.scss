@@ -4,6 +4,7 @@
   background-color: rgba(67,80,90,0.4);
   color: white;
   position: relative;
+  z-index: 1;
   &:after {
     clear: both;
   }

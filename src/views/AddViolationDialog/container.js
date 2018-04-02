@@ -22,23 +22,18 @@ class AddViolationDialogContainer extends React.Component {
     }];
   }
 
-  constructor(props) {
-    super(props);
-    this.onSelectViolation = this.onSelectViolation.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.state = {
-      selectedViolations: [],
-    };
+  state = {
+    selectedViolations: [],
   }
 
-  onSelectViolation(checked, value) {
+  onSelectViolation = (checked, value) => {
     const { selectedViolations } = this.state;
     const newViolations = selectedViolations.filter(item => item !== value);
     checked && newViolations.push(value);
     this.setState({ selectedViolations: newViolations });
   }
 
-  onSubmit() {
+  onSubmit = () => {
     const { onSubmit } = this.props;
     const companyId = this.props.initialData.company._id;
     const { selectedViolations } = this.state;

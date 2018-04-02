@@ -1,6 +1,19 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import PageLayoutComponent from './PageLayout';
+
+class PageLayoutContainer extends React.Component {
+  render() {
+    const { loading } = this.context;
+    return <PageLayoutComponent loading={loading} {...this.props} />;
+  }
+}
+
+PageLayoutContainer.contextTypes = {
+  loading: PropTypes.bool.isRequired,
+};
 
 const mapStateToProps = (state) => {
   //todo: move dialog logic to HOC maybe
@@ -12,4 +25,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(PageLayoutComponent);
+export default connect(mapStateToProps)(PageLayoutContainer);

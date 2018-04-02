@@ -27,10 +27,6 @@ const enhanceForm = (mapProps) => (Component) => {
     onSubmit = (...args) => {
       const { changeLoading } = this.context;
       const { onSubmit } = this.mappedProps;
-      this.setState({
-        success: null,
-        errors: {},
-      });
       changeLoading(true);
       return onSubmit(...args)
         .then(data => {

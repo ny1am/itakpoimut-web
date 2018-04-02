@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import DialogComponent from './Dialog';
-import LoadingProvider from './LoadingProvider';
+import { LoadingProvider } from 'components/Form';
 
 class DialogContainer extends React.Component {
 

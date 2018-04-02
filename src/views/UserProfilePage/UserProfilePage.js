@@ -39,7 +39,7 @@ class UserProfilePage extends React.PureComponent {
 
   render() {
     const { errors = {}, user = {} } = this.props;
-    const successSave = !!this.props.successSave;
+    const success = !!this.props.success;
     const { submitKey } = this.state;
     const onSubmit = preventDefault(this.handleSubmit);
     return (
@@ -49,7 +49,7 @@ class UserProfilePage extends React.PureComponent {
         </Helmet>
         <div className="container">
           <div className={styles.content}>
-            {successSave &&
+            {success &&
               <div className={styles.success}>
                 Зміни збережено
               </div>
@@ -140,7 +140,7 @@ class UserProfilePage extends React.PureComponent {
 UserProfilePage.propTypes = {
   user: PropTypes.object.isRequired,
   errors: PropTypes.object,
-  successSave: PropTypes.bool,
+  success: PropTypes.bool,
   onSubmit: PropTypes.func,
 };
 
