@@ -3,38 +3,25 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import DialogComponent from './Dialog';
+import LoadingProvider from './LoadingProvider';
 
 class DialogContainer extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.changeLoading = (loading => this.setState({ loading })).bind(this);
-    this.state = {
-      loading: false,
-    };
-  }
-
-  getChildContext = () => ({
-    loading: this.state.loading,
-    changeLoading: this.changeLoading,
-  });
 
   render() {
     const { dialogType, loggedUser } = this.props;
     if (!dialogType) {
       return null;
     }
-    return (<DialogComponent
-      dialogType={dialogType}
-      loggedUser={loggedUser}
-    />);
+    return (
+      <LoadingProvider>
+        <DialogComponent
+          dialogType={dialogType}
+          loggedUser={loggedUser}
+        />
+      </LoadingProvider>
+    );
   }
 }
-
-DialogContainer.childContextTypes = {
-  loading: PropTypes.bool.isRequired,
-  changeLoading: PropTypes.func.isRequired,
-};
 
 DialogContainer.propTypes = {
   dialogType: PropTypes.string,
