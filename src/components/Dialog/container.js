@@ -4,14 +4,12 @@ import { connect } from 'react-redux';
 
 import DialogComponent from './Dialog';
 import { LoadingProvider } from 'components/Form';
+import { hideIfNoData } from 'utils/enhancers';
 
 class DialogContainer extends React.Component {
 
   render() {
     const { dialogType, loggedUser } = this.props;
-    if (!dialogType) {
-      return null;
-    }
     return (
       <LoadingProvider>
         <DialogComponent
@@ -28,6 +26,8 @@ DialogContainer.propTypes = {
   loggedUser: PropTypes.object,
 };
 
+const hasNoData = props => !(props.dialogType);
+
 const mapStateToProps = ({ router, auth }) => {
   const dialogState = router.location.state || {};
   return {
@@ -36,4 +36,6 @@ const mapStateToProps = ({ router, auth }) => {
   };
 };
 
-export default connect(mapStateToProps)(DialogContainer);
+export default connect(mapStateToProps)(
+  hideIfNoData(hasNoData)(DialogContainer)
+);

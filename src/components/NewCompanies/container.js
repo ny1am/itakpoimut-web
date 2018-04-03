@@ -7,11 +7,8 @@ import NewCompaniesComponent from './NewCompanies';
 
 class NewCompaniesContainer extends React.PureComponent {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      companies: null
-    };
+  state = {
+    companies: null
   }
 
   componentDidMount() {

@@ -3,15 +3,13 @@ import PropTypes from 'prop-types';
 
 import LandingSection from 'components/LandingSection';
 import CompanyPreview from 'components/CompanyPreview';
+import { hideIfNoData } from 'utils/enhancers';
 
 import styles from './styles.scss';
 
 class NewCompanies extends React.PureComponent {
   render() {
     const { companies } = this.props;
-    if (!companies) {
-      return null;
-    }
     return (
       <LandingSection title="Нові компанії">
         <ul className={styles.newCompanies}>
@@ -30,4 +28,6 @@ NewCompanies.propTypes = {
   companies: PropTypes.array,
 };
 
-export default NewCompanies;
+const hasNoData = props => !(props.companies);
+
+export default hideIfNoData(hasNoData)(NewCompanies);

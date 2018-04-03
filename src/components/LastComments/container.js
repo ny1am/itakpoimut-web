@@ -7,11 +7,8 @@ import LastCommentsComponent from './LastComments';
 
 class LastCommentsContainer extends React.PureComponent {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      comments: null
-    };
+  state = {
+    comments: null
   }
 
   componentDidMount() {
