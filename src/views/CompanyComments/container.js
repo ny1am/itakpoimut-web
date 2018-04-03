@@ -15,11 +15,8 @@ const getCurrentPage = (location) => {
 
 class CompanyCommentsContainer extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      ready: false,
-    };
+  state = {
+    ready: false,
   }
 
   componentDidMount() {

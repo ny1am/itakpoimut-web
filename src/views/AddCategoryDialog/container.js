@@ -29,16 +29,11 @@ class AddCategoryDialogContainer extends React.Component {
     }];
   }
 
-  constructor(props) {
-    super(props);
-    this.onSelectCategory = this.onSelectCategory.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.state = {
-      selectedCategories: []
-    };
+  state = {
+    selectedCategories: []
   }
 
-  onSubmit() {
+  onSubmit = () => {
     const { onSubmit } = this.props;
     const companyId = this.props.initialData.company._id;
     const { selectedCategories } = this.state;
@@ -48,7 +43,7 @@ class AddCategoryDialogContainer extends React.Component {
     });
   }
 
-  onSelectCategory(checked, value) {
+  onSelectCategory = (checked, value) => {
     const newCategories = [...this.state.selectedCategories].filter(
       category => category !== value
     );

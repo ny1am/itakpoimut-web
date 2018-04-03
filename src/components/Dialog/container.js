@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { compose } from 'recompose';
 
 import DialogComponent from './Dialog';
 import { LoadingProvider } from 'components/Form';
@@ -36,6 +37,7 @@ const mapStateToProps = ({ router, auth }) => {
   };
 };
 
-export default connect(mapStateToProps)(
-  hideIfNoData(hasNoData)(DialogContainer)
-);
+export default compose(
+  connect(mapStateToProps),
+  hideIfNoData(hasNoData),
+)(DialogContainer);

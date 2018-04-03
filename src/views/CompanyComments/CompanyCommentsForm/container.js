@@ -9,20 +9,15 @@ import CompanyCommentsFormComponent from './CompanyCommentsForm';
 
 class CompanyCommentsFormContainer extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.onTextChange = this.onTextChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.state = {
-      text: '',
-    };
+  state = {
+    text: '',
   }
 
-  onTextChange(text) {
+  onTextChange = (text) => {
     this.setState({ text });
   }
 
-  onSubmit() {
+  onSubmit = () => {
     const { onSubmit, companyId } = this.props;
     const { text } = this.state;
     const promise = onSubmit(companyId, text).then(data => {
@@ -52,8 +47,8 @@ CompanyCommentsFormContainer.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  loggedUser: state.auth.loggedUser,
+const mapStateToProps = ({ auth }) => ({
+  loggedUser: auth.loggedUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
