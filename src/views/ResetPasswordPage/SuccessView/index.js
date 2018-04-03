@@ -9,7 +9,7 @@ const SuccessView = () => (
   <SuccessViewComponent title="Вітаємо!">
     <p className={styles.successMsg}>
       {`Тепер ви можете `}
-      <DialogLink className={styles.link} to="/dialog/login">ввійти</DialogLink>
+      <DialogLink className={styles.link} to="/login">ввійти</DialogLink>
       {` з вашим новим паролем!`}
     </p>
   </SuccessViewComponent>

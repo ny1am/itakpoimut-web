@@ -30,7 +30,7 @@ const Header = ({ loggedUser, onLogout, onMenuShow }) => (
               <button key="logout" className={styles.logout} onClick={onLogout} />
             </React.Fragment>
           :
-            <DialogLink to="/dialog/login" className={styles.login}>
+            <DialogLink to="/login" className={styles.login}>
               Вхід/Реєстрація
             </DialogLink>
           }
@@ -40,7 +40,7 @@ const Header = ({ loggedUser, onLogout, onMenuShow }) => (
     <header className={styles.mobile}>
       <button className={styles.menu} onClick={onMenuShow} />
       <div className={styles.buttons}>
-        <DialogLink to="/dialog/create-company" className={styles.addCompany} />
+        <DialogLink to="/create-company" className={styles.addCompany} />
         <Link to="/companies" className={styles.search} />
         {loggedUser ?
           <React.Fragment>
@@ -48,7 +48,7 @@ const Header = ({ loggedUser, onLogout, onMenuShow }) => (
             <button key="logout" className={styles.logout} onClick={onLogout} />
           </React.Fragment>
         :
-          <DialogLink to="/dialog/login" className={styles.user} />
+          <DialogLink to="/login" className={styles.user} />
         }
       </div>
     </header>

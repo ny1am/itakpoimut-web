@@ -9,7 +9,7 @@ class NotLoggedIn extends React.PureComponent {
     return (
       <div className={styles.notLoggedIn}>
         {`Для того, щоб залишити коментар, вам необхідно `}
-        <DialogLink to="/dialog/login">ввійти</DialogLink>
+        <DialogLink to="/login">ввійти</DialogLink>
       </div>
     );
   }

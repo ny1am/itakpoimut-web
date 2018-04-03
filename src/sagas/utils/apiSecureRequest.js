@@ -12,7 +12,7 @@ function* apiSecureRequest(url, options) {
   const { payload, error } = yield apiRequest(url, newOptions);
   if (error && error.status_code === 401) {
     yield put(logout());
-    yield put(showDialog('/dialog/please-signup'));
+    yield put(showDialog('/please-signup'));
   }
   return { payload, error };
 }

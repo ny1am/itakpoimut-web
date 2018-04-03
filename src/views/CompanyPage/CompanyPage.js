@@ -64,7 +64,7 @@ const CompanyPage = ({ company }) => (
                 </ul>
               )}
               <DialogLink
-                to={`/dialog/add-violation/${company._id}`}
+                to={`/add-violation/${company._id}`}
                 className={styles.addViolation}
               >
                 Додати порушення
@@ -82,7 +82,7 @@ const CompanyPage = ({ company }) => (
                 ))}
                 <li>
                   <DialogLink
-                    to={`/dialog/add-category/${company._id}`}
+                    to={`/add-category/${company._id}`}
                     className={styles.addCategory}
                   >
                     Додати сферу

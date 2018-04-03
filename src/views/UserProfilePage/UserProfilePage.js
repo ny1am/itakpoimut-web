@@ -101,7 +101,7 @@ class UserProfilePage extends React.PureComponent {
                     <div className="row">
                       <DialogLink
                         className={styles.link}
-                        to="/dialog/change-password"
+                        to="/change-password"
                       >
                         Змінити пароль
                       </DialogLink>

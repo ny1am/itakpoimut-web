@@ -77,7 +77,7 @@ class LoginDialog extends React.PureComponent {
               maxLength="25"
             />
             <aside className={styles.forget}>
-              <DialogLink to="/dialog/forget-password">
+              <DialogLink to="/forget-password">
                 Забули пароль?
               </DialogLink>
             </aside>
@@ -87,7 +87,7 @@ class LoginDialog extends React.PureComponent {
           </button>
         </form>
         <aside className="dialog__aside">
-          <DialogLink to="/dialog/signup">
+          <DialogLink to="/signup">
             Реєстрація
           </DialogLink>
         </aside>

@@ -43,7 +43,7 @@ class Menu extends React.PureComponent {
             <div className={styles.aside}>
               <Link className={styles.search} to="/companies" />
               <DialogLink
-                to="/dialog/create-company"
+                to="/create-company"
                 className={styles.addCompany}
               >
                 Запропонувати компанію

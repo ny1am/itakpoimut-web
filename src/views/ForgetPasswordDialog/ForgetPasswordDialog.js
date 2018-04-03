@@ -52,7 +52,7 @@ class ForgetPasswordDialog extends React.Component {
           </button>
         </form>
         <aside className="dialog__aside">
-          <DialogLink to="/dialog/login">
+          <DialogLink to="/login">
             Я згадав/ла пароль
           </DialogLink>
         </aside>

@@ -14,11 +14,11 @@ class PleaseSignupDialog extends React.PureComponent {
           Ця дія доступна тільки зареєстрованим користувачам
         </div>
         <div className={styles.actions}>
-          <DialogLink to="/dialog/login" className="dialog__button">
+          <DialogLink to="/login" className="dialog__button">
             Ввійти
           </DialogLink>
           <br/>
-          <DialogLink to="/dialog/signup" className="regularLink">
+          <DialogLink to="/signup" className="regularLink">
             Реєстрація
           </DialogLink>
         </div>

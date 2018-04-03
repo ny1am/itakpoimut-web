@@ -8,31 +8,31 @@ import ChangePasswordDialog from 'views/ChangePasswordDialog';
 import ForgetPasswordDialog from 'views/ForgetPasswordDialog';
 
 const routeConfig = [{
-  path: '/dialog/please-signup',
+  path: '/please-signup',
   component: PleaseSignupDialog,
 }, {
-  path: '/dialog/login',
+  path: '/login',
   component: LoginDialog,
 }, {
-  path: '/dialog/signup',
+  path: '/signup',
   component: SignupDialog,
 }, {
-  path: '/dialog/forget-password',
+  path: '/forget-password',
   component: ForgetPasswordDialog,
 }, {
-  path: '/dialog/create-company',
+  path: '/create-company',
   component: CreateCompanyDialog,
   secure: true,
 }, {
-  path: '/dialog/add-violation/:companyId',
+  path: '/add-violation/:companyId',
   component: AddViolationDialog,
   secure: true,
 }, {
-  path: '/dialog/add-category/:companyId',
+  path: '/add-category/:companyId',
   component: AddCategoryDialog,
   secure: true,
 }, {
-  path: '/dialog/change-password',
+  path: '/change-password',
   component: ChangePasswordDialog,
   secure: true,
 }];

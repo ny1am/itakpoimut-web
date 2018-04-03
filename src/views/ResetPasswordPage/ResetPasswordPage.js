@@ -34,7 +34,7 @@ class ResetPasswordPage extends React.PureComponent {
         {errors.expired &&
           <div className={styles.error}>
             {`Термін дії посилання закінчився. Подайте ще один `}
-            <DialogLink className={styles.link} to="/dialog/forget-password">
+            <DialogLink className={styles.link} to="/forget-password">
               запит
             </DialogLink>
             {` на зміну паролю.`}
