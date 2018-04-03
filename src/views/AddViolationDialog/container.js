@@ -9,7 +9,7 @@ import { enhanceDialog } from 'components/Dialog';
 import AddViolationDialogComponent from './AddViolationDialog';
 import SuccessView from './SuccessView';
 
-class AddViolationDialogContainer extends React.Component {
+class AddViolationDialogContainer extends React.PureComponent {
 
   static fetch(location, { dispatch, params }) {
     const { companyId } = params;

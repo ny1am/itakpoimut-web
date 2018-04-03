@@ -7,8 +7,7 @@ import { preventDefault } from 'utils';
 
 import styles from './styles.scss';
 
-class AddViolationDialog extends React.Component {
-
+class AddViolationDialog extends React.PureComponent {
   render() {
     const { violations, selectedViolations, onSelectViolation } = this.props;
     const onSubmit = preventDefault(this.props.onSubmit);

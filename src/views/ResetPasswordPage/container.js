@@ -11,16 +11,12 @@ import SuccessView from './SuccessView';
 
 class ResetPasswordPageContainer extends React.PureComponent {
 
-  constructor(props) {
-    super(props);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.state = {
-      success: false,
-      errors: {}
-    };
+  state = {
+    success: false,
+    errors: {}
   }
 
-  onSubmit(password) {
+  onSubmit = (password) => {
     const { token } = this.props.match.params;
     this.props.onSubmit({ token, password }).then(() => {
       this.setState({ success: true });

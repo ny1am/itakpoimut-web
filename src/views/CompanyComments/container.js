@@ -32,6 +32,7 @@ class CompanyCommentsContainer extends React.Component {
     const { companyId, onInit } = newProps;
     const currentPage = getCurrentPage(this.props.location);
     const newPage = getCurrentPage(newProps.location);
+    //todo: revise this
     if (currentPage !== newPage && newProps.location.hash !== '#new-comment') {
       const promise = onInit(companyId, newPage);
       return wrapWithProgress(promise);

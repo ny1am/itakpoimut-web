@@ -8,33 +8,12 @@ import DialogLayout from './DialogLayout';
 import SecureDialogRoute from './SecureDialogRoute';
 import routeConfig from './routeConfig';
 
-const createLocation = (dialogType) => ({
-  pathname: dialogType
-});
-
 /**
  * Wrapper for dialogs
  */
 class Dialog extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      location: createLocation(props.dialogType),
-    };
-  }
-
-  componentWillReceiveProps(newProps) {
-    if (this.props.dialogType !== newProps.dialogType) {
-      this.setState({
-        location: createLocation(newProps.dialogType),
-      });
-    }
-  }
-
   render() {
-    const { location } = this.state;
-    const { loggedUser } = this.props;
+    const { loggedUser, location } = this.props;
     return (
       <PreloadSwitch
         location={location}
@@ -52,7 +31,7 @@ class Dialog extends React.Component {
 }
 
 Dialog.propTypes = {
-  dialogType: PropTypes.string,
+  location: PropTypes.object.isRequired,
   loggedUser: PropTypes.object
 };
 

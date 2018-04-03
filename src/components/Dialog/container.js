@@ -3,18 +3,19 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
-import DialogComponent from './Dialog';
 import { LoadingProvider } from 'components/Form';
 import { hideIfNoData } from 'utils/enhancers';
 
-class DialogContainer extends React.Component {
+import { dialogLocationSelector } from './selectors';
+import DialogComponent from './Dialog';
 
+class DialogContainer extends React.PureComponent {
   render() {
-    const { dialogType, loggedUser } = this.props;
+    const { location, loggedUser } = this.props;
     return (
       <LoadingProvider>
         <DialogComponent
-          dialogType={dialogType}
+          location={location}
           loggedUser={loggedUser}
         />
       </LoadingProvider>
@@ -23,19 +24,16 @@ class DialogContainer extends React.Component {
 }
 
 DialogContainer.propTypes = {
-  dialogType: PropTypes.string,
+  location: PropTypes.object,
   loggedUser: PropTypes.object,
 };
 
-const hasNoData = props => !(props.dialogType);
+const mapStateToProps = (state) => ({
+  loggedUser: state.auth.loggedUser,
+  location: dialogLocationSelector(state)
+});
 
-const mapStateToProps = ({ router, auth }) => {
-  const dialogState = router.location.state || {};
-  return {
-    dialogType: dialogState.dialogType || null,
-    loggedUser: auth.loggedUser,
-  };
-};
+const hasNoData = props => !(props.location);
 
 export default compose(
   connect(mapStateToProps),

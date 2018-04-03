@@ -36,11 +36,13 @@ class UserProfilePageContainer extends React.Component {
   }
 
   render() {
-    return (<UserProfilePageComponent
-      {...this.props}
-      {...this.state}
-      onSubmit={this.onSubmit}
-    />);
+    return (
+      <UserProfilePageComponent
+        {...this.props}
+        {...this.state}
+        onSubmit={this.onSubmit}
+      />
+    );
   }
 }
 

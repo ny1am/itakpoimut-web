@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createSelector } from 'reselect';
+
+import { isDialogShownSelector } from 'components/Dialog';
 
 import PageLayoutComponent from './PageLayout';
 
@@ -15,14 +18,14 @@ PageLayoutContainer.contextTypes = {
   loading: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  //todo: move dialog logic to HOC maybe
-  const dialogState = state.router.location.state || {};
-  const dialogShown = !!dialogState.dialogType;
-  const menuShown = state.menu;
-  return {
-    overflowShown: (dialogShown || menuShown),
-  };
-};
+const isMenuShownSelector = state => state.menu;
+const isOverflowShownSelector = createSelector(
+  [isDialogShownSelector, isMenuShownSelector],
+  (dialogShown, menuShown) => (dialogShown || menuShown)
+);
+
+const mapStateToProps = (state) => ({
+  overflowShown: isOverflowShownSelector(state),
+});
 
 export default connect(mapStateToProps)(PageLayoutContainer);
