@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 
-import { LoadingProvider } from 'components/Form';
 import { hideIfNoData } from 'utils/enhancers';
 
 import { dialogLocationSelector } from './selectors';
@@ -13,12 +12,10 @@ class DialogContainer extends React.PureComponent {
   render() {
     const { location, loggedUser } = this.props;
     return (
-      <LoadingProvider>
-        <DialogComponent
-          location={location}
-          loggedUser={loggedUser}
-        />
-      </LoadingProvider>
+      <DialogComponent
+        location={location}
+        loggedUser={loggedUser}
+      />
     );
   }
 }

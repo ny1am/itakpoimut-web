@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Loading } from 'components/Form';
 import styles from './styles.scss';
 
 /**
@@ -10,13 +9,13 @@ import styles from './styles.scss';
 class DialogLayout extends React.PureComponent {
 
   render() {
-    const { children, loading, onClose } = this.props;
+    const { children, onClose } = this.props;
     return (
       <div className={styles.shade}>
         <div id="dialog" className={styles.dialog}>
           {children}
           <button className={styles.close} onClick={onClose} />
-          {loading && <Loading />}
+          <div data-loading-portal />
         </div>
       </div>
     );
@@ -25,7 +24,6 @@ class DialogLayout extends React.PureComponent {
 
 DialogLayout.propTypes = {
   children: PropTypes.node.isRequired,
-  loading: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 

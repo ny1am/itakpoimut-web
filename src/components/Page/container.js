@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { locationChanged } from 'actions/preload';
 import { appReady } from 'actions/global';
 import PreloadSwitch from 'components/PreloadSwitch';
-import { LoadingProvider } from 'components/Form';
 
 import PageLayout from './PageLayout';
 import SecureRoute from './SecureRoute';
@@ -27,20 +26,18 @@ class PageContainer extends React.PureComponent {
   render() {
     const { loggedUser, location } = this.props;
     return (
-      <LoadingProvider>
-        <PreloadSwitch
-          location={location}
-          routeConfig={routeConfig}
-          loggedUser={loggedUser}
-          onDataFetched={this.onDataFetched}
-          Wrapper={PageLayout}
-        >
-          {routeConfig.map(cfg => {
-            const RouteComponent = cfg.secure ? SecureRoute : Route;
-            return <RouteComponent key={cfg.path} {...cfg} />;
-          })}
-        </PreloadSwitch>
-      </LoadingProvider>
+      <PreloadSwitch
+        location={location}
+        routeConfig={routeConfig}
+        loggedUser={loggedUser}
+        onDataFetched={this.onDataFetched}
+        Wrapper={PageLayout}
+      >
+        {routeConfig.map(cfg => {
+          const RouteComponent = cfg.secure ? SecureRoute : Route;
+          return <RouteComponent key={cfg.path} {...cfg} />;
+        })}
+      </PreloadSwitch>
     );
   }
 }

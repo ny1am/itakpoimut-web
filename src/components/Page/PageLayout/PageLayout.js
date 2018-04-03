@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import disableScroll from 'disable-scroll';
 import cn from 'classnames';
 
-import { Loading } from 'components/Form';
 import Header from './Header';
 import Menu from './Menu';
 import Footer from './Footer';
@@ -36,7 +35,7 @@ class PageLayout extends React.PureComponent {
   }
 
   render() {
-    const { overflowShown, loading, children } = this.props;
+    const { overflowShown, children } = this.props;
     return (
       <div ref="layout" className={cn(
         styles.wrapper,
@@ -46,7 +45,7 @@ class PageLayout extends React.PureComponent {
         <Menu />
         <main className={styles.content}>
           {children}
-          {loading && <Loading />}
+          <div data-loading-portal />
         </main>
         <Footer />
       </div>
@@ -55,7 +54,6 @@ class PageLayout extends React.PureComponent {
 }
 
 PageLayout.propTypes = {
-  loading: PropTypes.bool.isRequired,
   overflowShown: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
 };

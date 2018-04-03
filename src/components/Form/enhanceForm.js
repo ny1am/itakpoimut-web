@@ -6,6 +6,8 @@ import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
 import { getDisplayName, getFirstErrorElement } from 'utils';
 
+import LoadingPortal from './LoadingPortal';
+
 const scrollToError = (errors, holder) => {
   const element = getFirstErrorElement(errors, holder);
   element && scrollIntoViewIfNeeded(element);
@@ -15,6 +17,7 @@ const enhanceForm = (mapProps) => (Component) => {
   class EnhancedForm extends React.Component {
 
     state = {
+      loading: false,
       success: null,
       errors: {},
     };
@@ -25,9 +28,8 @@ const enhanceForm = (mapProps) => (Component) => {
     }
 
     onSubmit = (...args) => {
-      const { changeLoading } = this.context;
       const { onSubmit } = this.mappedProps;
-      changeLoading(true);
+      this.setState({ loading: true });
       return onSubmit(...args)
         .then(data => {
           this.setState({
@@ -45,17 +47,21 @@ const enhanceForm = (mapProps) => (Component) => {
           scrollToError(payload.errors, holder);
         })
         .finally(() => {
-          changeLoading(false);
+          this.setState({ loading: false });
         });
     }
 
     render() {
+      const { loading } = this.state;
       return (
-        <Component
-          {...this.props}
-          {...this.state}
-          onSubmit={this.onSubmit}
-        />
+        <React.Fragment>
+          <Component
+            {...this.props}
+            {...this.state}
+            onSubmit={this.onSubmit}
+          />
+          {loading && <LoadingPortal formRef={this} />}
+        </React.Fragment>
       );
     }
 
@@ -65,7 +71,6 @@ const enhanceForm = (mapProps) => (Component) => {
     store: PropTypes.shape({
       dispatch: PropTypes.func.isRequired,
     }).isRequired,
-    changeLoading: PropTypes.func.isRequired,
   };
 
   hoistNonReactStatics(EnhancedForm, Component);
