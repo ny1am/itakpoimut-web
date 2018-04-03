@@ -10,13 +10,10 @@ import extractInitialData from './utils/extractInitialData';
 
 class PreloadSwitch extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      isAppFetching: false,
-      initialData: null,
-      ready: false,
-    };
+  state = {
+    isAppFetching: false,
+    initialData: null,
+    ready: false,
   }
 
   componentWillMount () {

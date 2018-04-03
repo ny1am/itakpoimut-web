@@ -87,7 +87,7 @@ class LoginDialog extends React.PureComponent {
           </button>
         </form>
         <aside className="dialog__aside">
-          <DialogLink to="/dialog/signup" className="regularLink">
+          <DialogLink to="/dialog/signup">
             Реєстрація
           </DialogLink>
         </aside>

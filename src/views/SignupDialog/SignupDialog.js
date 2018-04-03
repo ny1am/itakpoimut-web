@@ -110,7 +110,7 @@ class SignupDialog extends React.PureComponent {
           </button>
         </form>
         <aside className="dialog__aside">
-          <DialogLink to="/dialog/login" className="regularLink">
+          <DialogLink to="/dialog/login">
             У мене вже є аккаунт
           </DialogLink>
         </aside>
