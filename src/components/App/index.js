@@ -16,16 +16,18 @@ class App extends React.Component {
   render() {
     const title = `"И так поймут" Kаталог ЗМІ та бізнесу`;
     return (
-      <ErrorBoundary>
+      <React.Fragment>
         <Helmet
           titleTemplate={`%s - ${title}`}
           defaultTitle={title}
         />
-        <ProgressBar />
-        <Dialog />
-        <Page />
-        <Loading />
-      </ErrorBoundary>
+        <ErrorBoundary>
+          <ProgressBar />
+          <Dialog />
+          <Page />
+          <Loading />
+        </ErrorBoundary>
+      </React.Fragment>
     );
   }
 }

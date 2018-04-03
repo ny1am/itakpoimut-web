@@ -43,96 +43,98 @@ class UserProfilePage extends React.PureComponent {
     const { submitKey } = this.state;
     const onSubmit = preventDefault(this.handleSubmit);
     return (
-      <div className="pattern-content">
+      <React.Fragment>
         <Helmet>
-          <title>Профіль</title>
+          <title>Особистий кабінет</title>
         </Helmet>
-        <div className="container">
-          <div className={styles.content}>
-            {success &&
-              <div className={styles.success}>
-                Зміни збережено
-              </div>
-            }
-            {errors.page &&
-              <div className={styles.error}>
-                {errors.page}
-              </div>
-            }
-            <form action="/userProfile" method="post" onSubmit={onSubmit}>
-              <section className={styles.block}>
-                <h1>
-                  Ваші особисті дані
-                </h1>
-                <div className="row">
-                  <label className="row__label">
-                    E-mail
-                  </label>
-                  <div className={styles.rowText}>
-                    {user.email}
-                  </div>
+        <div className="pattern-content">
+          <div className="container">
+            <div className={styles.content}>
+              {success &&
+                <div className={styles.success}>
+                  Зміни збережено
                 </div>
-                <div className={cn('row', { 'row--error': errors.fname })}>
-                  <label className="row__label" htmlFor="fname">
-                    {errors.fname || 'Ім\'я'}
-                  </label>
-                  <input type="text"
-                    className="row__input"
-                    name="fname"
-                    value={this.state.fname}
-                    onChange={this.onInputChange}
-                    maxLength="25"
-                  />
+              }
+              {errors.page &&
+                <div className={styles.error}>
+                  {errors.page}
                 </div>
-                <div className={cn('row', { 'row--error': errors.lname })}>
-                  <label className="row__label" htmlFor="lname">
-                    {errors.lname || 'Прізвище'}
-                  </label>
-                  <input type="text"
-                    className="row__input"
-                    name="lname"
-                    value={this.state.lname}
-                    onChange={this.onInputChange}
-                    maxLength="25"
-                  />
-                </div>
-                {user.provider === 'local' &&
+              }
+              <form action="/userProfile" method="post" onSubmit={onSubmit}>
+                <section className={styles.block}>
+                  <h1>
+                    Ваші особисті дані
+                  </h1>
                   <div className="row">
-                    <DialogLink
-                      className={styles.link}
-                      to="/dialog/change-password"
-                    >
-                      Змінити пароль
-                    </DialogLink>
+                    <label className="row__label">
+                      E-mail
+                    </label>
+                    <div className={styles.rowText}>
+                      {user.email}
+                    </div>
                   </div>
-                }
-              </section>
+                  <div className={cn('row', { 'row--error': errors.fname })}>
+                    <label className="row__label" htmlFor="fname">
+                      {errors.fname || 'Ім\'я'}
+                    </label>
+                    <input type="text"
+                      className="row__input"
+                      name="fname"
+                      value={this.state.fname}
+                      onChange={this.onInputChange}
+                      maxLength="25"
+                    />
+                  </div>
+                  <div className={cn('row', { 'row--error': errors.lname })}>
+                    <label className="row__label" htmlFor="lname">
+                      {errors.lname || 'Прізвище'}
+                    </label>
+                    <input type="text"
+                      className="row__input"
+                      name="lname"
+                      value={this.state.lname}
+                      onChange={this.onInputChange}
+                      maxLength="25"
+                    />
+                  </div>
+                  {user.provider === 'local' &&
+                    <div className="row">
+                      <DialogLink
+                        className={styles.link}
+                        to="/dialog/change-password"
+                      >
+                        Змінити пароль
+                      </DialogLink>
+                    </div>
+                  }
+                </section>
 
-              <section className={styles.block}>
-                <h1>
-                  Ваше фото
-                </h1>
-                <FileUpload
-                  imgSrc={user.picture_url}
-                  className={styles.userpic}
-                  serverError={!!errors.userpic}
-                  onChange={this.handleAttachment}
-                  stateKey={submitKey}
-                />
-                <div className="hint">
-                  JPEG або PNG,<br/> розміром до 1 Mb
+                <section className={styles.block}>
+                  <h1>
+                    Ваше фото
+                  </h1>
+                  <FileUpload
+                    imgSrc={user.picture_url}
+                    className={styles.userpic}
+                    serverError={!!errors.userpic}
+                    onChange={this.handleAttachment}
+                    stateKey={submitKey}
+                  />
+                  <div className="hint">
+                    JPEG або PNG,<br/> розміром до 1 Mb
+                  </div>
+                </section>
+
+                <div className="row">
+                  <button className="page__button" type="submit">
+                    Зберегти зміни
+                  </button>
                 </div>
-              </section>
-
-              <div className="row">
-                <button className="page__button" type="submit">
-                  Зберегти зміни
-                </button>
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

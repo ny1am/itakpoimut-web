@@ -7,13 +7,9 @@ import NotAllowedPageComponent from './NotAllowedPage';
 
 class NotAllowedPageContainer extends React.PureComponent {
 
-  constructor(props) {
-    super(props);
-    this.tick = this.tick.bind(this);
-    this.state = {
-      timer: null,
-      timeToGo: 5,
-    };
+  state = {
+    timer: null,
+    timeToGo: 5,
   }
 
   componentWillMount() {
@@ -25,7 +21,7 @@ class NotAllowedPageContainer extends React.PureComponent {
     clearInterval(this.state.timer);
   }
 
-  tick() {
+  tick = () => {
     const timeToGo = this.state.timeToGo - 1;
     if (timeToGo > 0) {
       this.setState({ timeToGo });

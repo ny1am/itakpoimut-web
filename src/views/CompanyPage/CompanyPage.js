@@ -10,92 +10,94 @@ import CompanyComments from 'views/CompanyComments';
 import styles from './styles.scss';
 
 const CompanyPage = ({ company }) => (
-  <div className="pattern-content">
+  <React.Fragment>
     <Helmet>
       <title>{company.title}</title>
     </Helmet>
-    <div className="container">
-      <div className={styles.wrapper}>
-        <section>
-          <div className={styles.profile}>
-            <article className={styles.companyInfo}>
-              <div className={styles.leftColumn}>
-                <div className={styles.logo}>
-                  <img src={company.img} title={company.title} />
+    <div className="pattern-content">
+      <div className="container">
+        <div className={styles.wrapper}>
+          <section>
+            <div className={styles.profile}>
+              <article className={styles.companyInfo}>
+                <div className={styles.leftColumn}>
+                  <div className={styles.logo}>
+                    <img src={company.img} title={company.title} />
+                  </div>
+                  <Loyalty company={company} className={styles.loyalty} />
                 </div>
-                <Loyalty company={company} className={styles.loyalty} />
-              </div>
-              <div className={styles.rightColumn}>
-                <div className={styles.title} title={company.title}>
-                  {company.title}
+                <div className={styles.rightColumn}>
+                  <div className={styles.title} title={company.title}>
+                    {company.title}
+                  </div>
+                  {company.company_site && (
+                    <a
+                      href={http(company.company_site)}
+                      className={styles.url}
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      {http(company.company_site)}
+                    </a>
+                  )}
+                  {company.description && (
+                    <p className={styles.description}>
+                      {company.description}
+                    </p>
+                  )}
                 </div>
-                {company.company_site && (
-                  <a
-                    href={http(company.company_site)}
-                    className={styles.url}
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    {http(company.company_site)}
-                  </a>
-                )}
-                {company.description && (
-                  <p className={styles.description}>
-                    {company.description}
-                  </p>
-                )}
-              </div>
-            </article>
-          </div>
-          <div>
-            <h2 className={styles.listTitle}>
-              Порушення компанії
-            </h2>
-            {company.violations && (
-              <ul className={styles.violations}>
-                {company.violations.map((item, index) => (
-                  <li key={index}>
-                    <label>
-                      {item.text}
-                    </label>
+              </article>
+            </div>
+            <div>
+              <h2 className={styles.listTitle}>
+                Порушення компанії
+              </h2>
+              {company.violations && (
+                <ul className={styles.violations}>
+                  {company.violations.map((item, index) => (
+                    <li key={index}>
+                      <label>
+                        {item.text}
+                      </label>
+                    </li>
+                  ))}
+                </ul>
+              )}
+              <DialogLink
+                to={`/dialog/add-violation/${company._id}`}
+                className={styles.addViolation}
+              >
+                Додати порушення
+              </DialogLink>
+            </div>
+            <div>
+              <h2 className={styles.listTitle}>
+                Сфери діяльності
+              </h2>
+              <ul className={styles.categories}>
+                {company.categories.map((item, index) => (
+                  <li key={index} className={styles.item}>
+                    {item.text}
                   </li>
                 ))}
-              </ul>
-            )}
-            <DialogLink
-              to={`/dialog/add-violation/${company._id}`}
-              className={styles.addViolation}
-            >
-              Додати порушення
-            </DialogLink>
-          </div>
-          <div>
-            <h2 className={styles.listTitle}>
-              Сфери діяльності
-            </h2>
-            <ul className={styles.categories}>
-              {company.categories.map((item, index) => (
-                <li key={index} className={styles.item}>
-                  {item.text}
+                <li>
+                  <DialogLink
+                    to={`/dialog/add-category/${company._id}`}
+                    className={styles.addCategory}
+                  >
+                    Додати сферу
+                  </DialogLink>
                 </li>
-              ))}
-              <li>
-                <DialogLink
-                  to={`/dialog/add-category/${company._id}`}
-                  className={styles.addCategory}
-                >
-                  Додати сферу
-                </DialogLink>
-              </li>
-            </ul>
+              </ul>
+            </div>
+          </section>
+          <div className={styles.commentsWrapper}>
+            <CompanyComments companyId={company._id} />
           </div>
-        </section>
-        <div className={styles.commentsWrapper}>
-          <CompanyComments companyId={company._id} />
         </div>
       </div>
     </div>
-  </div>
+  </React.Fragment>
 );
 
 CompanyPage.propTypes = {

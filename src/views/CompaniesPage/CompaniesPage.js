@@ -21,33 +21,35 @@ class CompaniesPage extends React.Component {
   render() {
     const { companies, companiesCount, allCompaniesCount, currentPage, totalPages, sortOrder, title } = this.props;
     return (
-      <div className="pattern-content">
+      <React.Fragment>
         <Helmet>
           <title>Всі компанії</title>
         </Helmet>
-        <div className="container">
-          <div className={styles.searchBar}>
-            <SearchInput
-              value={title}
-              innerRef={input => (this.titleInput = input)}
-              onSubmit={this.refresh}
-            />
-            <SelectedFilters onChange={this.refresh} />
-          </div>
-          <div className={styles.searchBody}>
-            <Filters onChange={this.refresh} />
-            <SearchResults
-              companies={companies}
-              companiesCount={companiesCount}
-              allCompaniesCount={allCompaniesCount}
-              currentPage={currentPage}
-              totalPages={totalPages}
-              sortOrder={sortOrder}
-              baseUrl={`/companies?title=${title || ''}`}
-            />
+        <div className="pattern-content">
+          <div className="container">
+            <div className={styles.searchBar}>
+              <SearchInput
+                value={title}
+                innerRef={input => (this.titleInput = input)}
+                onSubmit={this.refresh}
+              />
+              <SelectedFilters onChange={this.refresh} />
+            </div>
+            <div className={styles.searchBody}>
+              <Filters onChange={this.refresh} />
+              <SearchResults
+                companies={companies}
+                companiesCount={companiesCount}
+                allCompaniesCount={allCompaniesCount}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                sortOrder={sortOrder}
+                baseUrl={`/companies?title=${title || ''}`}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

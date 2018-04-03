@@ -5,21 +5,22 @@ import { Helmet } from 'react-helmet';
 import styles from './styles.scss';
 
 class ResetPasswordPageWrapper extends React.PureComponent {
-
   render() {
     return (
-      <div className="pattern-content">
+      <React.Fragment>
         <Helmet>
           <title>Змінити пароль</title>
         </Helmet>
-        <div className="container">
-          <div className={styles.wrapper}>
-            <div className={styles.content}>
-              {this.props.children}
+        <div className="pattern-content">
+          <div className="container">
+            <div className={styles.wrapper}>
+              <div className={styles.content}>
+                {this.props.children}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

@@ -6,16 +6,16 @@ import styles from './styles.scss';
 /**
  * 404 page
  */
-const NotFoundPage = () => {
-  return (
+const NotFoundPage = () => (
+  <React.Fragment>
+    <Helmet>
+      <title>404</title>
+    </Helmet>
     <div className={styles.wrapper}>
-      <Helmet>
-        <title>404</title>
-      </Helmet>
       <div className={styles.title}>404</div>
       <div className={styles.expl}>Сторінки не існує</div>
     </div>
-  );
-};
+  </React.Fragment>
+);
 
 export default NotFoundPage;

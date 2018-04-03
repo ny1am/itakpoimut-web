@@ -8,20 +8,20 @@ import styles from './styles.scss';
 /**
  * 403 page
  */
-const NotAllowedPage = ({ timeToGo }) => {
-  return (
+const NotAllowedPage = ({ timeToGo }) => (
+  <React.Fragment>
+    <Helmet>
+      <title>403</title>
+    </Helmet>
     <div className={styles.wrapper}>
-      <Helmet>
-        <title>403</title>
-      </Helmet>
       <div className={styles.title}>403</div>
       <div className={styles.expl}>Немає доступу</div>
       <div className={styles.redirect}>
         Ви будете перенаправлені на <Link to="/">головну</Link> сторінку через {timeToGo} секунд
       </div>
     </div>
-  );
-};
+  </React.Fragment>
+);
 
 NotAllowedPage.propTypes = {
   timeToGo: PropTypes.number.isRequired,

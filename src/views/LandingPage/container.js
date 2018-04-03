@@ -16,8 +16,8 @@ class LandingPageContainer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  categoriesList: state.category,
+const mapStateToProps = ({ category }) => ({
+  categoriesList: category,
 });
 
 export default connect(mapStateToProps)(LandingPageContainer);
