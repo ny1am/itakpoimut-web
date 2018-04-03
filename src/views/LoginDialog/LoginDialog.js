@@ -21,17 +21,17 @@ class LoginDialog extends React.PureComponent {
   }
 
   handleSubmit = () => {
-    this.props.onSubmit('form', this.state);
+    return this.props.onSubmit('form', this.state);
   }
 
   handleFacebookSubmit = (accessToken) => {
     //todo handle empty accessToken
-    this.props.onSubmit('facebook', accessToken);
+    return this.props.onSubmit('facebook', accessToken);
   }
 
   handleGoogleSubmit = (accessToken) => {
     //todo handle empty accessToken
-    this.props.onSubmit('google', accessToken);
+    return this.props.onSubmit('google', accessToken);
   }
 
   render() {

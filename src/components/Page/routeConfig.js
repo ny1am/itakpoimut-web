@@ -4,7 +4,6 @@ import CompaniesPage from 'views/CompaniesPage';
 import UserProfilePage from 'views/UserProfilePage';
 import AboutPage from 'views/AboutPage';
 import ResetPasswordPage from 'views/ResetPasswordPage';
-import NotFoundPage from 'views/NotFoundPage';
 import SomethingWrongPage from 'views/SomethingWrongPage';
 
 const routeConfig = [{
@@ -30,9 +29,6 @@ const routeConfig = [{
 }, {
   path: '/oops',
   component: SomethingWrongPage,
-}, {
-  path: '*',
-  component: NotFoundPage,
 }];
 
 export default routeConfig;

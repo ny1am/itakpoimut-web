@@ -35,19 +35,18 @@ const enhanceForm = (mapProps) => (Component) => {
           this.setState({
             success: true,
             errors: {},
+            loading: false,
           });
           return data;
         })
         .catch(payload => {
           this.setState({
             success: false,
-            errors: payload.errors
+            errors: payload.errors,
+            loading: false,
           });
           const holder = ReactDOM.findDOMNode(this);
           scrollToError(payload.errors, holder);
-        })
-        .finally(() => {
-          this.setState({ loading: false });
         });
     }
 

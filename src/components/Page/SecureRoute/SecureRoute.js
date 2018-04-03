@@ -3,15 +3,12 @@ import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
 import NotAllowedPage from 'views/NotAllowedPage';
-import PageLayout from '../PageLayout';
 
 const SecureRoute = ({ loggedUser, ...rest }) => (
   <Route {...rest} render={(props) => {
     if (!loggedUser) {
       return (
-        <PageLayout>
-          <NotAllowedPage />
-        </PageLayout>
+        <NotAllowedPage />
       );
     }
     return rest.render(props);

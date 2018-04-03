@@ -6,11 +6,17 @@ import { connect } from 'react-redux';
 import { locationChanged } from 'actions/preload';
 import { appReady } from 'actions/global';
 import PreloadSwitch from 'components/PreloadSwitch';
+import NotFoundPage from 'views/NotFoundPage';
 
 import PageLayout from './PageLayout';
 import SecureRoute from './SecureRoute';
-import routeConfig from './routeConfig';
+import pagesRouteConfig from './routeConfig';
 import { pageLocationSelector } from './selectors';
+
+const routeConfig = [...pagesRouteConfig, {
+  path: '*',
+  component: NotFoundPage,
+}];
 
 class PageContainer extends React.PureComponent {
 
@@ -24,31 +30,36 @@ class PageContainer extends React.PureComponent {
   }
 
   render() {
-    const { loggedUser, location } = this.props;
+    const { location } = this.props;
     return (
-      <PreloadSwitch
-        location={location}
-        routeConfig={routeConfig}
-        loggedUser={loggedUser}
-        onDataFetched={this.onDataFetched}
-        Wrapper={PageLayout}
-      >
-        {routeConfig.map(cfg => {
-          const RouteComponent = cfg.secure ? SecureRoute : Route;
-          return <RouteComponent key={cfg.path} {...cfg} />;
-        })}
-      </PreloadSwitch>
+      <PageLayout>
+        <PreloadSwitch
+          location={location}
+          routeConfig={routeConfig}
+          onDataFetched={this.onDataFetched}
+        >
+          {routeConfig.map(cfg => {
+            const RouteComponent = cfg.secure ? SecureRoute : Route;
+            const PageComponent = cfg.component;
+            return (
+              <RouteComponent
+                key={cfg.path}
+                {...cfg}
+                component={PageComponent}
+              />
+            );
+          })}
+        </PreloadSwitch>
+      </PageLayout>
     );
   }
 }
 
 PageContainer.propTypes = {
-  loggedUser: PropTypes.object,
   location: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  loggedUser: state.auth.loggedUser,
   location: pageLocationSelector(state)
 });
 

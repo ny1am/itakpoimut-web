@@ -46,7 +46,6 @@ const enhanceDialog = (mapProps) => (Component) => {
 
   EnhancedDialog.propTypes = {
     success: PropTypes.bool,
-    onSubmit: PropTypes.func.isRequired,
   };
 
   hoistNonReactStatics(EnhancedDialog, Component);
