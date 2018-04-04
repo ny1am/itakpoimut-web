@@ -74,14 +74,24 @@ class PreloadSwitch extends React.Component {
           return initialData;
         });
     }
-    promise = promise.finally(() => {
-      this.setState({
-        isAppFetching: false,
-        ready: true,
+    promise = promise
+      .then(data => {
+        this.setState({
+          isAppFetching: false,
+          ready: true,
+        });
+        const { onFetchSuccess } = this.props;
+        onFetchSuccess && onFetchSuccess({ nextLocation, location });
+        return data;
+      })
+      .catch(error => {
+        this.setState({
+          isAppFetching: false,
+          ready: true,
+        });
+        const { onFetchError } = this.props;
+        onFetchError && onFetchError({ error });
       });
-      const { onDataFetched } = this.props;
-      onDataFetched && onDataFetched({ nextLocation, location });
-    });
     return promise;
   }
 
@@ -111,7 +121,8 @@ PreloadSwitch.propTypes = {
    */
   location: PropTypes.object.isRequired,
   routeConfig: PropTypes.array.isRequired,
-  onDataFetched: PropTypes.func,
+  onFetchSuccess: PropTypes.func,
+  onFetchError: PropTypes.func,
   /**
    * children
    */

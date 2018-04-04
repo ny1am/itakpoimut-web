@@ -20,7 +20,7 @@ const routeConfig = [...pagesRouteConfig, {
 
 class PageContainer extends React.PureComponent {
 
-  onDataFetched = ({ nextLocation, location }) => {
+  onFetchSuccess = ({ nextLocation, location }) => {
     const { store: { dispatch } } = this.context;
     dispatch(locationChanged({
       location: nextLocation,
@@ -36,7 +36,7 @@ class PageContainer extends React.PureComponent {
         <PreloadSwitch
           location={location}
           routeConfig={routeConfig}
-          onDataFetched={this.onDataFetched}
+          onFetchSuccess={this.onFetchSuccess}
         >
           {routeConfig.map(cfg => {
             const RouteComponent = cfg.secure ? SecureRoute : Route;

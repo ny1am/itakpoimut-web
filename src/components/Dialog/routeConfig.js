@@ -1,4 +1,3 @@
-import PleaseSignupDialog from 'views/PleaseSignupDialog';
 import LoginDialog from 'views/LoginDialog';
 import SignupDialog from 'views/SignupDialog';
 import CreateCompanyDialog from 'views/CreateCompanyDialog';
@@ -8,9 +7,6 @@ import ChangePasswordDialog from 'views/ChangePasswordDialog';
 import ForgetPasswordDialog from 'views/ForgetPasswordDialog';
 
 const routeConfig = [{
-  path: '/please-signup',
-  component: PleaseSignupDialog,
-}, {
   path: '/login',
   component: LoginDialog,
 }, {

@@ -45,8 +45,10 @@ const enhanceForm = (mapProps) => (Component) => {
             errors: payload.errors,
             loading: false,
           });
-          const holder = ReactDOM.findDOMNode(this);
-          scrollToError(payload.errors, holder);
+          if (payload.errors) {
+            const holder = ReactDOM.findDOMNode(this);
+            scrollToError(payload.errors, holder);
+          }
         });
     }
 
