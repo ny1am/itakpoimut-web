@@ -24,7 +24,8 @@ class Password extends React.PureComponent {
           {...props}
           type={hidden?'password':'text'}
         />
-        <div
+        <button
+          type="button"
           className={cn(styles.toggle, { [styles.shown]: !hidden })}
           title={hidden?'Показати пароль':'Сховати пароль'}
           onClick={this.toggle}
