@@ -1,23 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { push } from 'react-router-redux';
 
-import { hideDialog } from 'actions/dialog';
+import ErrorPage from './ErrorPage';
 
 class ErrorBoundary extends React.Component {
 
+  state = {
+    error: false
+  }
+
   componentDidCatch(error, info) {
+    this.setState({ error: true });
     //todo: persist error
     console.log('did catch', error, info); // eslint-disable-line
-    const { dispatch } = this.context.store;
-    dispatch(hideDialog());
-    dispatch(push({
-      pathname: '/oops',
-    }));
   }
 
   render() {
-    return this.props.children;
+    const { error } = this.state;
+    if (error) {
+      return <ErrorPage onUnmount={this.hideError} />;
+    } else {
+      return this.props.children;
+    }
   }
 }
 
