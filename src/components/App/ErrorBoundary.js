@@ -18,7 +18,7 @@ class ErrorBoundary extends React.Component {
   render() {
     const { error } = this.state;
     if (error) {
-      return <ErrorPage onUnmount={this.hideError} />;
+      return <ErrorPage />;
     } else {
       return this.props.children;
     }
