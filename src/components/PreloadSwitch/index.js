@@ -38,10 +38,20 @@ class PreloadSwitch extends React.Component {
     return !nextState.isAppFetching;
   }
 
+  getRouteConfig() {
+    const { routeConfig } = this.props;
+    const loggedUser = this.context.store.getState().auth.loggedUser;
+    if (!loggedUser) {
+      return routeConfig.filter(cfg => !cfg.secure);
+    }
+    return routeConfig;
+  }
+
+
   getFetchConfig({ nextLocation, location }) {
     const { store } = this.context;
-    const { routeConfig } = this.props;
-    const fetchResult = extractFetchConfig(nextLocation, routeConfig, {
+    const config = this.getRouteConfig();
+    const fetchResult = extractFetchConfig(nextLocation, config, {
       store,
       dispatch: store.dispatch,
       prevLocation: location
