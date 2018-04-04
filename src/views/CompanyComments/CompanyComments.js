@@ -12,9 +12,14 @@ import styles from './styles.scss';
 
 class CompanyComments extends React.PureComponent {
 
+  constructor(props) {
+    super(props);
+    this.comments = React.createRef();
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.comments !== prevProps.comments) {
-      const elementToScroll = ReactDOM.findDOMNode(this.refs.comments);
+      const elementToScroll = ReactDOM.findDOMNode(this.comments.current);
       scrollIntoViewIfNeeded(elementToScroll);
     }
   }
@@ -26,7 +31,7 @@ class CompanyComments extends React.PureComponent {
     return (
       <div className="container">
         <section className={styles.wrapper}>
-          <header ref="comments" className={styles.header}>
+          <header ref={this.comments} className={styles.header}>
             <h1>
               Коментарі
             </h1>

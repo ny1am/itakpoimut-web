@@ -12,6 +12,11 @@ import styles from './styles.scss';
 
 class PageLayout extends React.PureComponent {
 
+  constructor(props) {
+    super(props);
+    this.layout = React.createRef();
+  }
+
   componentDidMount() {
     this.scrollHandler();
   }
@@ -22,7 +27,7 @@ class PageLayout extends React.PureComponent {
 
   scrollHandler() {
     const { overflowShown } = this.props;
-    const element = ReactDOM.findDOMNode(this.refs.layout);
+    const element = ReactDOM.findDOMNode(this.layout.current);
     if (overflowShown) {
       disableScroll.on(element, {
         disableWheel: false,
@@ -37,7 +42,7 @@ class PageLayout extends React.PureComponent {
   render() {
     const { overflowShown, children } = this.props;
     return (
-      <div ref="layout" className={cn(
+      <div ref={this.layout} className={cn(
         styles.wrapper,
         { [styles.fixed]: overflowShown }
       )}>

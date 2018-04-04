@@ -9,6 +9,7 @@ class FileUpload extends React.PureComponent {
   constructor(props) {
     super(props);
     this.setupFileReader();
+    this.fileUpload = React.createRef();
     this.state = {
       previewSrc: null,
       validationResult: null,
@@ -39,7 +40,7 @@ class FileUpload extends React.PureComponent {
 
   onChange = () => {
     const { onChange } = this.props;
-    let file = this.fileUpload.files[0];
+    let file = this.fileUpload.current.files[0];
     const isValid = this.validate(file);
     if (isValid) {
       this.reader.readAsDataURL(file);
@@ -84,7 +85,7 @@ class FileUpload extends React.PureComponent {
           type="file"
           accept="image/*"
           onChange={this.onChange}
-          ref={ref => (this.fileUpload = ref)}
+          ref={this.fileUpload}
         />
       </div>
     );
