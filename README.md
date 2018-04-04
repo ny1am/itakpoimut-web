@@ -16,6 +16,12 @@ To deploy this project to firebase:
   1. Build `npm run build` / `yarn build`
   2. Deploy `firebase deploy`
 
+Hygen templates commands:
+  `yarn hygen component simple --name Test`
+  `yarn hygen component simple --name Test --styles`
+  `yarn hygen component container --name Test`
+  `yarn hygen component container --name Test --styles`
+
 Architecture is based on <a href="https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0" target="_blank">Presentational and Container Components</a> pattern
 
 This project is built upon <a href="https://github.com/facebook/create-react-app" target="_blank">create-react-app</a>
