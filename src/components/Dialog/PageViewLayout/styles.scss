@@ -5,5 +5,11 @@
 }
 
 .content {
+  min-width: 375px;
+  box-sizing: border-box;
   padding: 24px;
+  @media (max-width: 640px) {
+    width: 100%;
+    min-width: 100%;
+  }
 }
