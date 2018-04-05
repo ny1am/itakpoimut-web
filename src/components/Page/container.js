@@ -2,21 +2,32 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { nest } from 'recompose';
 
 import { locationChanged } from 'actions/preload';
 import { appReady } from 'actions/global';
 import PreloadSwitch from 'components/PreloadSwitch';
 import NotFoundPage from 'views/NotFoundPage';
+import {
+  PageViewLayout, routeConfig as dialogRouteConfig
+} from 'components/Dialog';
+import { ViewModeContext } from 'components/View';
 
 import PageLayout from './PageLayout';
 import SecureRoute from './SecureRoute';
 import pagesRouteConfig from './routeConfig';
 import { pageLocationSelector } from './selectors';
 
-const routeConfig = [...pagesRouteConfig, {
-  path: '*',
-  component: NotFoundPage,
-}];
+const routeConfig = [
+  ...pagesRouteConfig,
+  ...dialogRouteConfig.map(
+    cfg => Object.assign({}, cfg, { wrapper:  PageViewLayout})
+  ),
+  {
+    path: '*',
+    component: NotFoundPage,
+  }
+];
 
 class PageContainer extends React.PureComponent {
 
@@ -33,23 +44,26 @@ class PageContainer extends React.PureComponent {
     const { location } = this.props;
     return (
       <PageLayout>
-        <PreloadSwitch
-          location={location}
-          routeConfig={routeConfig}
-          onFetchSuccess={this.onFetchSuccess}
-        >
-          {routeConfig.map(cfg => {
-            const RouteComponent = cfg.secure ? SecureRoute : Route;
-            const PageComponent = cfg.component;
-            return (
-              <RouteComponent
-                key={cfg.path}
-                {...cfg}
-                component={PageComponent}
-              />
-            );
-          })}
-        </PreloadSwitch>
+        <ViewModeContext.Provider value="page">
+          <PreloadSwitch
+            location={location}
+            routeConfig={routeConfig}
+            onFetchSuccess={this.onFetchSuccess}
+          >
+            {routeConfig.map(cfg => {
+              const RouteComponent = cfg.secure ? SecureRoute : Route;
+              const Component =
+                cfg.wrapper ? nest(cfg.wrapper, cfg.component) : cfg.component;
+              return (
+                <RouteComponent
+                  key={cfg.path}
+                  {...cfg}
+                  component={Component}
+                />
+              );
+            })}
+          </PreloadSwitch>
+        </ViewModeContext.Provider>
       </PageLayout>
     );
   }

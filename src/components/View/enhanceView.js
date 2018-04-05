@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 
 import { getDisplayName } from 'utils';
+import { wrapWithConsumer } from 'utils/enhancers';
 import { enhanceForm } from 'components/Form';
 
-//todo: move to another package
+import ViewModeContext from './ViewModeContext';
+
 const enhanceView = (mapProps) => (Component) => {
   class EnhancedView extends React.Component {
 
@@ -19,9 +21,13 @@ const enhanceView = (mapProps) => (Component) => {
     }
 
     componentWillReceiveProps(newProps) {
-      if (newProps.success) {
+      const { success, viewMode } = newProps;
+      if (success) {
         const { onSuccess } = this.mappedProps;
-        onSuccess(this.showSuccessView);
+        onSuccess({
+          showSuccessView: this.showSuccessView,
+          viewMode
+        });
       }
     }
 
@@ -52,14 +58,22 @@ const enhanceView = (mapProps) => (Component) => {
   };
 
   EnhancedView.propTypes = {
+    viewMode: PropTypes.oneOf(['page', 'dialog']).isRequired,
     success: PropTypes.bool,
   };
 
-  hoistNonReactStatics(EnhancedView, Component);
+  const EnhancedViewWithContext = wrapWithConsumer({
+    Context: ViewModeContext,
+    Component: EnhancedView,
+    propName: 'viewMode'
+  });
 
-  EnhancedView.displayName = `EnhancedView(${getDisplayName(Component)})`;
+  hoistNonReactStatics(EnhancedViewWithContext, Component);
 
-  return enhanceForm(mapProps)(EnhancedView);
+  EnhancedViewWithContext.displayName =
+    `EnhancedView(${getDisplayName(Component)})`;
+
+  return enhanceForm(mapProps)(EnhancedViewWithContext);
 };
 
 export default enhanceView;

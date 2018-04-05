@@ -1,7 +1,9 @@
+import { push } from 'react-router-redux';
+
 import { signup } from 'actions/signup';
 import { auth, fbAuth, googleAuth } from 'actions/auth';
 import { hideDialog } from 'actions/dialog';
-import { enhanceView } from 'components/Dialog';
+import { enhanceView } from 'components/View';
 
 import SignupDialogComponent from './SignupDialog';
 
@@ -21,7 +23,13 @@ const mapProps = (dispatch) => ({
       });
     }
   },
-  onSuccess: () => dispatch(hideDialog()),
+  onSuccess: ({ viewMode }) => {
+    if (viewMode === 'dialog') {
+      return dispatch(hideDialog());
+    } else {
+      return dispatch(push('/'));
+    }
+  },
 });
 
 export default enhanceView(mapProps)(SignupDialogComponent);
