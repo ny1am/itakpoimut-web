@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { save } from 'actions/addCategory';
 import { get } from 'actions/company';
 import { get as getCategories } from 'actions/category';
-import { enhanceDialog } from 'components/Dialog';
+import { enhanceView } from 'components/Dialog';
 
 import AddCategoryDialogComponent from './AddCategoryDialog';
 import SuccessView from './SuccessView';
@@ -88,9 +88,9 @@ AddCategoryDialogContainer.propTypes = {
 
 const mapProps = (dispatch) => ({
   onSubmit: (params) => dispatch(save(params)),
-  SuccessView,
+  onSuccess: (showSuccessView) => showSuccessView(SuccessView),
 });
 
-export default enhanceDialog(mapProps)(
+export default enhanceView(mapProps)(
   AddCategoryDialogContainer
 );

@@ -1,6 +1,7 @@
 import { signup } from 'actions/signup';
 import { auth, fbAuth, googleAuth } from 'actions/auth';
-import { enhanceDialog } from 'components/Dialog';
+import { hideDialog } from 'actions/dialog';
+import { enhanceView } from 'components/Dialog';
 
 import SignupDialogComponent from './SignupDialog';
 
@@ -20,6 +21,7 @@ const mapProps = (dispatch) => ({
       });
     }
   },
+  onSuccess: () => dispatch(hideDialog()),
 });
 
-export default enhanceDialog(mapProps)(SignupDialogComponent);
+export default enhanceView(mapProps)(SignupDialogComponent);

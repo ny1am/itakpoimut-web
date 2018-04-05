@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { get as getViolations } from 'actions/violation';
 import { get } from 'actions/company';
 import { save } from 'actions/addViolation';
-import { enhanceDialog } from 'components/Dialog';
+import { enhanceView } from 'components/Dialog';
 
 import AddViolationDialogComponent from './AddViolationDialog';
 import SuccessView from './SuccessView';
@@ -79,9 +79,9 @@ AddViolationDialogContainer.propTypes = {
 
 const mapProps = (dispatch) => ({
   onSubmit: (params) => dispatch(save(params)),
-  SuccessView,
+  onSuccess: (showSuccessView) => showSuccessView(SuccessView),
 });
 
-export default enhanceDialog(mapProps)(
+export default enhanceView(mapProps)(
   AddViolationDialogContainer
 );

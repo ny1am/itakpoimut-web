@@ -1,12 +1,12 @@
 import { forgetPassword } from 'actions/forgetPassword';
-import { enhanceDialog } from 'components/Dialog';
+import { enhanceView } from 'components/Dialog';
 
 import ForgetPasswordDialogComponent from './ForgetPasswordDialog';
 import SuccessView from './SuccessView';
 
 const mapProps = (dispatch) => ({
   onSubmit: (...args) => dispatch(forgetPassword(...args)),
-  SuccessView,
+  onSuccess: (showSuccessView) => showSuccessView(SuccessView),
 });
 
-export default enhanceDialog(mapProps)(ForgetPasswordDialogComponent);
+export default enhanceView(mapProps)(ForgetPasswordDialogComponent);

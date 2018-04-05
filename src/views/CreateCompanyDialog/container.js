@@ -3,7 +3,7 @@ import React from 'react';
 import { get as getCategories } from 'actions/category';
 import { get as getViolations } from 'actions/violation';
 import { save } from 'actions/createCompany';
-import { enhanceDialog } from 'components/Dialog';
+import { enhanceView } from 'components/Dialog';
 
 import CreateCompanyDialogComponent from './CreateCompanyDialog';
 import SuccessView from './SuccessView';
@@ -27,9 +27,9 @@ class CreateCompanyDialogContainer extends React.Component {
 
 const mapProps = (dispatch) => ({
   onSubmit: (params) => dispatch(save(params)),
-  SuccessView,
+  onSuccess: (showSuccessView) => showSuccessView(SuccessView),
 });
 
-export default enhanceDialog(mapProps)(
+export default enhanceView(mapProps)(
   CreateCompanyDialogContainer
 );
