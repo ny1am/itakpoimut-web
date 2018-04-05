@@ -1,5 +1,14 @@
-.wrapper {
+// todo: refactor into mixin or something
+$side-gap: 24px;
+$content-width: 327px;
+
+div.wrapper {
+  width: $content-width;
+  max-width: none;
   text-align: center;
+  @media (max-width: ($content-width + 2*$side-gap)) {
+    width: 100%;
+  }
 }
 
 .error {

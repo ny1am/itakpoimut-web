@@ -42,7 +42,7 @@ class SignupDialog extends React.PureComponent {
     const { errors = {} } = this.props;
     const onSubmit = preventDefault(this.handleSubmit);
     return (
-      <div className="dialog_content">
+      <div className={cn('dialog_content', styles.wrapper)}>
         <h1>
           Реєстрація
         </h1>

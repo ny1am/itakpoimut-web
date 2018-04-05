@@ -1,8 +1,12 @@
+// todo: refactor into mixin or something
+$side-gap: 24px;
+$content-width: 680px;
+
 div.wrapper {
-  width: 680px;
+  width: $content-width;
   text-align: left;
   max-width: none;
-  @media (max-width: 680px) {
+  @media (max-width: ($content-width + 2*$side-gap)) {
     width: 100%;
   }
 }
