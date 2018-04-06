@@ -19,3 +19,6 @@ export const wrapWithConsumer = ({ Context, Component, propName }) => {
   );
   return WithConsumer;
 };
+
+export const ConditionalWrap = ({condition, wrap, children}) =>
+  (condition ? wrap(children) : children);

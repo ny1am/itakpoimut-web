@@ -1,12 +1,12 @@
 import React from 'react';
 
 const enhanceRouteWithProps = (element, passThroughProps) => {
-  const Component = element.props.component;
+  //todo: account props.component
+  const routeRender = element.props.render;
+  //todo: do i need to clon here?
   return React.cloneElement(element, {
     component: null,
-    render: (props) => (//eslint-disable-line
-      <Component {...props} {...passThroughProps} />
-    )
+    render: (props) => routeRender({...props, ...passThroughProps})
   });
 };
 

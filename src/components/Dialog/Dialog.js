@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
-import { nest } from 'recompose';
 
 import PreloadSwitch from 'components/PreloadSwitch';
 import { ViewModeContext } from 'components/View';
@@ -24,12 +23,17 @@ class Dialog extends React.PureComponent {
         >
           {routeConfig.map(cfg => {
             const RouteComponent = cfg.secure ? SecureDialogRoute : Route;
-            const PageComponent = nest(DialogLayout, cfg.component);
+            const Component = cfg.component;
             return (
               <RouteComponent
                 key={cfg.path}
                 {...cfg}
-                component={PageComponent}
+                component={null}
+                render={(props) => (
+                  <DialogLayout>
+                    <Component {...props} />
+                  </DialogLayout>
+                )}
               />
             );
           })}
