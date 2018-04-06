@@ -1,3 +1,5 @@
+import { loggedUserCheck } from 'utils/secure';
+
 import LandingPage from 'views/LandingPage';
 import CompanyPage from 'views/CompanyPage';
 import CompaniesPage from 'views/CompaniesPage';
@@ -18,7 +20,7 @@ const routeConfig = [{
 }, {
   path: '/user-profile',
   component: UserProfilePage,
-  secure: true,
+  secure: loggedUserCheck,
 }, {
   path: '/about',
   component: AboutPage,

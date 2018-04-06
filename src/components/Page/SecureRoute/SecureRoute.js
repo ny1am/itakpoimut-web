@@ -4,9 +4,9 @@ import { Route } from 'react-router-dom';
 
 import NotAllowedPage from 'views/NotAllowedPage';
 
-const SecureRoute = ({ loggedUser, ...rest }) => (
+const SecureRoute = ({ loggedUser, secure, ...rest }) => (
   <Route {...rest} render={(props) => {
-    if (!loggedUser) {
+    if (secure && !secure(loggedUser)) {
       return (
         <NotAllowedPage />
       );
@@ -17,7 +17,7 @@ const SecureRoute = ({ loggedUser, ...rest }) => (
 
 SecureRoute.propTypes = {
   loggedUser: PropTypes.object,
-  dispatch: PropTypes.func.isRequired,
+  secure: PropTypes.func,
 };
 
 export default SecureRoute;
