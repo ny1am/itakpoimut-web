@@ -41,10 +41,7 @@ class PreloadSwitch extends React.Component {
   getRouteConfig() {
     const { routeConfig } = this.props;
     const loggedUser = this.context.store.getState().auth.loggedUser;
-    if (!loggedUser) {
-      return routeConfig.filter(cfg => !cfg.secure);
-    }
-    return routeConfig;
+    return routeConfig.filter(({ secure }) => (!secure || secure(loggedUser)));
   }
 
 

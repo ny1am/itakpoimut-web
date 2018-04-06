@@ -5,9 +5,9 @@ import { Route } from 'react-router-dom';
 import PleaseSignupDialog from 'views/PleaseSignupDialog';
 import DialogLayout from '../DialogLayout';
 
-const SecureDialogRoute = ({ loggedUser, ...rest }) => (
+const SecureDialogRoute = ({ loggedUser, secure, ...rest }) => (
   <Route {...rest} render={(props) => {
-    if (!loggedUser) {
+    if (secure && !secure(loggedUser)) {
       return (
         <DialogLayout>
           <PleaseSignupDialog />
@@ -20,6 +20,7 @@ const SecureDialogRoute = ({ loggedUser, ...rest }) => (
 
 SecureDialogRoute.propTypes = {
   loggedUser: PropTypes.object,
+  secure: PropTypes.func,
 };
 
 export default SecureDialogRoute;

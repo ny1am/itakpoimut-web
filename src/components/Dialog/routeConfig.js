@@ -1,3 +1,5 @@
+import { loggedUserCheck } from 'utils/secure';
+
 import LoginDialog from 'views/LoginDialog';
 import SignupDialog from 'views/SignupDialog';
 import CreateCompanyDialog from 'views/CreateCompanyDialog';
@@ -18,19 +20,19 @@ const routeConfig = [{
 }, {
   path: '/create-company',
   component: CreateCompanyDialog,
-  secure: true,
+  secure: loggedUserCheck,
 }, {
   path: '/add-violation/:companyId',
   component: AddViolationDialog,
-  secure: true,
+  secure: loggedUserCheck,
 }, {
   path: '/add-category/:companyId',
   component: AddCategoryDialog,
-  secure: true,
+  secure: loggedUserCheck,
 }, {
   path: '/change-password',
   component: ChangePasswordDialog,
-  secure: true,
+  secure: loggedUserCheck,
 }];
 
 export default routeConfig;
