@@ -1,4 +1,6 @@
-import { loggedUserCheck, notLoggedUserCheck } from 'utils/secure';
+import {
+  loggedUserCheck, notLoggedUserCheck, userLocalProviderCheck
+} from 'utils/secure';
 
 import LoginDialog from 'views/LoginDialog';
 import SignupDialog from 'views/SignupDialog';
@@ -35,7 +37,7 @@ const routeConfig = [{
 }, {
   path: '/change-password',
   component: ChangePasswordDialog,
-  secure: loggedUserCheck,
+  secure: userLocalProviderCheck,
 }];
 
 export default routeConfig;

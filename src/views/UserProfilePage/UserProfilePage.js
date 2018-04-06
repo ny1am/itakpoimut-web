@@ -7,6 +7,7 @@ import cn from 'classnames';
 import FileUpload from 'components/FileUpload';
 import DialogLink from 'components/DialogLink';
 import { preventDefault } from 'utils';
+import { userLocalProviderCheck } from 'utils/secure';
 
 import styles from './styles.scss';
 
@@ -97,7 +98,7 @@ class UserProfilePage extends React.PureComponent {
                       maxLength="25"
                     />
                   </div>
-                  {user.provider === 'local' &&
+                  {userLocalProviderCheck(user) &&
                     <div className="row">
                       <DialogLink
                         className={styles.link}
