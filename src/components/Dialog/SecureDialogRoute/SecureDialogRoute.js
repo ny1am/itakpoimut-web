@@ -5,18 +5,29 @@ import { Route } from 'react-router-dom';
 import PleaseSignupDialog from 'views/PleaseSignupDialog';
 import DialogLayout from '../DialogLayout';
 
-const SecureDialogRoute = ({ loggedUser, secure, ...rest }) => (
-  <Route {...rest} render={(props) => {
-    if (secure && !secure(loggedUser)) {
-      return (
-        <DialogLayout>
-          <PleaseSignupDialog />
-        </DialogLayout>
-      );
-    }
-    return rest.render(props);
-  }} />
-);
+class SecureDialogRoute extends React.Component {
+
+  shouldComponentUpdate(nextProps) {
+    const preventUpdate = !this.props.loggedUser && nextProps.loggedUser;
+    return !preventUpdate;
+  }
+
+  render() {
+    const { loggedUser, secure, ...rest } = this.props;
+    return (
+      <Route {...rest} render={(props) => {
+        if (secure && !secure(loggedUser)) {
+          return (
+            <DialogLayout>
+              <PleaseSignupDialog />
+            </DialogLayout>
+          );
+        }
+        return rest.render(props);
+      }} />
+    );
+  }
+}
 
 SecureDialogRoute.propTypes = {
   loggedUser: PropTypes.object,

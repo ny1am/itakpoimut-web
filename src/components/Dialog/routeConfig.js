@@ -1,4 +1,4 @@
-import { loggedUserCheck } from 'utils/secure';
+import { loggedUserCheck, notLoggedUserCheck } from 'utils/secure';
 
 import LoginDialog from 'views/LoginDialog';
 import SignupDialog from 'views/SignupDialog';
@@ -11,12 +11,15 @@ import ForgetPasswordDialog from 'views/ForgetPasswordDialog';
 const routeConfig = [{
   path: '/login',
   component: LoginDialog,
+  secure: notLoggedUserCheck,
 }, {
   path: '/signup',
   component: SignupDialog,
+  secure: notLoggedUserCheck,
 }, {
   path: '/forget-password',
   component: ForgetPasswordDialog,
+  secure: notLoggedUserCheck,
 }, {
   path: '/create-company',
   component: CreateCompanyDialog,
