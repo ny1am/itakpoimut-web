@@ -11,6 +11,7 @@ export const hideIfNoData = hasNoData => (
   )
 );
 
+// todo: revise to hoc
 export const wrapWithConsumer = ({ Context, Component, propName }) => {
   const WithConsumer = (props) => (
     <Context.Consumer>
@@ -20,5 +21,6 @@ export const wrapWithConsumer = ({ Context, Component, propName }) => {
   return WithConsumer;
 };
 
+// todo: revise to hoc
 export const ConditionalWrap = ({condition, wrap, children}) =>
   (condition ? wrap(children) : children);

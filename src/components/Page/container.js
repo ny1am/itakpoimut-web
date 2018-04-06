@@ -21,7 +21,7 @@ import { pageLocationSelector } from './selectors';
 const routeConfig = [
   ...pagesRouteConfig,
   ...dialogRouteConfig.map(
-    cfg => Object.assign({}, cfg, { wrapper:  PageViewLayout})
+    cfg => Object.assign({}, cfg, { type: 'dialog' })
   ),
   {
     path: '*',
@@ -43,36 +43,37 @@ class PageContainer extends React.PureComponent {
   render() {
     const { location } = this.props;
     return (
-      <ViewModeContext.Provider value="page">
-        <PreloadSwitch
-          location={location}
-          routeConfig={routeConfig}
-          onFetchSuccess={this.onFetchSuccess}
-        >
-          {routeConfig.map(cfg => {
-            const RouteComponent = cfg.secure ? SecureRoute : Route;
-            const Component = cfg.component;
-            const Wrapper = cfg.wrapper;
-            return (
-              <RouteComponent
-                key={cfg.path}
-                {...cfg}
-                component={null}
-                render={(props) => (
+      <PreloadSwitch
+        location={location}
+        routeConfig={routeConfig}
+        onFetchSuccess={this.onFetchSuccess}
+      >
+        {routeConfig.map(cfg => {
+          const RouteComponent = cfg.secure ? SecureRoute : Route;
+          const Component = cfg.component;
+          const Wrapper = PageViewLayout;
+          const viewMode = cfg.type === 'dialog' ? 'dialogInPage' : 'page';
+          return (
+            <RouteComponent
+              key={cfg.path}
+              {...cfg}
+              component={null}
+              render={(props) => (
+                <ViewModeContext.Provider value={viewMode}>
                   <PageLayout>
                     <ConditionalWrap
-                      condition={Boolean(Wrapper)}
+                      condition={cfg.type === 'dialog'}
                       wrap={(children => (<Wrapper children={children} />))}
                     >
                       <Component {...props} />
                     </ConditionalWrap>
                   </PageLayout>
-                )}
-              />
-            );
-          })}
-        </PreloadSwitch>
-      </ViewModeContext.Provider>
+                </ViewModeContext.Provider>
+              )}
+            />
+          );
+        })}
+      </PreloadSwitch>
     );
   }
 }

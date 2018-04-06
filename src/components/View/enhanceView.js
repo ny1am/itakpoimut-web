@@ -58,7 +58,7 @@ const enhanceView = (mapProps) => (Component) => {
   };
 
   EnhancedView.propTypes = {
-    viewMode: PropTypes.oneOf(['page', 'dialog']).isRequired,
+    viewMode: PropTypes.oneOf(['page', 'dialog', 'dialogInPage']).isRequired,
     success: PropTypes.bool,
   };
 
