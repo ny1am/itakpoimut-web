@@ -1,5 +1,6 @@
 import { createSelectorCreator, defaultMemoize } from 'reselect';
 
+import { clearDialog } from 'utils';
 import { extractDialogLocation } from 'components/Dialog';
 
 // ignore dialog state when comparing page location
@@ -18,5 +19,5 @@ const getRouterLocation = state => state.router.location;
 
 export const pageLocationSelector = createIgnoreDialogSelector(
   [getRouterLocation],
-  (location) => Object.assign({}, location, { state: null })
+  (location) => clearDialog(location)
 );

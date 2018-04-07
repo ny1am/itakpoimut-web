@@ -9,10 +9,12 @@ import createReduxWaitForMiddleware from 'redux-wait-for-action';
 import scrollMiddleware from './middlewares/scrollMiddleware';
 import patchReduxWaitForMiddleware from './middlewares/patchReduxWaitForMiddleware';
 
+import { clearDialog } from 'utils';
 import rootReducer from '../reducers';
 import sagas from '../sagas';
 
 export const history = createHistory();
+history.replace(clearDialog(history.location));
 
 function configureStoreProd(initialState) {
   const reactRouterMiddleware = routerMiddleware(history);

@@ -46,3 +46,10 @@ export const getFirstErrorElement = (errors, holder = document) => {
   }
   return null;
 };
+
+export function clearDialog(location) {
+  const clearedState = Object.assign({}, location.state, { dialog: null });
+  return Object.assign({}, location, {
+    state: clearedState
+  });
+}

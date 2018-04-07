@@ -1,7 +1,7 @@
 export const extractDialogLocation = (location) => {
-  if (location.state && location.state.dialogType) {
+  if (location.state && location.state.dialog) {
     return ({
-      pathname: location.state.dialogType
+      pathname: location.pathname
     });
   }
   return undefined;
