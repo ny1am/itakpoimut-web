@@ -9,6 +9,7 @@ import AddViolationDialog from 'views/AddViolationDialog';
 import AddCategoryDialog from 'views/AddCategoryDialog';
 import ChangePasswordDialog from 'views/ChangePasswordDialog';
 import ForgetPasswordDialog from 'views/ForgetPasswordDialog';
+import ResetPasswordPage from 'views/ResetPasswordPage';
 
 const routeConfig = [{
   path: '/login',
@@ -21,6 +22,10 @@ const routeConfig = [{
 }, {
   path: '/forget-password',
   component: ForgetPasswordDialog,
+  secure: notLoggedUserCheck,
+}, {
+  path: '/reset/:token',
+  component: ResetPasswordPage,
   secure: notLoggedUserCheck,
 }, {
   path: '/create-company',

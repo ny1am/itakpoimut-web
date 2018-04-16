@@ -19,7 +19,12 @@ class ResetPasswordPage extends React.PureComponent {
   }
 
   onSubmit = () => {
-    this.props.onSubmit(this.state.password);
+    const { password } = this.state;
+    const { token } = this.props.match.params;
+    this.props.onSubmit({
+      token,
+      password
+    });
   }
 
   render() {
@@ -27,7 +32,7 @@ class ResetPasswordPage extends React.PureComponent {
     const { password } = this.state;
     const onSubmit = preventDefault(this.onSubmit);
     return (
-      <React.Fragment>
+      <div className={cn('dialog_content', styles.wrapper)}>
         <h1>
           Змінити пароль
         </h1>
@@ -57,13 +62,14 @@ class ResetPasswordPage extends React.PureComponent {
             Змінити
           </button>
         </form>
-      </React.Fragment>
+      </div>
     );
   }
 }
 
 ResetPasswordPage.propTypes = {
   errors: PropTypes.object,
+  match: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 

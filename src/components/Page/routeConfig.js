@@ -1,11 +1,10 @@
-import { loggedUserCheck, notLoggedUserCheck } from 'utils/secure';
+import { loggedUserCheck } from 'utils/secure';
 
 import LandingPage from 'views/LandingPage';
 import CompanyPage from 'views/CompanyPage';
 import CompaniesPage from 'views/CompaniesPage';
 import UserProfilePage from 'views/UserProfilePage';
 import AboutPage from 'views/AboutPage';
-import ResetPasswordPage from 'views/ResetPasswordPage';
 
 const routeConfig = [{
   path: '/',
@@ -24,10 +23,6 @@ const routeConfig = [{
 }, {
   path: '/about',
   component: AboutPage,
-}, {
-  path: '/reset/:token',
-  component: ResetPasswordPage,
-  secure: notLoggedUserCheck,
 }];
 
 export default routeConfig;
