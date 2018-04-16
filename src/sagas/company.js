@@ -7,12 +7,14 @@ import {
 import apiRequest from './utils/apiRequest';
 
 function* fetchCompany({ id }) {
-  const { payload } = yield apiRequest(`/company/${id}`);
-  if (payload) {
+  try {
+    const payload = yield apiRequest(`/company/${id}`);
     const newAction = { type: FETCH_COMPANY_SUCCESS, payload };
     yield put(newAction);
+    return payload;
+  } catch (error) {
+    return null;
   }
-  return payload;
 }
 
 function* getCachedCompany({ id }) {

@@ -8,10 +8,13 @@ import {
 import apiRequest from './utils/apiRequest';
 
 function* getLastComments() {
-  const { payload } = yield apiRequest(`/lastComments`);
-  if (payload) {
+  try {
+    const payload = yield apiRequest(`/lastComments`);
     const newAction = { type: LAST_COMMENTS_SUCCESS, payload };
     yield put(newAction);
+    return payload;
+  } catch (error) {
+    return null;
   }
 }
 
@@ -20,10 +23,13 @@ function* getLastCommentsSaga() {
 }
 
 function* getNewCompanies() {
-  const { payload } = yield apiRequest(`/newCompanies`);
-  if (payload) {
+  try {
+    const payload = yield apiRequest(`/newCompanies`);
     const newAction = { type: NEW_COMPANIES_SUCCESS, payload };
     yield put(newAction);
+    return payload;
+  } catch (error) {
+    return null;
   }
 }
 

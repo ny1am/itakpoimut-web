@@ -14,10 +14,13 @@ function* signup({ fname, lname, email, password }) {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: queryString.stringify({ fname, lname, email, password }),
   };
-  const { payload } = yield apiRequest(url, options);
-  if (payload) {
+  try {
+    const payload = yield apiRequest(url, options);
     const newAction = { type: SIGNUP_SUCCESS, payload };
     yield put(newAction);
+    return payload;
+  } catch (error) {
+    return null;
   }
 }
 

@@ -7,10 +7,10 @@ import { requestError } from 'actions/global';
 function* apiRequest(url, options) {
   try {
     const payload = yield call(request, `${API_ROOT}${url}`, options);
-    return { payload };
+    return payload;
   } catch (error) {
     yield put(requestError(error));
-    return { error };
+    throw error;
   }
 }
 

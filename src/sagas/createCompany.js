@@ -17,10 +17,13 @@ function* saveCreateCompany({ title, description, company_site, selectedCategori
       'selectedViolations[]': selectedViolations,
     }),
   };
-  const { payload } = yield apiSecureRequest(url, options);
-  if (payload) {
+  try {
+    const payload = yield apiSecureRequest(url, options);
     const newAction = { type: CREATE_COMPANY_SAVE_SUCCESS, payload };
     yield put(newAction);
+    return payload;
+  } catch (error) {
+    return null;
   }
 }
 

@@ -14,10 +14,13 @@ function* forgetPassword({ email }) {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: queryString.stringify({ email }),
   };
-  const { payload } = yield apiRequest(url, options);
-  if (payload) {
+  try {
+    const payload = yield apiRequest(url, options);
     const newAction = { type: FORGET_PASSWORD_SUCCESS, payload };
     yield put(newAction);
+    return payload;
+  } catch (error) {
+    return null;
   }
 }
 

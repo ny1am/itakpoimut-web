@@ -14,10 +14,13 @@ function* saveData({ password, newPassword }) {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: queryString.stringify({ password, newPassword }),
   };
-  const { payload } = yield apiSecureRequest(url, options);
-  if (payload) {
+  try {
+    const payload = yield apiSecureRequest(url, options);
     const newAction = { type: CHANGE_PASSWORD_SUCCESS, payload };
     yield put(newAction);
+    return payload;
+  } catch (error) {
+    return null;
   }
 }
 

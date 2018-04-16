@@ -7,12 +7,14 @@ import {
 import apiRequest from './utils/apiRequest';
 
 function* fetchCategoryList() {
-  const { payload } = yield apiRequest(`/categories`);
-  if (payload) {
+  try {
+    const payload = yield apiRequest(`/categories`);
     const newAction = { type: FETCH_CATEGORIES_SUCCESS, payload };
     yield put(newAction);
+    return payload;
+  } catch (error) {
+    return null;
   }
-  return payload;
 }
 
 function* getCachedCategoryList() {

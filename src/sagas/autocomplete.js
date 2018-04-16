@@ -9,10 +9,13 @@ import apiRequest from './utils/apiRequest';
 function* fetchData({ title, category }) {
   const params = { title, category };
   const url = `/autocomplete?${queryString.stringify(params)}`;
-  const { payload } = yield apiRequest(url);
-  if (payload) {
+  try {
+    const payload = yield apiRequest(url);
     const newAction = { type: AUTOCOMPLETE_SUCCESS, payload };
     yield put(newAction);
+    return payload;
+  } catch (error) {
+    return null;
   }
 }
 

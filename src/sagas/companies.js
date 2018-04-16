@@ -13,10 +13,13 @@ function* fetchData({ currentPage, sortOrder, title, filters }) {
     title,
   }, filters);
   const url = `/companies?${queryString.stringify(urlParams)}`;
-  const { payload } = yield apiRequest(url);
-  if (payload) {
+  try {
+    const payload = yield apiRequest(url);
     const newAction = { type: COMPANIES_SUCCESS, payload };
     yield put(newAction);
+    return payload;
+  } catch (error) {
+    return null;
   }
 }
 

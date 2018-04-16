@@ -17,10 +17,13 @@ function* saveAddCategory({ companyId, selectedCategories }) {
       'selectedCategories[]': selectedCategories,
     }),
   };
-  const { payload } = yield apiSecureRequest(url, options);
-  if (payload) {
+  try {
+    const payload = yield apiSecureRequest(url, options);
     const newAction = { type: ADD_CATEGORY_SAVE_SUCCESS, payload };
     yield put(newAction);
+    return payload;
+  } catch (error) {
+    return null;
   }
 }
 

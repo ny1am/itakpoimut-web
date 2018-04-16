@@ -7,12 +7,14 @@ import {
 import apiRequest from './utils/apiRequest';
 
 function* fetchViolationList() {
-  const { payload } = yield apiRequest(`/violations`);
-  if (payload) {
+  try {
+    const payload = yield apiRequest(`/violations`);
     const newAction = { type: FETCH_VIOLATIONS_SUCCESS, payload };
     yield put(newAction);
+    return payload;
+  } catch (error) {
+    return null;
   }
-  return payload;
 }
 
 function* getCachedViolationList() {

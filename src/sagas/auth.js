@@ -11,15 +11,17 @@ import { combine, takeFirst } from './utils/effects';
 import apiRequest from './utils/apiRequest';
 
 function* generalAuth(url, options) {
-  const { payload, error } = yield apiRequest(url, options);
-  if (payload) {
+  try {
+    const payload = yield apiRequest(url, options);
     const newAction = { type: AUTH_SUCCESS, payload };
     yield call(saveAuth, payload);
     yield put(newAction);
-  } else {
+    return payload;
+  } catch (error) {
     const newAction = { type: AUTH_FAILURE, error };
     yield logout();
     yield put(newAction);
+    return null;
   }
 }
 

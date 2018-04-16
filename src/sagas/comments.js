@@ -12,10 +12,13 @@ import apiRequest from './utils/apiRequest';
 
 function* fetchComments({ id, currentPage }) {
   const url = `/comments/${id}?currentPage=${currentPage}`;
-  const { payload } = yield apiRequest(url);
-  if (payload) {
+  try {
+    const payload = yield apiRequest(url);
     const newAction = { type: COMMENTS_SUCCESS, payload };
     yield put(newAction);
+    return payload;
+  } catch (error) {
+    return null;
   }
 }
 
@@ -29,8 +32,8 @@ function* addComment({ companyId, text }) {
       text,
     }),
   };
-  const { payload } = yield apiSecureRequest(url, options);
-  if (payload) {
+  try {
+    const payload = yield apiSecureRequest(url, options);
     const currentPage = 1;
     yield put(push({
       search: queryString.stringify({ currentPage }),
@@ -39,6 +42,9 @@ function* addComment({ companyId, text }) {
     yield call(fetchComments, { id: companyId, currentPage });
     const newAction = { type: ADD_COMMENT_SUCCESS, payload };
     yield put(newAction);
+    return payload;
+  } catch (error) {
+    return null;
   }
 }
 
