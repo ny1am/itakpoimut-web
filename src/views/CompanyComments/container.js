@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import queryString from 'query-string';
 
 import { wrapWithProgress } from 'components/ProgressBar';
+import { pageLocationSelector } from 'components/Page';
 import { get } from 'actions/comments';
+
 import CompanyCommentsComponent from './CompanyComments';
 
 const getCurrentPage = (location) => {
@@ -61,6 +62,7 @@ CompanyCommentsContainer.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  location: pageLocationSelector(state),
   commentsCount: state.comments.commentsCount,
   comments: state.comments.comments,
   currentPage: state.comments.currentPage,
@@ -72,6 +74,6 @@ const mapDispatchToProps = (dispatch) => ({
   dispatch
 });
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(CompanyCommentsContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  CompanyCommentsContainer
 );

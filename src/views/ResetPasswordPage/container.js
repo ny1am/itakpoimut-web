@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { resetPassword } from 'actions/resetPassword';
@@ -52,6 +51,6 @@ const mapDispatchToProps = (dispatch) => ({
   dispatch
 });
 
-export default withRouter(
-  connect(null, mapDispatchToProps)(ResetPasswordPageContainer)
+export default connect(null, mapDispatchToProps)(
+  ResetPasswordPageContainer
 );
