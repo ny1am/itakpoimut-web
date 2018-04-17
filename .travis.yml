@@ -8,6 +8,8 @@ deploy:
   provider: firebase
   token: "$FIREBASE_TOKEN"
   project: "$FIREBASE_PROJECT_ID"
+  on:
+    branch: master
 cache:
   yarn: true
   directories:
