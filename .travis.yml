@@ -1,18 +1,15 @@
 language: node_js
-
 node_js:
-  - "node"
-
+- node
 script:
-  - yarn build
-
+- yarn build
 deploy:
+  skip_cleanup: true
   provider: firebase
   token:
     secure: "$FIREBASE_TOKEN"
   project: "$FIREBASE_PROJECT_ID"
-
 cache:
   yarn: true
   directories:
-    - node_modules
+  - node_modules
