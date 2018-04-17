@@ -6,8 +6,7 @@ script:
 deploy:
   skip_cleanup: true
   provider: firebase
-  token:
-    secure: "$FIREBASE_TOKEN"
+  token: "$FIREBASE_TOKEN"
   project: "$FIREBASE_PROJECT_ID"
 cache:
   yarn: true
