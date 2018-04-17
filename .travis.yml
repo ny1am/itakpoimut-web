@@ -1,19 +1,21 @@
 language: node_js
 
 node_js:
-  - 7
+  - 7
+  - 6
+  - 5
 
 script:
-  -  echo "Deploy!!"
+  -  echo "Deploy!!"
 
 install:
-  -  npm install -g firebase-tools
-  -  npm install -g yarn
+  -  npm install -g firebase-tools
+  - npm install -g yarn
 
 after_success:
   - yarn
   - yarn build
-   - firebase deploy  -project $FIREBASE_PROJECT_ID -token $FIREBASE_TOKEN
+  - firebase deploy  -project $FIREBASE_PROJECT_ID -token $FIREBASE_TOKEN
 
 cache:
   yarn: true
