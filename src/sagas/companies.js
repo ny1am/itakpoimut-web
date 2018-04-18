@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery, select } from 'redux-saga/effects';
 import queryString from 'query-string';
 
 import {
@@ -6,7 +6,10 @@ import {
 } from 'consts/companies';
 import apiRequest from './utils/apiRequest';
 
-function* fetchData({ currentPage, sortOrder, title, filters }) {
+const filtersSelector = (state) => state.companies;
+
+function* fetchData({ currentPage, sortOrder, title }) {
+  const filters = yield select(filtersSelector);
   const urlParams = Object.assign({}, {
     currentPage,
     sortOrder,

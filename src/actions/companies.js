@@ -7,13 +7,12 @@ import {
   CLEAR_FILTERS,
 } from 'consts/companies';
 
-export function get({ currentPage = 1, sortOrder = 'asc', title = '', filters = {} }) {
+export function get({ currentPage = 1, sortOrder = 'asc', title = '' }) {
   return {
     type: COMPANIES_REQUEST,
     currentPage,
     sortOrder,
     title,
-    filters,
     [WAIT_FOR_ACTION]: COMPANIES_SUCCESS,
   };
 }

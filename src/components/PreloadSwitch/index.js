@@ -46,11 +46,10 @@ class PreloadSwitch extends React.Component {
 
 
   getFetchConfig({ nextLocation, location }) {
-    const { store } = this.context;
+    const { store: { dispatch } } = this.context;
     const config = this.getRouteConfig();
     const fetchResult = extractFetchConfig(nextLocation, config, {
-      store,
-      dispatch: store.dispatch,
+      dispatch,
       prevLocation: location
     });
     return fetchResult;

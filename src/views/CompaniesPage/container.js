@@ -11,16 +11,14 @@ import { get as getViolations } from 'actions/violation';
 import CompaniesPageComponent from './CompaniesPage';
 
 class CompaniesPageContainer extends React.Component {
-  static fetch(location, { store, dispatch }) {
+  static fetch(location, { dispatch }) {
     const { title, currentPage, sortOrder, selectedCategory } = queryString.parse(location.search);
     //sync with redux store
     selectedCategory && dispatch(changeCategory(selectedCategory));
-    const filters = store.getState().companies;
     const companiesPromise = dispatch(get({
       title,
       currentPage,
       sortOrder,
-      filters,
     }));
     return [{
       promise: dispatch(getCategories()),
