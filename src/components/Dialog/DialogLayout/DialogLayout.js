@@ -7,7 +7,6 @@ import styles from './styles.scss';
  * Layout for dialogs
  */
 class DialogLayout extends React.PureComponent {
-
   render() {
     const { children, onClose } = this.props;
     return (
@@ -15,7 +14,6 @@ class DialogLayout extends React.PureComponent {
         <div id="dialog" className={styles.dialog}>
           {children}
           <button className={styles.close} onClick={onClose} />
-          <div data-loading-portal />
         </div>
       </div>
     );

@@ -50,7 +50,6 @@ class PageLayout extends React.PureComponent {
         <Menu />
         <main className={styles.content}>
           {children}
-          <div data-loading-portal />
         </main>
         <Footer />
       </div>

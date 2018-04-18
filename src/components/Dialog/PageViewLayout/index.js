@@ -10,8 +10,6 @@ class PageViewLayout extends React.PureComponent {
       <div className={cn('pattern-content', styles.wrapper)}>
         <div className={styles.content}>
           {this.props.children}
-          {/* todo: revise this (not needed) */}
-          <div data-loading-portal />
         </div>
       </div>
     );

@@ -7,7 +7,7 @@ import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
 import { getDisplayName, getFirstErrorElement } from 'utils';
 
-import LoadingPortal from './LoadingPortal';
+import Loading from './Loading';
 
 const scrollToError = (errors, holder) => {
   const element = getFirstErrorElement(errors, holder);
@@ -62,7 +62,7 @@ const enhanceForm = (mapProps) => (Component) => {
             {...this.state}
             onSubmit={this.onSubmit}
           />
-          {loading && <LoadingPortal formRef={this} />}
+          {loading && <Loading />}
         </React.Fragment>
       );
     }
