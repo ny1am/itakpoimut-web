@@ -1,4 +1,4 @@
-import { PRELOAD_LOCATION_CHANGED } from 'consts';
+import { PRELOAD_LOCATION_CHANGED } from 'consts/preload';
 import { SHOW_MENU, HIDE_MENU } from 'consts/menu';
 
 const initialState = false;

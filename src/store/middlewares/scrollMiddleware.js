@@ -1,5 +1,5 @@
 import { scrollIntoViewIfNeeded } from 'utils';
-import { PRELOAD_LOCATION_CHANGED } from 'consts';
+import { PRELOAD_LOCATION_CHANGED } from 'consts/preload';
 
 export default () => next => action => {
 
