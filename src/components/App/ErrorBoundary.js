@@ -25,12 +25,6 @@ class ErrorBoundary extends React.Component {
   }
 }
 
-ErrorBoundary.contextTypes = {
-  store: PropTypes.shape({
-    dispatch: PropTypes.func.isRequired,
-  }).isRequired,
-};
-
 ErrorBoundary.propTypes = {
   children: PropTypes.node.isRequired,
 };
