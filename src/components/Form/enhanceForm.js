@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
@@ -23,7 +24,7 @@ const enhanceForm = (mapProps) => (Component) => {
     };
 
     componentWillMount() {
-      const { dispatch } = this.context.store;
+      const { dispatch } = this.props;
       this.mappedProps = mapProps(dispatch);
     }
 
@@ -68,17 +69,15 @@ const enhanceForm = (mapProps) => (Component) => {
 
   }
 
-  EnhancedForm.contextTypes = {
-    store: PropTypes.shape({
-      dispatch: PropTypes.func.isRequired,
-    }).isRequired,
+  EnhancedForm.propTypes = {
+    dispatch: PropTypes.func.isRequired,
   };
 
   hoistNonReactStatics(EnhancedForm, Component);
 
   EnhancedForm.displayName = `EnhancedForm(${getDisplayName(Component)})`;
 
-  return EnhancedForm;
+  return connect()(EnhancedForm);
 };
 
 export default enhanceForm;

@@ -15,7 +15,7 @@ export const hideIfNoData = hasNoData => (
 export const wrapWithConsumer = ({ Context, Component, propName }) => {
   const WithConsumer = (props) => (
     <Context.Consumer>
-        {value => <Component {...props} {...{[propName]: value}} />}
+      {value => <Component {...props} {...{[propName]: value}} />}
     </Context.Consumer>
   );
   return WithConsumer;

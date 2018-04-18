@@ -16,7 +16,7 @@ const enhanceView = (mapProps) => (Component) => {
     }
 
     componentWillMount() {
-      const { dispatch } = this.context.store;
+      const { dispatch } = this.props;
       this.mappedProps = mapProps(dispatch);
     }
 
@@ -51,15 +51,10 @@ const enhanceView = (mapProps) => (Component) => {
 
   }
 
-  EnhancedView.contextTypes = {
-    store: PropTypes.shape({
-      dispatch: PropTypes.func.isRequired,
-    }).isRequired,
-  };
-
   EnhancedView.propTypes = {
     viewMode: PropTypes.oneOf(['page', 'dialog', 'dialogInPage']).isRequired,
     success: PropTypes.bool,
+    dispatch: PropTypes.func.isRequired,
   };
 
   const EnhancedViewWithContext = wrapWithConsumer({

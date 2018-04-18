@@ -32,7 +32,7 @@ const routeConfig = [
 class PageContainer extends React.PureComponent {
 
   onFetchSuccess = ({ nextLocation, location }) => {
-    const { store: { dispatch } } = this.context;
+    const { dispatch } = this.props;
     dispatch(locationChanged({
       location: nextLocation,
       prevLocation: location
@@ -80,14 +80,11 @@ class PageContainer extends React.PureComponent {
 
 PageContainer.propTypes = {
   location: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   location: pageLocationSelector(state)
 });
-
-PageContainer.contextTypes = {
-  store: PropTypes.object.isRequired,
-};
 
 export default connect(mapStateToProps)(PageContainer);
