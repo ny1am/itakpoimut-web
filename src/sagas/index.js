@@ -1,4 +1,7 @@
 import { combine } from './utils/effects';
+
+import preloadSaga from './preload';
+
 import landingSaga from './landing';
 import categorySaga from './category';
 import violationSaga from './violation';
@@ -17,6 +20,7 @@ import authSaga from './auth';
 import changePasswordSaga from './changePassword';
 
 export default combine([
+  preloadSaga,
   landingSaga,
   categorySaga,
   violationSaga,
