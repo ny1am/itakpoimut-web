@@ -7,9 +7,11 @@ import LandingPageComponent from './LandingPage';
 
 class LandingPageContainer extends React.Component {
   static fetch(location, { dispatch }) {
-    return [{
-      promise: dispatch(getCategories())
-    }];
+    return [
+      {
+        promise: dispatch(getCategories()),
+      },
+    ];
   }
   render() {
     return <LandingPageComponent {...this.props} />;

@@ -41,24 +41,18 @@ const CompanyPage = ({ company }) => (
                     </a>
                   )}
                   {company.description && (
-                    <p className={styles.description}>
-                      {company.description}
-                    </p>
+                    <p className={styles.description}>{company.description}</p>
                   )}
                 </div>
               </article>
             </div>
             <div>
-              <h2 className={styles.listTitle}>
-                Порушення компанії
-              </h2>
+              <h2 className={styles.listTitle}>Порушення компанії</h2>
               {company.violations && (
                 <ul className={styles.violations}>
                   {company.violations.map((item, index) => (
                     <li key={index}>
-                      <label>
-                        {item.text}
-                      </label>
+                      <label>{item.text}</label>
                     </li>
                   ))}
                 </ul>
@@ -71,9 +65,7 @@ const CompanyPage = ({ company }) => (
               </DialogLink>
             </div>
             <div>
-              <h2 className={styles.listTitle}>
-                Сфери діяльності
-              </h2>
+              <h2 className={styles.listTitle}>Сфери діяльності</h2>
               <ul className={styles.categories}>
                 {company.categories.map((item, index) => (
                   <li key={index} className={styles.item}>
@@ -107,14 +99,18 @@ CompanyPage.propTypes = {
     title: PropTypes.string.isRequired,
     company_site: PropTypes.string,
     description: PropTypes.string,
-    violations: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-    })),
-    categories: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-    })).isRequired,
+    violations: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        text: PropTypes.string.isRequired,
+      })
+    ),
+    categories: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        text: PropTypes.string.isRequired,
+      })
+    ).isRequired,
   }).isRequired,
 };
 

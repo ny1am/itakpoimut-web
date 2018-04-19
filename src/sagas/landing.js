@@ -2,8 +2,10 @@ import { put, takeEvery } from 'redux-saga/effects';
 import { combine } from './utils/effects';
 
 import {
-  LAST_COMMENTS_REQUEST, LAST_COMMENTS_SUCCESS,
-  NEW_COMPANIES_REQUEST, NEW_COMPANIES_SUCCESS,
+  LAST_COMMENTS_REQUEST,
+  LAST_COMMENTS_SUCCESS,
+  NEW_COMPANIES_REQUEST,
+  NEW_COMPANIES_SUCCESS,
 } from 'consts/landing';
 import apiRequest from './utils/apiRequest';
 
@@ -37,7 +39,4 @@ function* getNewCompaniesSaga() {
   yield takeEvery(NEW_COMPANIES_REQUEST, getNewCompanies);
 }
 
-export default combine([
-  getLastCommentsSaga,
-  getNewCompaniesSaga,
-]);
+export default combine([getLastCommentsSaga, getNewCompaniesSaga]);

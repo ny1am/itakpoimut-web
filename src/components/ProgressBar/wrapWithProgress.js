@@ -7,7 +7,7 @@ const PROGRESS_DELAY = 20;
 const showProgress = () => {
   try {
     Progress.show();
-  } catch(e) {
+  } catch (e) {
     // do nothing; todo: use another lib for a progress component
   }
 };
@@ -15,8 +15,9 @@ const showProgress = () => {
 const hideProgress = Progress.hide;
 
 const wrapWithProgress = (promise) => {
-  return wrapWithSideEffect(showProgress, PROGRESS_DELAY)(promise)
-    .finally(hideProgress);
+  return wrapWithSideEffect(showProgress, PROGRESS_DELAY)(promise).finally(
+    hideProgress
+  );
 };
 
 export default wrapWithProgress;

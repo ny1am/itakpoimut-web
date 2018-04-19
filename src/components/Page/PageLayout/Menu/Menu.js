@@ -11,7 +11,6 @@ import userLinks from './userLinks';
 import styles from './styles.scss';
 
 class Menu extends React.PureComponent {
-
   renderAdminLink() {
     const { loggedUser } = this.props;
     if (roleModerator(loggedUser)) {
@@ -33,42 +32,33 @@ class Menu extends React.PureComponent {
             <ul className={styles.menu}>
               {userLinks.map((item, index) => (
                 <li key={index}>
-                  <Link to={item.location}>
-                    {item.title}
-                  </Link>
+                  <Link to={item.location}>{item.title}</Link>
                 </li>
               ))}
               {this.renderAdminLink()}
             </ul>
             <div className={styles.aside}>
               <Link className={styles.search} to="/companies" />
-              <DialogLink
-                to="/create-company"
-                className={styles.addCompany}
-              >
+              <DialogLink to="/create-company" className={styles.addCompany}>
                 Запропонувати компанію
               </DialogLink>
             </div>
           </div>
         </nav>
-        <section className={cn(
-          styles.mobile,
-          { [styles.shown]: shown }
-        )}>
+        <section className={cn(styles.mobile, { [styles.shown]: shown })}>
           <div className={styles.content}>
             <header className={styles.header}>
               <button className={styles.close} onClick={onMenuHide} />
               <h1>
-                <q>И так поймут</q> каталог <abbr title="Засоби масової інформації">ЗМІ</abbr> та бізнесу
+                <q>И так поймут</q> каталог{' '}
+                <abbr title="Засоби масової інформації">ЗМІ</abbr> та бізнесу
               </h1>
             </header>
             <nav className={styles.menuWrapper}>
               <ul className={styles.menu}>
                 {userLinks.map((item, index) => (
                   <li key={index}>
-                    <Link to={item.location}>
-                      {item.title}
-                    </Link>
+                    <Link to={item.location}>{item.title}</Link>
                   </li>
                 ))}
                 {this.renderAdminLink()}

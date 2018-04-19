@@ -20,15 +20,13 @@ const Comment = ({ comment, company }) => (
         <span className={styles.time}>
           <FormatDate dateString={comment.created} />
         </span>
-        {company &&
+        {company && (
           <Link to={`/company/${company._id}`} className={styles.theme}>
             до теми {company.title}
           </Link>
-        }
+        )}
       </div>
-      <p className={styles.text}>
-        {comment.text}
-      </p>
+      <p className={styles.text}>{comment.text}</p>
     </div>
   </article>
 );
@@ -45,7 +43,7 @@ Comment.propTypes = {
   company: PropTypes.shape({
     _id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-  })
+  }),
 };
 
 export default Comment;

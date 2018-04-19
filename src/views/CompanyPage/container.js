@@ -9,9 +9,11 @@ class CompanyPageContainer extends React.Component {
   static fetch(location, { dispatch, params, prevLocation }) {
     //todo: match change based checking
     if (!prevLocation || location.pathname !== prevLocation.pathname) {
-      return [{
-        promise: dispatch(get(params.id))
-      }];
+      return [
+        {
+          promise: dispatch(get(params.id)),
+        },
+      ];
     }
     return null;
   }

@@ -10,16 +10,23 @@ import Filters from './Filters';
 import styles from './styles.scss';
 
 class CompaniesPage extends React.Component {
-
   refresh = () => {
     const title = this.titleInput.value;
     const currentPage = 1;
     const { sortOrder, onRefresh } = this.props;
     onRefresh({ currentPage, sortOrder, title });
-  }
+  };
 
   render() {
-    const { companies, companiesCount, allCompaniesCount, currentPage, totalPages, sortOrder, title } = this.props;
+    const {
+      companies,
+      companiesCount,
+      allCompaniesCount,
+      currentPage,
+      totalPages,
+      sortOrder,
+      title,
+    } = this.props;
     return (
       <React.Fragment>
         <Helmet>
@@ -30,7 +37,7 @@ class CompaniesPage extends React.Component {
             <div className={styles.searchBar}>
               <SearchInput
                 value={title}
-                innerRef={input => (this.titleInput = input)}
+                innerRef={(input) => (this.titleInput = input)}
                 onSubmit={this.refresh}
               />
               <SelectedFilters onChange={this.refresh} />

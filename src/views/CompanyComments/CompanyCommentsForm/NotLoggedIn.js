@@ -13,7 +13,6 @@ class NotLoggedIn extends React.PureComponent {
       </div>
     );
   }
-
 }
 
 export default NotLoggedIn;

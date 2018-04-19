@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import styles from './styles.scss';
 
-const StandaloneQuote = ({className, children, ...props}) => {
+const StandaloneQuote = ({ className, children, ...props }) => {
   return (
     <q className={cn(styles.quote, className)} {...props}>
       {children}

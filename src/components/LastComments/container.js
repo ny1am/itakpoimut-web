@@ -6,13 +6,12 @@ import { getLastComments } from 'actions/landing';
 import LastCommentsComponent from './LastComments';
 
 class LastCommentsContainer extends React.PureComponent {
-
   state = {
-    comments: null
-  }
+    comments: null,
+  };
 
   componentDidMount() {
-    return this.props.onInit().then(comments => {
+    return this.props.onInit().then((comments) => {
       this.setState({ comments });
       return comments;
     });
@@ -30,7 +29,7 @@ LastCommentsContainer.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onInit: () => dispatch(getLastComments())
+  onInit: () => dispatch(getLastComments()),
 });
 
 export default connect(null, mapDispatchToProps)(LastCommentsContainer);

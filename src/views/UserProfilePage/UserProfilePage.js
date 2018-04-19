@@ -12,7 +12,6 @@ import { userLocalProviderCheck } from 'utils/secure';
 import styles from './styles.scss';
 
 class UserProfilePage extends React.PureComponent {
-
   constructor(props) {
     super(props);
     const { user = {} } = props;
@@ -26,17 +25,17 @@ class UserProfilePage extends React.PureComponent {
 
   onInputChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
-  }
+  };
 
   handleAttachment = (userpic) => {
     this.setState({ userpic });
-  }
+  };
 
   handleSubmit = () => {
     this.props.onSubmit(this.state).finally(() => {
       this.setState({ submitKey: randomstring.generate(7) });
     });
-  }
+  };
 
   render() {
     const { errors = {}, user = {} } = this.props;
@@ -51,34 +50,21 @@ class UserProfilePage extends React.PureComponent {
         <div className="pattern-content">
           <div className="container">
             <div className={styles.content}>
-              {success &&
-                <div className={styles.success}>
-                  Зміни збережено
-                </div>
-              }
-              {errors.page &&
-                <div className={styles.error}>
-                  {errors.page}
-                </div>
-              }
+              {success && <div className={styles.success}>Зміни збережено</div>}
+              {errors.page && <div className={styles.error}>{errors.page}</div>}
               <form action="/userProfile" method="post" onSubmit={onSubmit}>
                 <section className={styles.block}>
-                  <h1>
-                    Ваші особисті дані
-                  </h1>
+                  <h1>Ваші особисті дані</h1>
                   <div className="row">
-                    <label className="row__label">
-                      E-mail
-                    </label>
-                    <div className={styles.rowText}>
-                      {user.email}
-                    </div>
+                    <label className="row__label">E-mail</label>
+                    <div className={styles.rowText}>{user.email}</div>
                   </div>
                   <div className={cn('row', { 'row--error': errors.fname })}>
                     <label className="row__label" htmlFor="fname">
-                      {errors.fname || 'Ім\'я'}
+                      {errors.fname || "Ім'я"}
                     </label>
-                    <input type="text"
+                    <input
+                      type="text"
                       className="row__input"
                       name="fname"
                       value={this.state.fname}
@@ -90,7 +76,8 @@ class UserProfilePage extends React.PureComponent {
                     <label className="row__label" htmlFor="lname">
                       {errors.lname || 'Прізвище'}
                     </label>
-                    <input type="text"
+                    <input
+                      type="text"
                       className="row__input"
                       name="lname"
                       value={this.state.lname}
@@ -98,22 +85,17 @@ class UserProfilePage extends React.PureComponent {
                       maxLength="25"
                     />
                   </div>
-                  {userLocalProviderCheck(user) &&
+                  {userLocalProviderCheck(user) && (
                     <div className="row">
-                      <DialogLink
-                        className={styles.link}
-                        to="/change-password"
-                      >
+                      <DialogLink className={styles.link} to="/change-password">
                         Змінити пароль
                       </DialogLink>
                     </div>
-                  }
+                  )}
                 </section>
 
                 <section className={styles.block}>
-                  <h1>
-                    Ваше фото
-                  </h1>
+                  <h1>Ваше фото</h1>
                   <FileUpload
                     imgSrc={user.picture_url}
                     className={styles.userpic}
@@ -122,7 +104,7 @@ class UserProfilePage extends React.PureComponent {
                     stateKey={submitKey}
                   />
                   <div className="hint">
-                    JPEG або PNG,<br/> розміром до 1 Mb
+                    JPEG або PNG,<br /> розміром до 1 Mb
                   </div>
                 </section>
 

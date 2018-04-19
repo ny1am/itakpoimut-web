@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
 import { getDisplayName, getFirstErrorElement } from 'utils';
 
-import LoadingPortal from './LoadingPortal';
+import Loading from './Loading';
 
 const scrollToError = (errors, holder) => {
   const element = getFirstErrorElement(errors, holder);
@@ -15,7 +16,6 @@ const scrollToError = (errors, holder) => {
 
 const enhanceForm = (mapProps) => (Component) => {
   class EnhancedForm extends React.Component {
-
     state = {
       loading: false,
       success: null,
@@ -23,7 +23,7 @@ const enhanceForm = (mapProps) => (Component) => {
     };
 
     componentWillMount() {
-      const { dispatch } = this.context.store;
+      const { dispatch } = this.props;
       this.mappedProps = mapProps(dispatch);
     }
 
@@ -31,7 +31,7 @@ const enhanceForm = (mapProps) => (Component) => {
       const { onSubmit } = this.mappedProps;
       this.setState({ loading: true });
       return onSubmit(...args)
-        .then(data => {
+        .then((data) => {
           this.setState({
             success: true,
             errors: {},
@@ -39,7 +39,7 @@ const enhanceForm = (mapProps) => (Component) => {
           });
           return data;
         })
-        .catch(payload => {
+        .catch((payload) => {
           this.setState({
             success: false,
             errors: payload.errors,
@@ -50,35 +50,28 @@ const enhanceForm = (mapProps) => (Component) => {
             scrollToError(payload.errors, holder);
           }
         });
-    }
+    };
 
     render() {
       const { loading } = this.state;
       return (
         <React.Fragment>
-          <Component
-            {...this.props}
-            {...this.state}
-            onSubmit={this.onSubmit}
-          />
-          {loading && <LoadingPortal formRef={this} />}
+          <Component {...this.props} {...this.state} onSubmit={this.onSubmit} />
+          {loading && <Loading />}
         </React.Fragment>
       );
     }
-
   }
 
-  EnhancedForm.contextTypes = {
-    store: PropTypes.shape({
-      dispatch: PropTypes.func.isRequired,
-    }).isRequired,
+  EnhancedForm.propTypes = {
+    dispatch: PropTypes.func.isRequired,
   };
 
   hoistNonReactStatics(EnhancedForm, Component);
 
   EnhancedForm.displayName = `EnhancedForm(${getDisplayName(Component)})`;
 
-  return EnhancedForm;
+  return connect()(EnhancedForm);
 };
 
 export default enhanceForm;

@@ -12,15 +12,11 @@ import ErrorBoundary from './ErrorBoundary';
  * Main component. Contains ubiquitous components.
  */
 class App extends React.Component {
-
   render() {
     const title = `"И так поймут" Kаталог ЗМІ та бізнесу`;
     return (
       <React.Fragment>
-        <Helmet
-          titleTemplate={`%s - ${title}`}
-          defaultTitle={title}
-        />
+        <Helmet titleTemplate={`%s - ${title}`} defaultTitle={title} />
         <ErrorBoundary>
           <ProgressBar />
           <Dialog />

@@ -11,12 +11,14 @@ const labels = {
 };
 
 const Loyalty = ({ company, adaptive, className }) => (
-  <div className={cn(
-    styles.loyalty,
-    { [styles.adaptive]: adaptive },
-    styles[company.loyalty],
-    className
-  )}>
+  <div
+    className={cn(
+      styles.loyalty,
+      { [styles.adaptive]: adaptive },
+      styles[company.loyalty],
+      className
+    )}
+  >
     {labels[company.loyalty]}
   </div>
 );

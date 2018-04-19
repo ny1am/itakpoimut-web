@@ -9,10 +9,7 @@ class Radio extends React.Component {
     const { className, id, ...props } = this.props;
     return (
       <div className={cn(styles.radio, className)}>
-        <input type="radio"
-          {...props}
-          id={id}
-        />
+        <input type="radio" {...props} id={id} />
         <label htmlFor={id} />
       </div>
     );

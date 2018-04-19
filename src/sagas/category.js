@@ -2,7 +2,8 @@ import { put, select, takeEvery } from 'redux-saga/effects';
 
 import {
   FETCH_CATEGORIES_SUCCESS,
-  GET_CATEGORIES, GET_CATEGORIES_SUCCESS,
+  GET_CATEGORIES,
+  GET_CATEGORIES_SUCCESS,
 } from 'consts/category';
 import apiRequest from './utils/apiRequest';
 
@@ -18,7 +19,7 @@ function* fetchCategoryList() {
 }
 
 function* getCachedCategoryList() {
-  const categoryList = yield select(state => {
+  const categoryList = yield select((state) => {
     return state.category;
   });
   return categoryList;

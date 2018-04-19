@@ -11,7 +11,6 @@ import Footer from './Footer';
 import styles from './styles.scss';
 
 class PageLayout extends React.PureComponent {
-
   constructor(props) {
     super(props);
     this.layout = React.createRef();
@@ -42,16 +41,13 @@ class PageLayout extends React.PureComponent {
   render() {
     const { overflowShown, children } = this.props;
     return (
-      <div ref={this.layout} className={cn(
-        styles.wrapper,
-        { [styles.fixed]: overflowShown }
-      )}>
+      <div
+        ref={this.layout}
+        className={cn(styles.wrapper, { [styles.fixed]: overflowShown })}
+      >
         <Header />
         <Menu />
-        <main className={styles.content}>
-          {children}
-          <div data-loading-portal />
-        </main>
+        <main className={styles.content}>{children}</main>
         <Footer />
       </div>
     );

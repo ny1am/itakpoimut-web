@@ -4,10 +4,9 @@ import PropTypes from 'prop-types';
 import ErrorPage from './ErrorPage';
 
 class ErrorBoundary extends React.Component {
-
   state = {
-    error: false
-  }
+    error: false,
+  };
 
   componentDidCatch(error, info) {
     this.setState({ error: true });
@@ -24,12 +23,6 @@ class ErrorBoundary extends React.Component {
     }
   }
 }
-
-ErrorBoundary.contextTypes = {
-  store: PropTypes.shape({
-    dispatch: PropTypes.func.isRequired,
-  }).isRequired,
-};
 
 ErrorBoundary.propTypes = {
   children: PropTypes.node.isRequired,

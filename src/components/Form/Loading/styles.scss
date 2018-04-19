@@ -1,4 +1,4 @@
-@keyframes pulse{
+@keyframes pulse {
   0% {
     opacity: 1;
   }
@@ -15,7 +15,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0,74,128,0.4);
+  background-color: rgba(0, 74, 128, 0.4);
   z-index: 1;
 }
 
@@ -41,9 +41,9 @@
 .block {
   height: 35%;
   width: 35%;
-  animation: pulse 0.20s ease-in infinite alternate;
-  background-color: rgba(0,30,52,0.4);
+  animation: pulse 0.2s ease-in infinite alternate;
+  background-color: rgba(0, 30, 52, 0.4);
 }
 .delay {
-  animation-delay: 0.20s;
+  animation-delay: 0.2s;
 }

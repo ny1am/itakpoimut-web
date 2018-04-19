@@ -7,10 +7,9 @@ import { GOOGLE_CLIENT_ID } from 'consts';
 import styles from './styles.scss';
 
 class GoogleLogin extends React.Component {
-
   responseGoogle = ({ accessToken }) => {
     this.props.onChange(accessToken);
-  }
+  };
 
   render() {
     return (

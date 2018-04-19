@@ -1,20 +1,22 @@
 import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
 
 import {
-  LAST_COMMENTS_REQUEST, LAST_COMMENTS_SUCCESS,
-  NEW_COMPANIES_REQUEST, NEW_COMPANIES_SUCCESS,
+  LAST_COMMENTS_REQUEST,
+  LAST_COMMENTS_SUCCESS,
+  NEW_COMPANIES_REQUEST,
+  NEW_COMPANIES_SUCCESS,
 } from 'consts/landing';
 
 export function getLastComments() {
-  return ({
+  return {
     type: LAST_COMMENTS_REQUEST,
     [WAIT_FOR_ACTION]: LAST_COMMENTS_SUCCESS,
-  });
+  };
 }
 
 export function getNewCompanies() {
-  return ({
+  return {
     type: NEW_COMPANIES_REQUEST,
     [WAIT_FOR_ACTION]: NEW_COMPANIES_SUCCESS,
-  });
+  };
 }

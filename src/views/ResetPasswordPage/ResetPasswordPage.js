@@ -9,23 +9,22 @@ import { preventDefault } from 'utils';
 import styles from './styles.scss';
 
 class ResetPasswordPage extends React.PureComponent {
-
   state = {
-    password: ''
-  }
+    password: '',
+  };
 
   onInputChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
-  }
+  };
 
   onSubmit = () => {
     const { password } = this.state;
     const { token } = this.props.match.params;
     this.props.onSubmit({
       token,
-      password
+      password,
     });
-  }
+  };
 
   render() {
     const { errors = {} } = this.props;
@@ -33,10 +32,8 @@ class ResetPasswordPage extends React.PureComponent {
     const onSubmit = preventDefault(this.onSubmit);
     return (
       <div className={cn('dialog_content', styles.wrapper)}>
-        <h1>
-          Змінити пароль
-        </h1>
-        {errors.expired &&
+        <h1>Змінити пароль</h1>
+        {errors.expired && (
           <div className={styles.error}>
             {`Термін дії посилання закінчився. Подайте ще один `}
             <DialogLink className={styles.link} to="/forget-password">
@@ -44,7 +41,7 @@ class ResetPasswordPage extends React.PureComponent {
             </DialogLink>
             {` на зміну паролю.`}
           </div>
-        }
+        )}
         <form action="/reset" method="post" onSubmit={onSubmit}>
           <div className={cn('row', { 'row--error': errors.password })}>
             <label className="row__label" htmlFor="password">

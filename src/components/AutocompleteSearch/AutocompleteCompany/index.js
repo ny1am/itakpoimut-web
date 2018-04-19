@@ -11,9 +11,7 @@ const AutocompleteCompany = ({ company }) => (
     <div className={styles.logo}>
       <img src={company.img} />
     </div>
-    <div className={styles.title}>
-      {company.title}
-    </div>
+    <div className={styles.title}>{company.title}</div>
     <div className={styles.loyalty}>
       <Loyalty company={company} adaptive />
     </div>

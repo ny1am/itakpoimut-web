@@ -6,7 +6,6 @@ import { history } from '../../store/configureStore';
 
 //todo: revise this
 class ErrorPage extends React.PureComponent {
-
   componentDidMount() {
     history.listen(() => {
       window.location.reload();

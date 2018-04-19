@@ -1,8 +1,10 @@
 import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
 
 import {
-  USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS,
-  SAVE_USER_PROFILE_REQUEST, SAVE_USER_PROFILE_SUCCESS,
+  USER_PROFILE_REQUEST,
+  USER_PROFILE_SUCCESS,
+  SAVE_USER_PROFILE_REQUEST,
+  SAVE_USER_PROFILE_SUCCESS,
 } from 'consts/userProfile';
 
 export function get() {

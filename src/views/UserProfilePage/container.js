@@ -8,10 +8,12 @@ import UserProfilePageComponent from './UserProfilePage';
 
 class UserProfilePageContainer extends React.Component {
   static fetch(location, { dispatch }) {
-    return [{
-      prop: 'user',
-      promise: dispatch(get()),
-    }];
+    return [
+      {
+        prop: 'user',
+        promise: dispatch(get()),
+      },
+    ];
   }
 
   constructor(props) {
@@ -23,7 +25,7 @@ class UserProfilePageContainer extends React.Component {
   }
 
   onSubmit = (params) => {
-    return this.props.onSubmit(params).then(data => {
+    return this.props.onSubmit(params).then((data) => {
       //todo: should not end up here on error
       if (data && data.user) {
         this.setState({
@@ -33,7 +35,7 @@ class UserProfilePageContainer extends React.Component {
         return data;
       }
     });
-  }
+  };
 
   render() {
     return (
@@ -55,6 +57,4 @@ const mapProps = (dispatch) => ({
   onSubmit: (params) => dispatch(save(params)),
 });
 
-export default enhanceForm(mapProps)(
-  UserProfilePageContainer
-);
+export default enhanceForm(mapProps)(UserProfilePageContainer);

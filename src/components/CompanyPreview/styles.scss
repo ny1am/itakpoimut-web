@@ -16,7 +16,7 @@
     vertical-align: middle;
     height: 100%;
   }
-  &>img {
+  & > img {
     vertical-align: middle;
     width: 130px;
   }
@@ -24,7 +24,7 @@
 
 .title {
   color: white;
-  background-color :#004a80;
+  background-color: #004a80;
   font-size: 1rem;
   box-sizing: border-box;
   display: flex;

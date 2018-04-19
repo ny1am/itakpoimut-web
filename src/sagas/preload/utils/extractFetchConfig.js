@@ -8,7 +8,7 @@ const extractFetchConfig = (location, routeConfig, options) => {
       return route.component.fetch(location, { ...options, params });
     })
     .reduce((a, b) => a.concat(b), [])
-    .filter(result => result);
+    .filter((result) => result);
   if (fetchResult.length > 0) {
     return fetchResult;
   } else {

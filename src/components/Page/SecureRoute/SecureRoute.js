@@ -5,7 +5,6 @@ import { Route } from 'react-router-dom';
 import NotAllowedPage from 'views/NotAllowedPage';
 
 class SecureRoute extends React.Component {
-
   shouldComponentUpdate(nextProps) {
     const preventUpdate = !this.props.loggedUser && nextProps.loggedUser;
     return !preventUpdate;
@@ -14,14 +13,15 @@ class SecureRoute extends React.Component {
   render() {
     const { loggedUser, secure, ...rest } = this.props;
     return (
-      <Route {...rest} render={(props) => {
-        if (secure && !secure(loggedUser)) {
-          return (
-            <NotAllowedPage />
-          );
-        }
-        return rest.render(props);
-      }} />
+      <Route
+        {...rest}
+        render={(props) => {
+          if (secure && !secure(loggedUser)) {
+            return <NotAllowedPage />;
+          }
+          return rest.render(props);
+        }}
+      />
     );
   }
 }

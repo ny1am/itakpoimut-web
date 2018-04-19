@@ -3,7 +3,7 @@
   z-index: 1;
   padding-left: 4px;
   width: 100%;
-  box-sizing: border-box
+  box-sizing: border-box;
 }
 
 .results {
@@ -12,7 +12,7 @@
   border-radius: 0 0 5px 5px;
   width: 100%;
   box-sizing: border-box;
-  overflow: hidden
+  overflow: hidden;
 }
 
 .row {
@@ -22,14 +22,14 @@
   padding: 10px;
   font-size: 1.625rem;
   color: #666;
-  border-bottom: 1px solid #ccc
+  border-bottom: 1px solid #ccc;
 }
 
 .row:last-child {
-  border-bottom: 0
+  border-bottom: 0;
 }
 
 .row:hover {
   background-color: #e1e1e1;
-  border-color: #e1e1e1
+  border-color: #e1e1e1;
 }

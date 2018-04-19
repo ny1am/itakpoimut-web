@@ -9,39 +9,29 @@ const PAGE_NUMBER_SIZE = 5;
 
 //todo: revise this
 class Pagination extends React.Component {
-
   renderPageElement(page, innerText) {
     const { generateUrl } = this.props;
     const to = generateUrl(page);
-    return (
-      <Link to={to}>
-        {innerText}
-      </Link>
-    );
+    return <Link to={to}>{innerText}</Link>;
   }
   renderPrevPage() {
     let privPage = Number(this.props.currentPage) - 1;
-    privPage = privPage<1?1:privPage;
-    return (
-      <li className={styles.prev}>
-        {this.renderPageElement(privPage)}
-      </li>
-    );
+    privPage = privPage < 1 ? 1 : privPage;
+    return <li className={styles.prev}>{this.renderPageElement(privPage)}</li>;
   }
   renderNextPage() {
     let nextPage = Number(this.props.currentPage) + 1;
-    nextPage = nextPage>this.props.totalPages?this.props.totalPages:nextPage;
-    return (
-      <li className={styles.next}>
-        {this.renderPageElement(nextPage)}
-      </li>
-    );
+    nextPage =
+      nextPage > this.props.totalPages ? this.props.totalPages : nextPage;
+    return <li className={styles.next}>{this.renderPageElement(nextPage)}</li>;
   }
   renderPages() {
-    let startPage = Number(this.props.currentPage) - Math.floor(PAGE_NUMBER_SIZE / 2);
-    let endPage = Number(this.props.currentPage) + Math.floor(PAGE_NUMBER_SIZE / 2);
+    let startPage =
+      Number(this.props.currentPage) - Math.floor(PAGE_NUMBER_SIZE / 2);
+    let endPage =
+      Number(this.props.currentPage) + Math.floor(PAGE_NUMBER_SIZE / 2);
     if (startPage <= 0) {
-      endPage -= (startPage - 1);
+      endPage -= startPage - 1;
       startPage = 1;
     }
     if (endPage > this.props.totalPages) {
@@ -56,7 +46,7 @@ class Pagination extends React.Component {
     for (let i = startPage; i <= endPage; i++) {
       pages.push({
         index: i,
-        active: (i===Number(this.props.currentPage))
+        active: i === Number(this.props.currentPage),
       });
     }
     return pages.map((page, index) => (

@@ -1,29 +1,61 @@
-This project requires `node` >= 6 and `npm` >= 5 and [yarn](https://yarnpkg.com/en/).
+# Itakpoimut web app &middot; [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/ny1am/itakpoimut-web/blob/master/LICENSE) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-To start this project:
-  
-  1. cd into the root directory
-  2. install the dependencies `yarn`
-  3. start it `yarn start`
+Web client for itakpoimut project which is a catalogue of ukrainian companies that do not follow law in terms of translating all related media to ukrainian language
 
-To build production version:
+## Developing
 
-  1. `yarn build`
-  2. find result in the `/build` folder
+### Built With
 
-To deploy this project to firebase:
+React, Redux, Redux Saga, Webpack
 
-  1. Build `yarn build`
-  2. Deploy `firebase deploy`
+### Prerequisites
 
-Hygen templates commands:
-```
-  yarn hygen component simple --name Test
-  yarn hygen component simple --name Test --styles
-  yarn hygen component container --name Test
-  yarn hygen component container --name Test --styles
+This project requires `node` >= 6 and `npm` >= 5 and [yarn](https://yarnpkg.com/en/)
+
+### Setting up Dev
+
+```shell
+git clone https://github.com/ny1am/itakpoimut-web.git
+cd itakpoimut-web/
+yarn
+yarn start
 ```
 
-Architecture is based on <a href="https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0" target="_blank">Presentational and Container Components</a> pattern
+Clone repo and then install project dependencies with `yarn` and run developer environment with `yarn start`
 
-This project is built upon <a href="https://github.com/facebook/create-react-app" target="_blank">create-react-app</a>
+### Hygen templates
+
+```shell
+yarn hygen component simple --name Test
+yarn hygen component simple --name Test --styles
+yarn hygen component container --name Test
+yarn hygen component container --name Test --styles
+```
+
+Commands generate components with specified name to `/_tmp`. You may move them to another folder then
+
+### Deploying
+
+CI is configured on `master` branch.
+To deploy this app somewhere else you may use:
+
+```shell
+yarn build
+firebase deploy
+```
+
+Builds project to `/build` folder and deploys to firebase
+
+## Style guide
+
+Please install [prettier plugin](https://prettier.io/) for your IDE
+
+Please install [eslint plugin](https://eslint.org/) for your IDE
+
+Architecture is based on [Presentational and Container Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) pattern
+
+This project is built upon [create-react-app](https://github.com/facebook/create-react-app). Has been ejected already
+
+## Contributing
+
+Please follow [git flow](http://nvie.com/posts/a-successful-git-branching-model/) with creating PR to `develop` branch

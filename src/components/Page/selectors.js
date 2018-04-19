@@ -7,7 +7,7 @@ import { extractDialogLocation } from 'components/Dialog';
 const equalityCheck = (nextLocation, prevLocation) => {
   const prevDialog = extractDialogLocation(prevLocation);
   const nextDialog = extractDialogLocation(nextLocation);
-  return (nextLocation === prevLocation || prevDialog !== nextDialog);
+  return nextLocation === prevLocation || prevDialog !== nextDialog;
 };
 
 const createIgnoreDialogSelector = createSelectorCreator(
@@ -15,7 +15,7 @@ const createIgnoreDialogSelector = createSelectorCreator(
   equalityCheck
 );
 
-const getRouterLocation = state => state.router.location;
+const getRouterLocation = (state) => state.router.location;
 
 export const pageLocationSelector = createIgnoreDialogSelector(
   [getRouterLocation],

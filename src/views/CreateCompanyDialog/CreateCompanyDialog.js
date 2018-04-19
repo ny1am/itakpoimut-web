@@ -10,7 +10,6 @@ import { preventDefault } from 'utils';
 import styles from './styles.scss';
 
 class CreateCompanyDialog extends React.PureComponent {
-
   state = {
     title: '',
     description: '',
@@ -19,39 +18,39 @@ class CreateCompanyDialog extends React.PureComponent {
     selectedViolations: [],
     attachment: null,
     submitKey: randomstring.generate(7),
-  }
+  };
 
   onInputChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
-  }
+  };
 
   handleCategoryChange = (value) => {
     this.setState({
       selectedCategories: value,
     });
-  }
+  };
 
   handleViolationChange = (value) => {
     this.setState({
       selectedViolations: value,
     });
-  }
+  };
 
   handleAttachment = (attachment) => {
     this.setState({ attachment });
-  }
+  };
 
   handleSubmit = () => {
     const { selectedCategories, selectedViolations, ...rest } = this.state;
     const data = {
       ...rest,
-      selectedCategories: selectedCategories.map(item => item.value),
-      selectedViolations: selectedViolations.map(item => item.value),
+      selectedCategories: selectedCategories.map((item) => item.value),
+      selectedViolations: selectedViolations.map((item) => item.value),
     };
     this.props.onSubmit(data).finally(() => {
       this.setState({ submitKey: randomstring.generate(7) });
     });
-  }
+  };
 
   render() {
     const { errors = {} } = this.props;
@@ -60,16 +59,12 @@ class CreateCompanyDialog extends React.PureComponent {
     const onSubmit = preventDefault(this.handleSubmit);
     return (
       <div className={cn('dialog_content', styles.wrapper)}>
-        <h1>
-          Запропонувати компанію
-        </h1>
-        {errors.dialog &&
-          <div className={styles.error}>
-            {errors.dialog}
-          </div>
-        }
+        <h1>Запропонувати компанію</h1>
+        {errors.dialog && <div className={styles.error}>{errors.dialog}</div>}
         <p>
-          Зазначимо, що ви тільки пропонуєте компанію на розгляд. Після того її затверджує модератор, і система сама присвоює компанії статус лояльної/порушника на основі наявності/відсутності порушень.
+          Зазначимо, що ви тільки пропонуєте компанію на розгляд. Після того її
+          затверджує модератор, і система сама присвоює компанії статус
+          лояльної/порушника на основі наявності/відсутності порушень.
         </p>
         <form
           action="/createCompany"
@@ -79,9 +74,7 @@ class CreateCompanyDialog extends React.PureComponent {
         >
           <div className={styles.logoRow}>
             <div className={styles.attachmentWrapper}>
-              <label className="row__label">
-                Лого компанії
-              </label>
+              <label className="row__label">Лого компанії</label>
               <FileUpload
                 className={styles.attachment}
                 serverError={!!errors.attachment}
@@ -89,7 +82,7 @@ class CreateCompanyDialog extends React.PureComponent {
                 stateKey={submitKey}
               />
               <div className="hint">
-                JPEG або PNG,<br/> розміром до 1 Mb
+                JPEG або PNG,<br /> розміром до 1 Mb
               </div>
             </div>
             <div>
@@ -97,7 +90,8 @@ class CreateCompanyDialog extends React.PureComponent {
                 <label className="row__label" htmlFor="title">
                   {errors.title || 'Назва компанії'}
                 </label>
-                <input type="text"
+                <input
+                  type="text"
                   className="row__input"
                   name="title"
                   value={this.state.title}
@@ -109,14 +103,18 @@ class CreateCompanyDialog extends React.PureComponent {
                 <label className="row__label" htmlFor="selectedCategories[]">
                   Оберіть сфери компанії
                 </label>
-                <Select name="selectedCategories[]"
+                <Select
+                  name="selectedCategories[]"
                   className="row__input"
                   multi={true}
                   placeholder="Оберіть зі списку..."
                   backspaceRemoves={false}
                   value={this.state.selectedCategories}
                   onChange={this.handleCategoryChange}
-                  options={categoriesList.map(item =>({label: item.text, value: item.name}))}
+                  options={categoriesList.map((item) => ({
+                    label: item.text,
+                    value: item.name,
+                  }))}
                 />
               </div>
               <div className={cn('row', { 'row--error': errors.description })}>
@@ -136,7 +134,8 @@ class CreateCompanyDialog extends React.PureComponent {
                   {errors.company_site || 'Посилання на сайт (якщо є)'}
                 </label>
                 <div className={styles.httpWrapper}>
-                  <input type="text"
+                  <input
+                    type="text"
                     className={styles.http}
                     name="company_site"
                     maxLength="100"
@@ -149,14 +148,18 @@ class CreateCompanyDialog extends React.PureComponent {
                 <label className="row__label" htmlFor="selectedViolations[]">
                   Оберіть порушення компанії
                 </label>
-                <Select name="selectedViolations[]"
+                <Select
+                  name="selectedViolations[]"
                   className="row__input"
                   multi={true}
                   placeholder="Оберіть зі списку..."
                   backspaceRemoves={false}
                   value={this.state.selectedViolations}
                   onChange={this.handleViolationChange}
-                  options={violationsList.map(item =>({label: item.text, value: item.name}))}
+                  options={violationsList.map((item) => ({
+                    label: item.text,
+                    value: item.name,
+                  }))}
                 />
               </div>
             </div>
@@ -185,7 +188,7 @@ CreateCompanyDialog.propTypes = {
 
 CreateCompanyDialog.defaultProps = {
   selectedCategories: [],
-  selectedViolations: []
+  selectedViolations: [],
 };
 
 export default CreateCompanyDialog;

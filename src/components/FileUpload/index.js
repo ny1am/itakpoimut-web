@@ -5,7 +5,6 @@ import cn from 'classnames';
 import styles from './styles.scss';
 
 class FileUpload extends React.PureComponent {
-
   constructor(props) {
     super(props);
     this.setupFileReader();
@@ -29,9 +28,13 @@ class FileUpload extends React.PureComponent {
 
   setupFileReader() {
     this.reader = new FileReader();
-    this.reader.addEventListener('load', () => {
-      this.setState({ previewSrc: this.reader.result });
-    }, false);
+    this.reader.addEventListener(
+      'load',
+      () => {
+        this.setState({ previewSrc: this.reader.result });
+      },
+      false
+    );
   }
 
   validate(file) {
@@ -50,12 +53,15 @@ class FileUpload extends React.PureComponent {
         previewSrc: null,
       });
     }
-    this.setState({
-      //todo: not sure about null
-      validationResult: (isValid ? 'success' : null),
-      dirty: true,
-    }, () => onChange(file));
-  }
+    this.setState(
+      {
+        //todo: not sure about null
+        validationResult: isValid ? 'success' : null,
+        dirty: true,
+      },
+      () => onChange(file)
+    );
+  };
 
   render() {
     const { imgSrc, serverError, className } = this.props;
@@ -68,19 +74,16 @@ class FileUpload extends React.PureComponent {
       validationResult = 'error';
     }
     return (
-      <div className={cn(
-        styles.wrapper,
-        className,
-        { [styles[validationResult]] : validationResult }
-      )}>
-        {imageToShow ?
-          <img
-            src={imageToShow}
-            className={styles.preview}
-          />
-        :
+      <div
+        className={cn(styles.wrapper, className, {
+          [styles[validationResult]]: validationResult,
+        })}
+      >
+        {imageToShow ? (
+          <img src={imageToShow} className={styles.preview} />
+        ) : (
           <div className={styles.placeholder} />
-        }
+        )}
         <input
           type="file"
           accept="image/*"

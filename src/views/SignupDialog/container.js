@@ -15,7 +15,7 @@ const mapProps = (dispatch) => ({
       return dispatch(googleAuth(data));
     } else {
       const { email, password } = data;
-      return dispatch(signup(data)).then(data => {
+      return dispatch(signup(data)).then((data) => {
         if (data.result === 'success') {
           return dispatch(auth({ username: email, password }));
         }

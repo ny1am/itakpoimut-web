@@ -6,7 +6,7 @@ const enhanceRouteWithProps = (element, passThroughProps) => {
   //todo: do i need to clon here?
   return React.cloneElement(element, {
     component: null,
-    render: (props) => routeRender({...props, ...passThroughProps})
+    render: (props) => routeRender({ ...props, ...passThroughProps }),
   });
 };
 

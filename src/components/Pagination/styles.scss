@@ -1,7 +1,7 @@
 ul.pagination {
   text-align: center;
   margin-top: 36px;
-  &>li {
+  & > li {
     display: inline-block;
     box-sizing: border-box;
     vertical-align: middle;
@@ -35,7 +35,8 @@ ul.pagination {
       width: 10px;
       height: 16px;
     }
-    a,button {
+    a,
+    button {
       height: 100%;
       width: 100%;
       display: inline-flex;

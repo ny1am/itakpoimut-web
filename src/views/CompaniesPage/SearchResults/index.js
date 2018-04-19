@@ -8,8 +8,16 @@ import CompanyOverview from 'components/CompanyOverview';
 
 import styles from './styles.scss';
 
-const SearchResults = ({ sortOrder, companies, companiesCount, allCompaniesCount, currentPage, totalPages, baseUrl }) => {
-  const newSortOrder = (sortOrder === 'asc' ? 'desc' : 'asc');
+const SearchResults = ({
+  sortOrder,
+  companies,
+  companiesCount,
+  allCompaniesCount,
+  currentPage,
+  totalPages,
+  baseUrl,
+}) => {
+  const newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
   if (companies.length > 0) {
     return (
       <div className={styles.wrapper}>
@@ -28,15 +36,15 @@ const SearchResults = ({ sortOrder, companies, companiesCount, allCompaniesCount
           </div>
         </div>
         <div className={styles.items}>
-          {companies.map(company => (
+          {companies.map((company) => (
             <CompanyOverview key={company._id} company={company} />
           ))}
         </div>
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
-          generateUrl={
-            (page) => `${baseUrl}&sortOrder=${sortOrder}&currentPage=${page}#results`
+          generateUrl={(page) =>
+            `${baseUrl}&sortOrder=${sortOrder}&currentPage=${page}#results`
           }
         />
       </div>

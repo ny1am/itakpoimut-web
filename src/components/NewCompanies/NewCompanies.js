@@ -13,9 +13,9 @@ class NewCompanies extends React.PureComponent {
     return (
       <LandingSection title="Нові компанії">
         <ul className={styles.newCompanies}>
-          {companies.map(item => (
+          {companies.map((item) => (
             <li key={item._id}>
-              <CompanyPreview company={item}/>
+              <CompanyPreview company={item} />
             </li>
           ))}
         </ul>
@@ -28,6 +28,6 @@ NewCompanies.propTypes = {
   companies: PropTypes.array,
 };
 
-const hasNoData = props => !(props.companies);
+const hasNoData = (props) => !props.companies;
 
 export default hideIfNoData(hasNoData)(NewCompanies);

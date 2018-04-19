@@ -2,7 +2,8 @@ import { put } from 'redux-saga/effects';
 import queryString from 'query-string';
 
 import {
-  CHANGE_PASSWORD_REQUEST, CHANGE_PASSWORD_SUCCESS,
+  CHANGE_PASSWORD_REQUEST,
+  CHANGE_PASSWORD_SUCCESS,
 } from 'consts/changePassword';
 import { takeFirst } from './utils/effects';
 import apiSecureRequest from './utils/apiSecureRequest';

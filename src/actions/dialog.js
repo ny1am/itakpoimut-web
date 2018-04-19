@@ -7,7 +7,7 @@ function getSavedLocation() {
   const browserLocation = history.location;
   let savedLocation;
   if (browserLocation.state && browserLocation.state.dialog) {
-    savedLocation =  browserLocation.state.dialog.savedLocation;
+    savedLocation = browserLocation.state.dialog.savedLocation;
   }
   return savedLocation || browserLocation;
 }
@@ -18,11 +18,11 @@ function getSavedLocation() {
 export function showDialog(location) {
   const savedLocation = getSavedLocation();
   const dialog = {
-    savedLocation: clearDialog(savedLocation)
+    savedLocation: clearDialog(savedLocation),
   };
   return push({
     pathname: location,
-    state: { dialog }
+    state: { dialog },
   });
 }
 

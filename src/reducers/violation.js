@@ -3,8 +3,7 @@ import { FETCH_VIOLATIONS_SUCCESS } from 'consts/violation';
 const initialState = null;
 
 const violationReducer = (state = initialState, action) => {
-  switch(action.type) {
-
+  switch (action.type) {
     case FETCH_VIOLATIONS_SUCCESS: {
       return action.payload;
     }

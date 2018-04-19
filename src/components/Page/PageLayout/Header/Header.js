@@ -12,10 +12,11 @@ const Header = ({ loggedUser, onLogout, onMenuShow }) => (
     <header className={styles.desktop}>
       <div className="container">
         <Link className={styles.logo} to="/">
-          <q>И так поймут</q> каталог <abbr title="Засоби масової інформації">ЗМІ</abbr> та бізнесу
+          <q>И так поймут</q> каталог{' '}
+          <abbr title="Засоби масової інформації">ЗМІ</abbr> та бізнесу
         </Link>
         <div className={styles.aside}>
-          {loggedUser ?
+          {loggedUser ? (
             <React.Fragment>
               <Link key="userpick" to="/user-profile">
                 <Avatar
@@ -27,13 +28,17 @@ const Header = ({ loggedUser, onLogout, onMenuShow }) => (
               <Link key="fname" to="/user-profile" className={styles.name}>
                 {loggedUser.fname}
               </Link>
-              <button key="logout" className={styles.logout} onClick={onLogout} />
+              <button
+                key="logout"
+                className={styles.logout}
+                onClick={onLogout}
+              />
             </React.Fragment>
-          :
+          ) : (
             <DialogLink to="/login" className={styles.login}>
               Вхід/Реєстрація
             </DialogLink>
-          }
+          )}
         </div>
       </div>
     </header>
@@ -42,14 +47,14 @@ const Header = ({ loggedUser, onLogout, onMenuShow }) => (
       <div className={styles.buttons}>
         <DialogLink to="/create-company" className={styles.addCompany} />
         <Link to="/companies" className={styles.search} />
-        {loggedUser ?
+        {loggedUser ? (
           <React.Fragment>
             <Link key="profile" to="/user-profile" className={styles.user} />
             <button key="logout" className={styles.logout} onClick={onLogout} />
           </React.Fragment>
-        :
+        ) : (
           <DialogLink to="/login" className={styles.user} />
-        }
+        )}
       </div>
     </header>
   </React.Fragment>

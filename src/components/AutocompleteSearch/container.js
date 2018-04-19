@@ -12,14 +12,13 @@ import AutocompleteSearchComponent from './AutocompleteSearch';
 
 //todo: clean up this component, use portals
 class AutocompleteSearchContainer extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {
       shown: false,
       title: '',
       category: '',
-      companies: []
+      companies: [],
     };
     this.changeTitle = this.changeTitle.bind(this);
     this.changeCategory = this.changeCategory.bind(this);
@@ -43,7 +42,7 @@ class AutocompleteSearchContainer extends React.Component {
   }
   search() {
     const { title, category } = this.state;
-    this.props.onSearch({ title, category }).then(data => {
+    this.props.onSearch({ title, category }).then((data) => {
       this.setState({
         companies: data.results,
         shown: true,
@@ -67,29 +66,33 @@ class AutocompleteSearchContainer extends React.Component {
       />
     );
   }
-
 }
 
 AutocompleteSearchContainer.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  })).isRequired,
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    })
+  ).isRequired,
   onSearch: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   onSearch: (params) => dispatch(search(params)),
-  onSubmit: (params) => dispatch(push({
-    pathname: '/companies',
-    search: queryString.stringify(params),
-  })),
-  dispatch
+  onSubmit: (params) =>
+    dispatch(
+      push({
+        pathname: '/companies',
+        search: queryString.stringify(params),
+      })
+    ),
+  dispatch,
 });
 
 export default connect(null, mapDispatchToProps)(
   onClickOutside(AutocompleteSearchContainer, {
-    handleClickOutside: instance => (instance.hidePopup)
+    handleClickOutside: (instance) => instance.hidePopup,
   })
 );

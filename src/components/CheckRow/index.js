@@ -14,7 +14,6 @@ const types = {
 };
 
 class CheckRow extends React.PureComponent {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -35,7 +34,7 @@ class CheckRow extends React.PureComponent {
           id={id}
         />
         <label
-          className={cn({ [styles.checked] : checked }, textClassName)}
+          className={cn({ [styles.checked]: checked }, textClassName)}
           htmlFor={id}
         >
           {text}

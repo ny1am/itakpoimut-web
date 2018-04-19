@@ -13,10 +13,13 @@ class CompanyCommentsForm extends React.PureComponent {
     const { loggedUser, text, onTextChange } = this.props;
     const onSubmit = preventDefault(this.props.onSubmit);
     return (
-      <form action="/addComment" className={styles.form} method="post" onSubmit={onSubmit}>
-        <h2>
-          Додати коментар
-        </h2>
+      <form
+        action="/addComment"
+        className={styles.form}
+        method="post"
+        onSubmit={onSubmit}
+      >
+        <h2>Додати коментар</h2>
         <div className={styles.row}>
           <div className={styles.rowImage}>
             <Avatar user={loggedUser} />
@@ -46,13 +49,9 @@ CompanyCommentsForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-const notLoggedIn = props => !props.loggedUser;
+const notLoggedIn = (props) => !props.loggedUser;
 
-const enhance = notLoggedIn => (
-  branch(
-    notLoggedIn,
-    renderComponent(NotLoggedIn)
-  )
-);
+const enhance = (notLoggedIn) =>
+  branch(notLoggedIn, renderComponent(NotLoggedIn));
 
 export default enhance(notLoggedIn)(CompanyCommentsForm);

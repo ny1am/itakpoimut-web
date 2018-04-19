@@ -17,7 +17,8 @@ const NotAllowedPage = ({ timeToGo }) => (
       <div className={styles.title}>403</div>
       <div className={styles.expl}>Немає доступу</div>
       <div className={styles.redirect}>
-        Ви будете перенаправлені на <Link to="/">головну</Link> сторінку через {timeToGo} секунд
+        Ви будете перенаправлені на <Link to="/">головну</Link> сторінку через{' '}
+        {timeToGo} секунд
       </div>
     </div>
   </React.Fragment>

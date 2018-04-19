@@ -35,10 +35,12 @@ const SelectedFilters = ({ filters, onRemoveAll, onChange }) => {
 };
 
 SelectedFilters.propTypes = {
-  filters: PropTypes.arrayOf(PropTypes.shape({
-    text: PropTypes.string.isRequired,
-    onRemove: PropTypes.func.isRequired,
-  })),
+  filters: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string.isRequired,
+      onRemove: PropTypes.func.isRequired,
+    })
+  ),
   onRemoveAll: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
 };

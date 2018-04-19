@@ -1,9 +1,7 @@
 import { put } from 'redux-saga/effects';
 import queryString from 'query-string';
 
-import {
-  SIGNUP_REQUEST, SIGNUP_SUCCESS,
-} from 'consts/signup';
+import { SIGNUP_REQUEST, SIGNUP_SUCCESS } from 'consts/signup';
 import { takeFirst } from './utils/effects';
 import apiRequest from './utils/apiRequest';
 

@@ -4,7 +4,7 @@ import scrollIntoView from 'dom-scroll-into-view';
 const scrollIntoViewIfNeeded = (element) => {
   scrollIntoView(element, window, {
     alignWithTop: true,
-    onlyScrollIfNeeded: true
+    onlyScrollIfNeeded: true,
   });
 };
 

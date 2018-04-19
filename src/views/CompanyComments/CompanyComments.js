@@ -11,7 +11,6 @@ import CompanyCommentsForm from './CompanyCommentsForm';
 import styles from './styles.scss';
 
 class CompanyComments extends React.PureComponent {
-
   constructor(props) {
     super(props);
     this.comments = React.createRef();
@@ -26,20 +25,20 @@ class CompanyComments extends React.PureComponent {
 
   render() {
     const {
-      companyId, comments, commentsCount, currentPage, totalPages
+      companyId,
+      comments,
+      commentsCount,
+      currentPage,
+      totalPages,
     } = this.props;
     return (
       <div className="container">
         <section className={styles.wrapper}>
           <header ref={this.comments} className={styles.header}>
-            <h1>
-              Коментарі
-            </h1>
-            <span>
-              {commentsCount} коментарів
-            </span>
+            <h1>Коментарі</h1>
+            <span>{commentsCount} коментарів</span>
           </header>
-          {comments.length > 0 &&
+          {comments.length > 0 && (
             <ul className={styles.list}>
               {comments.map((item, index) => (
                 <li key={index}>
@@ -47,15 +46,13 @@ class CompanyComments extends React.PureComponent {
                 </li>
               ))}
             </ul>
-          }
+          )}
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
-            generateUrl={
-              (page) => ({
-                search: queryString.stringify({ currentPage: page }),
-              })
-            }
+            generateUrl={(page) => ({
+              search: queryString.stringify({ currentPage: page }),
+            })}
           />
         </section>
         <CompanyCommentsForm companyId={companyId} />
@@ -76,7 +73,7 @@ CompanyComments.defaultProps = {
   commentsCount: 0,
   comments: [],
   currentPage: 1,
-  totalPages: 0
+  totalPages: 0,
 };
 
 export default CompanyComments;
