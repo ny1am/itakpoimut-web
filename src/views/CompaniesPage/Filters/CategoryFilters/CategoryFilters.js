@@ -7,22 +7,22 @@ import ShowHideWrapper from 'components/ShowHideWrapper';
 import styles from '../styles.scss';
 
 class CategoryFilters extends React.PureComponent {
-
   onChange = ({ target: { checked, value } }) => {
     return this.props.onChange(checked, value);
-  }
+  };
 
   render() {
     const { value, list } = this.props;
     const items = list.map((category) => ({
-      priority: category.name===value,
+      priority: category.name === value,
       key: category.name,
       node: (
-        <CheckRow key={category.name}
+        <CheckRow
+          key={category.name}
           type="radio"
           name="selectedCategory"
           value={category.name}
-          checked={category.name===value}
+          checked={category.name === value}
           onChange={this.onChange}
           text={category.text}
         />
@@ -30,9 +30,7 @@ class CategoryFilters extends React.PureComponent {
     }));
     return (
       <React.Fragment>
-        <h3 className={styles.searchSubtitle}>
-          Сфера
-        </h3>
+        <h3 className={styles.searchSubtitle}>Сфера</h3>
         <ShowHideWrapper
           className={styles.searchGroup}
           size={5}

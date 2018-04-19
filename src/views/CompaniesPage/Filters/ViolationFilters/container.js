@@ -14,18 +14,17 @@ const mapDispatchToProps = (dispatch) => ({
     const action = checked ? addViolationFilter : removeViolationFilter;
     return dispatch(action(value));
   },
-  dispatch
+  dispatch,
 });
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => (
+const mergeProps = (stateProps, dispatchProps, ownProps) =>
   Object.assign({}, stateProps, dispatchProps, ownProps, {
     onChange: (...args) => {
       dispatchProps.onChange(...args);
       ownProps.onChange();
-    }
-  })
-);
+    },
+  });
 
-export default connect(
-  mapStateToProps, mapDispatchToProps, mergeProps
-)(ViolationFiltersComponent);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(
+  ViolationFiltersComponent
+);

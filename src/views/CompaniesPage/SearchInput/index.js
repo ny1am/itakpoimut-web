@@ -9,7 +9,8 @@ const SearchInput = ({ value, innerRef, onSubmit }) => (
   <form action="/companies" method="POST" onSubmit={preventDefault(onSubmit)}>
     <div className={styles.wrapper}>
       <div className={styles.input}>
-        <input type="text"
+        <input
+          type="text"
           name="title"
           placeholder="Введіть назву компанії"
           defaultValue={value}

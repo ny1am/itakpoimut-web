@@ -13,18 +13,17 @@ const mapDispatchToProps = (dispatch) => ({
     const newValue = checked ? value : null;
     return dispatch(changeLoyalty(newValue));
   },
-  dispatch
+  dispatch,
 });
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => (
+const mergeProps = (stateProps, dispatchProps, ownProps) =>
   Object.assign({}, stateProps, dispatchProps, ownProps, {
     onChange: (...args) => {
       dispatchProps.onChange(...args);
       ownProps.onChange();
-    }
-  })
-);
+    },
+  });
 
-export default connect(
-  mapStateToProps, mapDispatchToProps, mergeProps
-)(LoyaltyFiltersComponent);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(
+  LoyaltyFiltersComponent
+);
