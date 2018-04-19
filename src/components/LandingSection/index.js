@@ -5,9 +5,7 @@ import styles from './styles.scss';
 
 const LandingSection = ({ title, children }) => (
   <section className={styles.wrapper}>
-    <header className={styles.header}>
-      {title}
-    </header>
+    <header className={styles.header}>{title}</header>
     {children}
   </section>
 );

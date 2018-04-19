@@ -18,11 +18,14 @@ window.history.scrollRestoration = 'manual';
 
 const fontObserver = new FontFaceObserver('Lato', {});
 
-fontObserver.load().then(() => {
-  document.body.classList.add('fontLoaded');
-}, () => {
-  document.body.classList.remove('fontLoaded');
-});
+fontObserver.load().then(
+  () => {
+    document.body.classList.add('fontLoaded');
+  },
+  () => {
+    document.body.classList.remove('fontLoaded');
+  }
+);
 
 const auth = loadAuth();
 let initState = undefined;
@@ -30,7 +33,7 @@ if (auth && auth.user) {
   initState = {
     auth: {
       loggedUser: auth.user,
-    }
+    },
   };
 }
 

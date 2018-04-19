@@ -8,9 +8,7 @@ class PageViewLayout extends React.PureComponent {
   render() {
     return (
       <div className={cn('pattern-content', styles.wrapper)}>
-        <div className={styles.content}>
-          {this.props.children}
-        </div>
+        <div className={styles.content}>{this.props.children}</div>
       </div>
     );
   }

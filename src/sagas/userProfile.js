@@ -2,8 +2,10 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import toFormData from 'object-to-formdata';
 
 import {
-  USER_PROFILE_REQUEST, USER_PROFILE_SUCCESS,
-  SAVE_USER_PROFILE_REQUEST, SAVE_USER_PROFILE_SUCCESS,
+  USER_PROFILE_REQUEST,
+  USER_PROFILE_SUCCESS,
+  SAVE_USER_PROFILE_REQUEST,
+  SAVE_USER_PROFILE_SUCCESS,
 } from 'consts/userProfile';
 import { updateUser } from '../store/storage';
 import { combine, takeFirst } from './utils/effects';
@@ -45,7 +47,4 @@ function* saveUserProfileSaga() {
   yield takeFirst(SAVE_USER_PROFILE_REQUEST, saveUserProfile);
 }
 
-export default combine([
-  fetchUserProfileSaga,
-  saveUserProfileSaga,
-]);
+export default combine([fetchUserProfileSaga, saveUserProfileSaga]);

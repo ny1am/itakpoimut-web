@@ -10,10 +10,9 @@ import ViewModeContext from './ViewModeContext';
 
 const enhanceView = (mapProps) => (Component) => {
   class EnhancedView extends React.Component {
-
     state = {
       SuccessView: null,
-    }
+    };
 
     componentWillMount() {
       const { dispatch } = this.props;
@@ -26,29 +25,22 @@ const enhanceView = (mapProps) => (Component) => {
         const { onSuccess } = this.mappedProps;
         onSuccess({
           showSuccessView: this.showSuccessView,
-          viewMode
+          viewMode,
         });
       }
     }
 
     showSuccessView = (SuccessView) => {
       this.setState({ SuccessView });
-    }
+    };
 
     render() {
       const { SuccessView } = this.state;
-      if(SuccessView) {
-        return (
-          <SuccessView />
-        );
+      if (SuccessView) {
+        return <SuccessView />;
       }
-      return (
-        <Component
-          {...this.props}
-        />
-      );
+      return <Component {...this.props} />;
     }
-
   }
 
   EnhancedView.propTypes = {
@@ -60,13 +52,14 @@ const enhanceView = (mapProps) => (Component) => {
   const EnhancedViewWithContext = wrapWithConsumer({
     Context: ViewModeContext,
     Component: EnhancedView,
-    propName: 'viewMode'
+    propName: 'viewMode',
   });
 
   hoistNonReactStatics(EnhancedViewWithContext, Component);
 
-  EnhancedViewWithContext.displayName =
-    `EnhancedView(${getDisplayName(Component)})`;
+  EnhancedViewWithContext.displayName = `EnhancedView(${getDisplayName(
+    Component
+  )})`;
 
   return enhanceForm(mapProps)(EnhancedViewWithContext);
 };

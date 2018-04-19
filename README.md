@@ -1,11 +1,11 @@
-# Itakpoimut web app &middot; [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/ny1am/itakpoimut-web/blob/master/LICENSE)
+# Itakpoimut web app &middot; [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/ny1am/itakpoimut-web/blob/master/LICENSE) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 Web client for itakpoimut project which is a catalogue of ukrainian companies that do not follow law in terms of translating all related media to ukrainian language
-
 
 ## Developing
 
 ### Built With
+
 React, Redux, Redux Saga, Webpack
 
 ### Prerequisites
@@ -46,17 +46,15 @@ firebase deploy
 
 Builds project to `/build` folder and deploys to firebase
 
-
 ## Style guide
 
-Please install [editorconfig plugin](http://editorconfig.org/) for your IDE
+Please install [prettier plugin](https://prettier.io/) for your IDE
 
 Please install [eslint plugin](https://eslint.org/) for your IDE
 
 Architecture is based on [Presentational and Container Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) pattern
 
 This project is built upon [create-react-app](https://github.com/facebook/create-react-app). Has been ejected already
-
 
 ## Contributing
 

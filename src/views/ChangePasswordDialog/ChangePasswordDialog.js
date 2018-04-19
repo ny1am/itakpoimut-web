@@ -6,19 +6,18 @@ import Password from 'components/Password';
 import { preventDefault } from 'utils';
 
 class ChangePasswordDialog extends React.PureComponent {
-
   state = {
     password: '',
     newPassword: '',
-  }
+  };
 
   onInputChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
-  }
+  };
 
   handleSubmit = () => {
     this.props.onSubmit(this.state);
-  }
+  };
 
   render() {
     const { errors = {} } = this.props;
@@ -26,9 +25,7 @@ class ChangePasswordDialog extends React.PureComponent {
     const onSubmit = preventDefault(this.handleSubmit);
     return (
       <div className="dialog_content">
-        <h1>
-          Змінити пароль
-        </h1>
+        <h1>Змінити пароль</h1>
         <form action="/changePassword" method="post" onSubmit={onSubmit}>
           <div className={cn('row', { 'row--error': errors.password })}>
             <label className="row__label" htmlFor="password">

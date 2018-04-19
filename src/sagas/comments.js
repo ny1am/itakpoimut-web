@@ -3,8 +3,10 @@ import { push } from 'react-router-redux';
 import queryString from 'query-string';
 
 import {
-  COMMENTS_REQUEST, COMMENTS_SUCCESS,
-  ADD_COMMENT_REQUEST, ADD_COMMENT_SUCCESS,
+  COMMENTS_REQUEST,
+  COMMENTS_SUCCESS,
+  ADD_COMMENT_REQUEST,
+  ADD_COMMENT_SUCCESS,
 } from 'consts/comments';
 import { combine, takeFirst } from './utils/effects';
 import apiSecureRequest from './utils/apiSecureRequest';
@@ -35,10 +37,12 @@ function* addComment({ companyId, text }) {
   try {
     const payload = yield apiSecureRequest(url, options);
     const currentPage = 1;
-    yield put(push({
-      search: queryString.stringify({ currentPage }),
-      hash: 'new-comment'
-    }));
+    yield put(
+      push({
+        search: queryString.stringify({ currentPage }),
+        hash: 'new-comment',
+      })
+    );
     yield call(fetchComments, { id: companyId, currentPage });
     const newAction = { type: ADD_COMMENT_SUCCESS, payload };
     yield put(newAction);
@@ -56,7 +60,4 @@ function* addCommentSaga() {
   yield takeFirst(ADD_COMMENT_REQUEST, addComment);
 }
 
-export default combine([
-  fetchCommentsSaga,
-  addCommentSaga,
-]);
+export default combine([fetchCommentsSaga, addCommentSaga]);

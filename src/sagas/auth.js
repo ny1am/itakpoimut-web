@@ -2,8 +2,11 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import queryString from 'query-string';
 
 import {
-  AUTH_REQUEST, FB_AUTH_REQUEST, GOOGLE_AUTH_REQUEST,
-  AUTH_SUCCESS, AUTH_FAILURE,
+  AUTH_REQUEST,
+  FB_AUTH_REQUEST,
+  GOOGLE_AUTH_REQUEST,
+  AUTH_SUCCESS,
+  AUTH_FAILURE,
   LOGOUT,
 } from 'consts/auth';
 import { saveAuth } from '../store/storage';
@@ -75,9 +78,4 @@ function* logoutSaga() {
   yield takeEvery(LOGOUT, logout);
 }
 
-export default combine([
-  authSaga,
-  fbAuthSaga,
-  googleAuthSaga,
-  logoutSaga,
-]);
+export default combine([authSaga, fbAuthSaga, googleAuthSaga, logoutSaga]);

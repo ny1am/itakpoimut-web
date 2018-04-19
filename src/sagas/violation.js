@@ -2,7 +2,8 @@ import { put, select, takeEvery } from 'redux-saga/effects';
 
 import {
   FETCH_VIOLATIONS_SUCCESS,
-  GET_VIOLATIONS, GET_VIOLATIONS_SUCCESS,
+  GET_VIOLATIONS,
+  GET_VIOLATIONS_SUCCESS,
 } from 'consts/violation';
 import apiRequest from './utils/apiRequest';
 
@@ -18,7 +19,7 @@ function* fetchViolationList() {
 }
 
 function* getCachedViolationList() {
-  const violationList = yield select(state => {
+  const violationList = yield select((state) => {
     return state.violation;
   });
   return violationList;

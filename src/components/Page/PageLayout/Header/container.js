@@ -12,9 +12,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onLogout: () => dispatch(logout()),
   onMenuShow: () => dispatch(menu.show()),
-  dispatch
+  dispatch,
 });
 
-export default connect(
-  mapStateToProps, mapDispatchToProps
-)(HeaderComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderComponent);

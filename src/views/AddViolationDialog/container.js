@@ -10,28 +10,30 @@ import AddViolationDialogComponent from './AddViolationDialog';
 import SuccessView from './SuccessView';
 
 class AddViolationDialogContainer extends React.PureComponent {
-
   static fetch(location, { dispatch, params }) {
     const { companyId } = params;
-    return [{
-      prop: 'company',
-      promise: dispatch(get(companyId))
-    }, {
-      prop: 'violationsList',
-      promise: dispatch(getViolations())
-    }];
+    return [
+      {
+        prop: 'company',
+        promise: dispatch(get(companyId)),
+      },
+      {
+        prop: 'violationsList',
+        promise: dispatch(getViolations()),
+      },
+    ];
   }
 
   state = {
     selectedViolations: [],
-  }
+  };
 
   onSelectViolation = (checked, value) => {
     const { selectedViolations } = this.state;
-    const newViolations = selectedViolations.filter(item => item !== value);
+    const newViolations = selectedViolations.filter((item) => item !== value);
     checked && newViolations.push(value);
     this.setState({ selectedViolations: newViolations });
-  }
+  };
 
   onSubmit = () => {
     const { onSubmit } = this.props;
@@ -39,15 +41,15 @@ class AddViolationDialogContainer extends React.PureComponent {
     const { selectedViolations } = this.state;
     return onSubmit({
       companyId,
-      selectedViolations: selectedViolations.map(item => item.name),
+      selectedViolations: selectedViolations.map((item) => item.name),
     });
-  }
+  };
 
   render() {
     const { violationsList, company } = this.props.initialData;
     const { selectedViolations } = this.state;
     const filteredViolations = violationsList.filter(
-      item => !company.violations.map(v => v.name).includes(item.name)
+      (item) => !company.violations.map((v) => v.name).includes(item.name)
     );
     return (
       <AddViolationDialogComponent
@@ -64,15 +66,19 @@ AddViolationDialogContainer.propTypes = {
   initialData: PropTypes.shape({
     company: PropTypes.shape({
       _id: PropTypes.number.isRequired,
-      violations: PropTypes.arrayOf(PropTypes.shape({
+      violations: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          text: PropTypes.string.isRequired,
+        })
+      ),
+    }),
+    violationsList: PropTypes.arrayOf(
+      PropTypes.shape({
         name: PropTypes.string.isRequired,
         text: PropTypes.string.isRequired,
-      })),
-    }),
-    violationsList: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-    })).isRequired,
+      })
+    ).isRequired,
   }).isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
@@ -82,6 +88,4 @@ const mapProps = (dispatch) => ({
   onSuccess: ({ showSuccessView }) => showSuccessView(SuccessView),
 });
 
-export default enhanceView(mapProps)(
-  AddViolationDialogContainer
-);
+export default enhanceView(mapProps)(AddViolationDialogContainer);

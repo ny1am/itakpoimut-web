@@ -6,7 +6,7 @@ import DialogLayoutComponent from './DialogLayout';
 
 const mapDispatchToProps = (dispatch) => ({
   onClose: () => dispatch(hideDialog()),
-  dispatch
+  dispatch,
 });
 
 export default connect(null, mapDispatchToProps)(DialogLayoutComponent);

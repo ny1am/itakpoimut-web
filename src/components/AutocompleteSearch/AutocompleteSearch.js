@@ -13,7 +13,8 @@ class AutocompleteSearch extends React.PureComponent {
         <form action="/companies" method="GET" onSubmit={onSubmit}>
           <div className={styles.searchWrapper}>
             <div className={styles.searchInput}>
-              <input type="text"
+              <input
+                type="text"
                 name="title"
                 placeholder="Введіть назву компанії"
                 autoComplete="off"
@@ -21,9 +22,8 @@ class AutocompleteSearch extends React.PureComponent {
                 onChange={changeTitle}
                 onFocus={search}
               />
-              {companies.length > 0 && shown && (
-                <AutocompletePopup companies={companies} />
-              )}
+              {companies.length > 0 &&
+                shown && <AutocompletePopup companies={companies} />}
             </div>
             <div className={styles.select}>
               <select
@@ -32,7 +32,7 @@ class AutocompleteSearch extends React.PureComponent {
                 onChange={changeCategory}
               >
                 <option value="">Всі сфери</option>
-                {categories.map(item => (
+                {categories.map((item) => (
                   <option value={item.name} key={item.name}>
                     {item.text}
                   </option>
@@ -48,10 +48,12 @@ class AutocompleteSearch extends React.PureComponent {
 }
 
 AutocompleteSearch.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    text: PropTypes.string.isRequired,
-  })).isRequired,
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    })
+  ).isRequired,
   companies: PropTypes.array,
   shown: PropTypes.bool,
   title: PropTypes.string,

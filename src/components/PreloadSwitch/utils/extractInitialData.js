@@ -4,9 +4,9 @@ const extractInitialData = (names, values) => {
   const initialData = values
     .map((value, index) => ({
       key: names[index],
-      value
+      value,
     }))
-    .filter(item => item.key)
+    .filter((item) => item.key)
     .reduce(keyValueToObjectReducer, {});
   return initialData;
 };

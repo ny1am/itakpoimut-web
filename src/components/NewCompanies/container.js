@@ -6,13 +6,12 @@ import { getNewCompanies } from 'actions/landing';
 import NewCompaniesComponent from './NewCompanies';
 
 class NewCompaniesContainer extends React.PureComponent {
-
   state = {
-    companies: null
-  }
+    companies: null,
+  };
 
   componentDidMount() {
-    return this.props.onInit().then(companies => {
+    return this.props.onInit().then((companies) => {
       this.setState({ companies });
       return companies;
     });
@@ -30,7 +29,7 @@ NewCompaniesContainer.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onInit: () => dispatch(getNewCompanies())
+  onInit: () => dispatch(getNewCompanies()),
 });
 
 export default connect(null, mapDispatchToProps)(NewCompaniesContainer);

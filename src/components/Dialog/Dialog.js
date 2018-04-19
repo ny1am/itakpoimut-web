@@ -17,11 +17,8 @@ class Dialog extends React.PureComponent {
     const { location } = this.props;
     return (
       <ViewModeContext.Provider value="dialog">
-        <PreloadSwitch
-          location={location}
-          routeConfig={routeConfig}
-        >
-          {routeConfig.map(cfg => {
+        <PreloadSwitch location={location} routeConfig={routeConfig}>
+          {routeConfig.map((cfg) => {
             const RouteComponent = cfg.secure ? SecureDialogRoute : Route;
             const Component = cfg.component;
             return (

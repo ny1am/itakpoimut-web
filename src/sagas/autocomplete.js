@@ -2,7 +2,8 @@ import { put, takeEvery } from 'redux-saga/effects';
 import queryString from 'query-string';
 
 import {
-  AUTOCOMPLETE_REQUEST, AUTOCOMPLETE_SUCCESS
+  AUTOCOMPLETE_REQUEST,
+  AUTOCOMPLETE_SUCCESS,
 } from 'consts/autocomplete';
 import apiRequest from './utils/apiRequest';
 

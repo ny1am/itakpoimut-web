@@ -8,7 +8,8 @@ import { appReady } from 'actions/global';
 import PreloadSwitch from 'components/PreloadSwitch';
 import NotFoundPage from 'views/NotFoundPage';
 import {
-  PageViewLayout, routeConfig as dialogRouteConfig
+  PageViewLayout,
+  routeConfig as dialogRouteConfig,
 } from 'components/Dialog';
 import { ViewModeContext } from 'components/View';
 import { ConditionalWrap } from 'utils/enhancers';
@@ -20,25 +21,24 @@ import { pageLocationSelector } from './selectors';
 
 const routeConfig = [
   ...pagesRouteConfig,
-  ...dialogRouteConfig.map(
-    cfg => Object.assign({}, cfg, { type: 'dialog' })
-  ),
+  ...dialogRouteConfig.map((cfg) => Object.assign({}, cfg, { type: 'dialog' })),
   {
     path: '*',
     component: NotFoundPage,
-  }
+  },
 ];
 
 class PageContainer extends React.PureComponent {
-
   onFetchSuccess = ({ nextLocation, location }) => {
     const { dispatch } = this.props;
-    dispatch(locationChanged({
-      location: nextLocation,
-      prevLocation: location
-    }));
+    dispatch(
+      locationChanged({
+        location: nextLocation,
+        prevLocation: location,
+      })
+    );
     dispatch(appReady());
-  }
+  };
 
   render() {
     const { location } = this.props;
@@ -48,7 +48,7 @@ class PageContainer extends React.PureComponent {
         routeConfig={routeConfig}
         onFetchSuccess={this.onFetchSuccess}
       >
-        {routeConfig.map(cfg => {
+        {routeConfig.map((cfg) => {
           const RouteComponent = cfg.secure ? SecureRoute : Route;
           const Component = cfg.component;
           const Wrapper = PageViewLayout;
@@ -63,7 +63,7 @@ class PageContainer extends React.PureComponent {
                   <PageLayout>
                     <ConditionalWrap
                       condition={cfg.type === 'dialog'}
-                      wrap={(children => (<Wrapper children={children} />))}
+                      wrap={(children) => <Wrapper children={children} />}
                     >
                       <Component {...props} />
                     </ConditionalWrap>
@@ -84,7 +84,7 @@ PageContainer.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  location: pageLocationSelector(state)
+  location: pageLocationSelector(state),
 });
 
 export default connect(mapStateToProps)(PageContainer);

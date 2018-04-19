@@ -1,7 +1,7 @@
 .desktop {
   box-sizing: border-box;
   min-height: 70px;
-  background-color: rgba(67,80,90,0.4);
+  background-color: rgba(67, 80, 90, 0.4);
   color: white;
   position: relative;
   z-index: 1;
@@ -33,7 +33,7 @@
       word-break: keep-all;
       height: 70px;
       &:hover {
-        background-color: rgba(0,0,0,0.4);
+        background-color: rgba(0, 0, 0, 0.4);
       }
       a {
         display: table-cell;
@@ -73,12 +73,12 @@
     box-sizing: border-box;
     background-color: transparent;
     color: white;
-    &:hover, &:active {
+    &:hover,
+    &:active {
       background-color: white;
       color: black;
     }
   }
-
 }
 
 .mobile {
@@ -136,7 +136,7 @@
     font-size: 1.5em;
     font-weight: 600;
     text-transform: uppercase;
-    background-image: url("/assets/img/big-search.png");
+    background-image: url('/assets/img/big-search.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -151,7 +151,6 @@
       padding: 6% 0;
     }
   }
-
 }
 
 .admin {

@@ -8,24 +8,23 @@ import { wrapWithProgress } from 'components/ProgressBar';
 import CompanyCommentsFormComponent from './CompanyCommentsForm';
 
 class CompanyCommentsFormContainer extends React.Component {
-
   state = {
     text: '',
-  }
+  };
 
   onTextChange = (text) => {
     this.setState({ text });
-  }
+  };
 
   onSubmit = () => {
     const { onSubmit, companyId } = this.props;
     const { text } = this.state;
-    const promise = onSubmit(companyId, text).then(data => {
+    const promise = onSubmit(companyId, text).then((data) => {
       this.setState({ text: '' });
       return data;
     });
     return wrapWithProgress(promise);
-  }
+  };
 
   render() {
     const { text } = this.state;
@@ -53,9 +52,9 @@ const mapStateToProps = ({ auth }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit: (companyId, text) => dispatch(add(companyId, text)),
-  dispatch
+  dispatch,
 });
 
-export default connect(
-  mapStateToProps, mapDispatchToProps
-)(CompanyCommentsFormContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(
+  CompanyCommentsFormContainer
+);

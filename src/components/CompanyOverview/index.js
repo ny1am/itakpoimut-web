@@ -12,12 +12,8 @@ const CompanyOverview = ({ company }) => (
       <img src={company.img} />
     </Link>
     <div className={styles.body}>
-      <Link to={`/company/${company._id}`}>
-        {company.title}
-      </Link>
-      <p className={styles.description}>
-        {company.description}
-      </p>
+      <Link to={`/company/${company._id}`}>{company.title}</Link>
+      <p className={styles.description}>{company.description}</p>
     </div>
     <div className={styles.loyalty}>
       <Loyalty company={company} adaptive />
@@ -31,7 +27,7 @@ CompanyOverview.propTypes = {
     img: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string,
-  }).isRequired
+  }).isRequired,
 };
 
 export default CompanyOverview;

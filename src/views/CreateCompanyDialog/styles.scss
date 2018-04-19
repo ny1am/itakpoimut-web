@@ -33,7 +33,7 @@ div.wrapper {
     border-right: 0;
     box-sizing: border-box;
   }
-  input[type="text"] {
+  input[type='text'] {
     width: 100%;
     padding-left: 89px;
   }
@@ -42,10 +42,10 @@ div.wrapper {
   .httpWrapper {
     &:before {
       color: #9e0b0f;
-      background-color: rgba(158,12,16,0.25);
+      background-color: rgba(158, 12, 16, 0.25);
       border-color: #9e0b0f;
     }
-    input[type="text"] {
+    input[type='text'] {
       border-color: #9e0b0f;
     }
   }

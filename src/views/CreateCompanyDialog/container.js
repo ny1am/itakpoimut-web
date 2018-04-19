@@ -9,15 +9,17 @@ import CreateCompanyDialogComponent from './CreateCompanyDialog';
 import SuccessView from './SuccessView';
 
 class CreateCompanyDialogContainer extends React.Component {
-
   static fetch(location, { dispatch }) {
-    return [{
-      prop: 'categoriesList',
-      promise: dispatch(getCategories())
-    }, {
-      prop: 'violationsList',
-      promise: dispatch(getViolations())
-    }];
+    return [
+      {
+        prop: 'categoriesList',
+        promise: dispatch(getCategories()),
+      },
+      {
+        prop: 'violationsList',
+        promise: dispatch(getViolations()),
+      },
+    ];
   }
 
   render() {
@@ -30,6 +32,4 @@ const mapProps = (dispatch) => ({
   onSuccess: ({ showSuccessView }) => showSuccessView(SuccessView),
 });
 
-export default enhanceView(mapProps)(
-  CreateCompanyDialogContainer
-);
+export default enhanceView(mapProps)(CreateCompanyDialogContainer);

@@ -6,10 +6,10 @@ import { loadAuth } from 'store/storage';
 import { ADMIN_URL, ADMIN_AUTH_KEY } from 'consts';
 
 class AdminButton extends React.PureComponent {
-
   onClick() {
     const storage = new CrossStorageClient(ADMIN_URL);
-    storage.onConnect()
+    storage
+      .onConnect()
       .then(() => storage.set(ADMIN_AUTH_KEY, JSON.stringify(loadAuth())))
       .then(() => window.open(ADMIN_URL, '_blank'));
   }

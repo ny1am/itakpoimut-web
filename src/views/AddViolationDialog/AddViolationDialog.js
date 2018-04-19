@@ -13,23 +13,19 @@ class AddViolationDialog extends React.PureComponent {
     const onSubmit = preventDefault(this.props.onSubmit);
     return (
       <div className={cn('dialog_content', styles.wrapper)}>
-        <h1>
-          Додати порушення
-        </h1>
+        <h1>Додати порушення</h1>
         <form action="/addViolation" method="post" onSubmit={onSubmit}>
-          <p>
-            Тут ви можете відмітити порушення компанії
-          </p>
+          <p>Тут ви можете відмітити порушення компанії</p>
           <ul className={styles.violations}>
-            {violations.map(item => (
+            {violations.map((item) => (
               <li key={item.name} className="row">
-                <CheckRow text={item.text}
+                <CheckRow
+                  text={item.text}
                   name="selectedViolations[]"
                   value={item.name}
                   checked={selectedViolations.includes(item)}
-                  onChange={
-                    ({ target: { checked } }) =>
-                      onSelectViolation(checked, item)
+                  onChange={({ target: { checked } }) =>
+                    onSelectViolation(checked, item)
                   }
                 />
               </li>
@@ -46,10 +42,12 @@ class AddViolationDialog extends React.PureComponent {
   }
 }
 
-const violationsPropType = PropTypes.arrayOf(PropTypes.shape({
-  name: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-}));
+const violationsPropType = PropTypes.arrayOf(
+  PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
+  })
+);
 
 AddViolationDialog.propTypes = {
   violations: violationsPropType,

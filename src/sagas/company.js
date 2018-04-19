@@ -2,7 +2,8 @@ import { put, select, takeEvery } from 'redux-saga/effects';
 
 import {
   FETCH_COMPANY_SUCCESS,
-  GET_COMPANY, GET_COMPANY_SUCCESS,
+  GET_COMPANY,
+  GET_COMPANY_SUCCESS,
 } from 'consts/company';
 import apiRequest from './utils/apiRequest';
 
@@ -18,7 +19,7 @@ function* fetchCompany({ id }) {
 }
 
 function* getCachedCompany({ id }) {
-  const company = yield select(state => {
+  const company = yield select((state) => {
     return state.company[id];
   });
   return company;

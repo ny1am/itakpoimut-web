@@ -15,15 +15,14 @@ const getCurrentPage = (location) => {
 };
 
 class CompanyCommentsContainer extends React.Component {
-
   state = {
     ready: false,
-  }
+  };
 
   componentDidMount() {
     const { companyId, onInit } = this.props;
     const currentPage = getCurrentPage(this.props.location);
-    return onInit(companyId, currentPage).then(payload => {
+    return onInit(companyId, currentPage).then((payload) => {
       this.setState({ ready: true });
       return payload;
     });
@@ -51,7 +50,6 @@ class CompanyCommentsContainer extends React.Component {
     }
     return <CompanyCommentsComponent {...this.props} />;
   }
-
 }
 
 CompanyCommentsContainer.propTypes = {
@@ -71,7 +69,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onInit: (companyId, currentPage) => dispatch(get(companyId, currentPage)),
-  dispatch
+  dispatch,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(

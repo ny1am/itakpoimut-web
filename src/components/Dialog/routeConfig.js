@@ -1,5 +1,7 @@
 import {
-  loggedUserCheck, notLoggedUserCheck, userLocalProviderCheck
+  loggedUserCheck,
+  notLoggedUserCheck,
+  userLocalProviderCheck,
 } from 'utils/secure';
 
 import LoginDialog from 'views/LoginDialog';
@@ -11,38 +13,47 @@ import ChangePasswordDialog from 'views/ChangePasswordDialog';
 import ForgetPasswordDialog from 'views/ForgetPasswordDialog';
 import ResetPasswordPage from 'views/ResetPasswordPage';
 
-const routeConfig = [{
-  path: '/login',
-  component: LoginDialog,
-  secure: notLoggedUserCheck,
-}, {
-  path: '/signup',
-  component: SignupDialog,
-  secure: notLoggedUserCheck,
-}, {
-  path: '/forget-password',
-  component: ForgetPasswordDialog,
-  secure: notLoggedUserCheck,
-}, {
-  path: '/reset/:token',
-  component: ResetPasswordPage,
-  secure: notLoggedUserCheck,
-}, {
-  path: '/create-company',
-  component: CreateCompanyDialog,
-  secure: loggedUserCheck,
-}, {
-  path: '/add-violation/:companyId',
-  component: AddViolationDialog,
-  secure: loggedUserCheck,
-}, {
-  path: '/add-category/:companyId',
-  component: AddCategoryDialog,
-  secure: loggedUserCheck,
-}, {
-  path: '/change-password',
-  component: ChangePasswordDialog,
-  secure: userLocalProviderCheck,
-}];
+const routeConfig = [
+  {
+    path: '/login',
+    component: LoginDialog,
+    secure: notLoggedUserCheck,
+  },
+  {
+    path: '/signup',
+    component: SignupDialog,
+    secure: notLoggedUserCheck,
+  },
+  {
+    path: '/forget-password',
+    component: ForgetPasswordDialog,
+    secure: notLoggedUserCheck,
+  },
+  {
+    path: '/reset/:token',
+    component: ResetPasswordPage,
+    secure: notLoggedUserCheck,
+  },
+  {
+    path: '/create-company',
+    component: CreateCompanyDialog,
+    secure: loggedUserCheck,
+  },
+  {
+    path: '/add-violation/:companyId',
+    component: AddViolationDialog,
+    secure: loggedUserCheck,
+  },
+  {
+    path: '/add-category/:companyId',
+    component: AddCategoryDialog,
+    secure: loggedUserCheck,
+  },
+  {
+    path: '/change-password',
+    component: ChangePasswordDialog,
+    secure: userLocalProviderCheck,
+  },
+];
 
 export default routeConfig;

@@ -28,7 +28,7 @@ DialogLink.propTypes = {
 const DialogLinkWithContext = wrapWithConsumer({
   Context: ViewModeContext,
   Component: DialogLink,
-  propName: 'viewMode'
+  propName: 'viewMode',
 });
 
 const mapDispatchToProps = (dispatch) => ({

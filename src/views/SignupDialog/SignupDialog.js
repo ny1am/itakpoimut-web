@@ -10,32 +10,31 @@ import { preventDefault } from 'utils';
 import styles from './styles.scss';
 
 class SignupDialog extends React.PureComponent {
-
   state = {
     fname: '',
     lname: '',
     email: '',
     password: '',
-  }
+  };
 
   onInputChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
-  }
+  };
 
   handleSubmit = () => {
     const { fname, lname, email, password } = this.state;
     this.props.onSubmit('form', { fname, lname, email, password });
-  }
+  };
 
   handleFacebookSubmit = (accessToken) => {
     //todo handle empty accessToken
     this.props.onSubmit('facebook', accessToken);
-  }
+  };
 
   handleGoogleSubmit = (accessToken) => {
     //todo handle empty accessToken
     this.props.onSubmit('google', accessToken);
-  }
+  };
 
   render() {
     const { fname, lname, email, password } = this.state;
@@ -43,14 +42,8 @@ class SignupDialog extends React.PureComponent {
     const onSubmit = preventDefault(this.handleSubmit);
     return (
       <div className={cn('dialog_content', styles.wrapper)}>
-        <h1>
-          Реєстрація
-        </h1>
-        {errors.global &&
-          <div className={styles.error}>
-            {errors.global}
-          </div>
-        }
+        <h1>Реєстрація</h1>
+        {errors.global && <div className={styles.error}>{errors.global}</div>}
         <SocialLoginSection
           handleFacebookSubmit={this.handleFacebookSubmit}
           handleGoogleSubmit={this.handleGoogleSubmit}
@@ -58,9 +51,10 @@ class SignupDialog extends React.PureComponent {
         <form action="/signup" method="post" onSubmit={onSubmit}>
           <div className={cn('row', { 'row--error': errors.fname })}>
             <label className="row__label" htmlFor="fname">
-              {errors.fname || 'Ім\'я'}
+              {errors.fname || "Ім'я"}
             </label>
-            <input type="text"
+            <input
+              type="text"
               className="row__input higher"
               name="fname"
               value={fname}
@@ -72,7 +66,8 @@ class SignupDialog extends React.PureComponent {
             <label className="row__label" htmlFor="lname">
               {errors.lname || 'Прізвище'}
             </label>
-            <input type="text"
+            <input
+              type="text"
               className="row__input higher"
               name="lname"
               value={lname}
@@ -84,7 +79,8 @@ class SignupDialog extends React.PureComponent {
             <label className="row__label" htmlFor="email">
               {errors.email || 'E-mail'}
             </label>
-            <input type="email"
+            <input
+              type="email"
               className="row__input higher"
               name="email"
               value={email}
@@ -96,7 +92,8 @@ class SignupDialog extends React.PureComponent {
             <label className="row__label" htmlFor="password">
               {errors.password || 'Пароль'}
             </label>
-            <Password type="password"
+            <Password
+              type="password"
               id="password"
               className="row__input higher password"
               name="password"
@@ -110,9 +107,7 @@ class SignupDialog extends React.PureComponent {
           </button>
         </form>
         <aside className="dialog__aside">
-          <DialogLink to="/login">
-            У мене вже є аккаунт
-          </DialogLink>
+          <DialogLink to="/login">У мене вже є аккаунт</DialogLink>
         </aside>
       </div>
     );

@@ -1,20 +1,22 @@
 import { put, takeEvery, select } from 'redux-saga/effects';
 import queryString from 'query-string';
 
-import {
-  COMPANIES_REQUEST, COMPANIES_SUCCESS,
-} from 'consts/companies';
+import { COMPANIES_REQUEST, COMPANIES_SUCCESS } from 'consts/companies';
 import apiRequest from './utils/apiRequest';
 
 const filtersSelector = (state) => state.companies;
 
 function* fetchData({ currentPage, sortOrder, title }) {
   const filters = yield select(filtersSelector);
-  const urlParams = Object.assign({}, {
-    currentPage,
-    sortOrder,
-    title,
-  }, filters);
+  const urlParams = Object.assign(
+    {},
+    {
+      currentPage,
+      sortOrder,
+      title,
+    },
+    filters
+  );
   const url = `/companies?${queryString.stringify(urlParams)}`;
   try {
     const payload = yield apiRequest(url);

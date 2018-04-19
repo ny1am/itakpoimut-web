@@ -8,18 +8,17 @@ import { preventDefault } from 'utils';
 import styles from './styles.scss';
 
 class ForgetPasswordDialog extends React.Component {
-
   state = {
     email: '',
-  }
+  };
 
   onInputChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
-  }
+  };
 
   handleSubmit = () => {
     this.props.onSubmit(this.state.email);
-  }
+  };
 
   render() {
     const { errors = {} } = this.props;
@@ -27,11 +26,10 @@ class ForgetPasswordDialog extends React.Component {
     const onSubmit = preventDefault(this.handleSubmit);
     return (
       <div className={cn('dialog_content', styles.wrapper)}>
-        <h1>
-          Відновлення паролю
-        </h1>
+        <h1>Відновлення паролю</h1>
         <p>
-          Вкажіть, будь ласка, e-mail, і ми скинемо вам посилання на відновлення паролю
+          Вкажіть, будь ласка, e-mail, і ми скинемо вам посилання на відновлення
+          паролю
         </p>
         <form action="/forgot" method="post" noValidate onSubmit={onSubmit}>
           <div className={cn('row', { 'row--error': errors.email })}>
@@ -52,9 +50,7 @@ class ForgetPasswordDialog extends React.Component {
           </button>
         </form>
         <aside className="dialog__aside">
-          <DialogLink to="/login">
-            Я згадав/ла пароль
-          </DialogLink>
+          <DialogLink to="/login">Я згадав/ла пароль</DialogLink>
         </aside>
       </div>
     );

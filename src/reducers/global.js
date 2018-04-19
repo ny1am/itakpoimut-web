@@ -5,8 +5,7 @@ const initialState = {
 };
 
 const globalReducer = (state = initialState, action) => {
-  switch(action.type) {
-
+  switch (action.type) {
     case APP_READY: {
       return Object.assign({}, state, {
         appReady: true,

@@ -18,21 +18,21 @@ const Footer = () => {
           <ul className={styles.menu}>
             {userLinks.map((item, index) => (
               <li key={index}>
-                <Link to={item.location}>
-                  {item.title}
-                </Link>
+                <Link to={item.location}>{item.title}</Link>
               </li>
             ))}
           </ul>
         </nav>
         <div className={styles.helpers}>
-          <a href="https://www.facebook.com/groups/i.tak.poymut"
+          <a
+            href="https://www.facebook.com/groups/i.tak.poymut"
             target="_blank"
             rel="noopener"
             title="facebook"
             className={cn(styles.facebook, styles.btn)}
           />
-          <button onClick={gotoTop}
+          <button
+            onClick={gotoTop}
             title="Нагору"
             className={cn(styles.up, styles.btn)}
           />

@@ -17,7 +17,7 @@ class PleaseSignupDialog extends React.PureComponent {
           <DialogLink to="/login" className="dialog__button">
             Ввійти
           </DialogLink>
-          <br/>
+          <br />
           <DialogLink to="/signup" className="regularLink">
             Реєстрація
           </DialogLink>

@@ -12,37 +12,51 @@ import CompaniesPageComponent from './CompaniesPage';
 
 class CompaniesPageContainer extends React.Component {
   static fetch(location, { dispatch }) {
-    const { title, currentPage, sortOrder, selectedCategory } = queryString.parse(location.search);
-    //sync with redux store
-    selectedCategory && dispatch(changeCategory(selectedCategory));
-    const companiesPromise = dispatch(get({
+    const {
       title,
       currentPage,
       sortOrder,
-    }));
-    return [{
-      promise: dispatch(getCategories()),
-    }, {
-      promise: dispatch(getViolations()),
-    }, {
-      prop: 'companiesData',
-      promise: companiesPromise
-    }];
+      selectedCategory,
+    } = queryString.parse(location.search);
+    //sync with redux store
+    selectedCategory && dispatch(changeCategory(selectedCategory));
+    const companiesPromise = dispatch(
+      get({
+        title,
+        currentPage,
+        sortOrder,
+      })
+    );
+    return [
+      {
+        promise: dispatch(getCategories()),
+      },
+      {
+        promise: dispatch(getViolations()),
+      },
+      {
+        prop: 'companiesData',
+        promise: companiesPromise,
+      },
+    ];
   }
 
   render() {
-    const { currentPage, sortOrder, title } = queryString.parse(this.props.location.search);
+    const { currentPage, sortOrder, title } = queryString.parse(
+      this.props.location.search
+    );
     const { initialData, ...props } = this.props;
-    return (<CompaniesPageComponent
-      {...initialData.companiesData}
-      {...props}
-      title={title}
-      currentPage={Number(currentPage || 1)}
-      sortOrder={sortOrder || 'asc'}
-    />);
+    return (
+      <CompaniesPageComponent
+        {...initialData.companiesData}
+        {...props}
+        title={title}
+        currentPage={Number(currentPage || 1)}
+        sortOrder={sortOrder || 'asc'}
+      />
+    );
   }
 }
-
 
 CompaniesPageContainer.propTypes = {
   location: PropTypes.shape({
@@ -55,15 +69,18 @@ CompaniesPageContainer.propTypes = {
       allCompaniesCount: PropTypes.number,
       recordsPerPage: PropTypes.number,
       totalPages: PropTypes.number,
-    })
-  })
+    }),
+  }),
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onRefresh: ({ currentPage, sortOrder, title }) => dispatch(push(
-    `/companies?title=${title}&sortOrder=${sortOrder}&currentPage=${currentPage}#results`
-  )),
-  dispatch
+  onRefresh: ({ currentPage, sortOrder, title }) =>
+    dispatch(
+      push(
+        `/companies?title=${title}&sortOrder=${sortOrder}&currentPage=${currentPage}#results`
+      )
+    ),
+  dispatch,
 });
 
 export default connect(null, mapDispatchToProps)(CompaniesPageContainer);

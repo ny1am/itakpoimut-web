@@ -9,10 +9,7 @@ class Checkbox extends React.PureComponent {
     const { className, id, ...props } = this.props;
     return (
       <div className={cn(styles.checkbox, className)}>
-        <input type="checkbox"
-          {...props}
-          id={id}
-        />
+        <input type="checkbox" {...props} id={id} />
         <label htmlFor={id} />
       </div>
     );

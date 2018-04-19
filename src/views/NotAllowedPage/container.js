@@ -6,11 +6,10 @@ import { push } from 'react-router-redux';
 import NotAllowedPageComponent from './NotAllowedPage';
 
 class NotAllowedPageContainer extends React.PureComponent {
-
   state = {
     timer: null,
     timeToGo: 5,
-  }
+  };
 
   componentWillMount() {
     const timer = setInterval(this.tick, 1000);
@@ -29,12 +28,10 @@ class NotAllowedPageContainer extends React.PureComponent {
       clearInterval(this.state.timer);
       this.props.redirect();
     }
-  }
+  };
 
   render() {
-    return (
-      <NotAllowedPageComponent timeToGo={this.state.timeToGo} />
-    );
+    return <NotAllowedPageComponent timeToGo={this.state.timeToGo} />;
   }
 }
 
@@ -44,7 +41,7 @@ NotAllowedPageContainer.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   redirect: () => dispatch(push('/')),
-  dispatch
+  dispatch,
 });
 
 export default connect(null, mapDispatchToProps)(NotAllowedPageContainer);

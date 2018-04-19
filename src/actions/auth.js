@@ -1,9 +1,12 @@
 import { WAIT_FOR_ACTION, ERROR_ACTION } from 'redux-wait-for-action';
 
 import {
-  AUTH_REQUEST, FB_AUTH_REQUEST, GOOGLE_AUTH_REQUEST,
-  AUTH_SUCCESS, AUTH_FAILURE,
-  LOGOUT
+  AUTH_REQUEST,
+  FB_AUTH_REQUEST,
+  GOOGLE_AUTH_REQUEST,
+  AUTH_SUCCESS,
+  AUTH_FAILURE,
+  LOGOUT,
 } from 'consts/auth';
 
 export function auth({ username, password }) {
@@ -36,6 +39,6 @@ export function googleAuth(accessToken) {
 
 export function logout() {
   return {
-    type: LOGOUT
+    type: LOGOUT,
   };
 }

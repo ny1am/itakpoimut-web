@@ -4,7 +4,7 @@
   display: inline-block;
   position: relative;
 }
-.radio input[type="radio"] {
+.radio input[type='radio'] {
   visibility: hidden;
 }
 .radio label {
@@ -19,7 +19,7 @@
   left: 1px;
   cursor: pointer;
 }
-.radio input[type="radio"]:checked+label {
+.radio input[type='radio']:checked + label {
   border-color: #6e9d3a;
 }
 .radio label:before {
@@ -34,6 +34,6 @@
   left: 2px;
   opacity: 0;
 }
-.radio input[type="radio"]:checked+label:before {
+.radio input[type='radio']:checked + label:before {
   opacity: 1;
 }

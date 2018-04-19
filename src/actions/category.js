@@ -1,12 +1,10 @@
 import { WAIT_FOR_ACTION } from 'redux-wait-for-action';
 
-import {
-  GET_CATEGORIES, GET_CATEGORIES_SUCCESS,
-} from 'consts/category';
+import { GET_CATEGORIES, GET_CATEGORIES_SUCCESS } from 'consts/category';
 
 export function get() {
-  return ({
+  return {
     type: GET_CATEGORIES,
     [WAIT_FOR_ACTION]: GET_CATEGORIES_SUCCESS,
-  });
+  };
 }

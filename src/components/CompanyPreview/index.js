@@ -10,9 +10,7 @@ const CompanyPreview = ({ company }) => (
       <img src={company.img} />
     </Link>
     <label className={styles.title}>
-      <Link to={`/company/${company._id}`}>
-        {company.title}
-      </Link>
+      <Link to={`/company/${company._id}`}>{company.title}</Link>
     </label>
   </article>
 );
@@ -22,7 +20,7 @@ CompanyPreview.propTypes = {
     _id: PropTypes.number.isRequired,
     img: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-  }).isRequired
+  }).isRequired,
 };
 
 export default CompanyPreview;

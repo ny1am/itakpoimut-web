@@ -13,7 +13,7 @@ class LastComments extends React.PureComponent {
     return (
       <LandingSection title="Останні коментарі">
         <ul className={styles.comments}>
-          {comments.map(item => (
+          {comments.map((item) => (
             <li key={item._id}>
               <Comment comment={item} company={item._company} />
             </li>
@@ -28,6 +28,6 @@ LastComments.propTypes = {
   comments: PropTypes.array,
 };
 
-const hasNoData = props => !(props.comments);
+const hasNoData = (props) => !props.comments;
 
 export default hideIfNoData(hasNoData)(LastComments);

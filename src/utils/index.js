@@ -9,13 +9,12 @@ export const http = (url) => {
   if (url.indexOf('http') === 0) {
     return url;
   } else {
-    return 'http://'+url;
+    return 'http://' + url;
   }
 };
 
-export const getDisplayName = (Component) => (
-  Component.displayName || Component.name || 'Component'
-);
+export const getDisplayName = (Component) =>
+  Component.displayName || Component.name || 'Component';
 
 export const wrapWithSideEffect = (sideEffect, delay) => (promise) => {
   const timer = setTimeout(sideEffect, delay);
@@ -24,9 +23,8 @@ export const wrapWithSideEffect = (sideEffect, delay) => (promise) => {
   });
 };
 
-export const keyValueToObjectReducer = (result, { key, value }) => (
-  Object.assign(result, {[key] : value})
-);
+export const keyValueToObjectReducer = (result, { key, value }) =>
+  Object.assign(result, { [key]: value });
 
 export const preventDefault = (fn, ...args) => (event) => {
   event.preventDefault();
@@ -50,6 +48,6 @@ export const getFirstErrorElement = (errors, holder = document) => {
 export function clearDialog(location) {
   const clearedState = Object.assign({}, location.state, { dialog: null });
   return Object.assign({}, location, {
-    state: clearedState
+    state: clearedState,
   });
 }

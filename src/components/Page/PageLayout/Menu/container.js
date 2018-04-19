@@ -11,9 +11,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onMenuHide: () => dispatch(hide()),
-  dispatch
+  dispatch,
 });
 
-export default connect(
-  mapStateToProps, mapDispatchToProps
-)(MenuComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(MenuComponent);

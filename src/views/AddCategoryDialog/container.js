@@ -9,29 +9,31 @@ import { enhanceView } from 'components/View';
 import AddCategoryDialogComponent from './AddCategoryDialog';
 import SuccessView from './SuccessView';
 
-const filterCategories = (allCategories, companyCategories) => (
-  allCategories.filter(item => {
+const filterCategories = (allCategories, companyCategories) =>
+  allCategories.filter((item) => {
     return !companyCategories
-      .map(category => category.name).includes(item.name);
-  })
-);
+      .map((category) => category.name)
+      .includes(item.name);
+  });
 
 class AddCategoryDialogContainer extends React.Component {
-
   static fetch(location, { dispatch, params }) {
     const { companyId } = params;
-    return [{
-      prop: 'company',
-      promise: dispatch(get(companyId))
-    }, {
-      prop: 'categoriesList',
-      promise: dispatch(getCategories())
-    }];
+    return [
+      {
+        prop: 'company',
+        promise: dispatch(get(companyId)),
+      },
+      {
+        prop: 'categoriesList',
+        promise: dispatch(getCategories()),
+      },
+    ];
   }
 
   state = {
-    selectedCategories: []
-  }
+    selectedCategories: [],
+  };
 
   onSubmit = () => {
     const { onSubmit } = this.props;
@@ -39,17 +41,17 @@ class AddCategoryDialogContainer extends React.Component {
     const { selectedCategories } = this.state;
     return onSubmit({
       companyId,
-      selectedCategories: selectedCategories.map(item => item.name),
+      selectedCategories: selectedCategories.map((item) => item.name),
     });
-  }
+  };
 
   onSelectCategory = (checked, value) => {
     const newCategories = [...this.state.selectedCategories].filter(
-      category => category !== value
+      (category) => category !== value
     );
     checked && newCategories.push(value);
     this.setState({ selectedCategories: newCategories });
-  }
+  };
 
   render() {
     const { initialData } = this.props;
@@ -73,15 +75,19 @@ AddCategoryDialogContainer.propTypes = {
   initialData: PropTypes.shape({
     company: PropTypes.shape({
       _id: PropTypes.number.isRequired,
-      categories: PropTypes.arrayOf(PropTypes.shape({
+      categories: PropTypes.arrayOf(
+        PropTypes.shape({
+          name: PropTypes.string.isRequired,
+          text: PropTypes.string.isRequired,
+        })
+      ),
+    }).isRequired,
+    categoriesList: PropTypes.arrayOf(
+      PropTypes.shape({
         name: PropTypes.string.isRequired,
         text: PropTypes.string.isRequired,
-      }))
-    }).isRequired,
-    categoriesList: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired,
-    })),
+      })
+    ),
   }).isRequired,
   onSubmit: PropTypes.func,
 };
@@ -91,6 +97,4 @@ const mapProps = (dispatch) => ({
   onSuccess: ({ showSuccessView }) => showSuccessView(SuccessView),
 });
 
-export default enhanceView(mapProps)(
-  AddCategoryDialogContainer
-);
+export default enhanceView(mapProps)(AddCategoryDialogContainer);

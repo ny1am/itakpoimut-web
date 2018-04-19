@@ -4,9 +4,9 @@ $menu-height: 70px;
   margin-top: -2 * $menu-height;
   padding-top: 2 * $menu-height;
   padding-bottom: 180px;
-  background: url("/assets/img/landing.png") center;
-  background: linear-gradient(transparent, rgba(0,0,0,0.7)),
-              url("/assets/img/landing.png") center;
+  background: url('/assets/img/landing.png') center;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7)),
+    url('/assets/img/landing.png') center;
   background-size: cover;
   background-repeat: no-repeat;
   box-sizing: border-box;
@@ -46,7 +46,7 @@ $menu-height: 70px;
 }
 
 .pattern {
-  background: url("/assets/img/pattern-new.png") top;
+  background: url('/assets/img/pattern-new.png') top;
   overflow: auto;
   padding-bottom: 100px;
   @media (max-width: 640px) {
@@ -118,7 +118,10 @@ $menu-height: 70px;
   }
 }
 
-.description, .nameSearch, .categorySearch, .addCompany {
+.description,
+.nameSearch,
+.categorySearch,
+.addCompany {
   max-width: 800px;
   margin: 138px auto 10px auto;
   box-sizing: border-box;

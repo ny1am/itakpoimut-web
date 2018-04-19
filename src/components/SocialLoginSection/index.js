@@ -12,8 +12,8 @@ class SocialLoginSection extends React.PureComponent {
     return (
       <React.Fragment>
         <div className={styles.socials}>
-          <FacebookLogin onChange={handleFacebookSubmit}/>
-          <GoogleLogin onChange={handleGoogleSubmit}/>
+          <FacebookLogin onChange={handleFacebookSubmit} />
+          <GoogleLogin onChange={handleGoogleSubmit} />
         </div>
         <div className={styles.separator}>або</div>
       </React.Fragment>

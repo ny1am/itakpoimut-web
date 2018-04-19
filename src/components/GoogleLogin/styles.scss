@@ -1,13 +1,13 @@
 $button-height: 40px;
 .button {
-	min-width: 150px;
-	height: $button-height;
-	line-height: $button-height;
-	border-radius: 5px;
-	color: white;
-	font-size: 0.75rem;
-	font-weight: 400;
-	display: inline-block;
+  min-width: 150px;
+  height: $button-height;
+  line-height: $button-height;
+  border-radius: 5px;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 400;
+  display: inline-block;
   box-sizing: border-box;
   &:disabled {
     opacity: 0.6;
@@ -15,18 +15,18 @@ $button-height: 40px;
 }
 
 .button {
-	position: relative;
-	padding-left: 13px;
+  position: relative;
+  padding-left: 13px;
   background-color: #9e0b0f;
-	&:before {
-		content: '';
-		display: inline-block;
-		position: absolute;
-		top: ($button-height - 13px)/2;
-		left: 9px;
+  &:before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: ($button-height - 13px)/2;
+    left: 9px;
     background-image: url(/assets/img/icons-sprite.png);
     background-position: -101px -58px;
     width: 13px;
     height: 13px;
-	}
+  }
 }
