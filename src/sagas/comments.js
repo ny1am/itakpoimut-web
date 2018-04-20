@@ -1,5 +1,4 @@
-import { put, call } from 'redux-saga/effects';
-import { push } from 'react-router-redux';
+import { put } from 'redux-saga/effects';
 import queryString from 'query-string';
 
 import {
@@ -16,8 +15,12 @@ function* fetchComments({ id, currentPage }) {
   const url = `/comments/${id}?currentPage=${currentPage}`;
   try {
     const payload = yield apiRequest(url);
-    const newAction = { type: COMMENTS_SUCCESS, payload };
-    yield put(newAction);
+    yield put({
+      type: COMMENTS_SUCCESS,
+      companyId: id,
+      page: currentPage,
+      payload,
+    });
     return payload;
   } catch (error) {
     return null;
@@ -36,16 +39,7 @@ function* addComment({ companyId, text }) {
   };
   try {
     const payload = yield apiSecureRequest(url, options);
-    const currentPage = 1;
-    yield put(
-      push({
-        search: queryString.stringify({ currentPage }),
-        hash: 'new-comment',
-      })
-    );
-    yield call(fetchComments, { id: companyId, currentPage });
-    const newAction = { type: ADD_COMMENT_SUCCESS, payload };
-    yield put(newAction);
+    yield put({ type: ADD_COMMENT_SUCCESS, companyId, payload });
     return payload;
   } catch (error) {
     return null;

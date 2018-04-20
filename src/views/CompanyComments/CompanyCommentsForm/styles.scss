@@ -1,14 +1,7 @@
-form.form h2 {
-  height: 50px;
-  line-height: 50px;
-  background-color: #ebebeb;
-  border-radius: 5px;
-  margin: 35px 0;
-  color: #666;
-  font-size: 1.25rem;
-  font-weight: 400;
-  padding: 0 12px;
+form.form {
+  margin-top: 35px;
 }
+
 div.row {
   display: block;
   display: flex;
@@ -34,7 +27,7 @@ div.row {
 }
 
 .notLoggedIn {
-  margin-left: 3px;
+  margin: 30px 0 30px 3px;
   font-size: 1.125rem;
   button {
     text-decoration: underline;

@@ -19,7 +19,6 @@ class CompanyCommentsForm extends React.PureComponent {
         method="post"
         onSubmit={onSubmit}
       >
-        <h2>Додати коментар</h2>
         <div className={styles.row}>
           <div className={styles.rowImage}>
             <Avatar user={loggedUser} />
