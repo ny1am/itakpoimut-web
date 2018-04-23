@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import Comment from 'components/Comment';
 
 import CompanyCommentsForm from './CompanyCommentsForm';
+import CommentLoading from './CommentLoading';
 import styles from './styles.scss';
 
 class CompanyComments extends React.PureComponent {
@@ -32,7 +33,7 @@ class CompanyComments extends React.PureComponent {
               pageStart={currentPage}
               loadMore={(page) => onLoadComments(companyId, page)}
               hasMore={totalPages && currentPage !== totalPages}
-              loader={<div key={0}>Завантаження...</div>}
+              loader={<CommentLoading key={0} />}
             >
               <ul className={styles.list}>
                 {comments.map((item) => (
