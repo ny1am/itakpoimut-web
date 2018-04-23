@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import randomstring from 'randomstring';
 import cn from 'classnames';
+import { Helmet } from 'react-helmet';
 
 import FileUpload from 'components/FileUpload';
 import { preventDefault } from 'utils';
@@ -58,119 +59,128 @@ class CreateCompanyDialog extends React.PureComponent {
     const { submitKey } = this.state;
     const onSubmit = preventDefault(this.handleSubmit);
     return (
-      <div className={cn('dialog_content', styles.wrapper)}>
-        <h1>Запропонувати компанію</h1>
-        {errors.dialog && <div className={styles.error}>{errors.dialog}</div>}
-        <p>
-          Зазначимо, що ви тільки пропонуєте компанію на розгляд. Після того її
-          затверджує модератор, і система сама присвоює компанії статус
-          лояльної/порушника на основі наявності/відсутності порушень.
-        </p>
-        <form
-          action="/createCompany"
-          method="post"
-          encType="multipart/form-data"
-          onSubmit={onSubmit}
-        >
-          <div className={styles.logoRow}>
-            <div className={styles.attachmentWrapper}>
-              <label className="row__label">Лого компанії</label>
-              <FileUpload
-                className={styles.attachment}
-                serverError={!!errors.attachment}
-                onChange={this.handleAttachment}
-                stateKey={submitKey}
-              />
-              <div className="hint">
-                JPEG або PNG,<br /> розміром до 1 Mb
-              </div>
-            </div>
-            <div>
-              <div className={cn('row', { 'row--error': errors.title })}>
-                <label className="row__label" htmlFor="title">
-                  {errors.title || 'Назва компанії'}
-                </label>
-                <input
-                  type="text"
-                  className="row__input"
-                  name="title"
-                  value={this.state.title}
-                  onChange={this.onInputChange}
-                  maxLength="300"
+      <React.Fragment>
+        <Helmet>
+          <title>Запропонувати компанію</title>
+        </Helmet>
+        <div className={cn('dialog_content', styles.wrapper)}>
+          <h1>Запропонувати компанію</h1>
+          {errors.dialog && <div className={styles.error}>{errors.dialog}</div>}
+          <p>
+            Зазначимо, що ви тільки пропонуєте компанію на розгляд. Після того
+            її затверджує модератор, і система сама присвоює компанії статус
+            лояльної/порушника на основі наявності/відсутності порушень.
+          </p>
+          <form
+            action="/createCompany"
+            method="post"
+            encType="multipart/form-data"
+            onSubmit={onSubmit}
+          >
+            <div className={styles.logoRow}>
+              <div className={styles.attachmentWrapper}>
+                <label className="row__label">Лого компанії</label>
+                <FileUpload
+                  className={styles.attachment}
+                  serverError={!!errors.attachment}
+                  onChange={this.handleAttachment}
+                  stateKey={submitKey}
                 />
+                <div className="hint">
+                  JPEG або PNG,<br /> розміром до 1 Mb
+                </div>
               </div>
-              <div className="row">
-                <label className="row__label" htmlFor="selectedCategories[]">
-                  Оберіть сфери компанії
-                </label>
-                <Select
-                  name="selectedCategories[]"
-                  className="row__input"
-                  multi={true}
-                  placeholder="Оберіть зі списку..."
-                  backspaceRemoves={false}
-                  value={this.state.selectedCategories}
-                  onChange={this.handleCategoryChange}
-                  options={categoriesList.map((item) => ({
-                    label: item.text,
-                    value: item.name,
-                  }))}
-                />
-              </div>
-              <div className={cn('row', { 'row--error': errors.description })}>
-                <label className="row__label" htmlFor="description">
-                  {errors.description || 'Опис компанії'}
-                </label>
-                <textarea
-                  className="row__input"
-                  name="description"
-                  maxLength="300"
-                  value={this.state.description}
-                  onChange={this.onInputChange}
-                />
-              </div>
-              <div className={cn('row', { 'row--error': errors.company_site })}>
-                <label className="row__label" htmlFor="company_site">
-                  {errors.company_site || 'Посилання на сайт (якщо є)'}
-                </label>
-                <div className={styles.httpWrapper}>
+              <div>
+                <div className={cn('row', { 'row--error': errors.title })}>
+                  <label className="row__label" htmlFor="title">
+                    {errors.title || 'Назва компанії'}
+                  </label>
                   <input
                     type="text"
-                    className={styles.http}
-                    name="company_site"
-                    maxLength="100"
-                    value={this.state.company_site}
+                    className="row__input"
+                    name="title"
+                    value={this.state.title}
+                    onChange={this.onInputChange}
+                    maxLength="300"
+                  />
+                </div>
+                <div className="row">
+                  <label className="row__label" htmlFor="selectedCategories[]">
+                    Оберіть сфери компанії
+                  </label>
+                  <Select
+                    name="selectedCategories[]"
+                    className="row__input"
+                    multi={true}
+                    placeholder="Оберіть зі списку..."
+                    backspaceRemoves={false}
+                    value={this.state.selectedCategories}
+                    onChange={this.handleCategoryChange}
+                    options={categoriesList.map((item) => ({
+                      label: item.text,
+                      value: item.name,
+                    }))}
+                  />
+                </div>
+                <div
+                  className={cn('row', { 'row--error': errors.description })}
+                >
+                  <label className="row__label" htmlFor="description">
+                    {errors.description || 'Опис компанії'}
+                  </label>
+                  <textarea
+                    className="row__input"
+                    name="description"
+                    maxLength="300"
+                    value={this.state.description}
                     onChange={this.onInputChange}
                   />
                 </div>
-              </div>
-              <div className="row">
-                <label className="row__label" htmlFor="selectedViolations[]">
-                  Оберіть порушення компанії
-                </label>
-                <Select
-                  name="selectedViolations[]"
-                  className="row__input"
-                  multi={true}
-                  placeholder="Оберіть зі списку..."
-                  backspaceRemoves={false}
-                  value={this.state.selectedViolations}
-                  onChange={this.handleViolationChange}
-                  options={violationsList.map((item) => ({
-                    label: item.text,
-                    value: item.name,
-                  }))}
-                />
+                <div
+                  className={cn('row', { 'row--error': errors.company_site })}
+                >
+                  <label className="row__label" htmlFor="company_site">
+                    {errors.company_site || 'Посилання на сайт (якщо є)'}
+                  </label>
+                  <div className={styles.httpWrapper}>
+                    <input
+                      type="text"
+                      className={styles.http}
+                      name="company_site"
+                      maxLength="100"
+                      value={this.state.company_site}
+                      onChange={this.onInputChange}
+                    />
+                  </div>
+                </div>
+                <div className="row">
+                  <label className="row__label" htmlFor="selectedViolations[]">
+                    Оберіть порушення компанії
+                  </label>
+                  <Select
+                    name="selectedViolations[]"
+                    className="row__input"
+                    multi={true}
+                    placeholder="Оберіть зі списку..."
+                    backspaceRemoves={false}
+                    value={this.state.selectedViolations}
+                    onChange={this.handleViolationChange}
+                    options={violationsList.map((item) => ({
+                      label: item.text,
+                      value: item.name,
+                    }))}
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div className={styles.actions}>
-            <button className="dialog__button" type="submit">
-              Додати
-            </button>
-          </div>
-        </form>
-      </div>
+            <div className={styles.actions}>
+              <button className="dialog__button" type="submit">
+                Додати
+              </button>
+            </div>
+          </form>
+        </div>
+      </React.Fragment>
     );
   }
 }

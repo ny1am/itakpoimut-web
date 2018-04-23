@@ -64,9 +64,10 @@ p {
   margin: 20px auto;
   font-style: italic;
   line-height: 1.5;
-  &:last-child {
-    margin-bottom: 0;
-  }
+}
+
+p:last-child {
+  margin-bottom: 0;
 }
 
 #app {
@@ -80,7 +81,9 @@ p {
   max-width: 1010px;
   margin: 0 auto;
   position: relative;
-  @media (max-width: 1070px) {
+}
+@media (max-width: 1070px) {
+  .container {
     max-width: none;
     width: 92%;
   }
@@ -103,7 +106,10 @@ div.pattern-content {
   background: url('/assets/img/pattern-new.png') top;
   padding-bottom: 40px;
   flex-grow: 1;
-  @media (max-width: 640px) {
+}
+
+@media (max-width: 640px) {
+  div.pattern-content {
     margin-top: 0;
     padding-top: 0;
     overflow: auto;
@@ -122,10 +128,15 @@ textarea {
   border-radius: 5px;
   padding: 17px;
   color: #b7b7b7;
-  &.higher {
-    height: 47px;
-  }
 }
+
+input[type='text'].higher,
+input[type='email'].height,
+input[type='password'].height,
+textarea.higher {
+  height: 47px;
+}
+
 textarea {
   resize: none;
   height: 100px;
@@ -142,9 +153,10 @@ textarea {
 li.row {
   margin-bottom: 0;
   margin-top: 16px;
-  &:first-child {
-    margin-top: 0;
-  }
+}
+
+li.row:first-child {
+  margin-top: 0;
 }
 
 .hidden {
@@ -156,22 +168,24 @@ li.row {
   max-width: 400px;
   margin-left: auto;
   margin-right: auto;
-  h1 {
-    text-transform: uppercase;
-    padding: 0;
-    margin: 26px 0 40px 0;
-    font-size: 20px;
-    color: #666;
-  }
+}
+
+.dialog_content h1 {
+  text-transform: uppercase;
+  padding: 0;
+  margin: 26px 0 40px 0;
+  font-size: 20px;
+  color: #666;
 }
 
 div.row {
   display: block;
   text-align: left;
   margin-top: 25px;
-  &:first-child {
-    margin-top: 0;
-  }
+}
+
+div.row:first-child {
+  margin-top: 0;
 }
 
 label.row__label {
@@ -186,14 +200,13 @@ label.row__label {
   width: 100%;
 }
 
-div.row--error {
-  label.row__label {
-    color: #9e0b0f;
-  }
-  input {
-    color: #9e0b0f;
-    border-color: #9e0b0f;
-  }
+div.row--error input {
+  color: #9e0b0f;
+  border-color: #9e0b0f;
+}
+
+div.row--error label.row__label {
+  color: #9e0b0f;
 }
 
 .dialog__button,
@@ -237,16 +250,14 @@ aside.dialog__aside a,
   background-color: transparent;
 }
 
-.loyalty-color {
-  @media (max-width: 760px) {
-    &.loyal {
-      color: rgb(110, 157, 58);
-    }
-    &.disloyal {
-      color: rgb(165, 41, 41);
-    }
-    &.probation {
-      color: rgb(247, 149, 33);
-    }
+@media (max-width: 760px) {
+  .loyalty-color.loyal {
+    color: rgb(110, 157, 58);
+  }
+  .loyalty-color.disloyal {
+    color: rgb(165, 41, 41);
+  }
+  .loyalty-color.probation {
+    color: rgb(247, 149, 33);
   }
 }

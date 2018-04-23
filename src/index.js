@@ -11,7 +11,6 @@ import Root from './components/Root';
 
 import 'react-select/dist/react-select.css';
 import 'react-progress-2/main.css';
-import './styles/main.scss';
 
 promiseFinally.shim();
 window.history.scrollRestoration = 'manual';

@@ -1,28 +1,14 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import queryString from 'query-string';
+import InfiniteScroll from 'react-infinite-scroller';
 
-import Pagination from 'components/Pagination';
 import Comment from 'components/Comment';
-import { scrollIntoViewIfNeeded } from 'utils';
 
 import CompanyCommentsForm from './CompanyCommentsForm';
+import CommentLoading from './CommentLoading';
 import styles from './styles.scss';
 
 class CompanyComments extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.comments = React.createRef();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.comments !== prevProps.comments) {
-      const elementToScroll = ReactDOM.findDOMNode(this.comments.current);
-      scrollIntoViewIfNeeded(elementToScroll);
-    }
-  }
-
   render() {
     const {
       companyId,
@@ -30,6 +16,7 @@ class CompanyComments extends React.PureComponent {
       commentsCount,
       currentPage,
       totalPages,
+      onLoadComments,
     } = this.props;
     return (
       <div className="container">
@@ -38,24 +25,26 @@ class CompanyComments extends React.PureComponent {
             <h1>Коментарі</h1>
             <span>{commentsCount} коментарів</span>
           </header>
+
+          <CompanyCommentsForm companyId={companyId} />
+
           {comments.length > 0 && (
-            <ul className={styles.list}>
-              {comments.map((item, index) => (
-                <li key={index}>
-                  <Comment comment={item} />
-                </li>
-              ))}
-            </ul>
+            <InfiniteScroll
+              pageStart={currentPage}
+              loadMore={(page) => onLoadComments(companyId, page)}
+              hasMore={totalPages && currentPage !== totalPages}
+              loader={<CommentLoading key={0} />}
+            >
+              <ul className={styles.list}>
+                {comments.map((item) => (
+                  <li key={item._id}>
+                    <Comment comment={item} />
+                  </li>
+                ))}
+              </ul>
+            </InfiniteScroll>
           )}
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            generateUrl={(page) => ({
-              search: queryString.stringify({ currentPage: page }),
-            })}
-          />
         </section>
-        <CompanyCommentsForm companyId={companyId} />
       </div>
     );
   }
@@ -67,13 +56,7 @@ CompanyComments.propTypes = {
   comments: PropTypes.array,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
-};
-
-CompanyComments.defaultProps = {
-  commentsCount: 0,
-  comments: [],
-  currentPage: 1,
-  totalPages: 0,
+  onLoadComments: PropTypes.func.isRequired,
 };
 
 export default CompanyComments;
