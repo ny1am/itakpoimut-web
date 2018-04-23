@@ -8,7 +8,7 @@ import styles from './styles.scss';
 
 const Filters = ({ onChange }) => (
   <div className={styles.searchParams}>
-    <form action="/companies" method="POST">
+    <form>
       <summary className={styles.searchParamsHeader}>Фільтри</summary>
       <div className={styles.searchParamsBody}>
         <LoyaltyFilters onChange={onChange} />

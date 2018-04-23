@@ -19,7 +19,7 @@ class AddViolationDialog extends React.PureComponent {
         </Helmet>
         <div className={cn('dialog_content', styles.wrapper)}>
           <h1>Додати порушення</h1>
-          <form action="/addViolation" method="post" onSubmit={onSubmit}>
+          <form onSubmit={onSubmit}>
             <p>Тут ви можете відмітити порушення компанії</p>
             <ul className={styles.violations}>
               {violations.map((item) => (

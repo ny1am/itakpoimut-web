@@ -31,7 +31,7 @@ class ChangePasswordDialog extends React.PureComponent {
         </Helmet>
         <div className="dialog_content">
           <h1>Змінити пароль</h1>
-          <form action="/changePassword" method="post" onSubmit={onSubmit}>
+          <form onSubmit={onSubmit}>
             <div className={cn('row', { 'row--error': errors.password })}>
               <label className="row__label" htmlFor="password">
                 {errors.password || 'Існуючий пароль'}

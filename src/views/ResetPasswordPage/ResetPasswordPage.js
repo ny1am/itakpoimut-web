@@ -42,7 +42,7 @@ class ResetPasswordPage extends React.PureComponent {
             {` на зміну паролю.`}
           </div>
         )}
-        <form action="/reset" method="post" onSubmit={onSubmit}>
+        <form onSubmit={onSubmit}>
           <div className={cn('row', { 'row--error': errors.password })}>
             <label className="row__label" htmlFor="password">
               {errors.password || 'Новий пароль'}
