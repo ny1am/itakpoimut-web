@@ -131,8 +131,8 @@ textarea {
 }
 
 input[type='text'].higher,
-input[type='email'].height,
-input[type='password'].height,
+input[type='email'].higher,
+input[type='password'].higher,
 textarea.higher {
   height: 47px;
 }
