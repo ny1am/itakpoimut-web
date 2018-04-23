@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import { Helmet } from 'react-helmet';
 
 import CheckRow from 'components/CheckRow';
 import { preventDefault } from 'utils';
@@ -17,66 +18,71 @@ class AddCategoryDialog extends React.Component {
     } = this.props;
     const onSubmit = preventDefault(this.props.onSubmit);
     return (
-      <div className={cn('dialog_content', styles.wrapper)}>
-        <h1>Додати сферу</h1>
-        <p>
-          Тут ви можете відзначити сфери, до яких належить компанія. Протягом
-          кількох днів адміністратор перевірить інформацію і вона з'явиться на
-          сайті.
-        </p>
-        <form action="/addCategory" method="post" onSubmit={onSubmit}>
-          <div className={styles.prevCategoriesHolder}>
-            <span>Уже відмічені сфери</span>
-            <div className={styles.prevCategoriesBlock}>
-              {companyCategories.length > 0 && (
-                <ul className={styles.prevCategories}>
-                  {companyCategories.map((item, index) => (
-                    <li key={index}>{item.text}</li>
-                  ))}
-                </ul>
-              )}
-              {selectedCategories.length > 0 && (
-                <ul className={styles.newCategories}>
-                  {selectedCategories.map((item, index) => (
+      <React.Fragment>
+        <Helmet>
+          <title>Запропонувати сферу</title>
+        </Helmet>
+        <div className={cn('dialog_content', styles.wrapper)}>
+          <h1>Додати сферу</h1>
+          <p>
+            Тут ви можете відзначити сфери, до яких належить компанія. Протягом
+            кількох днів адміністратор перевірить інформацію і вона з'явиться на
+            сайті.
+          </p>
+          <form action="/addCategory" method="post" onSubmit={onSubmit}>
+            <div className={styles.prevCategoriesHolder}>
+              <span>Уже відмічені сфери</span>
+              <div className={styles.prevCategoriesBlock}>
+                {companyCategories.length > 0 && (
+                  <ul className={styles.prevCategories}>
+                    {companyCategories.map((item, index) => (
+                      <li key={index}>{item.text}</li>
+                    ))}
+                  </ul>
+                )}
+                {selectedCategories.length > 0 && (
+                  <ul className={styles.newCategories}>
+                    {selectedCategories.map((item, index) => (
+                      <li key={index}>
+                        <div className={styles.newTitle}>{item.text}</div>
+                        <div
+                          className={styles.delete}
+                          onClick={() => onSelectCategory(false, item)}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+            {categories.length > 0 && (
+              <div className={styles.categoriesHolder}>
+                <span>Оберіть сфери зі списку:</span>
+                <ul className={styles.categories}>
+                  {categories.map((item, index) => (
                     <li key={index}>
-                      <div className={styles.newTitle}>{item.text}</div>
-                      <div
-                        className={styles.delete}
-                        onClick={() => onSelectCategory(false, item)}
+                      <CheckRow
+                        text={item.text}
+                        name="selectedCategories[]"
+                        value={item}
+                        checked={selectedCategories.includes(item)}
+                        onChange={({ target: { checked } }) =>
+                          onSelectCategory(checked, item)
+                        }
                       />
                     </li>
                   ))}
                 </ul>
-              )}
+              </div>
+            )}
+            <div className={styles.actions}>
+              <button className="dialog__button" type="submit">
+                Готово
+              </button>
             </div>
-          </div>
-          {categories.length > 0 && (
-            <div className={styles.categoriesHolder}>
-              <span>Оберіть сфери зі списку:</span>
-              <ul className={styles.categories}>
-                {categories.map((item, index) => (
-                  <li key={index}>
-                    <CheckRow
-                      text={item.text}
-                      name="selectedCategories[]"
-                      value={item}
-                      checked={selectedCategories.includes(item)}
-                      onChange={({ target: { checked } }) =>
-                        onSelectCategory(checked, item)
-                      }
-                    />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          <div className={styles.actions}>
-            <button className="dialog__button" type="submit">
-              Готово
-            </button>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+      </React.Fragment>
     );
   }
 }
