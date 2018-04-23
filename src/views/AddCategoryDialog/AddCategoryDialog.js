@@ -29,7 +29,7 @@ class AddCategoryDialog extends React.Component {
             кількох днів адміністратор перевірить інформацію і вона з'явиться на
             сайті.
           </p>
-          <form action="/addCategory" method="post" onSubmit={onSubmit}>
+          <form onSubmit={onSubmit}>
             <div className={styles.prevCategoriesHolder}>
               <span>Уже відмічені сфери</span>
               <div className={styles.prevCategoriesBlock}>

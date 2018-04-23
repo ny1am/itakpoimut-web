@@ -49,7 +49,7 @@ class LoginDialog extends React.PureComponent {
             handleFacebookSubmit={this.handleFacebookSubmit}
             handleGoogleSubmit={this.handleGoogleSubmit}
           />
-          <form action="/login" method="post" onSubmit={onSubmit}>
+          <form onSubmit={onSubmit}>
             <div className={cn('row', { 'row--error': errors.username })}>
               <label className="row__label" htmlFor="username">
                 {errors.username || 'E-mail'}

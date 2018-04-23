@@ -10,7 +10,7 @@ class AutocompleteSearch extends React.PureComponent {
     const { onSubmit, changeTitle, changeCategory, search } = this.props;
     return (
       <article className={styles.wrapper}>
-        <form action="/companies" method="GET" onSubmit={onSubmit}>
+        <form onSubmit={onSubmit}>
           <div className={styles.searchWrapper}>
             <div className={styles.searchInput}>
               <input

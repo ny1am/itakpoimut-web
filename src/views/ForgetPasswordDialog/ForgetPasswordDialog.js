@@ -36,7 +36,7 @@ class ForgetPasswordDialog extends React.Component {
             Вкажіть, будь ласка, e-mail, і ми скинемо вам посилання на
             відновлення паролю
           </p>
-          <form action="/forgot" method="post" noValidate onSubmit={onSubmit}>
+          <form noValidate onSubmit={onSubmit}>
             <div className={cn('row', { 'row--error': errors.email })}>
               <label className="row__label" htmlFor="email">
                 {errors.email || 'E-mail'}

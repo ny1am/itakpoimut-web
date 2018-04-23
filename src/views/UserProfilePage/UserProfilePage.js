@@ -52,7 +52,7 @@ class UserProfilePage extends React.PureComponent {
             <div className={styles.content}>
               {success && <div className={styles.success}>Зміни збережено</div>}
               {errors.page && <div className={styles.error}>{errors.page}</div>}
-              <form action="/userProfile" method="post" onSubmit={onSubmit}>
+              <form onSubmit={onSubmit}>
                 <section className={styles.block}>
                   <h1>Ваші особисті дані</h1>
                   <div className="row">

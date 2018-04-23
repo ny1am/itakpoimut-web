@@ -6,7 +6,7 @@ import { preventDefault } from 'utils';
 import styles from './styles.scss';
 
 const SearchInput = ({ value, innerRef, onSubmit }) => (
-  <form action="/companies" method="POST" onSubmit={preventDefault(onSubmit)}>
+  <form onSubmit={preventDefault(onSubmit)}>
     <div className={styles.wrapper}>
       <div className={styles.input}>
         <input

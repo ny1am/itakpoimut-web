@@ -53,7 +53,7 @@ class SignupDialog extends React.PureComponent {
             handleFacebookSubmit={this.handleFacebookSubmit}
             handleGoogleSubmit={this.handleGoogleSubmit}
           />
-          <form action="/signup" method="post" onSubmit={onSubmit}>
+          <form onSubmit={onSubmit}>
             <div className={cn('row', { 'row--error': errors.fname })}>
               <label className="row__label" htmlFor="fname">
                 {errors.fname || "Ім'я"}
