@@ -1,6 +1,7 @@
 // todo: refactor into mixin or something
 $side-gap: 24px;
 $content-width: 800px;
+$breakpoint: 750px;
 
 div.wrapper {
   width: $content-width;
@@ -16,6 +17,9 @@ div.wrapper {
   display: inline-block;
   width: 50%;
   vertical-align: top;
+  @media (max-width: $breakpoint) {
+    width: 100%;
+  }
 }
 .categories {
   margin-top: 20px;
@@ -39,12 +43,26 @@ div.wrapper {
   vertical-align: top;
   box-sizing: border-box;
   padding-right: 20px;
+  @media (max-width: $breakpoint) {
+    width: 100%;
+  }
+}
+
+.holder {
+  @media (max-width: $breakpoint) {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .prevCategoriesBlock {
   margin-top: 20px;
   max-height: 364px;
   overflow-y: auto;
+  @media (max-width: $breakpoint) {
+    max-height: none;
+    overflow-y: visible;
+  }
 }
 
 .prevCategories {
