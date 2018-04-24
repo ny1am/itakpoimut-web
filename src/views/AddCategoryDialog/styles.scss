@@ -1,6 +1,7 @@
 // todo: refactor into mixin or something
 $side-gap: 24px;
 $content-width: 800px;
+$breakpoint: 750px;
 
 div.wrapper {
   width: $content-width;
@@ -16,7 +17,7 @@ div.wrapper {
   display: inline-block;
   width: 50%;
   vertical-align: top;
-  @media (max-width: 750px) {
+  @media (max-width: $breakpoint) {
     width: 100%;
   }
 }
@@ -42,13 +43,13 @@ div.wrapper {
   vertical-align: top;
   box-sizing: border-box;
   padding-right: 20px;
-  @media (max-width: 750px) {
+  @media (max-width: $breakpoint) {
     width: 100%;
   }
 }
 
-@media (max-width: 750px) {
-  .holder {
+.holder {
+  @media (max-width: $breakpoint) {
     display: flex;
     flex-direction: column;
   }
