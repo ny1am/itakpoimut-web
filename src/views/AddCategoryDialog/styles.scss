@@ -59,6 +59,10 @@ div.wrapper {
   margin-top: 20px;
   max-height: 364px;
   overflow-y: auto;
+  @media (max-width: $breakpoint) {
+    overflow-y: visible;
+    max-height: 100%;
+  }
 }
 
 .prevCategories {
