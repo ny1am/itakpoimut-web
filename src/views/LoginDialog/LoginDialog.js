@@ -49,14 +49,13 @@ class LoginDialog extends React.PureComponent {
             handleFacebookSubmit={this.handleFacebookSubmit}
             handleGoogleSubmit={this.handleGoogleSubmit}
           />
-          <form onSubmit={onSubmit}>
+          <form noValidate onSubmit={onSubmit}>
             <div className={cn('row', { 'row--error': errors.username })}>
               <label className="row__label" htmlFor="username">
                 {errors.username || 'E-mail'}
               </label>
               <input
                 type="email"
-                noValidate
                 className="row__input higher"
                 name="username"
                 value={this.state.username}

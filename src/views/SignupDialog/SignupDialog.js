@@ -53,7 +53,7 @@ class SignupDialog extends React.PureComponent {
             handleFacebookSubmit={this.handleFacebookSubmit}
             handleGoogleSubmit={this.handleGoogleSubmit}
           />
-          <form onSubmit={onSubmit}>
+          <form noValidate onSubmit={onSubmit}>
             <div className={cn('row', { 'row--error': errors.fname })}>
               <label className="row__label" htmlFor="fname">
                 {errors.fname || "Ім'я"}
@@ -86,7 +86,6 @@ class SignupDialog extends React.PureComponent {
               </label>
               <input
                 type="email"
-                noValidate
                 className="row__input higher"
                 name="email"
                 value={email}

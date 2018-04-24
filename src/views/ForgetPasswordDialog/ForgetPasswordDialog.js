@@ -43,7 +43,6 @@ class ForgetPasswordDialog extends React.Component {
               </label>
               <input
                 type="email"
-                noValidate
                 className="row__input higher"
                 name="email"
                 value={email}
