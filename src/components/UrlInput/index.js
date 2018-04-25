@@ -4,12 +4,18 @@ import styles from './styles.scss';
 
 class UrlInput extends React.PureComponent {
   render() {
-    const { ...props } = this.props;
+    const { value, ...props } = this.props;
+    let temp = 'http://';
+    if (value.indexOf('https://') == 0) {
+      temp = 'https://';
+    }
     return (
       <div className={styles.httpWrapper}>
-        <input type="text" {...props} />
+        <div className={styles.hint}>{temp}</div>
+        <input type="text" {...props} value={value} />
       </div>
     );
   }
 }
+
 export default UrlInput;
