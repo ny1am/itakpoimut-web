@@ -6,7 +6,7 @@ class UrlInput extends React.PureComponent {
   render() {
     const { value, ...props } = this.props;
     let temp = 'http://';
-    if (value.indexOf('https://') == 0) {
+    if (value.startsWith('https://')) {
       temp = 'https://';
     }
     return (
