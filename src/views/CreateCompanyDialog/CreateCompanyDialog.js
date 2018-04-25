@@ -5,6 +5,7 @@ import randomstring from 'randomstring';
 import cn from 'classnames';
 import { Helmet } from 'react-helmet';
 
+import UrlInput from 'components/UrlInput';
 import FileUpload from 'components/FileUpload';
 import { preventDefault } from 'utils';
 
@@ -142,16 +143,12 @@ class CreateCompanyDialog extends React.PureComponent {
                   <label className="row__label" htmlFor="company_site">
                     {errors.company_site || 'Посилання на сайт (якщо є)'}
                   </label>
-                  <div className={styles.httpWrapper}>
-                    <input
-                      type="text"
-                      className={styles.http}
-                      name="company_site"
-                      maxLength="100"
-                      value={this.state.company_site}
-                      onChange={this.onInputChange}
-                    />
-                  </div>
+                  <UrlInput
+                    name="company_site"
+                    maxLength="100"
+                    value={this.state.company_site}
+                    onChange={this.onInputChange}
+                  />
                 </div>
                 <div className="row">
                   <label className="row__label" htmlFor="selectedViolations[]">
