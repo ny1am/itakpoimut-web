@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './styles.scss';
 
@@ -17,5 +18,9 @@ class UrlInput extends React.PureComponent {
     );
   }
 }
+
+UrlInput.propTypes = {
+  value: PropTypes.string,
+};
 
 export default UrlInput;
