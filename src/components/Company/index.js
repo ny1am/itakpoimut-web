@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import Loyalty from 'components/Loyalty';
 import { http } from 'utils';
 
@@ -40,9 +41,13 @@ class Company extends React.PureComponent {
     );
   }
 }
-
 Company.propTypes = {
-  company: PropTypes.object,
+  company: PropTypes.shape({
+    img: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    company_site: PropTypes.string,
+    description: PropTypes.string,
+  }),
 };
 
 export default Company;
