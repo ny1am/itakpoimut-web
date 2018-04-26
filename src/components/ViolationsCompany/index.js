@@ -5,23 +5,24 @@ import styles from './styles.scss';
 
 class ViolationsCompany extends React.PureComponent {
   render() {
-    const { violation } = this.props;
-    if (violation.length > 0) {
+    const { violations } = this.props;
+    if (violations.length > 0) {
       return (
         <ul className={styles.violations}>
-          {violation.map((item, index) => (
+          {violations.map((item, index) => (
             <li key={index}>
               <label>{item.text}</label>
             </li>
           ))}
         </ul>
       );
-    } else return null;
+    }
+    return null;
   }
 }
 
 ViolationsCompany.propTypes = {
-  violation: PropTypes.arrayOf(
+  violations: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       text: PropTypes.string.isRequired,

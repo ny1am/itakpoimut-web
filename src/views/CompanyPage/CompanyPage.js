@@ -50,7 +50,7 @@ const CompanyPage = ({ company }) => (
             </div>
             <div>
               <h2 className={styles.listTitle}>Порушення компанії</h2>
-              <ViolationsCompany violation={company.violations} />
+              <ViolationsCompany violations={company.violations} />
               <DialogLink
                 to={`/add-violation/${company._id}`}
                 className={styles.addViolation}
