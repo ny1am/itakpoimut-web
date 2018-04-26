@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 
 import DialogLink from 'components/DialogLink';
-import Loyalty from 'components/Loyalty';
-import { http } from 'utils';
+import Company from 'components/Company';
 
 import CompanyComments from 'views/CompanyComments';
 import styles from './styles.scss';
@@ -18,34 +17,7 @@ const CompanyPage = ({ company }) => (
       <div className="container">
         <div className={styles.wrapper}>
           <section>
-            <div className={styles.profile}>
-              <article className={styles.companyInfo}>
-                <div className={styles.leftColumn}>
-                  <div className={styles.logo}>
-                    <img src={company.img} title={company.title} />
-                  </div>
-                  <Loyalty company={company} className={styles.loyalty} />
-                </div>
-                <div className={styles.rightColumn}>
-                  <div className={styles.title} title={company.title}>
-                    {company.title}
-                  </div>
-                  {company.company_site && (
-                    <a
-                      href={http(company.company_site)}
-                      className={styles.url}
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      {http(company.company_site)}
-                    </a>
-                  )}
-                  {company.description && (
-                    <p className={styles.description}>{company.description}</p>
-                  )}
-                </div>
-              </article>
-            </div>
+            <Company company={company} />
             <div>
               <h2 className={styles.listTitle}>Порушення компанії</h2>
               {company.violations && (
