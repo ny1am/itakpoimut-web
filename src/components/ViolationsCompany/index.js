@@ -21,7 +21,12 @@ class ViolationsCompany extends React.PureComponent {
 }
 
 ViolationsCompany.propTypes = {
-  violation: PropTypes.array,
+  violation: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    })
+  ),
 };
 
 export default ViolationsCompany;
