@@ -7,6 +7,8 @@ import Loyalty from 'components/Loyalty';
 import { http } from 'utils';
 
 import CompanyComments from 'views/CompanyComments';
+import ViolationsCompany from '../../components/ViolationsCompany';
+
 import styles from './styles.scss';
 
 const CompanyPage = ({ company }) => (
@@ -48,15 +50,7 @@ const CompanyPage = ({ company }) => (
             </div>
             <div>
               <h2 className={styles.listTitle}>Порушення компанії</h2>
-              {company.violations && (
-                <ul className={styles.violations}>
-                  {company.violations.map((item, index) => (
-                    <li key={index}>
-                      <label>{item.text}</label>
-                    </li>
-                  ))}
-                </ul>
-              )}
+              <ViolationsCompany violation={company.violations} />
               <DialogLink
                 to={`/add-violation/${company._id}`}
                 className={styles.addViolation}
