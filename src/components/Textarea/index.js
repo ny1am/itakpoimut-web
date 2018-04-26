@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import styles from './styles.scss';
 
@@ -8,9 +9,9 @@ class Textarea extends React.PureComponent {
     const { className, value, ...props } = this.props;
     let counter = value.length;
     return (
-      <div className={styles.wrapper}>
-        <textarea className={className} {...props} />
-        <div>
+      <div className={cn(styles.wrapper, className)}>
+        <textarea {...props} />
+        <div className={styles.progress}>
           {counter}/{props.maxLength}
         </div>
       </div>
