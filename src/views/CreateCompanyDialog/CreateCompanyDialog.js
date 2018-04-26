@@ -134,7 +134,7 @@ class CreateCompanyDialog extends React.PureComponent {
                   <Textarea
                     className="row__input"
                     name="description"
-                    maxLength="300"
+                    maxLength={300}
                     value={this.state.description}
                     onChange={this.onInputChange}
                   />

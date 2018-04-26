@@ -6,13 +6,13 @@ import styles from './styles.scss';
 
 class Textarea extends React.PureComponent {
   render() {
-    const { className, value, ...props } = this.props;
+    const { className, value, maxLength, ...props } = this.props;
     let counter = value.length;
     return (
       <div className={cn(styles.wrapper, className)}>
-        <textarea {...props} />
+        <textarea maxLength={maxLength} {...props} />
         <div className={styles.progress}>
-          {counter}/{props.maxLength}
+          {counter}/{maxLength}
         </div>
       </div>
     );
@@ -22,6 +22,7 @@ class Textarea extends React.PureComponent {
 Textarea.propTypes = {
   className: PropTypes.string,
   value: PropTypes.string,
+  maxLength: PropTypes.number.isRequired,
 };
 
 export default Textarea;
