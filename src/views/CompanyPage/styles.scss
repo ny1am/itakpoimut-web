@@ -16,23 +16,6 @@
   font-weight: normal;
 }
 
-.violations li {
-  display: inline-block;
-  box-sizing: border-box;
-  margin-top: 20px;
-  margin-right: 5px;
-  padding: 11px 13px 13px 13px;
-  position: relative;
-  min-height: 40px;
-  background-color: rgba(165, 41, 41, 0.6);
-  border: 1px solid rgba(150, 36, 36, 0.3);
-  color: white;
-  border-radius: 5px;
-  label {
-    opacity: 0.9;
-  }
-}
-
 .addViolation {
   display: inline-block;
   margin-top: 20px;

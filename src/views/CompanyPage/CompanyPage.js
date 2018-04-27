@@ -6,6 +6,8 @@ import DialogLink from 'components/DialogLink';
 import Company from 'components/Company';
 
 import CompanyComments from 'views/CompanyComments';
+import ViolationsCompany from '../../components/ViolationsCompany';
+
 import styles from './styles.scss';
 
 const CompanyPage = ({ company }) => (
@@ -20,15 +22,7 @@ const CompanyPage = ({ company }) => (
             <Company company={company} />
             <div>
               <h2 className={styles.listTitle}>Порушення компанії</h2>
-              {company.violations && (
-                <ul className={styles.violations}>
-                  {company.violations.map((item, index) => (
-                    <li key={index}>
-                      <label>{item.text}</label>
-                    </li>
-                  ))}
-                </ul>
-              )}
+              <ViolationsCompany violations={company.violations} />
               <DialogLink
                 to={`/add-violation/${company._id}`}
                 className={styles.addViolation}
