@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 
 import DialogLink from 'components/DialogLink';
 import Company from 'components/Company';
+import CategoriesCompany from 'components/CategoriesCompany';
 
 import CompanyComments from 'views/CompanyComments';
 import styles from './styles.scss';
@@ -38,21 +39,7 @@ const CompanyPage = ({ company }) => (
             </div>
             <div>
               <h2 className={styles.listTitle}>Сфери діяльності</h2>
-              <ul className={styles.categories}>
-                {company.categories.map((item, index) => (
-                  <li key={index} className={styles.item}>
-                    {item.text}
-                  </li>
-                ))}
-                <li>
-                  <DialogLink
-                    to={`/add-category/${company._id}`}
-                    className={styles.addCategory}
-                  >
-                    Додати сферу
-                  </DialogLink>
-                </li>
-              </ul>
+              <CategoriesCompany company={company} />
             </div>
           </section>
           <div className={styles.commentsWrapper}>

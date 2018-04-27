@@ -60,45 +60,6 @@
   }
 }
 
-.categories li {
-  display: inline-block;
-  box-sizing: border-box;
-  background-color: transparent;
-  color: rgba(100, 100, 100, 0.8);
-  margin-top: 20px;
-  &.item {
-    margin-right: 5px;
-    padding: 11px 13px 13px 13px;
-    min-height: 40px;
-    border: 1px solid rgba(100, 100, 100, 0.3);
-    border-radius: 5px;
-  }
-}
-
-.addCategory {
-  line-height: 1;
-  display: inline-block;
-  box-sizing: border-box;
-  padding: 11px 13px 13px 13px;
-  min-height: 40px;
-  border: 1px solid rgba(100, 100, 100, 0.3);
-  border-radius: 5px;
-  &:before {
-    content: '+';
-    font-size: 1.5rem;
-    margin-right: 8px;
-    line-height: 0;
-    display: inline-block;
-    position: relative;
-    top: 3px;
-  }
-  &:hover,
-  &:active {
-    background-color: white;
-    color: black;
-  }
-}
-
 .commentsWrapper {
   padding-bottom: 60px;
 }
