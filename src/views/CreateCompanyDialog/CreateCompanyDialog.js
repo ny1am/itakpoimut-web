@@ -5,8 +5,10 @@ import randomstring from 'randomstring';
 import cn from 'classnames';
 import { Helmet } from 'react-helmet';
 
-import UrlInput from 'components/UrlInput';
 import FileUpload from 'components/FileUpload';
+import UrlInput from 'components/UrlInput';
+import Textarea from 'components/Textarea';
+
 import { preventDefault } from 'utils';
 
 import styles from './styles.scss';
@@ -129,10 +131,10 @@ class CreateCompanyDialog extends React.PureComponent {
                   <label className="row__label" htmlFor="description">
                     {errors.description || 'Опис компанії'}
                   </label>
-                  <textarea
+                  <Textarea
                     className="row__input"
                     name="description"
-                    maxLength="300"
+                    maxLength={300}
                     value={this.state.description}
                     onChange={this.onInputChange}
                   />
