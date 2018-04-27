@@ -31,10 +31,6 @@ class CategoriesCompany extends React.PureComponent {
 CategoriesCompany.propTypes = {
   company: PropTypes.shape({
     _id: PropTypes.number.isRequired,
-    img: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    company_site: PropTypes.string,
-    description: PropTypes.string,
     categories: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
