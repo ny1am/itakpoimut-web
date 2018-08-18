@@ -1,3 +1,5 @@
+import errorsEnum from 'utils/enums/errors';
+
 export { default as scrollIntoViewIfNeeded } from './scrollIntoViewIfNeeded';
 
 export const roleModerator = (user) => {
@@ -50,4 +52,16 @@ export function clearDialog(location) {
   return Object.assign({}, location, {
     state: clearedState,
   });
+}
+
+export function processErrors(errors) {
+  if (errors) {
+    const result = {};
+    Object.keys(errors).forEach((key) => {
+      const value = errors[key];
+      result[key] = errorsEnum[value] || value;
+    });
+    return result;
+  }
+  return errors;
 }

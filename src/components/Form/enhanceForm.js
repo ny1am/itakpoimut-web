@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 import scrollIntoViewIfNeeded from 'scroll-into-view-if-needed';
 
-import { getDisplayName, getFirstErrorElement } from 'utils';
+import { getDisplayName, getFirstErrorElement, processErrors } from 'utils';
 
 import Loading from './Loading';
 
@@ -40,14 +40,15 @@ const enhanceForm = (mapProps) => (Component) => {
           return data;
         })
         .catch((payload) => {
+          const errors = processErrors(payload.errors);
           this.setState({
             success: false,
-            errors: payload.errors,
+            errors,
             loading: false,
           });
-          if (payload.errors) {
+          if (errors) {
             const holder = ReactDOM.findDOMNode(this);
-            scrollToError(payload.errors, holder);
+            scrollToError(errors, holder);
           }
         });
     };
